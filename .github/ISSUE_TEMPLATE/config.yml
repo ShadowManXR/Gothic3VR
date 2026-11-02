@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Installation and first-launch guide
+    url: https://github.com/PeCOS2k5/Gothic3VR/blob/main/release/START-HERE.md
+    about: Required native patches, supported runtimes, setup and troubleshooting.

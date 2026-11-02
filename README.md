@@ -21,6 +21,10 @@ Windows 10/11 x64, an SSD, a PC VR headset and two tracked controllers are requi
 - [Optional Union+ 1.7.3 integration](docs/OPTIONAL-MODS-UNION.md)
 - [INI tweaks](docs/INI-TWEAKS.md)
 
+## Report a bug
+
+Open a [bug report](https://github.com/PeCOS2k5/Gothic3VR/issues/new?template=bug_report.yml) and describe how to reproduce the problem. The form asks for the mod version, headset/controllers, VR provider, PC/settings, installed mods and relevant logs or screenshots. Search [existing issues](https://github.com/PeCOS2k5/Gothic3VR/issues) before submitting the same problem again.
+
 ## Build from source
 
 The game/plugin are **32-bit**. Meta Link uses a separate **64-bit** compositor host. Build both architectures; a standalone plugin DLL is not a complete installation.

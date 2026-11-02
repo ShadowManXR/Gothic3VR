@@ -1,0 +1,99 @@
+name: Bug report
+description: Report a problem with Gothic 3 VR.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues first and report one problem per issue.
+        Include enough detail to reproduce the problem on your setup.
+  - type: input
+    id: version
+    attributes:
+      label: Gothic 3 VR version
+      placeholder: "For example: 1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Game edition
+      options:
+        - Steam
+        - GOG
+        - CD / retail
+        - Other / unsure
+    validations:
+      required: true
+  - type: input
+    id: headset
+    attributes:
+      label: Headset and controllers
+      placeholder: "For example: Quest 3 with Touch Plus controllers"
+    validations:
+      required: true
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: VR provider selected in the launcher
+      options:
+        - Virtual Desktop / VDXR
+        - Meta Quest Link / Air Link
+        - SteamVR
+        - System default OpenXR
+        - Unsure / cannot launch VR
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe what went wrong and what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the location, weapon/spell, menu or action involved. Say whether it happens every time or intermittently.
+      placeholder: |
+        1. Load a save in...
+        2. Equip / open / move...
+        3. The problem occurs when...
+    validations:
+      required: true
+  - type: textarea
+    id: system
+    attributes:
+      label: PC and graphics settings
+      description: CPU, GPU, RAM, Windows version, output resolution per eye and relevant graphics options.
+      placeholder: |
+        CPU:
+        GPU / driver:
+        RAM:
+        Windows:
+        Resolution per eye:
+        AA / upscaler / FFR:
+    validations:
+      required: true
+  - type: textarea
+    id: mods
+    attributes:
+      label: Native patches and optional mods
+      description: List patch versions and enabled content/graphics/script mods, or state that no optional mods are installed.
+      placeholder: |
+        Community Patch:
+        Update Packs:
+        Parallel Universe Patch:
+        Union+ version / enabled mods:
+        Other mods:
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, screenshots or video
+      description: |
+        Attach the latest relevant diagnostic-*.jsonl and stereo-game-*.jsonl files from
+        scripts/Gothic3VRDiagnostics/logs inside the game folder. Include a screenshot
+        or short video if it helps show the problem. For Meta Link, include the matching
+        meta64 log if available. ZIP files can be attached here.
