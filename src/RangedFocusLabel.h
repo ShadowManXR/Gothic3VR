@@ -1,8 +1,31 @@
 #pragma once
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <cstdint>
 namespace diagnostic {
+// DrawFocusName is called for the whole candidate list before the native
+// renderer rejects names that are not focused. Keep menu/lockpick queries and
+// native font validation outside that per-entity cost. Font indices are cached
+// only within one update/render epoch; the theme is revalidated next frame.
+class WorldLabelFrameCache {
+    struct Font {unsigned source=0;int percent=0,index=-1;};
+    std::array<Font,8> fonts{};
+    uint64_t epoch=0;unsigned count=0;
+    bool started=false,checked=false,allowed=false;
+public:
+    template<class Context,class Resolve>
+    int Get(uint64_t frame,unsigned source,int percent,Context&& context,Resolve&& resolve){
+        if(!started||frame!=epoch){epoch=frame;started=true;checked=false;count=0;}
+        if(!checked){allowed=context();checked=true;}
+        if(!allowed)return -1;
+        for(unsigned i=0;i<count;++i)
+            if(fonts[i].source==source&&fonts[i].percent==percent)return fonts[i].index;
+        int index=resolve(source,percent);
+        if(count<fonts.size())fonts[count++]={source,percent,index};
+        return index;
+    }
+};
 inline int ScaleLabelHeight(int height,int percent){
     if(!height||height<-4096||height>4096||percent<1||percent>200)return 0;
     int magnitude=height<0?-height:height;

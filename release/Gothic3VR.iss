@@ -1,7 +1,7 @@
 #ifndef PackageDir
   #error PackageDir must point to a verified release staging directory
 #endif
-#define Version "1.0.0"
+#define Version "1.0.1"
 
 [Setup]
 AppId={{872AAFD4-B6F2-4BE7-812F-2D5B19A22425}

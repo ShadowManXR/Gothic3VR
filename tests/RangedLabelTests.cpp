@@ -4,6 +4,25 @@
 using namespace diagnostic;
 #define CHECK(x) do{if(!(x)){printf("FAIL line %d: %s\n",__LINE__,#x);return 1;}}while(0)
 int main(){
+    // A dense scene must not multiply menu/lockpick queries and native font
+    // validation by the number of candidate entities, including hidden names.
+    WorldLabelFrameCache cache;unsigned contexts=0,resolves=0;
+    auto context=[&](){++contexts;return true;};
+    auto resolve=[&](unsigned font,int percent){++resolves;return int(font)+percent;};
+    for(unsigned i=0;i<5000;++i)CHECK(cache.Get(1,7,50,context,resolve)==57);
+    CHECK(contexts==1&&resolves==1);
+    CHECK(cache.Get(1,7,25,context,resolve)==32); // near/far keep separate fonts
+    CHECK(cache.Get(1,8,50,context,resolve)==58); // distinct native source font
+    CHECK(contexts==1&&resolves==3);
+    CHECK(cache.Get(2,7,50,context,resolve)==57&&contexts==2&&resolves==4);
+    auto menu=[&](){++contexts;return false;};
+    for(unsigned i=0;i<5000;++i)CHECK(cache.Get(3,7,50,menu,resolve)==-1);
+    CHECK(contexts==3&&resolves==4); // no font work while a menu is open
+    CHECK(cache.Get(0,7,50,context,resolve)==57&&contexts==4&&resolves==5);
+    auto missing=[&](unsigned,int){++resolves;return -1;};
+    CHECK(cache.Get(4,7,50,context,missing)==-1);
+    CHECK(cache.Get(4,7,50,context,missing)==-1&&contexts==5&&resolves==6);
+    CHECK(cache.Get(5,7,50,context,resolve)==57&&contexts==6&&resolves==7);
     CHECK(ScaleLabelHeight(40,100)==40&&ScaleLabelHeight(40,50)==20&&ScaleLabelHeight(-40,25)==-10);
     CHECK(ScaleLabelHeight(40,150)==60&&ScaleLabelHeight(1,25)==1&&ScaleLabelHeight(0,50)==0);
     CHECK(HalfLabelHeight(40)==20&&HalfLabelHeight(-40)==-20&&HalfLabelHeight(1)==1&&HalfLabelHeight(0)==0);

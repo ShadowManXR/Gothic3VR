@@ -139,6 +139,7 @@ diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gP
 diagnostic::FocusHook gFocusNameSizeHook;
 diagnostic::RangedFocusLabel gRangedFocusLabel;
 diagnostic::NativeRangedLabelFont gRangedLabelFont;
+diagnostic::WorldLabelFrameCache gWorldLabelFrameCache;
 bool gRangedLabelFault=false,gRangedLabelDrawing=false;
 diagnostic::FocusHook gParticleBudgetHook,gParticleRefractionHook,gFogIntensityHook;
 using ResetNativeFog=void(__stdcall*)();
@@ -2162,13 +2163,17 @@ bool __fastcall RangedFocusName(gCGUIEntityRenderer* self,void*,eCEntity const* 
     using Call=bool(__thiscall*)(gCGUIEntityRenderer*,eCEntity const*,float);auto original=reinterpret_cast<Call>(gFocusNameSizeHook.original);
     bool allowed=!gRangedLabelFault&&!gRangedLabelDrawing&&GetCurrentThreadId()==gApplicationThread.load()&&
         !gWorldLifecycle.Blocked()&&!gStereo.shuttingDown&&gConfig.stereoEnabled&&gHeadControl.enabled;
-    if(!allowed||gRadialOpen||MenuPanelActive())return original(self,entity,alpha);
+    if(!allowed||gRadialOpen)return original(self,entity,alpha);
     int percent=gVrSettings.numbers[86];
     if(gStereo.firstPerson&&gRangedFocusLabel.IsTarget(reinterpret_cast<uintptr_t>(entity))&&
        gRangedFocusLabel.Applies(reinterpret_cast<uintptr_t>(entity),gProcess.load(std::memory_order_relaxed),GetTickCount64(),true))percent=(percent+1)/2;
     if(percent==100)return original(self,entity,alpha);
     auto saved=self->m_FontIndex;int smaller=-1;
-    __try {smaller=gRangedLabelFont.Resolve(saved,percent);}
+    __try {
+        auto epoch=gProcess.load(std::memory_order_relaxed)+gRender.load(std::memory_order_relaxed);
+        smaller=gWorldLabelFrameCache.Get(epoch,saved,percent,[](){return !MenuPanelActive();},
+            [](unsigned font,int scale){return gRangedLabelFont.Resolve(font,scale);});
+    }
     __except(EXCEPTION_EXECUTE_HANDLER){gRangedLabelFault=true;Message("vr_ranged_label_font_unavailable; native_font_preserved",GetExceptionCode(),true);}
     if(smaller<0)return original(self,entity,alpha);
     __try {gRangedLabelDrawing=true;self->m_FontIndex=GEU32(smaller);return original(self,entity,alpha);}
@@ -2206,7 +2211,7 @@ bool InstallControllerFocus()
     if(!game||!GetModuleFileNameW(game,path,MAX_PATH)||!diagnostic::FileSha256(path,digest)||memcmp(digest,expected,32))return false;
     auto* drawName=GetProcAddress(game,"?DrawFocusName@gCGUIEntityRenderer@@IAE_NPBVeCEntity@@M@Z");
     if(reinterpret_cast<unsigned char*>(drawName)==reinterpret_cast<unsigned char*>(game)+0x79cb0&&
-       gFocusNameSizeHook.Install(drawName,reinterpret_cast<void*>(&RangedFocusName),diagnostic::FocusHook::FindPrefix,6))Message("vr_ranged_focus_name_half_size_ready; selected_distant_NPC_only; native_font_cached",0,true);
+        gFocusNameSizeHook.Install(drawName,reinterpret_cast<void*>(&RangedFocusName),diagnostic::FocusHook::FindPrefix,6))Message("vr_world_label_scale_ready; context_and_fonts_cached_per_frame; native_name_filter_preserved",0,true);
     else Message("vr_ranged_focus_name_size_unavailable; native_font_preserved",0,true);
     auto* signFocus=GetProcAddress(game,"?IsFocus@gCGUIEntityRenderer@@IBE_NPBVeCEntity@@@Z");
     unsigned char signPrefix[]{0x56,0x8b,0x74,0x24,0x08};

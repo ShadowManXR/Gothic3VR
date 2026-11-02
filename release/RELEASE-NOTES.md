@@ -1,3 +1,16 @@
+# Gothic 3 VR 1.0.1
+
+Performance hotfix — 2 November 2026.
+
+- Fixed repeated menu/lockpick checks and native font validation for every world-label candidate, including names the game does not display. Eligibility and font results are now reused within each update/render frame.
+- Retains adjustable world-label sizes, nearby/distant label behavior and native name filtering.
+- Confirmed in a Virtual Desktop headset test to resolve the reported stuttering regression after the square-VR updates.
+- Existing settings and controller/hand calibration survive the update. The approved 1.0 fresh-install and Defaults preset is unchanged.
+
+Close Gothic 3, the VR launcher and Union+ before running the 1.0.1 installer over the existing VR installation. A new game is not required. This installer also supports fresh installs with the documented native patches.
+
+---
+
 # Gothic 3 VR 1.0
 
 First public release — 1 November 2026.
