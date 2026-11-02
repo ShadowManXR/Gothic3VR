@@ -4,6 +4,7 @@ import configparser
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -44,6 +45,13 @@ def main():
         check(archive.read('scripts/Script_Gothic3VRDiagnostics.ini') == (package / 'CreatorDefaults.ini').read_bytes(), 'Fresh-install creator preset is the frozen approved file')
     with zipfile.ZipFile(package / ('Gothic3VR-' + manifest['Version'] + '-Source.zip')) as archive:
         check('gothic3vr/release/Test-Package.py' in archive.namelist() and 'gothic3vr/docs/ITEM-LOCATOR.md' in archive.namelist(), 'Corresponding source includes packaging tests and current documentation')
+        cmake = archive.read('gothic3vr/CMakeLists.txt').decode('utf-8-sig')
+        static_sources = re.findall(r'\$\{STATIC_TRIAL_DIR\}/([^"\s]+\.cpp)', cmake)
+        names = set(archive.namelist())
+        check(bool(static_sources) and all('gothic3vr/experiments/DX11Static/' + name in names for name in static_sources)
+              and any(name.startswith('gothic3vr/experiments/DX11Static/include/') for name in names)
+              and any(name.startswith('gothic3vr/experiments/DX11Static/shaders/') for name in names),
+              'Corresponding source includes the static-scene sources, headers and shaders required by CMake')
 
     def fixture(name):
         game = work / name / 'Gothic 3 ș ț'

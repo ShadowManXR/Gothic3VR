@@ -180,7 +180,11 @@ Main-menu music and custom visual assets are creator-supplied. Third-party conte
     # Corresponding source is a separate deliverable, never a folder under the game.
     source_zip = out / f'Gothic3VR-{VERSION}-Source.zip'
     with zipfile.ZipFile(source_zip, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as z:
-        roots = ['src','tools','tests','release','assets','third_party','docs']
+        roots = ['src','tools','tests','release','assets','third_party','docs',
+                 # These sources are referenced unconditionally by the root
+                 # CMake project, despite their historical directory name.
+                 'experiments/DX11Static/src', 'experiments/DX11Static/include',
+                 'experiments/DX11Static/shaders']
         for folder in roots:
             for p in (ROOT / folder).rglob('*'):
                 if p.is_file() and not any(x in p.parts for x in ('.git','__pycache__','node_modules')):
