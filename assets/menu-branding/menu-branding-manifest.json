@@ -1,0 +1,15 @@
+{
+  "resource": "Data/gui/icons/compiled/g3_hud_backgrounds_02.dds",
+  "format": "DXT3 / BC2",
+  "width": 1024,
+  "height": 1024,
+  "mip_levels": 1,
+  "bytes": 1048704,
+  "same_bytes_as_native": true,
+  "sha256": "8adfce5c9906d99be3b4235619cd72d7444115df7baf9515e9dbf41ef3706217",
+  "native_atlas_sha256": "879be83f4f42e34f36792c0e81024fc889551d5ddd385dc61b151387ffbe49f0",
+  "artwork_sha256": "1bdc86fedf49fa21f175323bee235be9fe9113ee33d559f50b95eb7511d6d9eb",
+  "native_alpha_blocks_preserved": true,
+  "dds_round_trip": "passed",
+  "original_archives_modified": false
+}

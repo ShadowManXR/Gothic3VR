@@ -1,0 +1,15 @@
+# 0.22.20 — selection work and CPU/GPU profiling
+
+Finishing-target selection rejects distant NPCs before reading their down/dead/species state. The player's position is read once per search. Eligible bounds candidates are checked for line of sight in score order, using bounded call-local batches. Equal scores retain native enumeration order. Target range, eligibility, occlusion and interaction cadence are preserved. No entity cache survives a native search.
+
+CPU update reports separate native update (inclusive of movement/focus hooks), controller input, physical melee, physical ranged, finishing-target search, and native focus. These wall-time stages overlap; they do not sum to total plugin cost. Abandoned updates and changes between world/menu contexts are discarded or separated.
+
+Sparse D3D9 GPU timestamps measure native eye rendering once every16 rendered stereo frames. Four fixed query slots are polled with GetData flags0. Pending/busy slots skip measurements; they never block, flush, queue images or delay rendering. Unsupported or failed timestamp queries disable only GPU profiling. Set G3VR_GPU_PROFILE=0 before launch to disable this instrumentation for comparison. The existing same-frame copy fences remain necessary and unchanged. Per-eye frustum updates are preserved.
+
+Use tools/Analyze-Performance.ps1 for existing frame CPU/cadence reports and tools/Analyze-UpdatePerformance.ps1 for update/GPU reports. Both read session logs without changing game settings. GPU render samples exclude UI, bridge copies and runtime/compositor work. Context0 is outside the world,1 gameplay,2 a menu. Frame cadence is not itself a GPU timing.
+
+Validation: 10,000 synthetic selection replays compare identical winners/tie handling against native-order visibility evaluation, including overflow batches and occlusion. CPU collector tests cover abandoned updates/context changes. Timestamp tests cover disjoint/frequency/order/precision and unavailable fallback. A separate hidden native D3D9Ex/D3D11 probe checks timestamps and changing 4K eye/UI pixels on the PC's GPU. Full build/test and probe evidence accompanies the release.
+
+This is a targeted CPU optimization and a profiling update. A gameplay FPS improvement is not established by the synthetic selection test or standalone GPU probe. The next representative headset session supplies the CPU/GPU evidence for further engine/render optimization. Existing controls, calibration, resolution, skills/progression and locomotion are unchanged.
+
+Release validation on the development PC:88/88 tests passed. The10,000 synthetic selection replays retained identical winners with39,637 visibility callbacks before and14,650 after. The standalone GPU probe completed72 timestamp samples,0 disjoint/discarded samples, and1,080 changing pixel checks across4K left/right/UI transfers. These counts validate correctness and reduced query work in the synthetic workload; they are not a measured gameplay speedup. The analyzer separately passed weighted/context-separated CPU/GPU and truncated-tail fixtures. The compiled plugin also passed the installed native FMOD compatibility audit.

@@ -1,0 +1,6796 @@
+[
+  {
+    "id": "A_01_Readme",
+    "requested": false,
+    "main": {
+      "name": "Readme",
+      "category": "Author's Mod Packs"
+    },
+    "files": [],
+    "bytes": 0
+  },
+  {
+    "id": "A_1_QuestPaket",
+    "requested": false,
+    "main": {
+      "name": "QuestPaket",
+      "category": "QuestPacket 4.2"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 672501
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 7448113
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 58056
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 3311954
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 3311954
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 1643671
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 14335
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 39837853
+      }
+    ],
+    "bytes": 56298437
+  },
+  {
+    "id": "A_2_BaseMod",
+    "requested": true,
+    "main": {
+      "name": "BaseMod",
+      "category": "Global Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 2157
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 878
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 17965
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1131984
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1131984
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 5767308
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 95948146
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 1143847336
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 1069200
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 147978656
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 33498133
+      }
+    ],
+    "bytes": 1430393747
+  },
+  {
+    "id": "A_QuP MiniQuests",
+    "requested": false,
+    "main": {
+      "name": "QP Mini Quests",
+      "category": "QuestPacket 4.2",
+      "incompatible": "Achievements"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 16264
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 15222
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 15268
+      }
+    ],
+    "bytes": 46754
+  },
+  {
+    "id": "A_Streaming Music Mod",
+    "requested": false,
+    "main": {
+      "name": "Streaming Music Mod",
+      "category": "Music"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Music.m0x",
+        "bytes": 65741543
+      }
+    ],
+    "bytes": 65741543
+  },
+  {
+    "id": "B_ContentModBase",
+    "requested": true,
+    "main": {
+      "name": "ContentModBase",
+      "category": "ContentMod 3.1",
+      "required": "BaseMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 3059562
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 8407
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 876
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1093792
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1093792
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 1809378
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 3743765
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 89163940
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 6584
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 437521
+      }
+    ],
+    "bytes": 100417617
+  },
+  {
+    "id": "C_CM Animal Retextured",
+    "requested": false,
+    "main": {
+      "name": "CM Animal & Mushroom Retexture",
+      "category": "Texture Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1374
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1374
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 2789
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 30851236
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 1071
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 15135
+      }
+    ],
+    "bytes": 30872979
+  },
+  {
+    "id": "C_CM Graphic Arcania",
+    "requested": true,
+    "main": {
+      "name": "CM Graphic Arcania",
+      "category": "ContentMod 3.1",
+      "required": "ContentModBase"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 319417
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 5441290
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 25333391
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 10868
+      }
+    ],
+    "bytes": 31104966
+  },
+  {
+    "id": "C_CM Graphic G2",
+    "requested": true,
+    "main": {
+      "name": "CM Graphic G2",
+      "category": "ContentMod 3.1",
+      "required": "ContentModBase"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\infos.m0x",
+        "bytes": 1060
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 354656
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 4630144
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 35857413
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 5710
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 652009
+      }
+    ],
+    "bytes": 41500992
+  },
+  {
+    "id": "C_CM Kontent",
+    "requested": true,
+    "main": {
+      "name": "CM Content",
+      "category": "ContentMod 3.1",
+      "required": "CM Graphic Arcania;CM Graphic G2"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 83
+      },
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 2098663
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 9685
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 59646
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 2417156
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 1734723
+      }
+    ],
+    "bytes": 6319956
+  },
+  {
+    "id": "C_CM_Rebalance",
+    "requested": false,
+    "main": {
+      "name": "CM Rebalance",
+      "category": "Balance Mods",
+      "required": "CM Content"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 330233
+      }
+    ],
+    "bytes": 330233
+  },
+  {
+    "id": "C_CMCitizenTextures",
+    "requested": true,
+    "main": {
+      "name": "CM Citizen Textures",
+      "category": "Model Replacers",
+      "required": "ContentModBase",
+      "incompatible": "Armor And Weapon Rebuilt"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 7173
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 2376106
+      }
+    ],
+    "bytes": 2383279
+  },
+  {
+    "id": "C_CMLetters",
+    "requested": false,
+    "main": {
+      "name": "CM Letters",
+      "category": "ContentMod 3.1",
+      "required": "CM Content"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 54
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 1100
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 13291
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 99542
+      }
+    ],
+    "bytes": 113987
+  },
+  {
+    "id": "C_CMModEndGame",
+    "requested": false,
+    "main": {
+      "name": "CM End Game",
+      "category": "ContentMod 3.1",
+      "required": "CM Letters",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 129
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 18411
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 53368
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 37396
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 5556
+      }
+    ],
+    "bytes": 114898
+  },
+  {
+    "id": "D_Advanced Perk Info",
+    "requested": false,
+    "main": {
+      "name": "Advanced Perk Info",
+      "category": "Interface",
+      "required": "New Balance and Combat"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 18050
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 18050
+      }
+    ],
+    "bytes": 36100
+  },
+  {
+    "id": "D_Citizen",
+    "requested": false,
+    "main": {
+      "name": "Citizen",
+      "category": "Gameplay",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\infos.m0x",
+        "bytes": 820
+      }
+    ],
+    "bytes": 820
+  },
+  {
+    "id": "D_OrcLite",
+    "requested": false,
+    "main": {
+      "name": "Orc Mod Lite",
+      "category": "Model Replacers",
+      "incompatible": "Orc Mod Full"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\infos.m0x",
+        "bytes": 2053
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 3712
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 3712
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 433359
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 2063385
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 33120503
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 9341
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 54149
+      }
+    ],
+    "bytes": 35690214
+  },
+  {
+    "id": "D_OrcModFull",
+    "requested": false,
+    "main": {
+      "name": "Orc Mod Full",
+      "category": "Model Replacers",
+      "incompatible": "Orc Mod Lite"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\infos.m0x",
+        "bytes": 2053
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 3824
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 3840
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 485171
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 2119846
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 75996897
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 11417
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 54253
+      }
+    ],
+    "bytes": 78677301
+  },
+  {
+    "id": "D_OrcTexturMod",
+    "requested": false,
+    "main": {
+      "name": "Orc Textur Mod",
+      "category": "Texture Mods",
+      "required": "Orc Mod Lite"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 182720168
+      }
+    ],
+    "bytes": 182720168
+  },
+  {
+    "id": "D_UpdatePack_SupportMod",
+    "requested": false,
+    "main": {
+      "name": "UpdatePack_SupportMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 1841
+      },
+      {
+        "path": "ModFiles\\Infos.n0x",
+        "bytes": 1839
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 21616
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 8246
+      }
+    ],
+    "bytes": 33542
+  },
+  {
+    "id": "E_SmartMonstersSkins",
+    "requested": false,
+    "main": {
+      "name": "Smart Monsters Skins",
+      "category": "Texture Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 356
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 2750
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 64505351
+      }
+    ],
+    "bytes": 64508495
+  },
+  {
+    "id": "F_BloodflyModel",
+    "requested": true,
+    "main": {
+      "name": "Bloodfly Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 78268
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 585099
+      }
+    ],
+    "bytes": 663367
+  },
+  {
+    "id": "F_BoarModel",
+    "requested": true,
+    "main": {
+      "name": "Boar Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 133810
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 1833673
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 3183
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 62661
+      }
+    ],
+    "bytes": 2033327
+  },
+  {
+    "id": "F_CrawlerModel",
+    "requested": true,
+    "main": {
+      "name": "Crawler Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 218047
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 4401099
+      }
+    ],
+    "bytes": 4619146
+  },
+  {
+    "id": "F_DemonModel",
+    "requested": true,
+    "main": {
+      "name": "Demon Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 12156
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 208008
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 3899134
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 3354
+      }
+    ],
+    "bytes": 4122652
+  },
+  {
+    "id": "F_GoblinModel",
+    "requested": true,
+    "main": {
+      "name": "Goblin Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 205955
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 5587098
+      }
+    ],
+    "bytes": 5793053
+  },
+  {
+    "id": "F_LurkerModel",
+    "requested": true,
+    "main": {
+      "name": "Lurker Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 161272
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 12082116
+      }
+    ],
+    "bytes": 12243388
+  },
+  {
+    "id": "F_ScavengerModel",
+    "requested": true,
+    "main": {
+      "name": "Scavenger Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 75764
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 3515379
+      }
+    ],
+    "bytes": 3591143
+  },
+  {
+    "id": "F_ShadowbeastModel",
+    "requested": true,
+    "main": {
+      "name": "Shadowbeast Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 12198
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 474058
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 4010717
+      }
+    ],
+    "bytes": 4496973
+  },
+  {
+    "id": "F_SnapperModel",
+    "requested": true,
+    "main": {
+      "name": "Snapper Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 241895
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 1537232
+      }
+    ],
+    "bytes": 1779127
+  },
+  {
+    "id": "F_TrollModel",
+    "requested": true,
+    "main": {
+      "name": "Troll Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 1273293
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 4460052
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 3266
+      }
+    ],
+    "bytes": 5736611
+  },
+  {
+    "id": "F_VaranModel",
+    "requested": true,
+    "main": {
+      "name": "Varan Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 244217
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 1233662
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 3235
+      }
+    ],
+    "bytes": 1481114
+  },
+  {
+    "id": "F_WolfModel",
+    "requested": true,
+    "main": {
+      "name": "Wolf Model",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 47654
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 900732
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 23836965
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 5591
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 70927
+      }
+    ],
+    "bytes": 24861869
+  },
+  {
+    "id": "H_CMHead",
+    "requested": false,
+    "main": {
+      "name": "Head CM",
+      "category": "Hero Head Mods",
+      "incompatible": "Hero Head PreAlpha;Head Arcania"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 601845
+      }
+    ],
+    "bytes": 601845
+  },
+  {
+    "id": "H_HeadAlpha",
+    "requested": false,
+    "main": {
+      "name": "Hero Head PreAlpha",
+      "category": "Hero Head Mods",
+      "incompatible": "Head CM;Head Arcania"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 412367
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 576166
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 5085
+      }
+    ],
+    "bytes": 993618
+  },
+  {
+    "id": "H_HeadArcania",
+    "requested": false,
+    "main": {
+      "name": "Head Arcania",
+      "category": "Hero Head Mods",
+      "incompatible": "Head CM;Hero Head PreAlpha"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 755570
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 4357365
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 3126
+      }
+    ],
+    "bytes": 5116061
+  },
+  {
+    "id": "I_G2Soundtrack",
+    "requested": false,
+    "main": {
+      "name": "Music G2",
+      "category": "Music",
+      "incompatible": "Smart Music Mod;Smart Music Menu"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Music.m0x",
+        "bytes": 124300188
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 51117
+      }
+    ],
+    "bytes": 124351305
+  },
+  {
+    "id": "I_GermanVoice",
+    "requested": false,
+    "main": {
+      "name": "German Voice",
+      "category": "Voice Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Speech_English.m0x",
+        "bytes": 402884179
+      },
+      {
+        "path": "ModFiles\\Speech_German.m0x",
+        "bytes": 402790441
+      },
+      {
+        "path": "ModFiles\\Speech_Polish.m0x",
+        "bytes": 402790441
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 402767009
+      }
+    ],
+    "bytes": 1611232070
+  },
+  {
+    "id": "I_GPolishVoice_Mods",
+    "requested": false,
+    "main": {
+      "name": "Polish Voice Mods",
+      "category": "Voice Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Speech_Polish.m0x",
+        "bytes": 940693986
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 941059905
+      }
+    ],
+    "bytes": 1881753891
+  },
+  {
+    "id": "I_MonsterSound",
+    "requested": false,
+    "main": {
+      "name": "Old Monster Sound",
+      "category": "Sound Mods",
+      "incompatible": "Better Sound Effects;Smart Sound Pack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 1687446
+      }
+    ],
+    "bytes": 1687446
+  },
+  {
+    "id": "I_OrcSound",
+    "requested": false,
+    "main": {
+      "name": "Old Orc's Sound",
+      "category": "Sound Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Speech_English.m0x",
+        "bytes": 2073338
+      },
+      {
+        "path": "ModFiles\\Speech_German.m0x",
+        "bytes": 2074706
+      },
+      {
+        "path": "ModFiles\\Speech_Polish.m0x",
+        "bytes": 2072576
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 2075162
+      }
+    ],
+    "bytes": 8295782
+  },
+  {
+    "id": "I_ScrimingSound",
+    "requested": false,
+    "main": {
+      "name": "Scriming Sound",
+      "category": "Sound Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Speech_English.m0x",
+        "bytes": 955398
+      },
+      {
+        "path": "ModFiles\\Speech_German.m0x",
+        "bytes": 956228
+      },
+      {
+        "path": "ModFiles\\Speech_Polish.m0x",
+        "bytes": 954876
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 981512
+      }
+    ],
+    "bytes": 3848014
+  },
+  {
+    "id": "I_SmartMusicMenu",
+    "requested": false,
+    "main": {
+      "name": "Smart Music Menu",
+      "category": "Music",
+      "incompatible": "Music G2"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Music.m0x",
+        "bytes": 24796531
+      }
+    ],
+    "bytes": 24796531
+  },
+  {
+    "id": "I_SmartMusicMod",
+    "requested": false,
+    "main": {
+      "name": "Smart Music Mod",
+      "category": "Music",
+      "incompatible": "Music G2"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Music.m0x",
+        "bytes": 7605038
+      }
+    ],
+    "bytes": 7605038
+  },
+  {
+    "id": "I_SoundBetter",
+    "requested": false,
+    "main": {
+      "name": "Better Sound Effects",
+      "category": "Sound Mods",
+      "incompatible": "Old Monster Sound"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 48699234
+      }
+    ],
+    "bytes": 48699234
+  },
+  {
+    "id": "I_SoundPack",
+    "requested": true,
+    "main": {
+      "name": "Smart Sound Pack",
+      "category": "Sound Mods",
+      "incompatible": "Old Monster Sound"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 12470891
+      }
+    ],
+    "bytes": 12470891
+  },
+  {
+    "id": "J_G3 Retextured Final",
+    "requested": false,
+    "main": {
+      "name": "G3 Retextured Final",
+      "category": "World Texture Packs",
+      "incompatible": "QP Texture Pack;PreAlpha;Myrtana Tekstures Pack;Autumn Textures;Smart Texture Pack;World Texture Mix"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 771923522
+      }
+    ],
+    "bytes": 771923522
+  },
+  {
+    "id": "J_GlobalQPTextures",
+    "requested": false,
+    "main": {
+      "name": "QP Texture Pack",
+      "category": "World Texture Packs",
+      "incompatible": "PreAlpha;Myrtana Tekstures Pack;Smart Texture Pack;World Texture Mix;G3 Retextured Final"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1310
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1314
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 174929442
+      }
+    ],
+    "bytes": 174932066
+  },
+  {
+    "id": "J_ModPreAlphaTextures",
+    "requested": false,
+    "main": {
+      "name": "PreAlpha",
+      "category": "World Texture Packs",
+      "incompatible": "QP Texture Pack;Myrtana Tekstures Pack;Smart Texture Pack;World Texture Mix;G3 Retextured Final"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Materials.m0x",
+        "bytes": 1674
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1374
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1374
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 197672290
+      }
+    ],
+    "bytes": 197676712
+  },
+  {
+    "id": "J_MyrtanaTeksturesPack",
+    "requested": false,
+    "main": {
+      "name": "Myrtana Tekstures Pack",
+      "category": "World Texture Packs",
+      "incompatible": "QP Texture Pack;PreAlpha;Autumn Textures;Smart Texture Pack;World Texture Mix;G3 Retextured Final"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1310
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1314
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 212094950
+      }
+    ],
+    "bytes": 212097574
+  },
+  {
+    "id": "J_TexturesAutumn",
+    "requested": false,
+    "main": {
+      "name": "Autumn Textures",
+      "category": "World Texture Packs",
+      "incompatible": "Smart Texture Pack;World Texture Mix;G3 Retextured Final;Myrtana Tekstures Pack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1310
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1314
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 8546225
+      }
+    ],
+    "bytes": 8548849
+  },
+  {
+    "id": "J_USMTexturesPack",
+    "requested": true,
+    "main": {
+      "name": "Smart Texture Pack",
+      "category": "World Texture Packs",
+      "incompatible": "QP Texture Pack;PreAlpha;Myrtana Tekstures Pack;Autumn Textures;World Texture Mix;G3 Retextured Final"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1310
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1314
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 234065996
+      }
+    ],
+    "bytes": 234068620
+  },
+  {
+    "id": "J_WorldTextureMix",
+    "requested": false,
+    "main": {
+      "name": "World Texture Mix",
+      "category": "World Texture Packs",
+      "incompatible": "QP Texture Pack;PreAlpha;Myrtana Tekstures Pack;Autumn Textures;Smart Texture Pack;G3 Retextured Final"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1310
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1314
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 1706109999
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 55344
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 12895310
+      }
+    ],
+    "bytes": 1719063277
+  },
+  {
+    "id": "K_AtmosphericWeathers",
+    "requested": false,
+    "main": {
+      "name": "Atmospheric Weathers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Library.m0x",
+        "bytes": 18318
+      }
+    ],
+    "bytes": 18318
+  },
+  {
+    "id": "K_FeedBackEffect",
+    "requested": false,
+    "main": {
+      "name": "FeedBackEffect",
+      "category": "Interface"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Materials.m0x",
+        "bytes": 1693
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 699526
+      }
+    ],
+    "bytes": 701219
+  },
+  {
+    "id": "K_Reduced Fog",
+    "requested": true,
+    "main": {
+      "name": "Reduced Fog"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Materials.m0x",
+        "bytes": 25060
+      }
+    ],
+    "bytes": 25060
+  },
+  {
+    "id": "L_IntuitiveCombatSystem",
+    "requested": false,
+    "main": {
+      "name": "Intuitive Combat System",
+      "category": "Combat & Animations",
+      "incompatible": "FasterCombatMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 2125270
+      }
+    ],
+    "bytes": 2125270
+  },
+  {
+    "id": "L_QuestFix_Mod_0.1.8",
+    "requested": true,
+    "main": {
+      "name": "QuestFix Mod",
+      "category": "Story Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 158733
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 32166
+      },
+      {
+        "path": "ModFiles\\Speech_English.m0x",
+        "bytes": 200183
+      },
+      {
+        "path": "ModFiles\\Speech_German.m0x",
+        "bytes": 218727
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 287195
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 34792
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 784
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 4861
+      }
+    ],
+    "bytes": 937441
+  },
+  {
+    "id": "M_10_0_AnimationsRedone_SwordAndShield",
+    "requested": false,
+    "main": {
+      "name": "Animations Redone - Sword And Shield",
+      "category": "Combat & Animations/Animations Redone"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 2510164
+      }
+    ],
+    "bytes": 2510164
+  },
+  {
+    "id": "M_10_1_1_AnimationsRedone_SwordAndShield",
+    "requested": false,
+    "main": {
+      "name": "Sword And Shield Last Attack (Slash Down)",
+      "category": "Combat & Animations/Animations Redone/Sword And Shield/Normal Attacks",
+      "required": "Animations Redone - Sword And Shield"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 14836
+      }
+    ],
+    "bytes": 14836
+  },
+  {
+    "id": "M_10_1_2_AnimationsRedone_SwordAndShield",
+    "requested": false,
+    "main": {
+      "name": "Sword And Shield First Attack (Horizontal Slash)",
+      "category": "Combat & Animations/Animations Redone/Sword And Shield/Normal Attacks",
+      "required": "Animations Redone - Sword And Shield"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 14836
+      }
+    ],
+    "bytes": 14836
+  },
+  {
+    "id": "M_1_2H_BlockingAbility",
+    "requested": false,
+    "main": {
+      "name": "2H_BlockingAbility",
+      "category": "Combat & Animations"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\scripts\\Script_OptionalGuard.dll",
+        "bytes": 1537536
+      }
+    ],
+    "bytes": 1537536
+  },
+  {
+    "id": "M_2_AnimalsHardcoreMode",
+    "requested": false,
+    "main": {
+      "name": "Animals Hardcore Mod",
+      "category": "Hardcore Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 9917
+      }
+    ],
+    "bytes": 9917
+  },
+  {
+    "id": "M_3_CombatAnimationOverhaul_2H",
+    "requested": false,
+    "main": {
+      "name": "CombatAnimationOverhaul_2H",
+      "category": "Combat & Animations/CombatAnimationOverhaul_2H",
+      "incompatible": "FasterCombatMod;Animations Redone - Two Handed Swords"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 62252
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 62252
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 7544155
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 621507
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_Animation.dll",
+        "bytes": 1545216
+      }
+    ],
+    "bytes": 9835382
+  },
+  {
+    "id": "M_4_FasterCombatMod",
+    "requested": false,
+    "main": {
+      "name": "FasterCombatMod",
+      "category": "Combat & Animations",
+      "incompatible": "Intuitive Combat System;CombatAnimationOverhaul_2H;Animations Redone - Staffs and Halberds;Animations Redone - Two Handed Swords;Animations Redone - Dual Wield"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_COMPILEDANIMATION.m0x",
+        "bytes": 31294573
+      }
+    ],
+    "bytes": 31294573
+  },
+  {
+    "id": "M_5_AnimationsRedone_DualWield",
+    "requested": false,
+    "main": {
+      "name": "Animations Redone - Dual Wield",
+      "category": "Combat & Animations/Animations Redone",
+      "incompatible": "FasterCombatMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 1952716
+      }
+    ],
+    "bytes": 1952716
+  },
+  {
+    "id": "M_6_0_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Animations Redone - Staffs and Halberds",
+      "category": "Combat & Animations/Animations Redone",
+      "incompatible": "FasterCombatMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 1608153
+      }
+    ],
+    "bytes": 1608153
+  },
+  {
+    "id": "M_6_1_1_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Normal Downward Slash Attacks",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Normal Attacks",
+      "incompatible": "FasterCombatMod;Normal Horizontal Slash Attacks;Normal Stab Attacks"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 42868
+      }
+    ],
+    "bytes": 42868
+  },
+  {
+    "id": "M_6_1_2_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Normal Horizontal Slash Attacks",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Normal Attacks",
+      "incompatible": "FasterCombatMod;Normal Stab Attacks;Normal Downward Slash Attacks"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 42390
+      }
+    ],
+    "bytes": 42390
+  },
+  {
+    "id": "M_6_1_3_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Normal Stab Attacks",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Normal Attacks",
+      "incompatible": "FasterCombatMod;Normal Downward Slash Attacks;Normal Horizontal Slash Attacks"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 45357
+      }
+    ],
+    "bytes": 45357
+  },
+  {
+    "id": "M_6_2_1_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Quick Attack Upward Slash",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Quick Attacks",
+      "incompatible": "FasterCombatMod;Quick Attack Downward Slash;Quick Attack Stab"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 66793
+      }
+    ],
+    "bytes": 66793
+  },
+  {
+    "id": "M_6_2_2_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Quick Attack Downward Slash",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Quick Attacks",
+      "incompatible": "FasterCombatMod;Quick Attack Stab;Quick Attack Upward Slash"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 66092
+      }
+    ],
+    "bytes": 66092
+  },
+  {
+    "id": "M_6_2_3_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Quick Attack Stab",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Quick Attacks",
+      "incompatible": "FasterCombatMod;Quick Attack Upward Slash;Quick Attack Downward Slash"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 64901
+      }
+    ],
+    "bytes": 64901
+  },
+  {
+    "id": "M_6_3_1_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Power Stab Attack",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Power Attacks",
+      "incompatible": "FasterCombatMod;Power Jump Attack;Power Slash Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 82620
+      }
+    ],
+    "bytes": 82620
+  },
+  {
+    "id": "M_6_3_2_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Power Jump Attack",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Power Attacks",
+      "incompatible": "FasterCombatMod;Power Slash Attack;Power Stab Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 69674
+      }
+    ],
+    "bytes": 69674
+  },
+  {
+    "id": "M_6_3_3_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Power Slash Attack",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Power Attacks",
+      "incompatible": "FasterCombatMod;Power Stab Attack;Power Jump Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 80600
+      }
+    ],
+    "bytes": 80600
+  },
+  {
+    "id": "M_6_4_1_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Finishing Downward Slash Attack",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Finishing Attacks",
+      "incompatible": "FasterCombatMod;Finishing Stab Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 65796
+      }
+    ],
+    "bytes": 65796
+  },
+  {
+    "id": "M_6_4_2_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Finishing Stab Attack",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Finishing Attacks",
+      "incompatible": "FasterCombatMod;Finishing Downward Slash Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 66108
+      }
+    ],
+    "bytes": 66108
+  },
+  {
+    "id": "M_6_5_1_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Double Attack",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Whirl Attacks",
+      "incompatible": "FasterCombatMod;Whirl Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 50441
+      }
+    ],
+    "bytes": 50441
+  },
+  {
+    "id": "M_6_5_2_AnimationsRedone_StaffsAndHalberds",
+    "requested": false,
+    "main": {
+      "name": "Whirl Attack",
+      "category": "Combat & Animations/Animations Redone/Staffs And Halberds/Whirl Attacks",
+      "incompatible": "FasterCombatMod;Double Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 51285
+      }
+    ],
+    "bytes": 51285
+  },
+  {
+    "id": "M_7_0_AnimationsRedone_TwoHandedSwords",
+    "requested": false,
+    "main": {
+      "name": "Animations Redone - Two Handed Swords",
+      "category": "Combat & Animations/Animations Redone",
+      "incompatible": "FasterCombatMod;CombatAnimationOverhaul_2H"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 1522309
+      }
+    ],
+    "bytes": 1522309
+  },
+  {
+    "id": "M_7_3_1_AnimationsRedone_TwoHandedSwords",
+    "requested": false,
+    "main": {
+      "name": "Two Handed Power Jump Attack",
+      "category": "Combat & Animations/Animations Redone/Two Handed Swords/Power Attacks",
+      "incompatible": "FasterCombatMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 64973
+      }
+    ],
+    "bytes": 64973
+  },
+  {
+    "id": "M_7_5_1_AnimationsRedone_TwoHandedSwords",
+    "requested": false,
+    "main": {
+      "name": "Two Handed Whirl Attack",
+      "category": "Combat & Animations/Animations Redone/Two Handed Swords/Whirl Attacks",
+      "incompatible": "FasterCombatMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 59869
+      }
+    ],
+    "bytes": 59869
+  },
+  {
+    "id": "M_8_0_AnimationsRedone_UnarmedMovement",
+    "requested": false,
+    "main": {
+      "name": "Animations Redone - Unarmed Movement",
+      "category": "Combat & Animations/Animations Redone"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 1412353
+      }
+    ],
+    "bytes": 1412353
+  },
+  {
+    "id": "M_9_0_AnimationsRedone_BowsAndCrossbows",
+    "requested": false,
+    "main": {
+      "name": "Animations Redone - Bows and Crossbows",
+      "category": "Combat & Animations/Animations Redone"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 977272
+      }
+    ],
+    "bytes": 977272
+  },
+  {
+    "id": "M_IntuitiveModClassicCamera",
+    "requested": false,
+    "main": {
+      "name": "ICS Classic Camera",
+      "category": "Combat & Animations"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 7734
+      }
+    ],
+    "bytes": 7734
+  },
+  {
+    "id": "N_Main",
+    "requested": false,
+    "main": {
+      "name": "Main",
+      "category": "Global Mods",
+      "required": "BaseMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 352
+      },
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 1271604
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 168015
+      },
+      {
+        "path": "ModFiles\\Lightmaps.m0x",
+        "bytes": 47571889
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 24767473
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 67488
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 67488
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 2837418
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 2837418
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 6525632
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 10787
+      }
+    ],
+    "bytes": 86125564
+  },
+  {
+    "id": "O_AssassineTextures",
+    "requested": false,
+    "main": {
+      "name": "New Assassine Textures",
+      "category": "Texture Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 6295654
+      }
+    ],
+    "bytes": 6295654
+  },
+  {
+    "id": "O_CombatAnimationOverhaul_2H_ForMain",
+    "requested": false,
+    "main": {
+      "name": "CombatAnimationOverhaul_2H_ForMain",
+      "category": "Combat & Animations/CombatAnimationOverhaul_2H",
+      "required": "CombatAnimationOverhaul_2H;Main",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 62252
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 62252
+      }
+    ],
+    "bytes": 124504
+  },
+  {
+    "id": "O_Consequences",
+    "requested": false,
+    "main": {
+      "name": "Consequences",
+      "category": "Global Mods",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 60
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 675966
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 10121
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 18474
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 870110
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 40561
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 40561
+      }
+    ],
+    "bytes": 1655891
+  },
+  {
+    "id": "O_Leadership",
+    "requested": false,
+    "main": {
+      "name": "CNQLeadership",
+      "category": "Gameplay",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 301510
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 45616
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 45614
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 71281
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 71281
+      }
+    ],
+    "bytes": 535302
+  },
+  {
+    "id": "O_LivelyTownsMod",
+    "requested": false,
+    "main": {
+      "name": "LivelyTownsMod",
+      "category": "Lively Towns Mod 0.4.8",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 1132
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 1658529
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 1293894
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 193680
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 3429824
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 3429824
+      }
+    ],
+    "bytes": 10006883
+  },
+  {
+    "id": "O_LivelyTownsMod_Easy",
+    "requested": false,
+    "main": {
+      "name": "LTM Easy",
+      "category": "Lively Towns Mod 0.4.8",
+      "required": "LivelyTownsMod",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 2052
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 253860
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 985
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 506136
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 506136
+      }
+    ],
+    "bytes": 1269169
+  },
+  {
+    "id": "O_LivelyTownsMod_NPC",
+    "requested": false,
+    "main": {
+      "name": "LTM_NPC",
+      "category": "Lively Towns Mod 0.4.8",
+      "required": "LivelyTownsMod"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 59
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 39102
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 299949
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 1171872
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 1171872
+      }
+    ],
+    "bytes": 2682854
+  },
+  {
+    "id": "O_MercenaryTextures",
+    "requested": false,
+    "main": {
+      "name": "New Mercenary Textures",
+      "category": "Texture Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 5748599
+      }
+    ],
+    "bytes": 5748599
+  },
+  {
+    "id": "O_Pirate_Dream",
+    "requested": false,
+    "main": {
+      "name": "Pirate Dream",
+      "category": "Story Mods",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 363
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 433294
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 371201
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 30822
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 24841
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1863858
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1863858
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 449789
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 449789
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 4614134
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 71547147
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 22261
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 556814
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 128561
+      }
+    ],
+    "bytes": 82356732
+  },
+  {
+    "id": "O_RGL",
+    "requested": false,
+    "main": {
+      "name": "RGL",
+      "category": "Story Mods",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 534554
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 17223
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 1350766
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1008
+      }
+    ],
+    "bytes": 1903551
+  },
+  {
+    "id": "O_SmeltingMod",
+    "requested": false,
+    "main": {
+      "name": "LTMSmeltingMod",
+      "category": "Gameplay",
+      "required": "Main",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 52
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 184952
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 3825
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 759
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 23562
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 7116
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 2923
+      }
+    ],
+    "bytes": 223189
+  },
+  {
+    "id": "O_TameAnimal",
+    "requested": false,
+    "main": {
+      "name": "TameAnimal",
+      "category": "Gameplay",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 781559
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 42027
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 978
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 64658
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 64658
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 128484
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 128484
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 2141003
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 102813
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 1107
+      }
+    ],
+    "bytes": 3455771
+  },
+  {
+    "id": "O_TeleportNPCMod",
+    "requested": false,
+    "main": {
+      "name": "LTMTeleportNPCMod",
+      "category": "Gameplay"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 2479693
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 90844
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 99051
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 99051
+      }
+    ],
+    "bytes": 2768677
+  },
+  {
+    "id": "P_Arenas",
+    "requested": false,
+    "main": {
+      "name": "CNQArenas",
+      "category": "Conquest",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 60
+      },
+      {
+        "path": "ModFiles\\Head.jpg",
+        "bytes": 55855
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 35257
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 10500
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 17521
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 104466
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 104466
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 287172
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 98126
+      }
+    ],
+    "bytes": 713423
+  },
+  {
+    "id": "P_Dragons",
+    "requested": false,
+    "main": {
+      "name": "CNQDragons",
+      "category": "Conquest",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 103
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 87241
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 263928
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 9995
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 181376
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 181376
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 282733
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 282733
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 1216871
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 8693546
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 17326
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 157194
+      }
+    ],
+    "bytes": 11374422
+  },
+  {
+    "id": "P_TeleportationStones",
+    "requested": false,
+    "main": {
+      "name": "CNQMoreTeleportationStones",
+      "category": "Gameplay",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 61
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 922
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 9583
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 9722
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 9722
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 170206
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 335957
+      }
+    ],
+    "bytes": 536173
+  },
+  {
+    "id": "P_ThiefQuests",
+    "requested": false,
+    "main": {
+      "name": "CNQThiefQuests",
+      "category": "Conquest",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 214
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 171852
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 129032
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 12015
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 179120
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 3742
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 241914
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 241914
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 375995
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 450430
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 1276
+      }
+    ],
+    "bytes": 1807504
+  },
+  {
+    "id": "Q_Conquest",
+    "requested": false,
+    "main": {
+      "name": "Conquest",
+      "category": "Conquest",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 3856
+      },
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 41707683
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 2051645
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 7957361
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 251059
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 3333334
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 3333334
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 2231091
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 2231091
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 4490818
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 30907
+      }
+    ],
+    "bytes": 67622179
+  },
+  {
+    "id": "Q_Conquest_Enclaves",
+    "requested": false,
+    "main": {
+      "name": "CNQEnclaves",
+      "category": "Hardcore Mods",
+      "required": "Conquest"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 23818
+      }
+    ],
+    "bytes": 23818
+  },
+  {
+    "id": "Q_MagicWeapons",
+    "requested": false,
+    "main": {
+      "name": "CNQMagicWeapons",
+      "category": "Gameplay",
+      "required": "Main",
+      "incompatible": "Balance Ultimate"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 86
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 584632
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 17276
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 776104
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 776104
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 2216709
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 2216709
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 2996768
+      }
+    ],
+    "bytes": 9584388
+  },
+  {
+    "id": "Q_NotRevolutionCounter",
+    "requested": false,
+    "main": {
+      "name": "NoRevolutionCounter",
+      "category": "Gameplay"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 19464
+      }
+    ],
+    "bytes": 19464
+  },
+  {
+    "id": "R_(ARP)_Knight Chronicle",
+    "requested": false,
+    "main": {
+      "name": "Knight Chronicle",
+      "category": "Story Mods",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 519
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 152485
+      },
+      {
+        "path": "ModFiles\\Library.m0x",
+        "bytes": 46926
+      },
+      {
+        "path": "ModFiles\\Lightmaps.m0x",
+        "bytes": 719061
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 465751
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 21795
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 1249670
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 93051381
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 364248
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 364248
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 566818
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 566818
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 34718906
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 249123391
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 191772
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 6849120
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 343410
+      }
+    ],
+    "bytes": 388796319
+  },
+  {
+    "id": "R_2_ModMenu Updated",
+    "requested": false,
+    "main": {
+      "name": "Menu Updated",
+      "category": "Interface/Menu Updated",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Clear Dialog Box;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme;Menu Ultimate"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 188247104
+      }
+    ],
+    "bytes": 188247104
+  },
+  {
+    "id": "R_3_ModMenu Updated ForNewSkills",
+    "requested": false,
+    "main": {
+      "name": "Menu Updated ForNewSkills",
+      "category": "Interface/Menu Updated",
+      "required": "Menu Updated",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Clear Dialog Box;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 44731
+      }
+    ],
+    "bytes": 44731
+  },
+  {
+    "id": "R_4_UpdatedReturningCompas2",
+    "requested": false,
+    "main": {
+      "name": "Compas Returning 2",
+      "category": "Interface/Menu Updated",
+      "required": "Menu Updated",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Clear Dialog Box;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 1084125
+      }
+    ],
+    "bytes": 1084125
+  },
+  {
+    "id": "R_DRAGON REWARDS",
+    "requested": false,
+    "main": {
+      "name": "DRAGONS REWARDS",
+      "category": "Model Replacers"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 12512
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 90169
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 90169
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 2365344
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 89567424
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 29255
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 2358614
+      }
+    ],
+    "bytes": 94513525
+  },
+  {
+    "id": "R_Immersive World",
+    "requested": false,
+    "main": {
+      "name": "Immersive World",
+      "category": "Global Mods",
+      "required": "Main;Extended Frying"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 895
+      },
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 36577439
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 457929
+      },
+      {
+        "path": "ModFiles\\Library.m0x",
+        "bytes": 34093
+      },
+      {
+        "path": "ModFiles\\Lightmaps.m0x",
+        "bytes": 5074623
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 13259703
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 12083
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 2043474
+      },
+      {
+        "path": "ModFiles\\Speech_German.m0x",
+        "bytes": 10227911
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 10228525
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 164516
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 16588
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 394798
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 6477212
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 54479854
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 82256
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 12779981
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 4817811
+      }
+    ],
+    "bytes": 157129691
+  },
+  {
+    "id": "R_Immersive World Updated MenuDark",
+    "requested": false,
+    "main": {
+      "name": "Immersive World Updated MenuDark",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Clear Dialog Box;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 47006774
+      }
+    ],
+    "bytes": 47006774
+  },
+  {
+    "id": "R_Immersive World Updated MenuOld",
+    "requested": false,
+    "main": {
+      "name": "Immersive World Updated MenuOld",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Clear Dialog Box;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 44622691
+      }
+    ],
+    "bytes": 44622691
+  },
+  {
+    "id": "R_Immersive_Cook",
+    "requested": false,
+    "main": {
+      "name": "Immersive Cook",
+      "category": "Gameplay",
+      "required": "Main;Immersive World"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 193
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 29586
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 27043
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 3022
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 53177
+      }
+    ],
+    "bytes": 113059
+  },
+  {
+    "id": "R_Menu Elder",
+    "requested": false,
+    "main": {
+      "name": "Menu Elder",
+      "category": "Interface",
+      "incompatible": "Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 51679648
+      }
+    ],
+    "bytes": 51679648
+  },
+  {
+    "id": "R_MenuAkaCM",
+    "requested": false,
+    "main": {
+      "name": "Menu CM",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu Dark;Menu Old;Menu QP;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 10175409
+      }
+    ],
+    "bytes": 10175409
+  },
+  {
+    "id": "R_MenuArcania",
+    "requested": false,
+    "main": {
+      "name": "Menu Arcania",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu Dark;Menu Old;Menu QP;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 30098040
+      }
+    ],
+    "bytes": 30098040
+  },
+  {
+    "id": "R_MenuDark",
+    "requested": false,
+    "main": {
+      "name": "Menu Dark",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Old;Menu QP;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 22445055
+      }
+    ],
+    "bytes": 22445055
+  },
+  {
+    "id": "R_MenuOld",
+    "requested": false,
+    "main": {
+      "name": "Menu Old",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu QP;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 19647537
+      }
+    ],
+    "bytes": 19647537
+  },
+  {
+    "id": "R_MenuQP",
+    "requested": false,
+    "main": {
+      "name": "Menu QP",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 4908747
+      }
+    ],
+    "bytes": 4908747
+  },
+  {
+    "id": "R_MenuReturningCompas",
+    "requested": false,
+    "main": {
+      "name": "Compas Returning",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu Updated;Menu Ultimate;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 262675
+      }
+    ],
+    "bytes": 262675
+  },
+  {
+    "id": "R_ModClearDialog",
+    "requested": false,
+    "main": {
+      "name": "Clear Dialog Box",
+      "category": "Interface",
+      "incompatible": "Menu Updated;Menu Ultimate;Compas Returning 2;Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 262658
+      }
+    ],
+    "bytes": 262658
+  },
+  {
+    "id": "R_Monsters Unleashed v1.4",
+    "requested": true,
+    "main": {
+      "name": "Animations Pack 'Monsters Unleashed'",
+      "category": "Combat & Animations",
+      "incompatible": "CombatAnimationOverhaul_2H"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Library.m0x",
+        "bytes": 252347
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 740536
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 19608009
+      },
+      {
+        "path": "ScriptFiles\\ini\\zombieAnimation.ini",
+        "bytes": 19
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ZombieAnimation.dll",
+        "bytes": 364544
+      }
+    ],
+    "bytes": 20965455
+  },
+  {
+    "id": "R_Rapier Style v1.0",
+    "requested": false,
+    "main": {
+      "name": "Animation Pack 'Rapier Style'",
+      "category": "Combat & Animations",
+      "required": "Script_Statuses"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 3575495
+      },
+      {
+        "path": "ScriptFiles\\ini\\rapierAnimation.ini",
+        "bytes": 375
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_RapierAnimation.dll",
+        "bytes": 363008
+      }
+    ],
+    "bytes": 3938878
+  },
+  {
+    "id": "R_RB_Mod",
+    "requested": false,
+    "main": {
+      "name": "RB_Mod",
+      "category": "Content",
+      "required": "LivelyTownsMod",
+      "incompatible": "RB_Mod_Without_LTM"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 75
+      },
+      {
+        "path": "ModFiles\\Lightmaps.m0x",
+        "bytes": 11971847
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 50687866
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 7540651
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 632132
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\NavigationMap.xnav",
+        "bytes": 19276428
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\RB_Mod.sec",
+        "bytes": 365
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\RB_Mod.secdat",
+        "bytes": 2318
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x-15000y0z-25000_CStat.node",
+        "bytes": 616018
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x-205000y0z-55000_CStat.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x-205000y0z-55000_CStat.node",
+        "bytes": 753865
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x-25000y0z-45000_CStat.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x-25000y0z-45000_CStat.node",
+        "bytes": 803209
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x-5000y0z-25000_CStat.node",
+        "bytes": 614114
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x15000y0z-25000_CStat.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x15000y0z-25000_CStat.node",
+        "bytes": 413675
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x15000y0z-35000_CStat.node",
+        "bytes": 181420
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x45000y0z15000_CStat.node",
+        "bytes": 583902
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x5000y0z-25000_CStat.node",
+        "bytes": 519422
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\SysDyn_{9A103CC2-4190-4DB3-9618-0419E5445AAD}\\G3_World_01_x95000y0z165000_CStat.node",
+        "bytes": 125645
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\Immersive_World\\Immersive_World_NavZones\\Immersive_World_NavZones.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\Immersive_World\\Immersive_World_NavZones\\Immersive_World_NavZones.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\Immersive_World\\Immersive_World_NavZones\\Immersive_World_NavZones.node",
+        "bytes": 30944
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\LTM_Content\\LTM_World\\LTM_HaranHoCave_Items.lrentdat",
+        "bytes": 16011
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\LTM_Content\\LTM_World\\LTM_HaranHoCave_Objects.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\LTM_Content\\LTM_World\\LTM_HaranHoCave_Objects.node",
+        "bytes": 3407
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\LTM_Content\\LTM_World\\LTM_Items.lrentdat",
+        "bytes": 1174764
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\LTM_Content\\LTM_World\\LTM_NavZones.node",
+        "bytes": 56911
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\LTM_Content\\LTM_World\\LTM_Objects.node",
+        "bytes": 1398671
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Dynamic Objects\\Mod_Myrtana_00.lrent",
+        "bytes": 217
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Dynamic Objects\\Mod_Myrtana_00.lrentdat",
+        "bytes": 3702531
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Dynamic Objects\\Mod_Nordmar_00.lrent",
+        "bytes": 217
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Dynamic Objects\\Mod_Nordmar_00.lrentdat",
+        "bytes": 1097997
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Dynamic Objects\\Mod_Varant_00.lrent",
+        "bytes": 217
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Dynamic Objects\\Mod_Varant_00.lrentdat",
+        "bytes": 1140389
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\NavZones\\RB_Mod_Myrtana_01_Landscape_NavZones_01.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\NavZones\\RB_Mod_Myrtana_01_Landscape_NavZones_01.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\NavZones\\RB_Mod_Myrtana_01_Landscape_NavZones_01.node",
+        "bytes": 319437
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_01.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_01.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_01.node",
+        "bytes": 556652
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_02.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_02.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_02.node",
+        "bytes": 767803
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_03.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_03.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_03.node",
+        "bytes": 690486
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_04.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_04.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_04.node",
+        "bytes": 453515
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_05.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_05.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_05.node",
+        "bytes": 390963
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_06.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_06.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_06.node",
+        "bytes": 384441
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_07.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_07.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_07.node",
+        "bytes": 518759
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_08.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_08.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_08.node",
+        "bytes": 271853
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_09.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_09.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_09.node",
+        "bytes": 877769
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_10.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_10.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_10.node",
+        "bytes": 337319
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_11.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_11.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_11.node",
+        "bytes": 661054
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_12.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_12.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_12.node",
+        "bytes": 35277
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_13.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_13.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_13.node",
+        "bytes": 776335
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_14.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_14.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_14.node",
+        "bytes": 714264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_15.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_15.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_15.node",
+        "bytes": 432081
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_16.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_16.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_16.node",
+        "bytes": 294701
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_17.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_17.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_17.node",
+        "bytes": 575372
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_18.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_18.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_18.node",
+        "bytes": 790357
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_19.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_19.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_19.node",
+        "bytes": 450223
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_20.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_20.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_20.node",
+        "bytes": 651497
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_21.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_21.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_21.node",
+        "bytes": 576345
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_22.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_22.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_22.node",
+        "bytes": 1368624
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_23.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_23.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_23.node",
+        "bytes": 938017
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_24.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_24.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_24.node",
+        "bytes": 1049388
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_25.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_25.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_25.node",
+        "bytes": 514326
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_26.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_26.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_26.node",
+        "bytes": 535154
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_27.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_27.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_27.node",
+        "bytes": 493800
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_28.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_28.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_28.node",
+        "bytes": 1243540
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_29.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_29.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_29.node",
+        "bytes": 418928
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_30.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_30.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_30.node",
+        "bytes": 358532
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_31.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_31.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_31.node",
+        "bytes": 160195
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_32.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_32.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_32.node",
+        "bytes": 38435
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_33.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_33.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_33.node",
+        "bytes": 310748
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_34.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_34.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_34.node",
+        "bytes": 276956
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_35.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_35.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_35.node",
+        "bytes": 407909
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_36.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_36.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_36.node",
+        "bytes": 968784
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_37.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_37.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_37.node",
+        "bytes": 433220
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_38.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_38.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_38.node",
+        "bytes": 621752
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_39.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_39.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_39.node",
+        "bytes": 771048
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_40.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_40.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_40.node",
+        "bytes": 602956
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_41.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_41.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_41.node",
+        "bytes": 468249
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_42.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_42.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_42.node",
+        "bytes": 414034
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_43.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_43.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_43.node",
+        "bytes": 339712
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_44.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_44.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_44.node",
+        "bytes": 294569
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_45.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_45.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_45.node",
+        "bytes": 419051
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_46.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_46.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_46.node",
+        "bytes": 680649
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_47.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_47.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_47.node",
+        "bytes": 1126913
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_48.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_48.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_48.node",
+        "bytes": 508805
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_49.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_49.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_49.node",
+        "bytes": 464402
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_50.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_50.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_50.node",
+        "bytes": 549278
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_51.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_51.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_51.node",
+        "bytes": 384194
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_52.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_52.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_52.node",
+        "bytes": 532356
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_53.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_53.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_53.node",
+        "bytes": 1381341
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_54.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_54.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_54.node",
+        "bytes": 1369789
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_55.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_55.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_55.node",
+        "bytes": 1424313
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_56.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_56.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Myrtana_56.node",
+        "bytes": 1255059
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_01.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_01.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_01.node",
+        "bytes": 368449
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_02.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_02.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_02.node",
+        "bytes": 388896
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_03.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_03.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_03.node",
+        "bytes": 1934291
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_04.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_04.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_04.node",
+        "bytes": 1410155
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_05.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_05.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_05.node",
+        "bytes": 735837
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_06.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_06.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Nordmar_06.node",
+        "bytes": 334895
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_01.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_01.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_01.node",
+        "bytes": 683970
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_02.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_02.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_02.node",
+        "bytes": 527803
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_03.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_03.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_03.node",
+        "bytes": 713211
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_04.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_04.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_04.node",
+        "bytes": 471797
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_05.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_05.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_05.node",
+        "bytes": 433637
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_06.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_06.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_06.node",
+        "bytes": 304437
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_07.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_07.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_07.node",
+        "bytes": 380297
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_08.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_08.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_08.node",
+        "bytes": 642207
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_09.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_09.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_09.node",
+        "bytes": 429129
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_10.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_10.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_10.node",
+        "bytes": 455557
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_11.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_11.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_11.node",
+        "bytes": 309705
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_12.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_12.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_12.node",
+        "bytes": 574955
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_13.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_13.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_13.node",
+        "bytes": 644237
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_14.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_14.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_14.node",
+        "bytes": 610865
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_15.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_15.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_15.node",
+        "bytes": 555825
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_16.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_16.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_16.node",
+        "bytes": 181573
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_17.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_17.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_17.node",
+        "bytes": 1769161
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_18.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_18.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_18.node",
+        "bytes": 1735070
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_19.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_19.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_19.node",
+        "bytes": 1791275
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_20.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_20.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_20.node",
+        "bytes": 1746913
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_21.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_21.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_21.node",
+        "bytes": 1747823
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_22.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_22.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_22.node",
+        "bytes": 1746958
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_23.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_23.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_23.node",
+        "bytes": 1742583
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_24.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_24.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_24.node",
+        "bytes": 1721778
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_25.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_25.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_25.node",
+        "bytes": 1806010
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_26.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_26.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_26.node",
+        "bytes": 1771323
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_27.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_27.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_27.node",
+        "bytes": 1694955
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_28.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_28.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_28.node",
+        "bytes": 1736911
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_29.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_29.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_29.node",
+        "bytes": 1743087
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_30.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_30.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_30.node",
+        "bytes": 1724384
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_31.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_31.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_31.node",
+        "bytes": 1691302
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_32.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_32.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_32.node",
+        "bytes": 1682052
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_33.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_33.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_33.node",
+        "bytes": 1667124
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_34.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_34.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_34.node",
+        "bytes": 1697990
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_35.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_35.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_35.node",
+        "bytes": 1688780
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_36.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_36.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_36.node",
+        "bytes": 1713705
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_37.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_37.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_37.node",
+        "bytes": 1708814
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_38.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_38.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_38.node",
+        "bytes": 1727550
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_39.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_39.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_39.node",
+        "bytes": 1685374
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_40.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_40.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_40.node",
+        "bytes": 1728426
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_41.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_41.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_41.node",
+        "bytes": 1734040
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_42.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_42.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_42.node",
+        "bytes": 1747952
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_43.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_43.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\RB_Mod\\Static Objects\\Mod_Varant_43.node",
+        "bytes": 1750806
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\Varant\\_Outdoor\\G3_Varant_01_Outdoor_Dynamic_Objects_01\\G3_Varant_01_Outdoor_Dynamic_Objects_01_SHyb.node",
+        "bytes": 176360
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\Varant\\_Outdoor\\G3_Varant_01_Outdoor_Dynamic_Objects_04\\G3_Varant_01_Outdoor_Dynamic_Objects_04_SHyb.node",
+        "bytes": 30190
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\World\\_Level\\G3_World_Lowpoly_01_Levelmesh_01\\G3_World_Lowpoly_01_Levelmesh_01.lrentdat",
+        "bytes": 2782847
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\World\\_Level\\G3_World_Lowpoly_01_Levelmesh_01\\G3_World_Lowpoly_01_Levelmesh_01_Spat.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\World\\_Level\\G3_World_Lowpoly_01_Levelmesh_01\\G3_World_Lowpoly_01_Levelmesh_01_Spat.node",
+        "bytes": 9066459
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\World\\_Level\\G3_World_Lowpoly_01_Levelmesh_01\\RB_Mod\\RBMod_Lowpoly.lrgeo",
+        "bytes": 264
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\World\\_Level\\G3_World_Lowpoly_01_Levelmesh_01\\RB_Mod\\RBMod_Lowpoly.lrgeodat",
+        "bytes": 197
+      },
+      {
+        "path": "ModFiles\\Projects_compiled\\G3_World_01\\World\\_Level\\G3_World_Lowpoly_01_Levelmesh_01\\RB_Mod\\RBMod_Lowpoly.node",
+        "bytes": 2028
+      }
+    ],
+    "bytes": 209899288
+  },
+  {
+    "id": "R_RB_Mod_Without_LTM",
+    "requested": false,
+    "main": {
+      "name": "RB_Mod_Without_LTM",
+      "category": "Content",
+      "incompatible": "RB_Mod;LivelyTownsMod;Conquest;Balance Ultimate;"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 75
+      },
+      {
+        "path": "ModFiles\\Lightmaps.m0x",
+        "bytes": 11971847
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 26817283
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 6652177
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 621329
+      }
+    ],
+    "bytes": 46062711
+  },
+  {
+    "id": "S_AlternativeBalanceUncapped",
+    "requested": false,
+    "main": {
+      "name": "Alternative Balance Uncapped",
+      "category": "Balance Mods",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.n0x",
+        "bytes": 11149
+      },
+      {
+        "path": "ModFiles\\Quests.n0x",
+        "bytes": 3989
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 2314
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      }
+    ],
+    "bytes": 17490
+  },
+  {
+    "id": "S_EnchantStones",
+    "requested": false,
+    "main": {
+      "name": "EnchantStones",
+      "category": "Gameplay",
+      "required": "G3Fixes"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 58
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 15783
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 27408
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 27408
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 143629
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 143629
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 26630
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_Enchanting.dll",
+        "bytes": 2323456
+      }
+    ],
+    "bytes": 2708001
+  },
+  {
+    "id": "S_LimitedSleep",
+    "requested": false,
+    "main": {
+      "name": "TRLimitedSleep",
+      "category": "Hardcore Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 35275
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 1584
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 2060
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      }
+    ],
+    "bytes": 38957
+  },
+  {
+    "id": "S_LimitedStatues",
+    "requested": false,
+    "main": {
+      "name": "TRLimitedStatues",
+      "category": "Hardcore Mods"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 36282
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 8710
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 8710
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 110251
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 110251
+      }
+    ],
+    "bytes": 274204
+  },
+  {
+    "id": "S_Magic_No_God_To_Be_Chosen",
+    "requested": false,
+    "main": {
+      "name": "Magic No God To Be Chosen",
+      "category": "Balance Mods",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 2580
+      }
+    ],
+    "bytes": 2580
+  },
+  {
+    "id": "S_ShieldRebalance",
+    "requested": false,
+    "main": {
+      "name": "ShieldRebalance",
+      "category": "Gameplay",
+      "required": "New Balance and Combat"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\ShieldRebalance.ini",
+        "bytes": 333
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ShieldRebalance.dll",
+        "bytes": 3446272
+      }
+    ],
+    "bytes": 3446605
+  },
+  {
+    "id": "S_Sneaky Loot",
+    "requested": false,
+    "main": {
+      "name": "Sneaky Loot",
+      "category": "Gameplay"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 458456
+      }
+    ],
+    "bytes": 458456
+  },
+  {
+    "id": "Script_AutoSave",
+    "requested": true,
+    "main": {
+      "name": "AutoSave",
+      "category": "Patches"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\Autosave.ini",
+        "bytes": 70
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_G3Autosave.dll",
+        "bytes": 315392
+      }
+    ],
+    "bytes": 315462
+  },
+  {
+    "id": "Script_Chszonszcze",
+    "requested": false,
+    "main": {
+      "name": "Chszonszcze",
+      "category": "Gameplay"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\scripts\\Script_Chszonszcze.dll",
+        "bytes": 308736
+      }
+    ],
+    "bytes": 308736
+  },
+  {
+    "id": "Script_CombatFix",
+    "requested": false,
+    "main": {
+      "name": "UpdatePack Combat Fix",
+      "category": "Combat & Animations",
+      "incompatible": "New Balance and Combat"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\scripts\\Script_CombatFix.dll",
+        "bytes": 1983488
+      }
+    ],
+    "bytes": 1983488
+  },
+  {
+    "id": "Script_CustomRepPrices",
+    "requested": false,
+    "main": {
+      "name": "Script_CustomRepPrices",
+      "category": "Patches"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\CustomRepPrices.ini",
+        "bytes": 122
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_CustomRepPrices.dll",
+        "bytes": 329216
+      }
+    ],
+    "bytes": 329338
+  },
+  {
+    "id": "Script_DialogueSkipper",
+    "requested": false,
+    "main": {
+      "name": "DialogueSkipper",
+      "category": "Technical Mods"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\dialogueskipper.ini",
+        "bytes": 1151
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_DialogueSkipper.dll",
+        "bytes": 364544
+      }
+    ],
+    "bytes": 365695
+  },
+  {
+    "id": "Script_eCDELocator",
+    "requested": false,
+    "main": {
+      "name": "ItemLocator",
+      "category": "Technical Mods"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\eCDELocator.ini",
+        "bytes": 3403
+      },
+      {
+        "path": "ScriptFiles\\Ini\\ScriptsMenu.ini",
+        "bytes": 93
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_eCDELocator.dll",
+        "bytes": 452096
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ScriptsMenu.dll",
+        "bytes": 1201152
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_1H.png",
+        "bytes": 2274
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_2H.png",
+        "bytes": 3851
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_ALCHEMY.png",
+        "bytes": 1511
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_ARMOR.png",
+        "bytes": 3537
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_BOOK.png",
+        "bytes": 2946
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_BOW.png",
+        "bytes": 3715
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_BUG.png",
+        "bytes": 2842
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_CHEST.png",
+        "bytes": 4562
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_CHEST_GOLD.png",
+        "bytes": 1587
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_CHEST_MAGIC.png",
+        "bytes": 1611
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_CHEST_WEAPON.png",
+        "bytes": 1569
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_CHICKEN.png",
+        "bytes": 2850
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_CORPSE.png",
+        "bytes": 4246
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_COW.png",
+        "bytes": 2172
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_CROSSBOW.png",
+        "bytes": 3476
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_DIG.png",
+        "bytes": 2383
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_FOOD.png",
+        "bytes": 3827
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_HELMET.png",
+        "bytes": 3863
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_INT.png",
+        "bytes": 1678
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_LIZARD.png",
+        "bytes": 2399
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_LOCATOR_ACTIVE.png",
+        "bytes": 8483
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MAGICSCROLL.png",
+        "bytes": 3958
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MAGICSTAFF.png",
+        "bytes": 2967
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MINING.png",
+        "bytes": 3603
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MISC.png",
+        "bytes": 4963
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MONSTER_HOSTILE.png",
+        "bytes": 2482
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MONSTER_OTHER.png",
+        "bytes": 2135
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MONSTER_PARTY.png",
+        "bytes": 2431
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MONSTER_PEACE.png",
+        "bytes": 2496
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_MUNITION.png",
+        "bytes": 3524
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_NECKLACE.png",
+        "bytes": 2854
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_NPC_HOSTILE.png",
+        "bytes": 1177
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_NPC_PARTY.png",
+        "bytes": 1146
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_NPC_PEACE.png",
+        "bytes": 1171
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_ORC_HOSTILE.png",
+        "bytes": 3701
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_ORC_PARTY.png",
+        "bytes": 3577
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_ORC_PEACE.png",
+        "bytes": 3742
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_PIG.png",
+        "bytes": 1727
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_PLANT.png",
+        "bytes": 2432
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_PLANT_PERM.png",
+        "bytes": 1395
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_POTION.png",
+        "bytes": 3651
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_POTION_PERM.png",
+        "bytes": 1612
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_QUEST.png",
+        "bytes": 853
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_RABBIT.png",
+        "bytes": 2499
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_RING.png",
+        "bytes": 4133
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_RUNE.png",
+        "bytes": 4583
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_SCROLL.png",
+        "bytes": 4043
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_SHIELD.png",
+        "bytes": 4686
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_SKELE_HOSTILE.png",
+        "bytes": 2062
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_SKELE_PARTY.png",
+        "bytes": 2032
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_SKELE_PEACE.png",
+        "bytes": 2068
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_SMITHING.png",
+        "bytes": 658
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_SNAKE.png",
+        "bytes": 2195
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_STONETABLET.png",
+        "bytes": 1600
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_STONEWHEEL.png",
+        "bytes": 3580
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_TARGET.png",
+        "bytes": 1149
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_TROPHY.png",
+        "bytes": 3757
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_TURTLE.png",
+        "bytes": 2776
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\eCDELocator\\ICON_UNKNOWN.png",
+        "bytes": 1970
+      }
+    ],
+    "bytes": 1823514
+  },
+  {
+    "id": "Script_ExtendedFrying",
+    "requested": false,
+    "main": {
+      "name": "Extended Frying",
+      "category": "Gameplay"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 348
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ExtendedFrying.dll",
+        "bytes": 323584
+      }
+    ],
+    "bytes": 323970
+  },
+  {
+    "id": "Script_FloatingDamage",
+    "requested": false,
+    "main": {
+      "name": "Floating Damage",
+      "category": "Interface"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\floatingdamage.ini",
+        "bytes": 534
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_FloatingDamage.dll",
+        "bytes": 366592
+      }
+    ],
+    "bytes": 367126
+  },
+  {
+    "id": "Script_FontScale",
+    "requested": false,
+    "main": {
+      "name": "Font Scale",
+      "category": "Patches"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\scripts\\Script_FontScale.dll",
+        "bytes": 332800
+      }
+    ],
+    "bytes": 332800
+  },
+  {
+    "id": "Script_G3Fixes",
+    "requested": false,
+    "main": {
+      "name": "G3Fixes",
+      "category": "Patches"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 5191
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 5191
+      },
+      {
+        "path": "ScriptFiles\\Ini\\G3Fixes.ini",
+        "bytes": 3390
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_G3Fixes.dll",
+        "bytes": 461312
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\G3Fixes\\G3Fixes_Companion_Active.png",
+        "bytes": 1835
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\G3Fixes\\G3Fixes_Companion_Passive.png",
+        "bytes": 1822
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\G3Fixes\\G3Fixes_Transformation.png",
+        "bytes": 4122
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\G3Fixes\\G3Fixes_Transformation_End.png",
+        "bytes": 4226
+      }
+    ],
+    "bytes": 487089
+  },
+  {
+    "id": "Script_ItemMap",
+    "requested": false,
+    "main": {
+      "name": "ItemMap",
+      "category": "Technical Mods"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\ItemMap.ini",
+        "bytes": 502
+      },
+      {
+        "path": "ScriptFiles\\Ini\\ScriptsMenu.ini",
+        "bytes": 93
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ItemMap.dll",
+        "bytes": 435200
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ScriptsMenu.dll",
+        "bytes": 1201152
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\G3WorldMap.jpg",
+        "bytes": 5321601
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_ALCHEMY.png",
+        "bytes": 2146
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_ARMOR.png",
+        "bytes": 2231
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_BONUS.png",
+        "bytes": 4550
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_BOOK_ALCHEMY.png",
+        "bytes": 3342
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_BOOK_ANCIENTWISDOM.png",
+        "bytes": 3431
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_BOSS.png",
+        "bytes": 5431
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_CHEST_MAGE.png",
+        "bytes": 3580
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_CHEST_TREASURE.png",
+        "bytes": 3312
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_CHEST_WEAPON.png",
+        "bytes": 2559
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_DRAGON.png",
+        "bytes": 4687
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_DRAGONEGG.png",
+        "bytes": 4443
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_MAGIC.png",
+        "bytes": 2001
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_MISC.png",
+        "bytes": 2295
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_ORE.png",
+        "bytes": 6043
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_PLANT_DEX.png",
+        "bytes": 5057
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_PLANT_HEALTH.png",
+        "bytes": 4892
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_PLANT_MANA.png",
+        "bytes": 5016
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_PLANT_PERM.png",
+        "bytes": 5785
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_PLANT_STA.png",
+        "bytes": 4769
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_PLANT_STR.png",
+        "bytes": 6259
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_QUEST_ITEM.png",
+        "bytes": 1798
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_SKULL.png",
+        "bytes": 5537
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_STONETABLET_INT.png",
+        "bytes": 1408
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_TELEPORT.png",
+        "bytes": 4077
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_TREASURE.png",
+        "bytes": 5232
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_UNKNOWN.png",
+        "bytes": 1798
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\IM_ICON_WEAPON.png",
+        "bytes": 2025
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\ItemMap\\waypoint.png",
+        "bytes": 3612
+      }
+    ],
+    "bytes": 7065864
+  },
+  {
+    "id": "Script_LearningPoints",
+    "requested": false,
+    "main": {
+      "name": "LearnPoints",
+      "category": "Balance Mods"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\learnpoints.ini",
+        "bytes": 339
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_LearnPoints.dll",
+        "bytes": 308736
+      }
+    ],
+    "bytes": 309075
+  },
+  {
+    "id": "Script_LearningThresholdTweaks",
+    "requested": false,
+    "main": {
+      "name": "Learning Threshold Tweaks",
+      "category": "Balance Mods",
+      "incompatible": "Alternative Balance Uncapped"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\LearningThresholdTweaks.ini",
+        "bytes": 1892
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_LearningThresholdTweaks.dll",
+        "bytes": 385024
+      }
+    ],
+    "bytes": 386916
+  },
+  {
+    "id": "Script_MonsterDamage",
+    "requested": false,
+    "main": {
+      "name": "Monster Damage",
+      "category": "Patches"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\monsterdamage.ini",
+        "bytes": 882
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_MonsterDamage.dll",
+        "bytes": 172032
+      }
+    ],
+    "bytes": 172914
+  },
+  {
+    "id": "Script_NewGameConfiguration",
+    "requested": false,
+    "main": {
+      "name": "New Game Configuration",
+      "category": "Balance Mods"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\newGameSkills.ini",
+        "bytes": 5198
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_NewGameConfiguration.dll",
+        "bytes": 1618944
+      }
+    ],
+    "bytes": 1624142
+  },
+  {
+    "id": "Script_QuickLoot",
+    "requested": false,
+    "main": {
+      "name": "Quick Loot",
+      "category": "Gameplay"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\QuickLoot.ini",
+        "bytes": 1395
+      },
+      {
+        "path": "ScriptFiles\\Ini\\ScriptsMenu.ini",
+        "bytes": 93
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_QuickLoot.dll",
+        "bytes": 431616
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ScriptsMenu.dll",
+        "bytes": 1201152
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\QuickLoot\\QuickLoot_Autoloot.png",
+        "bytes": 4637
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\QuickLoot\\QuickLoot_Autoloot_Combat.png",
+        "bytes": 4554
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\QuickLoot\\QuickLoot_Autoloot_HandsBusy.png",
+        "bytes": 4620
+      }
+    ],
+    "bytes": 1648067
+  },
+  {
+    "id": "Script_QuickSaveBackuper",
+    "requested": false,
+    "main": {
+      "name": "QuickSaveBackuper",
+      "category": "Patches"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\QuickSaveBackuper.ini",
+        "bytes": 91
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_QuickSaveBackuper.dll",
+        "bytes": 419328
+      }
+    ],
+    "bytes": 419419
+  },
+  {
+    "id": "Script_RefreshGeneratedTrade",
+    "requested": false,
+    "main": {
+      "name": "Refresh Trade Generated",
+      "category": "Gameplay",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\ini\\RefreshGeneratedTrade.ini",
+        "bytes": 23
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_RefreshGeneratedTrade.dll",
+        "bytes": 347136
+      }
+    ],
+    "bytes": 347159
+  },
+  {
+    "id": "Script_StatBarValues",
+    "requested": false,
+    "main": {
+      "name": "StatBarValues",
+      "category": "Interface"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\StatBarValues.ini",
+        "bytes": 221
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_StatBarValues.dll",
+        "bytes": 360448
+      }
+    ],
+    "bytes": 360669
+  },
+  {
+    "id": "Script_Statuses",
+    "requested": false,
+    "main": {
+      "name": "Script_Statuses",
+      "category": "Gameplay",
+      "required": "New Balance and Combat;G3Fixes"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 105987
+      },
+      {
+        "path": "ScriptFiles\\ini\\Statuses.ini",
+        "bytes": 7755
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_Statuses.dll",
+        "bytes": 541696
+      }
+    ],
+    "bytes": 655438
+  },
+  {
+    "id": "Script_Subtitles",
+    "requested": false,
+    "main": {
+      "name": "Subtitles",
+      "category": "Patches"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\subtitles.ini",
+        "bytes": 88
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_Subtitles.dll",
+        "bytes": 310272
+      }
+    ],
+    "bytes": 310360
+  },
+  {
+    "id": "Script_TeleportPartyMembers",
+    "requested": false,
+    "main": {
+      "name": "Teleport Party Members",
+      "category": "Technical Mods"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\ScriptsMenu.ini",
+        "bytes": 93
+      },
+      {
+        "path": "ScriptFiles\\Ini\\TeleportPartyMembers.ini",
+        "bytes": 149
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ScriptsMenu.dll",
+        "bytes": 1201152
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_TeleportPartyMembers.dll",
+        "bytes": 363520
+      }
+    ],
+    "bytes": 1564914
+  },
+  {
+    "id": "Script_TimeMultiplier",
+    "requested": false,
+    "main": {
+      "name": "TimeMultiplier",
+      "category": "Technical Mods"
+    },
+    "files": [
+      {
+        "path": "ScriptFiles\\Ini\\ScriptsMenu.ini",
+        "bytes": 93
+      },
+      {
+        "path": "ScriptFiles\\Ini\\timemultiplier.ini",
+        "bytes": 475
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_ScriptsMenu.dll",
+        "bytes": 1201152
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_TimeMultiplier.dll",
+        "bytes": 422912
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\TIMEMULTIPLIER_RED.png",
+        "bytes": 5299
+      },
+      {
+        "path": "ScriptFiles\\Data\\_compiledImage\\TIMEMULTIPLIER_WHITE.png",
+        "bytes": 5196
+      }
+    ],
+    "bytes": 1635127
+  },
+  {
+    "id": "X70_NightTheme",
+    "requested": false,
+    "main": {
+      "name": "Night Theme",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Clear Dialog Box;Menu Updated;Compas Returning 2;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Menu Updated ForNewSkills"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 110737366
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 51518
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 51518
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 2713754
+      }
+    ],
+    "bytes": 113554156
+  },
+  {
+    "id": "X71_Achievements",
+    "requested": false,
+    "main": {
+      "name": "Achievements",
+      "category": "Reimagined ModPack",
+      "incompatible": "QP Mini Quests"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 110635
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 55422
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 18062
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 13415
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 13415
+      }
+    ],
+    "bytes": 210987
+  },
+  {
+    "id": "X72_QuestEdit",
+    "requested": false,
+    "main": {
+      "name": "Quest Edit",
+      "category": "Reimagined ModPack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 297818
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 8239
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 38602
+      },
+      {
+        "path": "ModFiles\\readme.rtf",
+        "bytes": 42367
+      },
+      {
+        "path": "ModFiles\\Speech_Russian.m0x",
+        "bytes": 464322
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 192236
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 165956
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 36819
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 36819
+      }
+    ],
+    "bytes": 1283178
+  },
+  {
+    "id": "X73_AlternativePickpocketing",
+    "requested": false,
+    "main": {
+      "name": "Alternative Pickpocketing",
+      "category": "Reimagined ModPack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 1382807
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 2901
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 30890
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 13720
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1958
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 20092
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 20092
+      }
+    ],
+    "bytes": 1472460
+  },
+  {
+    "id": "X74_AlternativeBonuses",
+    "requested": false,
+    "main": {
+      "name": "Alternative Bonuses",
+      "category": "Reimagined ModPack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 95551
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 1135069
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 158686
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 85572
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 4726
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 221570
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 221570
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 7990129
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 4789
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 306647
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 189781
+      }
+    ],
+    "bytes": 10414090
+  },
+  {
+    "id": "X_NewAdventures",
+    "requested": false,
+    "main": {
+      "name": "New Adventures",
+      "required": "Main;LivelyTownsMod;Alternative World;Immersive World;RB_Mod;Extended Frying;ContentModBase;CM Content;Orc Mod Lite;INI Draw Distance Normal",
+      "category": "New Adventures"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 708
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 276797
+      },
+      {
+        "path": "ModFiles\\Music.m0x",
+        "bytes": 3997244
+      },
+      {
+        "path": "ModFiles\\Projects_Compiled.m0x",
+        "bytes": 9493736
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 32718
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 20291
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 415370
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 1034770
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 1034770
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 200670
+      },
+      {
+        "path": "ModFiles\\_compiledimage.m0x",
+        "bytes": 108212412
+      }
+    ],
+    "bytes": 124719524
+  },
+  {
+    "id": "X_NewAdventures&TotalRebalance",
+    "requested": false,
+    "main": {
+      "name": "New Adventures&TotalRebalance",
+      "required": "New Adventures;TotalRebalance",
+      "category": "New Adventures"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 16569
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 1017037
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 1017037
+      }
+    ],
+    "bytes": 2050643
+  },
+  {
+    "id": "Y_01_NewBalance",
+    "requested": false,
+    "main": {
+      "name": "New Balance and Combat",
+      "category": "Gameplay",
+      "incompatible": "UpdatePack Combat Fix;2H_BlockingAbility"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 1024
+      },
+      {
+        "path": "ModFiles\\Library.m0x",
+        "bytes": 13818
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 97034
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 2434
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 51167
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 51167
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 573451
+      },
+      {
+        "path": "ScriptFiles\\Ini\\monsterdamage.ini",
+        "bytes": 47
+      },
+      {
+        "path": "ScriptFiles\\Ini\\newbalance.ini",
+        "bytes": 10911
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_NewBalance.dll",
+        "bytes": 628224
+      }
+    ],
+    "bytes": 1429315
+  },
+  {
+    "id": "Y_02_NewMagicforNPCs_Mod",
+    "requested": false,
+    "main": {
+      "name": "New Magic for NPCs Mod",
+      "category": "Gameplay",
+      "incompatible": "UpdatePack Combat Fix;2H_BlockingAbility"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 6218
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 38
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 42440
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 42440
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 26315
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_NewMagicforNPCs.dll",
+        "bytes": 1586688
+      }
+    ],
+    "bytes": 1704139
+  },
+  {
+    "id": "Y_03_Balance Ultimate",
+    "requested": false,
+    "main": {
+      "name": "Balance Ultimate",
+      "category": "Balance Mods",
+      "required": "Learning Threshold Tweaks;Animation Pack 'Rapier Style';Animations Pack 'Monsters Unleashed';ICS Classic Camera;Intuitive Combat System;AutoSave;Script_CustomRepPrices;Alternative Pickpocketing;Monster Damage;LivelyTownsMod;LTM_NPC;LTM Easy;LearnPoints;CM Content;Main;G3Fixes;New Game Configuration;CM Letters;Immersive World;Knight Chronicle;Consequences;CNQDragons;Extended Frying;Quick Loot;Refresh Trade Generated;New Balance and Combat;New Magic for NPCs Mod;Subtitles;QuestFix Mod;ItemLocator;Advanced Perk Info;Teleport Party Members",
+      "incompatible": "CNQMagicWeapons;2H_BlockingAbility"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 53
+      },
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 25979
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 465275
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 129028
+      },
+      {
+        "path": "ModFiles\\Sound.m0x",
+        "bytes": 160860
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 524522
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 524522
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 32764737
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 32764737
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 33555761
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 127879
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 4834511
+      },
+      {
+        "path": "ScriptFiles\\Ini\\CustomRepPrices.ini",
+        "bytes": 122
+      },
+      {
+        "path": "ScriptFiles\\Ini\\eCDELocator.ini",
+        "bytes": 1090
+      },
+      {
+        "path": "ScriptFiles\\Ini\\G3Fixes.ini",
+        "bytes": 2444
+      },
+      {
+        "path": "ScriptFiles\\Ini\\LearningThresholdTweaks.ini",
+        "bytes": 1892
+      },
+      {
+        "path": "ScriptFiles\\Ini\\learnpoints.ini",
+        "bytes": 338
+      },
+      {
+        "path": "ScriptFiles\\Ini\\monsterdamage.ini",
+        "bytes": 45
+      },
+      {
+        "path": "ScriptFiles\\Ini\\newbalance.ini",
+        "bytes": 11053
+      },
+      {
+        "path": "ScriptFiles\\Ini\\newGameSkills.ini",
+        "bytes": 5338
+      },
+      {
+        "path": "ScriptFiles\\Ini\\rapierAnimation.ini",
+        "bytes": 534
+      }
+    ],
+    "bytes": 105900720
+  },
+  {
+    "id": "Y_03_Build_UltimateModPack",
+    "requested": false,
+    "main": {
+      "name": "Ultimate Mod Pack",
+      "category": "Author's Mod Packs",
+      "required": "Balance Ultimate",
+      "recommended": "Alternative World;Animals Hardcore Mod;QuestPaket;Smart Music Mod;Smart Music Menu;FeedBackEffect;PreAlpha;Smart Monsters Skins;Wolf Model;Boar Model;UpdatePack_SupportMod;Citizen;CNQLeadership;LTMTeleportNPCMod;CNQMoreTeleportationStones;CNQEasyPaladin;LTMSmeltingMod;TameAnimal;Immersive Cook;Chszonszcze;New Magic for NPCs Mod;LivelyTownsMod;RB_Mod;Font Scale;Achievements;Quest Edit;Alternative Bonuses;Smart Sound Pack;Pirate Dream;RGL;Conquest;Menu Ultimate;INI Draw Distance Normal;Night Theme",
+      "incompatible": "CNQMagicWeapons;2H_BlockingAbility"
+    },
+    "files": [],
+    "bytes": 0
+  },
+  {
+    "id": "Y_03_Ultimate Menu",
+    "requested": false,
+    "main": {
+      "name": "Menu Ultimate",
+      "category": "Interface",
+      "incompatible": "Menu Elder;Menu CM;Menu Arcania;Menu Dark;Menu Old;Menu QP;Compas Returning;Clear Dialog Box;Immersive World Updated MenuDark;Immersive World Updated MenuOld;Menu Updated",
+      "recommended": "Night Theme"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 235932382
+      }
+    ],
+    "bytes": 235932382
+  },
+  {
+    "id": "Y_05_TotalRebalance",
+    "requested": false,
+    "main": {
+      "name": "TotalRebalance",
+      "category": "Balance Mods/TotalRebalance",
+      "required": "CM Rebalance;CNQDragons;ContentModBase;CM Graphic Arcania;CM Graphic G2;CM Content;Quest Edit;TameAnimal;CNQMagicWeapons;Main;Immersive World;LivelyTownsMod;G3Fixes;Pirate Dream;Knight Chronicle;New Game Configuration;Conquest;RGL;Monster Damage;Immersive Cook;TRLimitedStatues;Alternative Pickpocketing;New Balance and Combat;New Magic for NPCs Mod;CNQThiefQuests",
+      "incompatible": "CM End Game;Alternative Balance Uncapped;Magic No God To Be Chosen;LTMSmeltingMod;CNQEasyPaladin;LTM Easy;Citizen;Refresh Trade Generated;CombatAnimationOverhaul_2H_ForMain;Balance Ultimate;DRAGONS REWARDS;Finishing Stab Attack;Finishing Downward Slash Attack"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 180
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 7594058
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 6704417
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 22558
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 4156138
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 4156138
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 24776011
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 24776011
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 370786
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 55947217
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 30616
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 29816633
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 13086662
+      },
+      {
+        "path": "ScriptFiles\\Ini\\G3Fixes.ini",
+        "bytes": 2457
+      },
+      {
+        "path": "ScriptFiles\\Ini\\LearningThresholdTweaks.ini",
+        "bytes": 1889
+      },
+      {
+        "path": "ScriptFiles\\Ini\\learnpoints.ini",
+        "bytes": 338
+      },
+      {
+        "path": "ScriptFiles\\Ini\\monsterdamage.ini",
+        "bytes": 45
+      },
+      {
+        "path": "ScriptFiles\\Ini\\newbalance.ini",
+        "bytes": 11020
+      },
+      {
+        "path": "ScriptFiles\\Ini\\newGameSkills.ini",
+        "bytes": 5238
+      },
+      {
+        "path": "ScriptFiles\\Ini\\rapierAnimation.ini",
+        "bytes": 782
+      },
+      {
+        "path": "ScriptFiles\\Ini\\Statuses.ini",
+        "bytes": 7716
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_NewBalance.dll",
+        "bytes": 666112
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_NewMagicNPC.dll",
+        "bytes": 1622528
+      }
+    ],
+    "bytes": 173755550
+  },
+  {
+    "id": "Y_08_TotalRebalance_&_ShieldRebalance",
+    "requested": false,
+    "main": {
+      "name": "TotalRebalance & ShieldRebalance",
+      "category": "Balance Mods/TotalRebalance",
+      "required": "ShieldRebalance;TotalRebalance;EnchantStones"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 88
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 5128
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 6952
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 4574
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 1802
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 436993
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 436993
+      },
+      {
+        "path": "ScriptFiles\\Ini\\ShieldRebalance.ini",
+        "bytes": 332
+      }
+    ],
+    "bytes": 892862
+  },
+  {
+    "id": "Y_10_TotalRebalance_&_WolfModel",
+    "requested": false,
+    "main": {
+      "name": "TotalRebalance_&_WolfModel",
+      "category": "Balance Mods/TotalRebalance",
+      "required": "TotalRebalance;Wolf Model"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 47761
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 47761
+      }
+    ],
+    "bytes": 95522
+  },
+  {
+    "id": "Y_11_TotalRebalance_&_OrcLite",
+    "requested": false,
+    "main": {
+      "name": "TotalRebalance_&_OrcLite",
+      "category": "Balance Mods/TotalRebalance",
+      "required": "TotalRebalance;Orc Mod Lite"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 251901
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 251901
+      }
+    ],
+    "bytes": 503802
+  },
+  {
+    "id": "Y_99_Build_ZlidenModPack_&_NewBalance_Hard",
+    "requested": false,
+    "main": {
+      "name": "Zliden Mod Pack & NewBalance_Hard",
+      "category": "Author's Mod Packs",
+      "required": "TotalRebalance",
+      "recommended": "CNQArenas;CNQThiefQuests;CNQEnclaves;Achievements;CNQLeadership;LTMTeleportNPCMod;CNQMoreTeleportationStones;NoRevolutionCounter;Quick Loot;TimeMultiplier;FeedBackEffect;Floating Damage;StatBarValues;Night Theme;Orc Mod Lite;Bloodfly Model;Boar Model;Crawler Model;Lurker Model;Scavenger Model;Snapper Model;Troll Model;Varan Model;Wolf Model;Smart Music Menu;Smart Music Mod;UpdatePack_SupportMod;Reduced Fog;Subtitles;Old Orc's Sound;Scriming Sound;Smart Sound Pack;QuestFix Mod;CM Animal & Mushroom Retexture;Smart Monsters Skins;Smart Texture Pack;RB_Mod;EnchantStones;Chszonszcze;ICS Classic Camera;Alternative Bonuses;New Magic for NPCs Mod;TotalRebalance & ShieldRebalance;TotalRebalance_&_OrcLite;TotalRebalance_&_WolfModel;Animations Redone - Dual Wield;Animations Redone - Two Handed Swords;Normal Downward Slash Attacks;Quick Attack Upward Slash;Power Slash Attack;Whirl Attack;Intuitive Combat System;Animations Redone - Staffs and Halberds;Atmospheric Weathers;Animations Pack 'Monsters Unleashed';Animation Pack 'Rapier Style';Sneaky Loot;Animations Redone - Unarmed Movement;Animations Redone - Bows and Crossbows;Animations Redone - Sword And Shield;Sword And Shield First Attack (Horizontal Slash);TotalRebalance_&_ArmorAndWeaponRebuilt;DialogueSkipper;Subtitles;QuickSaveBackuper",
+      "incompatible": "Zliden Mod Pack & NewBalance_Light"
+    },
+    "files": [],
+    "bytes": 0
+  },
+  {
+    "id": "Y_99_Build_ZlidenModPack_&_NewBalance_Light",
+    "requested": false,
+    "main": {
+      "name": "Zliden Mod Pack & NewBalance_Light",
+      "category": "Author's Mod Packs",
+      "required": "TotalRebalance",
+      "recommended": "CNQArenas;CNQThiefQuests;CNQEnclaves;Achievements;CNQLeadership;LTMTeleportNPCMod;CNQMoreTeleportationStones;NoRevolutionCounter;Quick Loot;TimeMultiplier;FeedBackEffect;Floating Damage;StatBarValues;Night Theme;Orc Mod Lite;Bloodfly Model;Boar Model;Crawler Model;Lurker Model;Scavenger Model;Snapper Model;Troll Model;Varan Model;Wolf Model;Smart Music Menu;Smart Music Mod;UpdatePack_SupportMod;Reduced Fog;Subtitles;Old Orc's Sound;Scriming Sound;Smart Sound Pack;QuestFix Mod;CM Animal & Mushroom Retexture;Smart Monsters Skins;Smart Texture Pack;RB_Mod;EnchantStones;Chszonszcze;ICS Classic Camera;Alternative Bonuses;New Magic for NPCs Mod;TotalRebalance & ShieldRebalance;TotalRebalance_&_OrcLite;TotalRebalance_&_WolfModel;Animations Redone - Dual Wield;Animations Redone - Two Handed Swords;Normal Downward Slash Attacks;Quick Attack Upward Slash;Power Slash Attack;Whirl Attack;Intuitive Combat System;Animations Redone - Staffs and Halberds;Atmospheric Weathers;Animations Pack 'Monsters Unleashed';Animation Pack 'Rapier Style';Sneaky Loot;Animations Redone - Unarmed Movement;Animations Redone - Bows and Crossbows;Animations Redone - Sword And Shield;Sword And Shield First Attack (Horizontal Slash);TotalRebalance_&_ArmorAndWeaponRebuilt;DialogueSkipper;Subtitles;QuickSaveBackuper",
+      "incompatible": "Zliden Mod Pack & NewBalance_Hard"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 21496
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 21496
+      },
+      {
+        "path": "ScriptFiles\\scripts\\Script_NewBalance.dll",
+        "bytes": 665600
+      }
+    ],
+    "bytes": 708592
+  },
+  {
+    "id": "Y_CasualRebalance",
+    "requested": false,
+    "main": {
+      "name": "CasualRebalance",
+      "category": "Balance Mods",
+      "required": "CM Rebalance;Intuitive Combat System;LTM Easy;Pirate Dream;Extended Frying;Consequences;New Balance and Combat",
+      "incompatible": "Balance Ultimate;TotalRebalance;CNQArenas;CNQDragons;Alternative Bonuses;CNQMagicWeapons;Balance Ultimate"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 56
+      },
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 1049113
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 55436
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 169242
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 1632
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 7078
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 7078
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 642818
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 642818
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 266721
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 9464848
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 2468
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 115918
+      },
+      {
+        "path": "ScriptFiles\\Ini\\floatingdamage.ini",
+        "bytes": 254
+      },
+      {
+        "path": "ScriptFiles\\Ini\\G3Fixes.ini",
+        "bytes": 2461
+      },
+      {
+        "path": "ScriptFiles\\Ini\\LearningThresholdTweaks.ini",
+        "bytes": 1979
+      },
+      {
+        "path": "ScriptFiles\\Ini\\newbalance.ini",
+        "bytes": 10914
+      }
+    ],
+    "bytes": 12440834
+  },
+  {
+    "id": "Y_Y_Build_EasyGame",
+    "requested": false,
+    "main": {
+      "name": "Easy Game Mod Pack",
+      "category": "Author's Mod Packs",
+      "required": "CasualRebalance",
+      "recommended": "CM Rebalance;CM Animal & Mushroom Retexture;Citizen;Orc Mod Lite;UpdatePack_SupportMod;Smart Monsters Skins;Boar Model;Crawler Model;Goblin Model;Troll Model;Wolf Model;Scriming Sound;Smart Music Menu;Smart Music Mod;Better Sound Effects;Smart Sound Pack;Smart Texture Pack;FeedBackEffect;Reduced Fog;QuestFix Mod;Intuitive Combat System;ICS Classic Camera;Main;Consequences;CNQLeadership;LivelyTownsMod;LTM Easy;LTM_NPC;Pirate Dream;RGL;LTMSmeltingMod;TameAnimal;LTMTeleportNPCMod;CNQMoreTeleportationStones;Knight Chronicle;Immersive World;Immersive World Updated MenuOld;Immersive Cook;RB_Mod;EnchantStones;ShieldRebalance;Extended Frying;Floating Damage;Font Scale;G3Fixes;Monster Damage;StatBarValues;Subtitles;Quest Edit;Alternative Pickpocketing;New Balance and Combat;New Magic for NPCs Mod"
+    },
+    "files": [],
+    "bytes": 0
+  },
+  {
+    "id": "Z_1_0_ArmorAndWeaponRebuilt",
+    "requested": false,
+    "main": {
+      "name": "Armor And Weapon Rebuilt",
+      "category": "Model Replacers",
+      "required": "LivelyTownsMod;ContentModBase",
+      "incompatible": "CM Citizen Textures"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\gui.m0x",
+        "bytes": 1398884
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 38047
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 38047
+      },
+      {
+        "path": "ModFiles\\_compiledAnimation.m0x",
+        "bytes": 40005657
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 852789553
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 277337
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 23235254
+      }
+    ],
+    "bytes": 917782779
+  },
+  {
+    "id": "Z_1_1_TotalRebalance_&_ArmorAndWeaponRebuilt",
+    "requested": false,
+    "main": {
+      "name": "TotalRebalance_&_ArmorAndWeaponRebuilt",
+      "category": "Balance Mods/TotalRebalance",
+      "required": "TotalRebalance;Armor And Weapon Rebuilt"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 28738
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 28738
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 15716605
+      }
+    ],
+    "bytes": 15774081
+  },
+  {
+    "id": "Z_2_INI Draw Distance Normal",
+    "requested": false,
+    "main": {
+      "name": "INI Draw Distance Normal",
+      "category": "INI High Draw Distance",
+      "incompatible": "INI Draw Distance Original"
+    },
+    "files": [],
+    "bytes": 0
+  },
+  {
+    "id": "Z_3_INI Draw Distance Original",
+    "requested": false,
+    "main": {
+      "name": "INI Draw Distance Original",
+      "category": "INI High Draw Distance",
+      "incompatible": "INI Draw Distance Normal"
+    },
+    "files": [],
+    "bytes": 0
+  },
+  {
+    "id": "Z_EasyPaladin",
+    "requested": false,
+    "main": {
+      "name": "CNQEasyPaladin",
+      "category": "Balance Mods",
+      "required": "ContentModBase",
+      "incompatible": "TotalRebalance"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 2313
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 3978
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 3386
+      },
+      {
+        "path": "ModFiles\\Templates.m0x",
+        "bytes": 12800
+      },
+      {
+        "path": "ModFiles\\Templates.n0x",
+        "bytes": 12800
+      }
+    ],
+    "bytes": 35277
+  },
+  {
+    "id": "ZZ_Alternative World",
+    "requested": false,
+    "main": {
+      "name": "Alternative World",
+      "category": "Global Mods",
+      "required": "Main"
+    },
+    "files": [
+      {
+        "path": "ModFiles\\G3_World_01.wrldatasc",
+        "bytes": 212
+      },
+      {
+        "path": "ModFiles\\Infos.m0x",
+        "bytes": 10502
+      },
+      {
+        "path": "ModFiles\\Lightmaps.m0x",
+        "bytes": 13378409
+      },
+      {
+        "path": "ModFiles\\Projects_compiled.m0x",
+        "bytes": 1001702
+      },
+      {
+        "path": "ModFiles\\Quests.m0x",
+        "bytes": 1009
+      },
+      {
+        "path": "ModFiles\\stringtable.ini",
+        "bytes": 16770
+      },
+      {
+        "path": "ModFiles\\stringtableExpress.ini",
+        "bytes": 16770
+      },
+      {
+        "path": "ModFiles\\_compiledImage.m0x",
+        "bytes": 50964091
+      },
+      {
+        "path": "ModFiles\\_compiledMaterial.m0x",
+        "bytes": 123903
+      },
+      {
+        "path": "ModFiles\\_compiledMesh.m0x",
+        "bytes": 102556955
+      },
+      {
+        "path": "ModFiles\\_compiledPhysic.m0x",
+        "bytes": 23920949
+      }
+    ],
+    "bytes": 191991272
+  }
+]

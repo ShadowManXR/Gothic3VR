@@ -1,0 +1,94 @@
+{
+  "archive": "E:/Downloads/Gothic 3 Union Plus v1.7.3-46-1-1778015782/Union+ v1.7.3/Mods/J_USMTexturesPack/ModFiles/_compiledImage.m0x",
+  "archive_bytes": 234065996,
+  "entries": 219,
+  "ximg": 215,
+  "formats": {
+    "DXT3": 145,
+    "RGBA8": 5,
+    "DXT5": 48,
+    "DXT1": 17
+  },
+  "dimensions": {
+    "2048x2048": 47,
+    "512x256": 5,
+    "1024x1024": 77,
+    "128x64": 1,
+    "32x32": 2,
+    "64x128": 1,
+    "256x256": 7,
+    "512x512": 35,
+    "1024x512": 1,
+    "64x64": 2,
+    "128x256": 2,
+    "256x128": 1,
+    "2048x256": 1,
+    "1024x128": 1,
+    "128x1024": 3,
+    "256x512": 4,
+    "1024x2048": 1,
+    "128x128": 3,
+    "16x16": 1,
+    "512x1024": 1,
+    "512x2048": 15,
+    "256x1024": 4
+  },
+  "mip_levels": {
+    "12": 47,
+    "9": 21,
+    "11": 78,
+    "7": 4,
+    "6": 2,
+    "10": 52,
+    "8": 10,
+    "5": 1
+  },
+  "estimated_texture_payload_bytes_if_all_resident": 476321228,
+  "header_examples": [
+    {
+      "path": "_special/G3_Nature_Plant_Herbs_Composit_01_Diffuse_S1.ximg",
+      "width": 2048,
+      "height": 2048,
+      "mips": 12,
+      "format": "DXT3"
+    },
+    {
+      "path": "_special/G3_Nature_Plant_Mushrooms_Composit_01_Diffuse_S1.ximg",
+      "width": 512,
+      "height": 256,
+      "mips": 9,
+      "format": "DXT3"
+    },
+    {
+      "path": "_special/G3_Special_Waterfall_01_Diffuse_01.ximg",
+      "width": 1024,
+      "height": 1024,
+      "mips": 11,
+      "format": "DXT3"
+    },
+    {
+      "path": "_special/G3_Special_Waterfall_02_Diffuse_01.ximg",
+      "width": 1024,
+      "height": 1024,
+      "mips": 11,
+      "format": "DXT3"
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__01.ximg",
+      "width": 2048,
+      "height": 2048,
+      "mips": 12,
+      "format": "RGBA8"
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__02.ximg",
+      "width": 2048,
+      "height": 2048,
+      "mips": 12,
+      "format": "RGBA8"
+    }
+  ],
+  "unsupported_ximg_headers": [],
+  "unsupported_ximg_count": 0,
+  "note": "G3IMG v2 description matches the SDK eSGfxLayersDesc and native Engine Write header. Archive size is not working-set VRAM. All-resident estimate excludes resource overhead, duplicate CPU buffers and runtime residency; unsupported XIMG layouts are not decoded."
+}

@@ -1,0 +1,3948 @@
+{
+  "incoming_ximg": 215,
+  "matched_current_baseline": 211,
+  "unknown_or_new": 4,
+  "matched_current_payload_bytes": 662861424,
+  "matched_usm_payload_bytes": 468456820,
+  "usm_rgba8_candidates": [
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__01.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__02.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__03.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__04.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__05.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    }
+  ],
+  "note": "Hypothetical package overlay, not a running-process residency measurement. Existing pak/p00/p01/p02 order; loose files and future Union archives require a new inventory.",
+  "textures": [
+    {
+      "path": "_special/G3_Nature_Plant_Herbs_Composit_01_Diffuse_S1.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "_special/G3_Nature_Plant_Mushrooms_Composit_01_Diffuse_S1.ximg",
+      "before_archive": null,
+      "before": null,
+      "usm": {
+        "width": 512,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "_special/G3_Special_Waterfall_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "_special/G3_Special_Waterfall_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__01.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__02.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__03.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__04.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "_special/G3_World_Lowpoly_Myrtana_01_Diffuse__05.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "RGBA8",
+        "payload": 22369620
+      }
+    },
+    {
+      "path": "effects/VFX_Blood_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      },
+      "usm": {
+        "width": 128,
+        "height": 64,
+        "mips": 7,
+        "format": "DXT3",
+        "payload": 10944
+      }
+    },
+    {
+      "path": "effects/VFX_Collision_Sparks_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 16,
+        "height": 16,
+        "mips": 5,
+        "format": "DXT1",
+        "payload": 184
+      },
+      "usm": {
+        "width": 32,
+        "height": 32,
+        "mips": 6,
+        "format": "DXT3",
+        "payload": 1392
+      }
+    },
+    {
+      "path": "effects/VFX_Collision_Sparks_02.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 16,
+        "height": 32,
+        "mips": 5,
+        "format": "DXT1",
+        "payload": 352
+      },
+      "usm": {
+        "width": 64,
+        "height": 128,
+        "mips": 7,
+        "format": "DXT3",
+        "payload": 10944
+      }
+    },
+    {
+      "path": "effects/VFX_Env_Candle_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      },
+      "usm": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 87408
+      }
+    },
+    {
+      "path": "effects/VFX_Env_Coalglow_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 349536
+      },
+      "usm": {
+        "width": 512,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "effects/VFX_Env_Fire_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 1398112
+      },
+      "usm": {
+        "width": 512,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_Fireball_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_IceCrystal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_Lightning_HeavenZap_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 1024,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 699072
+      },
+      "usm": {
+        "width": 1024,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 699072
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_Lightning_Projectile_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 87408
+      },
+      "usm": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 87408
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_Lightning_SideZap_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_LightningHold_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT1",
+        "payload": 43704
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_Spark_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 32,
+        "height": 32,
+        "mips": 6,
+        "format": "DXT1",
+        "payload": 696
+      },
+      "usm": {
+        "width": 64,
+        "height": 64,
+        "mips": 7,
+        "format": "DXT3",
+        "payload": 5488
+      }
+    },
+    {
+      "path": "effects/VFX_Magic_Spark_02.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 16,
+        "height": 16,
+        "mips": 5,
+        "format": "DXT1",
+        "payload": 184
+      },
+      "usm": {
+        "width": 32,
+        "height": 32,
+        "mips": 6,
+        "format": "DXT3",
+        "payload": 1392
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Beliar_Statue_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Brickmud_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Brickmud_01_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Bricks_01_Diffuse_03.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Bricks_01_Diffuse_04.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Bricks_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Bricks_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Bricks_03_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Bricks_04_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Bricks_04_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_BricksBroken_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Coarse_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Drapery_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Gold_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Gravestone_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Ground_City_02_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Ground_City_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Ground_City_03_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Ground_City_04_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_GroundStone_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_GroundStone_02_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Iron_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Iron_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Metal_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 87408
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Metal_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 2796224
+      },
+      "usm": {
+        "width": 512,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Metal_05_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 1398112
+      },
+      "usm": {
+        "width": 512,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Metal_06_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Metal_V_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 1024,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 349536
+      },
+      "usm": {
+        "width": 128,
+        "height": 256,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 43712
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_Bucket_w_Logs_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_bucket1_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 699072
+      },
+      "usm": {
+        "width": 256,
+        "height": 128,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 43712
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_dunghill_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 87408
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_dunghill_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 699104
+      },
+      "usm": {
+        "width": 2048,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 699104
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_Plow_01_LOD0_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_strawbale_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_strawbale_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 87408
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_strawbale_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 699104
+      },
+      "usm": {
+        "width": 1024,
+        "height": 128,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 174816
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Prop_strawbale_07_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Rock_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Rock_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Roofshingle_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Roofshingle_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Rooftile_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_SlaveCastle_05_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_stairHouse_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Architecture_stairHouse_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_StairHouse_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_StairHouse_02_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Strawroof_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Strawroof_01_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Strawroof_01_Diffuse_03.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Strawroof_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Strawroof_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Strawroof_02_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wall_Stone_08_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wall_Stone_09_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wall_Stone_09_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wall_Stone_09_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wall_Stone_10_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 174776
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wall_Stone_10_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_WallHouse_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_WallHouse_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 256,
+        "height": 2048,
+        "mips": 9,
+        "format": "DXT1",
+        "payload": 349552
+      },
+      "usm": {
+        "width": 128,
+        "height": 1024,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 174816
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_01_Diffuse_04.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 256,
+        "height": 2048,
+        "mips": 9,
+        "format": "DXT1",
+        "payload": 349552
+      },
+      "usm": {
+        "width": 128,
+        "height": 1024,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 174816
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_02_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 256,
+        "height": 2048,
+        "mips": 9,
+        "format": "DXT1",
+        "payload": 349552
+      },
+      "usm": {
+        "width": 128,
+        "height": 1024,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 174816
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_04_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_04_Diffuse_03.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_04_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_05_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_06_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_07_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_08_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_08_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_09_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Wood_Burned_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Woodclean_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_Woodclean_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Architecture_woodwall_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Architecture_woodwall_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Desert_Object_Flag_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 2048,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 2796224
+      },
+      "usm": {
+        "width": 256,
+        "height": 512,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "level/G3_Desert_Object_Flag_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Desert_Ruins_Ground_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Decal_Farn_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Decal_Farn_01_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Dunes_PlainSand_02_Diffuse_03.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      }
+    },
+    {
+      "path": "level/G3_Nature_Dunes_PlainSand_02_Normal_03.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Dunes_PlainSand_02_Specular_03.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      }
+    },
+    {
+      "path": "level/G3_Nature_Earthground_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Earthground_01_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Earthground_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Earthground_01_Normal_02.ximg",
+      "before_archive": null,
+      "before": null,
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Earth_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Earth_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Forest_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Forest_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Forest_01_Specular_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 174776
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_02_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_03_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_07_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Grass_07_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_01_Specular_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 174776
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_05_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_05_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_05_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_05_Specular_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_06_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Gravel_06_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Path_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Path_02_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Ground_Path_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_LizardSkeleton_01_Diffuse_02.ximg",
+      "before_archive": null,
+      "before": null,
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      }
+    },
+    {
+      "path": "level/G3_Nature_LizardSkeleton_01_Normal_02.ximg",
+      "before_archive": null,
+      "before": null,
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Plant_Leaf_07_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 2048,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 2796224
+      },
+      "usm": {
+        "width": 256,
+        "height": 512,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "level/G3_Nature_Plant_Mushroom_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Tree_Root_01_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_04_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_05_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_05_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_07_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_07_Diffuse_04.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_07_Diffuse_05.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_07_Normal_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_07_Specular_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_07_V_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_09_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_09_Diffuse_04.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_11_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_12_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_12_Diffuse_04.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_12_Diffuse_05.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_12_Diffuse_06.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_12_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Nature_Wall_Stone_14_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      }
+    },
+    {
+      "path": "level/G3_Object_Varant_Banner_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Object_Varant_Carpet_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Object_Varant_Sheet_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Objects_Banner_Orcs_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 2048,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 2796224
+      },
+      "usm": {
+        "width": 256,
+        "height": 512,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "level/G3_Objects_Banner_Orcs_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Objects_Barrelmetal_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 1024,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 349536
+      },
+      "usm": {
+        "width": 128,
+        "height": 256,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 43712
+      }
+    },
+    {
+      "path": "level/G3_Objects_Cabinet_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Objects_Carpet_04_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 2048,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 1398112
+      },
+      "usm": {
+        "width": 256,
+        "height": 512,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 174784
+      }
+    },
+    {
+      "path": "level/G3_Objects_InnosStatueBody_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Objects_Interact_Alchemy_Table_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Objects_Interact_Alchemy_Table_01_Specular_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 174776
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Objects_Interact_Alchemy_Table_LOD1_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Objects_Interact_Alchemy_Table_LOD1_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Objects_Interact_Alchemy_Table_LOD1_01_Specular_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Objects_Interact_Cauldron_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT1",
+        "payload": 2796216
+      },
+      "usm": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "level/G3_Objects_Wood_01_Diffuse_02.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "level/G3_Special_Water_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 349552
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "level/G3_Special_Water_01_Normal_02.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 512,
+        "height": 1024,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 699072
+      },
+      "usm": {
+        "width": 1024,
+        "height": 2048,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 2796224
+      }
+    },
+    {
+      "path": "level/G3_Special_Water_01_Normal_04.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "sky/MOON.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "sky/RainAndSnow.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 512,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 349552
+      },
+      "usm": {
+        "width": 128,
+        "height": 128,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 21872
+      }
+    },
+    {
+      "path": "sky/sun_00.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT1",
+        "payload": 43704
+      }
+    },
+    {
+      "path": "sky/sun_01.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 128,
+        "height": 128,
+        "mips": 8,
+        "format": "DXT1",
+        "payload": 10936
+      },
+      "usm": {
+        "width": 128,
+        "height": 128,
+        "mips": 8,
+        "format": "DXT3",
+        "payload": 21872
+      }
+    },
+    {
+      "path": "sky/sun_02.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 128,
+        "height": 128,
+        "mips": 8,
+        "format": "DXT1",
+        "payload": 10936
+      },
+      "usm": {
+        "width": 128,
+        "height": 128,
+        "mips": 8,
+        "format": "DXT1",
+        "payload": 10936
+      }
+    },
+    {
+      "path": "sky/sun_03.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 64,
+        "height": 64,
+        "mips": 7,
+        "format": "DXT1",
+        "payload": 2744
+      },
+      "usm": {
+        "width": 64,
+        "height": 64,
+        "mips": 7,
+        "format": "DXT1",
+        "payload": 2744
+      }
+    },
+    {
+      "path": "sky/sun_04.ximg",
+      "before_archive": "_compiledImage.pak",
+      "before": {
+        "width": 16,
+        "height": 16,
+        "mips": 5,
+        "format": "DXT1",
+        "payload": 184
+      },
+      "usm": {
+        "width": 16,
+        "height": 16,
+        "mips": 5,
+        "format": "DXT1",
+        "payload": 184
+      }
+    },
+    {
+      "path": "sky/UNSUN5.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 1024,
+        "height": 1024,
+        "mips": 11,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 256,
+        "height": 256,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 87408
+      }
+    },
+    {
+      "path": "sky/Wolkentest_01_Absorbation_New.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "sky/Wolkentest_02_Absorbation_New.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT3",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "speedtree/G3_Speedtree_Misc_Composite_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "speedtree/G3_Speedtree_Misc_Composite_02_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      },
+      "usm": {
+        "width": 2048,
+        "height": 2048,
+        "mips": 12,
+        "format": "DXT5",
+        "payload": 5592432
+      }
+    },
+    {
+      "path": "speedtree/G3_Speedtree_Misc_Composite_03_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p02",
+      "before": {
+        "width": 1024,
+        "height": 2048,
+        "mips": 11,
+        "format": "DXT5",
+        "payload": 2796224
+      },
+      "usm": {
+        "width": 512,
+        "height": 1024,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 699072
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_CarolinaBuckthornBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_CarolinaBuckthornBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 256,
+        "height": 1024,
+        "mips": 9,
+        "format": "DXT5",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_DouglasFirBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 256,
+        "height": 1024,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_DouglasFirBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_HoneyLucustBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_HoneyLucustBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_LongleafPineBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 256,
+        "height": 1024,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_MontereyCypressBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_MontereyCypressBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_PagodaTreeBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_PagodaTreeBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_PinOakBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_PinOakBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_RedGumBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 256,
+        "height": 1024,
+        "mips": 9,
+        "format": "DXT3",
+        "payload": 349552
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_RedOakBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_RedOakBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_SycamoreBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT1",
+        "payload": 699064
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_UmbrellaThornBark_01_Diffuse_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT3",
+        "payload": 1398128
+      }
+    },
+    {
+      "path": "speedtree/G3_SpT_Bark_UmbrellaThornBark_01_Normal_01.ximg",
+      "before_archive": "_compiledImage.p01",
+      "before": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      },
+      "usm": {
+        "width": 512,
+        "height": 2048,
+        "mips": 10,
+        "format": "DXT5",
+        "payload": 1398128
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+LIBRARY Script_Gothic3VRDiagnostics
+EXPORTS
+    ScriptInit=_ScriptInit@0

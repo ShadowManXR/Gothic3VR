@@ -1,0 +1,38 @@
+{
+  "Format": 1,
+  "Description": "Four separate native patch downloads in installation order. Reference archive hashes identify the locally verified files; the VR installer validates the installed DLL profile separately.",
+  "Packages": [
+    {
+      "Order": 1,
+      "Name": "Community Patch 1.75.14",
+      "Filename": "Gothic_3_EE_Patch_v1.75.14_Int_Full.exe",
+      "Sha256": "2616ACF04D4146FEA3E42001E615B8E6E58E093313AD04509ECAD3783CF6DD46",
+      "DownloadUrl": "https://www.worldofgothic.de/dl/download_478.htm",
+      "Installation": "Run the installer after installing Gothic 3 and starting the flat game once."
+    },
+    {
+      "Order": 2,
+      "Name": "Update Pack 1.04.11",
+      "Filename": "Gothic_3_EE_v1.75_Int_Update_Pack_v1.04.11.exe",
+      "Sha256": "6A6D8F121E7A6D07BF4287FD7FF7CFE1B48FA23068519022526AB93CC0691616",
+      "DownloadUrl": "https://www.worldofgothic.de/dl/download_523.htm",
+      "Installation": "Run this EXE after Community Patch 1.75.14, before applying the Public Beta archive."
+    },
+    {
+      "Order": 3,
+      "Name": "Update Pack 1.05.10 Public Beta",
+      "Filename": "3. Update Pack v1.05.10 Public Beta.zip",
+      "Sha256": "27E3A267A8F0E6ECD0D687F5A7F511F1BAD14A899CC7390B8A03F4A42D0F238E",
+      "DownloadUrl": "https://forum.worldofplayers.de/forum/threads/1347969-Release-Gothic-3-v1-75-Update-Pack/page15",
+      "Installation": "Extract the entire ZIP over an existing Update Pack 1.04.11 installation, replacing its supplied files."
+    },
+    {
+      "Order": 4,
+      "Name": "Parallel Universe Patch 1.1.1",
+      "Filename": "Gothic_3_Parallel_Universe_Patch_v1.1.1.exe",
+      "Sha256": "B743676EC138811BE9C3BDA78A4BF5C38EB1C0F3E6E24479C8953CB8E6B2187D",
+      "DownloadUrl": "https://www.worldofgothic.de/dl/download_678.htm",
+      "Installation": "Run after the native updates. Follow the patch's included readme."
+    }
+  ]
+}

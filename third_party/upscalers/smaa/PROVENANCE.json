@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "SHA256": "1933BF43CE86BA71F7ED5F0FA94B148610C634DC3395B9BC67A817D51EE73AF2",
+      "Name": "AreaTex.h"
+    },
+    {
+      "SHA256": "2B848B67BA50AC40B53E11CF1CCDAEE2A190CA83B4652CBA695A5F1CE81F52AE",
+      "Name": "LICENSE.txt"
+    },
+    {
+      "SHA256": "2E9C8E68FF71832288977F9B3860BA0DDCE45BDB487B54C037A06761CCA3F88F",
+      "Name": "README.md"
+    },
+    {
+      "SHA256": "1FAC315AB5F87B60083C9B8387AF17F056204D3D1BF21500F2ACC5B3E8C1A37A",
+      "Name": "SearchTex.h"
+    },
+    {
+      "SHA256": "4DB53D92EF0B45661F8450303589FFABCE93C352CAE4282A6F32DD2B80EFBEB9",
+      "Name": "SMAA.hlsl"
+    }
+  ],
+  "Revision": "71c806a838bdd7d517df19192a20f0c61b3ca29d",
+  "Repository": "https://github.com/iryoku/smaa",
+  "LocalPatches": [
+    {
+      "File": "SMAA.hlsl",
+      "Description": "Bind LinearSampler to s0 and PointSampler to s1 for deterministic offline shader bindings; algorithm unchanged. Text normalized to LF.",
+      "SHA256": "fd8ae0d3e59570fcecf7233f8178b51f58aaeadff17ce73e717e9b7bc419c128"
+    }
+  ]
+}

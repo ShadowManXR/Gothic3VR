@@ -1,0 +1,55 @@
+--- a/src/d3d9/d3d9_device.h
++++ b/src/d3d9/d3d9_device.h
+@@ -239,6 +239,7 @@
+     friend class D3D9UserDefinedAnnotation;
+     friend class DxvkLegacyD3DDeviceBridge;
+     friend D3D9VkInteropDevice;
++    friend class D3D9VkInteropTexture;
+ 
+     using CbvIndex = D3D9ShaderResourceMapping::CbvIndex;
+   public:
+--- a/src/d3d9/d3d9_interop.h
++++ b/src/d3d9/d3d9_interop.h
+@@ -80,6 +80,7 @@
+ 
+     IUnknown*          m_interface;
+     D3D9CommonTexture* m_texture;
++    bool m_addressPinned = false;
+ 
+   };
+ 
+--- a/src/d3d9/d3d9_interop.cpp
++++ b/src/d3d9/d3d9_interop.cpp
+@@ -107,6 +107,8 @@
+           VkImage*              pHandle,
+           VkImageLayout*        pLayout,
+           VkImageCreateInfo*    pInfo) {
++    auto* device = m_texture->Device();
++    auto lock = device->LockDevice();
+     const Rc<DxvkImage> image = m_texture->GetImage();
+     
+     if (unlikely(!image)) {
+@@ -117,6 +119,23 @@
+         *pLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+ 
+       return D3DERR_NOTFOUND;
++    }
++
++    // Exported Vulkan handles escape DXVK's internal resource tracking. Keep
++    // their GPU address stable before exposing the handle: memory defrag can
++    // otherwise relocate the image between the caller's query and submission.
++    // Match the existing D3D11 LockImage path; do not disable defrag globally.
++    if (pHandle != nullptr && !m_addressPinned) {
++      bool pinned = false;
++      device->EmitCs([cImage = image, &pinned] (DxvkContext* ctx) {
++        DxvkImageUsageInfo usage;
++        usage.stableGpuAddress = VK_TRUE;
++        pinned = ctx->ensureImageCompatibility(cImage, usage);
++      });
++      device->SynchronizeCsThread(DxvkCsThread::SynchronizeAll);
++      if (!pinned)
++        return D3DERR_INVALIDCALL;
++      m_addressPinned = true;
+     }
+ 
+     const DxvkImageCreateInfo& info = image->info();

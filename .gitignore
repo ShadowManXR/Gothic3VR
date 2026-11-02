@@ -1,0 +1,32 @@
+/build/
+/logs/
+/backups/
+# Build products; intentional vendored runtime DLLs remain eligible for Git.
+/build-*/
+/out/
+/bin/
+**/CMakeFiles/
+CMakeCache.txt
+Testing/
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.idb
+*.tlog/
+__pycache__/
+*.py[cod]
+
+# Game binaries/decompilation and generated capture output are not plugin source.
+/experiments/REA/
+/experiments/**/offline-checks/
+*.log
+*.jsonl
+/stereo-test-verification.json
+/experiments/**/build/
+/experiments/**/build-*/
+/experiments/**/bin/
+/experiments/**/*.exe
+/experiments/**/*.dll
+*.user
+*.suo

@@ -1,0 +1,17 @@
+# Gothic 3 VR 0.16.0 — return-time testing
+
+**Historical guide:** superseded by FIXES-0.16.1.md. Its crossbow duration/lookup assumptions were corrected after headset feedback; use the current guide.
+
+This autonomous batch is built and checked locally. New headset behavior has not been accepted yet. Existing calibration is preserved. Launch from Gothic3VRLauncher with Quest 3/Virtual Desktop/VDXR as before; no unattended game probe was started.
+
+1. **Crossbow progression.** Right trigger still fires one bolt per deliberate press; left grip provides optional support. Reload now reads the native hero Cock duration and active crossbow perk multiplier. The verified 1.8-second motion yields approximately 1.8 / 1.2 / 0.9 seconds for base / Crossbow II / III. Use your normally learned skills. Check repeated shots and release before pressing again; a press while reloading should not queue a shot. A held trigger must not repeat. Menu/recenter must not skip reload. The launcher no longer offers a manual reload interval. Logs identify the chosen motion, duration and active tier.
+
+2. **Magic.** Equip a learned projectile spell or scroll through the native spellbook/quick slots, aim right and use right trigger. Compare launch direction with the reticle. Test a charged spell with hold/release, a targeted spell, a self spell and a scroll if available; compare mana/scroll use and native requirements. A staff that grants/enables magic must use the game's normal spell/perk equipment rules. Verify tracked left staff plus right casting hand when the native setup uses those slots. Magic shares Bow/Crossbow Aim stabilization and reticle On/Off; Save settings applies live.
+
+3. **2H swords/axes.** Heavy one-hand handling is enabled by default in 2H Melee. Without support, weapon rotation is deliberately slow, VR stroke damage is reduced to 20%, and unsupported hits have a 0.9-second interval. The actual tracked hand should remain immediate. Attach the left palm to the handle with left grip: steering and stroke damage return to the normal two-hand path. Walk/turn, release and recapture support, and check no free hit occurs on a mode change. 1H and Staff/Halberd should retain their accepted behavior. The checkbox can disable the new mechanic for comparison.
+
+4. **Full reach.** Extend, raise, cross and retract both empty hands; wrists should follow the calibrated controller targets beyond the old bone-length limit. Repeat with 1H/dual wield, bow, casting and staff. Attached support is intentionally constrained to its captured weapon contact. Check shoulders/elbows for visible deformation, and compare after joystick movement and recentering. This extends the rendered skeleton, not saved native anatomy or NPCs.
+
+Regression checks: menus and pointer, radial weapon/spell selection, damage recovery, draw/sheath camera, simultaneous physical/joystick movement, conversation return, bow draw/arrow position, dual wield and accepted Staff/Halberd palm contact. Save settings should preserve your resolution and calibration.
+
+Local evidence: 50/50 automated tests; 12/12 launcher page layout checks; visually inspected Magic and 2H pages; actual installed hero Cock motion duration parsed offline. Existing crossbow pose/fire/support were accepted in 0.15.0. Runtime VFS reload lookup, spell aiming/casting combinations, unsupported 2H feel and extended arm appearance still need these headset tests.

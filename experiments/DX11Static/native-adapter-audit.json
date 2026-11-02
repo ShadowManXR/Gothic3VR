@@ -1,0 +1,88 @@
+{
+  "result": "PASS",
+  "engine_sha256": "991cf674a9cf1bc60cddc204be0993e8251336f4d3471543a37846cc6840bf5a",
+  "adapter_sha256": "27f1c946e65ea6a0cd756d66b1a74736e909290fe88d6a02bddd02d57ac5d9dc",
+  "imports_verified": [
+    {
+      "module": "Engine.dll",
+      "symbol": "?GetEntityFlags@eCEntity@@QBEABUeSEntityFlags@@XZ",
+      "rva": "0x1b8040"
+    },
+    {
+      "module": "Engine.dll",
+      "symbol": "?GetWorldMatrix@eCEntity@@QBEABVbCMatrix@@XZ",
+      "rva": "0x227080"
+    },
+    {
+      "module": "Engine.dll",
+      "symbol": "?GetID@eCNode@@QAEAAVbCPropertyID@@XZ",
+      "rva": "0xf57e0"
+    },
+    {
+      "module": "SharedBase.dll",
+      "symbol": "?IsValid@bCPropertyID@@QBE_NXZ",
+      "rva": "0x5d810"
+    },
+    {
+      "module": "SharedBase.dll",
+      "symbol": "?GetCount@bCPropertyID@@QBEABKXZ",
+      "rva": "0x9e10"
+    },
+    {
+      "module": "SharedBase.dll",
+      "symbol": "?GetText@bCString@@QBEPBDXZ",
+      "rva": "0x5680"
+    },
+    {
+      "module": "SharedBase.dll",
+      "symbol": "?GetLength@bCString@@QBEHXZ",
+      "rva": "0x1ad0"
+    },
+    {
+      "module": "SharedBase.dll",
+      "symbol": "?GetInstance@bCMemoryAdmin@@SGAAV1@XZ",
+      "rva": "0xc800"
+    },
+    {
+      "module": "SharedBase.dll",
+      "symbol": "?DeleteObject@bCMemoryAdmin@@QAEXPAX@Z",
+      "rva": "0xc9e0"
+    },
+    {
+      "module": "SharedBase.dll",
+      "symbol": "?GetCore@bCPropertyID@@QBEABUbSCore@1@XZ",
+      "rva": "0xff70"
+    }
+  ],
+  "candidate_entries": [
+    {
+      "symbol": "?FillAlphaRenderOps@eCRenderContextMesh@@UAEXABVeCFrustumDatabase@@MAAV?$bTValArray@VeCRenderOp2@@@@1@Z",
+      "rva": "0x1d8dd0",
+      "prefix16": "83ec14558be90fb745246685c00f862b"
+    },
+    {
+      "symbol": "?FillSolidRenderOps@eCRenderContextMesh@@UAEXABVeCFrustumDatabase@@MAAV?$bTValArray@VeCRenderOp2@@@@1@Z",
+      "rva": "0x1d8cb0",
+      "prefix16": "83ec14558be90fb755246685d20f8600"
+    },
+    {
+      "symbol": "?GetWorldMatrix@eCEntity@@QBEABVbCMatrix@@XZ",
+      "rva": "0x227080",
+      "prefix16": "8d4140c3cccccccccccccccccccccccc"
+    },
+    {
+      "symbol": "?Render@eCRenderContextMesh@@UAE_NABVeCRenderOp2@@@Z",
+      "rva": "0x1d9210",
+      "prefix16": "83ec0c558b6c24148b4504578bf93b47"
+    },
+    {
+      "symbol": "?RenderZPass@eCRenderContextMesh@@UAE_N_N@Z",
+      "rva": "0x1d9170",
+      "prefix16": "83ec0c5356578bf18b7e0c83c740e8fd"
+    }
+  ],
+  "entry_points_are_not_approved_detours": true,
+  "hooks_installed": false,
+  "game_dlls_loaded": false,
+  "game_files_changed": false
+}

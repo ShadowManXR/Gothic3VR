@@ -1,0 +1,3 @@
+LIBRARY Gothic3VRResolution
+EXPORTS
+    PatchInit=_PatchInit@0

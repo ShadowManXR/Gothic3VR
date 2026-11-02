@@ -1,0 +1,48 @@
+{
+  "generator": "built-in image_gen",
+  "format": "128x128 BGRA premultiplied alpha, maximum alpha 239; compiled into plugin",
+  "entries": [
+    {
+      "name": "sneak",
+      "source_sha256": "203822c7d3b427bb04e8a72bc71e42c43f0a50439cdf53fc8b573a5962ad2823",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "output_pixels": [
+        128,
+        128
+      ],
+      "png_sha256": "2201ce12542f3320e479f6636be9bb71d2f3f61629b17e8f052d823f784f84c0",
+      "visible_pixels": 4451
+    },
+    {
+      "name": "parry",
+      "source_sha256": "964bf64b2b0d5774bf010246be652e12399ede62df5d4ffc764c401224382cd9",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_pixels": [
+        128,
+        128
+      ],
+      "png_sha256": "e995196aa22a7b4ab7ca543bccd0880ec7115eb0d8b02fea40fa0ae563f3c675",
+      "visible_pixels": 6419
+    },
+    {
+      "name": "kill",
+      "source_sha256": "df0297f9ad884587db703e26309bc1132bb820d89945288aac80b5c92d52080e",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "output_pixels": [
+        128,
+        128
+      ],
+      "png_sha256": "fb882cd65038810aad36f27adef3c74e6b81172e315245447991d94ae0ab914e",
+      "visible_pixels": 6969
+    }
+  ]
+}
