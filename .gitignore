@@ -30,3 +30,10 @@ __pycache__/
 /experiments/**/*.dll
 *.user
 *.suo
+
+# Historical development reports stay out of the published source tree.
+/BATCH-*.md
+/FIXES-*.md
+/docs/FIXES-*.md
+/docs/history/
+/release/STATUS.md

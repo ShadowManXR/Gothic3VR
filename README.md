@@ -70,8 +70,6 @@ This delegates to the same `release/Deploy.ps1` used by Setup, including process
 
 `src/` contains the plugin, launcher and runtime bridges; `tests/` contains validation; `tools/` contains development helpers; `release/` contains deployment and packaging; `third_party/` contains dependency material and notices. Experimental source is kept under `experiments/`; generated captures, game binaries/decompilations and build outputs are excluded from Git.
 
-Historical diagnostic notes are archived in [docs/history](docs/history/DIAGNOSTICS-ARCHIVE.md). They are not current installation instructions or a list of enabled release features.
-
 ## License and credits
 
 Project code is **GPL-3.0-or-later**; see [LICENSE](LICENSE). This declaration does not relicense third-party code, commercial game content, trademarks, custom artwork or music. See [third-party notices](THIRD-PARTY-NOTICES.md) for dependency notices and asset scope. The commercial game and its native patch binaries are not supplied by this source repository.
