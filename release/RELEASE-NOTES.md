@@ -1,4 +1,6 @@
-# Gothic 3 VR 1.0.9
+# Gothic 3 VR 1.0.2
+
+Launcher and release version: 1.0.2. Includes the HUD and interaction work developed as versions 1.0.2 through 1.0.9.
 
 - Added optional fast pickup on Interaction and a Third-person view launcher page with independent dialogue, chest, lectern and camera-orbit controls. Existing comfort behavior remains enabled by default; disabling restores the corresponding native behavior.
 
