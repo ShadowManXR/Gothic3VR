@@ -54,7 +54,45 @@ int Framing(){
     origin[0]=std::numeric_limits<float>::quiet_NaN();CHECK(!FrameDialogCamera(origin,root,offset,view,100,unused,base));
     return 0;
 }
+int PlayerView(){
+    for(float units:{50.f,100.f,200.f}){
+        DialogCameraLock camera;float root[3]{10000,300,-12000},base[3]{root[0]+.12f*units,root[1]+1.7f*units,root[2]+.2f*units};
+        float angles[3]{0,.65f,0};auto gameplay=NativeCameraRotation(angles);
+        CHECK(camera.RememberPlayer(1,gameplay,base,root,units));
+        float sideAngles[3]{.4f,2.2f,.3f};auto sideView=NativeCameraRotation(sideAngles);
+        CHECK(camera.CapturePlayer(1,root,sideView,9*units,4*units,units));
+        float out[3]{};Rotation3 view;CHECK(camera.ApplyPlayer(1,root,view,out));
+        CHECK(Same(out,base)&&RotationError(view,gameplay)<.0001f);
+        for(unsigned frame=0;frame<300;++frame){
+            float movedRoot[3]{root[0]+frame*.02f*units,root[1]+std::sin(frame*.1f)*.1f*units,root[2]-frame*.01f*units};
+            CHECK(camera.CapturePlayer(1,movedRoot,sideView,12*units,8*units,units));
+            CHECK(camera.ApplyPlayer(1,movedRoot,view,out)&&RotationError(view,gameplay)<.0001f);
+            for(unsigned i=0;i<3;++i)CHECK(std::fabs((out[i]-movedRoot[i])-(base[i]-root[i]))<.003f);
+        }
+        CHECK(!camera.ApplyPlayer(2,root,view,out));
+        Orientation center{};float xrOrigin[3]{0,1.65f,0};StereoEyePose eye{};eye.position[1]=1.65f;eye.quaternion[3]=1;
+        float before[3],after[3],euler[3];CHECK(camera.ApplyPlayer(1,root,view,out));
+        CHECK(GameEyeTransform(view,out,center,xrOrigin,eye,units,before,euler));
+        eye.position[0]=.15f;eye.position[1]-=.1f;eye.quaternion[1]=std::sin(.2f);eye.quaternion[3]=std::cos(.2f);
+        CHECK(GameEyeTransform(view,out,center,xrOrigin,eye,units,after,euler));
+        float distance=0;for(unsigned i=0;i<3;++i)distance+=(after[i]-before[i])*(after[i]-before[i]);
+        CHECK(std::fabs(std::sqrt(distance)-std::sqrt(.15f*.15f+.1f*.1f)*units)<.003f);
+        CHECK(RotationError(NativeCameraRotation(euler),view)>.1f&&center.w==1&&xrOrigin[1]==1.65f);
+        camera.Release();CHECK(!camera.Active());
+        base[1]+=.1f*units;CHECK(camera.RememberPlayer(1,gameplay,base,root,units));
+        CHECK(camera.CapturePlayer(1,root,sideView,9*units,4*units,units)&&camera.ApplyPlayer(1,root,view,out)&&Same(base,out));
+        // World reset/cold-load cannot reuse a prior hero's pose or a native side shot.
+        camera.Reset();CHECK(camera.CapturePlayer(2,root,gameplay,1.65f*units,.2f*units,units));
+        CHECK(camera.ApplyPlayer(2,root,view,out)&&RotationError(view,gameplay)<.0001f);
+        CHECK(std::fabs(out[1]-root[1]-1.65f*units)<.003f&&std::hypot(out[0]-root[0],out[2]-root[2])<.21f*units);
+        camera.Reset();CHECK(!camera.CapturePlayer(2,root,gameplay,165,20,0));
+        root[0]=std::numeric_limits<float>::quiet_NaN();CHECK(!camera.RememberPlayer(2,gameplay,base,root,units));
+        CHECK(!camera.CapturePlayer(2,root,gameplay,165,20,units));
+    }
+    return 0;
+}
 int main(){
+    CHECK(PlayerView()==0);
     CHECK(Framing()==0);
     DialogCameraLock camera;float position[3]{100,180,-240},angles[3]{.12f,.65f,0};auto native=NativeCameraRotation(angles);
     auto original=native;float originalPosition[3]{100,180,-240},base[3]{};Rotation3 rotation;
@@ -95,5 +133,5 @@ int main(){
     position[1]=150;native.m[0]=2;CHECK(!camera.Capture(true,2,native,position));
     CHECK(camera.Capture(true,2,original,position)&&camera.Apply(2,rotation,base));
     CHECK(!camera.Capture(true,0,original,position)&&!camera.Active());
-    puts("PASS fixed dialogue framing across native orbits/cuts, stereo IPD, immediate 6DoF, intact XR center, exit/actor/world reset and invalid initial data");return 0;
+    puts("PASS player dialogue view, cold entry, root movement, native cuts ignored, stereo IPD, immediate 6DoF, intact XR center, exit/actor/world reset and invalid initial data");return 0;
 }

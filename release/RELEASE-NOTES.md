@@ -1,4 +1,10 @@
-# Gothic 3 VR 1.0.6
+# Gothic 3 VR 1.0.7
+
+- Dialogue now retains the VR player's first-person viewpoint instead of moving to a side/third-person shot. Native speaker cuts and dialogue camera orbit no longer reposition the rendered VR camera.
+- Headset look, room-scale movement and stereo depth remain active. Native dialogue scripts, camera AI, subtitles, choices, voice and quest logic continue normally.
+- Reuses the calibrated gameplay view; dialogue opened without a prior gameplay frame uses the player's facing and calibrated eye height.
+
+## Previous release: 1.0.6
 
 - Removed the VR player's native 500 ms pickup wait and the animations immediately before and after world-item inventory transfer.
 - The original script still handles inventory insertion, stack amounts, quick-slot assignment and pickup rules. NPC and non-VR pickups, other interactions and instruction cancellation retain their native behavior.

@@ -44,14 +44,15 @@ bool FrameDialogCamera(float const (&origin)[3],float const (&player)[3],
     for(unsigned i=0;i<3;++i)base[i]=chosen[i]-headOffset[i];
     return true;
 }
-// Freeze the native dialogue framing, not the tracked eyes. This owns only a
-// copied render base; it never disables the camera AI or modifies NPC scripts.
+// A render-only dialogue anchor. Remember the gameplay view BEFORE native
+// dialogue shots begin; keep the camera AI and conversation scripts running.
 class DialogCameraLock {
-    uintptr_t actor=0;
-    Rotation3 rotation;
-    float position[3]{};
+    uintptr_t actor=0,remembered=0;
+    Rotation3 rotation,gameplayRotation;
+    float position[3]{},capturedRoot[3]{},gameplayOffset[3]{},gameplayUnits=0;
 public:
-    void Reset(){actor=0;}
+    void Reset(){actor=remembered=0;}
+    void Release(){actor=0;}
     bool Active()const{return actor!=0;}
     bool Active(uintptr_t player)const{return actor!=0&&actor==player;}
     bool Capture(bool dialog,uintptr_t player,Rotation3 const& native,float const (&origin)[3]){
@@ -70,6 +71,35 @@ public:
     bool Apply(uintptr_t player,Rotation3& outRotation,float (&outPosition)[3])const{
         if(!actor||actor!=player)return false;
         outRotation=rotation;for(unsigned i=0;i<3;++i)outPosition[i]=position[i];return true;
+    }
+    bool RememberPlayer(uintptr_t player,Rotation3 const& view,float const (&base)[3],float const (&root)[3],float units){
+        if(actor)return false;
+        remembered=0;DialogCameraLock validated;
+        if(!std::isfinite(units)||units<=0||!validated.Capture(true,player,view,base))return false;
+        for(unsigned i=0;i<3;++i)if(!std::isfinite(root[i])||!std::isfinite(base[i]-root[i]))return false;
+        remembered=player;gameplayRotation=view;gameplayUnits=units;
+        for(unsigned i=0;i<3;++i)gameplayOffset[i]=base[i]-root[i];return true;
+    }
+    bool CapturePlayer(uintptr_t player,float const (&root)[3],Rotation3 const& facing,float height,float forward,float units){
+        if(!player||!std::isfinite(units)||units<=0)return false;
+        for(float value:root)if(!std::isfinite(value))return false;
+        if(Active(player))return true;
+        Rotation3 view=facing;float base[3]{};
+        if(remembered==player&&gameplayUnits==units){view=gameplayRotation;
+            for(unsigned i=0;i<3;++i)base[i]=root[i]+gameplayOffset[i];
+        }else{
+            if(!std::isfinite(height)||!std::isfinite(forward))return false;
+            float yaw=0;if(!HorizontalHeading(view,yaw))return false;
+            base[0]=root[0]+std::sin(yaw)*forward;base[1]=root[1]+height;base[2]=root[2]+std::cos(yaw)*forward;
+        }
+        // Capture preserves an existing entry; a changed hero starts afresh.
+        if(!Capture(true,player,view,base))return false;
+        for(unsigned i=0;i<3;++i)capturedRoot[i]=root[i];return true;
+    }
+    bool ApplyPlayer(uintptr_t player,float const (&root)[3],Rotation3& view,float (&base)[3])const{
+        if(!Active(player))return false;
+        float moved[3];for(unsigned i=0;i<3;++i){moved[i]=position[i]+root[i]-capturedRoot[i];if(!std::isfinite(moved[i]))return false;}
+        view=rotation;for(unsigned i=0;i<3;++i)base[i]=moved[i];return true;
     }
 };
 }

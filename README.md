@@ -1,6 +1,6 @@
 # Gothic 3 VR
 
-Version **1.0.6**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
+Version **1.0.7**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
 ## Install and play
 
@@ -22,6 +22,8 @@ Windows 10/11 x64, an SSD, a PC VR headset and two tracked controllers are requi
 - [INI tweaks](docs/INI-TWEAKS.md)
 
 The VR radial quick-slot page shows the native item icons and current stack quantities for slots 1–9 and 0. Slot numbers remain visible; empty slots keep their numbered placeholders.
+
+VR dialogue keeps the player's first-person viewpoint and live headset tracking, without the native side-view shots or dialogue camera orbit. Conversation scripts, dialogue choices, subtitles, voice and quest progression continue through the original game logic.
 
 In VR, world-item pickups skip the native 500 ms wait and the animations around inventory transfer. The game's original pickup script still performs the transfer and applies its normal rules. NPCs, non-VR play, chests, mining, crafting, and other activities retain their existing behavior.
 

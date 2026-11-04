@@ -104,7 +104,7 @@ int main() {
     check(!diagnostic::ComfortFirstPerson(state,true,false,false)&&!diagnostic::ComfortFirstPerson(state,false,true,false),"uncalibrated or voluntarily third-person cameras do not fabricate a first-person origin");
     state.firstPerson=true;
     check(!diagnostic::ComfortFirstPerson(state,true,false,true)&&diagnostic::ComfortFirstPerson(state,true,true,true),"first loading waits for the real camera height while later mode switches retain calibration");
-    state.dialog=true;check(!diagnostic::ComfortFirstPerson(state,true,true,false),"conversations retain their native third-person camera");
+    state.dialog=true;check(!diagnostic::ComfortFirstPerson(state,true,true,false),"conversation camera flags remain native; the rendered dialogue view is controlled separately");
     state.dialog=false;state.animal=true;check(!diagnostic::ComfortFirstPerson(state,true,true,false),"animal transformation overrides persistent first-person without leaving VR");
     check(diagnostic::StereoCameraAllowed(state,true),"animal camera remains in an existing stereo session");
     state.animal=false;check(diagnostic::ComfortFirstPerson(state,true,true,false),"human form resumes first-person policy");
