@@ -1,5 +1,9 @@
 # Gothic 3 VR
 
+**Created and maintained by PeCOS2k5.**
+
+[Official downloads](https://github.com/PeCOS2k5/Gothic3VR/releases) · [Official Nexus Mods page](https://www.nexusmods.com/gothic3/mods/115) · [Authors and credits](AUTHORS.md) · [Project identity](BRANDING.md) · [Verify a release](docs/VERIFY-RELEASES.md)
+
 Version **1.0.9**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
 ## Install and play
@@ -89,5 +93,7 @@ This delegates to the same `release/Deploy.ps1` used by Setup, including process
 ## License and credits
 
 Project code is **GPL-3.0-or-later**; see [LICENSE](LICENSE). This declaration does not relicense third-party code, commercial game content, trademarks, custom artwork or music. See [third-party notices](THIRD-PARTY-NOTICES.md) for dependency notices and asset scope. The commercial game and its native patch binaries are not supplied by this source repository.
+
+Modified versions are welcome under the GPL. Preserve applicable notices and identify your changes; independently maintained builds must not be presented as official PeCOS2k5 releases. See [AUTHORS.md](AUTHORS.md) and [BRANDING.md](BRANDING.md).
 
 Gothic 3 is the work of its original developers and rights holders. Gothic 3 SDK is by Georgeto and contributors. Thanks to the authors of the native patches, OpenXR/OpenVR, Union+ and the included graphics dependencies.

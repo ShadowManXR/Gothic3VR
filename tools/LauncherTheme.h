@@ -63,7 +63,7 @@ void PaintCanvas(HDC dc,bool present=true){
   UiText(mem,L"SETTINGS",25,111,170,18,smallFont,Muted);
   UiText(mem,L"PC VR · OPENXR · v1.0.9",15,40,200,20,smallFont,Gold,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
   for(auto const& p:panels)if(!p.heading.empty())UiText(mem,p.heading,p.x+22,p.y+15,p.w-44,22,sectionFont,Gold);
-  UiText(mem,L"Controller mapping",25,h-83,180,24,navFont,Ink);UiText(mem,L"Customize buttons in Settings",25,h-57,180,22,smallFont,Muted);
+  UiText(mem,L"By PeCOS2k5",25,h-87,180,24,navFont,Ink);
   SelectObject(mem,old);DeleteDC(mem);
  }
  if(present){HDC mem=CreateCompatibleDC(dc);auto old=SelectObject(mem,canvas);BitBlt(dc,0,0,c.right,c.bottom,mem,0,0,SRCCOPY);SelectObject(mem,old);DeleteDC(mem);}

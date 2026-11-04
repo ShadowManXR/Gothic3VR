@@ -1,3 +1,6 @@
+// Gothic 3 VR — project created and maintained by PeCOS2k5.
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Original and third-party credits: AUTHORS.md and THIRD-PARTY-NOTICES.md.
 #include "UnionProtection.h"
 #include "UnionStarterAudit.h"
 #include "LauncherCore.h"

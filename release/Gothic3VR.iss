@@ -7,8 +7,9 @@
 AppId={{872AAFD4-B6F2-4BE7-812F-2D5B19A22425}
 AppName=Gothic 3 VR
 AppVersion={#Version}
-AppPublisher=Gothic 3 VR
-AppSupportURL=https://ko-fi.com/pecos2k5
+AppPublisher=PeCOS2k5
+AppPublisherURL=https://github.com/PeCOS2k5/Gothic3VR
+AppSupportURL=https://github.com/PeCOS2k5/Gothic3VR/issues
 DefaultDirName={code:FindGame}
 AppendDefaultDirName=no
 DisableDirPage=no
@@ -68,6 +69,9 @@ Source: "{#PackageDir}\OPTIONAL-MODS-UNION.md"; DestDir: "{localappdata}\Gothic3
 Source: "{#PackageDir}\VR-MOD-COMPATIBILITY.md"; DestDir: "{localappdata}\Gothic3VR\Setup"; Flags: ignoreversion
 Source: "{#PackageDir}\Gothic3VR-{#Version}-Source.zip"; DestDir: "{localappdata}\Gothic3VR\Setup"; Flags: ignoreversion
 Source: "{#PackageDir}\THIRD-PARTY-NOTICES.txt"; DestDir: "{localappdata}\Gothic3VR\Setup"; Flags: ignoreversion
+Source: "{#PackageDir}\AUTHORS.md"; DestDir: "{localappdata}\Gothic3VR\Setup"; Flags: ignoreversion
+Source: "{#PackageDir}\BRANDING.md"; DestDir: "{localappdata}\Gothic3VR\Setup"; Flags: ignoreversion
+Source: "{#PackageDir}\VERIFY-RELEASES.md"; DestDir: "{localappdata}\Gothic3VR\Setup"; Flags: ignoreversion
 Source: "{#PackageDir}\licenses\*"; DestDir: "{localappdata}\Gothic3VR\Setup\licenses"; Flags: ignoreversion
 
 [Icons]

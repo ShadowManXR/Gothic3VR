@@ -1,3 +1,6 @@
+// Gothic 3 VR — project created and maintained by PeCOS2k5.
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Original and third-party credits: AUTHORS.md and THIRD-PARTY-NOTICES.md.
 #include <windows.h>
 #include <commctrl.h>
 #include <commdlg.h>
@@ -24,7 +27,7 @@
 namespace {
 HINSTANCE instance;HWND window,pathEdit,status,preview;
 HWND tracks[diagnostic::VrNumberCount],edits[diagnostic::VrNumberCount],labels[diagnostic::VrNumberCount],units[diagnostic::VrNumberCount];
-HWND title,subtitle,pathLabel,browse,save,reset,launch,donate,hint;
+HWND title,subtitle,pathLabel,browse,save,reset,launch,donate,about,hint;
 HWND resolutionLabel,resolutionCombo,resolutionHint;
 HWND ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint;
 HWND ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit;
@@ -56,6 +59,7 @@ constexpr int UnionNotes=48;
 constexpr int EffectsQuality=49;
 constexpr int Donate=50,FfrTransitionTrack=55,FfrTransitionEdit=56;
 constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61,HandHud=62;
+constexpr int About=63;
 constexpr wchar_t DonationUrl[]=L"https://ko-fi.com/pecos2k5";
 int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
@@ -110,6 +114,7 @@ void GraphicsPreview(){
     EnableWindow(graphicsTracks[1],enabled);EnableWindow(graphicsEdits[1],enabled);
 }
 #include "LauncherTheme.h"
+#include "LauncherAbout.h"
 #include "ModCompatibilityView.h"
 void UpdateNativeTooltipRects();
 #include "LauncherLayout.h"
@@ -308,6 +313,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         status=Control(L"STATIC",L"Connect your headset through the selected OpenXR runtime before launching.",0);
         reset=Control(L"BUTTON",L"Defaults",WS_TABSTOP,Reset);save=Control(L"BUTTON",L"Save settings",WS_TABSTOP,Save);
         donate=Control(L"BUTTON",L"Donate",WS_TABSTOP,Donate);
+        about=Control(L"BUTTON",L"About / Credits",WS_TABSTOP,About);
         launch=Control(L"BUTTON",L"Save and launch",WS_TABSTOP|BS_DEFPUSHBUTTON,Launch);CreateNativeIniControls();CreateControllerMapper();SetTimer(h,MapperTimer,100,nullptr);Fill();Layout();return 0;
     case WM_TIMER:if(w==MapperTimer){TickControllerMapper();return 0;}break;
     case WM_SIZE:Layout();return 0;
@@ -339,7 +345,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
             if((kind==diagnostic::ini_tweaks::Kind::Number&&HIWORD(w)==EN_CHANGE)||(kind==diagnostic::ini_tweaks::Kind::Choice&&HIWORD(w)==CBN_SELCHANGE)||(kind==diagnostic::ini_tweaks::Kind::Toggle&&HIWORD(w)==BN_CLICKED)){
                 if(kind==diagnostic::ini_tweaks::Kind::Number){BOOL valid=FALSE;int value=int(GetDlgItemInt(h,IniValueBase+i,&valid,TRUE));if(valid){nativeIni.values[i]=value;SendMessageW(iniTracks[i],TBM_SETPOS,TRUE,value);}}
                 nativeIniDirty=true;Message(L"INI tweaks changed. Close Gothic 3, then Save settings; restart required.");return 0;}}
-        switch(LOWORD(w)){case Browse:ChooseGame();break;case Save:SaveSettings();break;case Donate:OpenDonation();break;case IDOK:case Launch:LaunchGame();break;case IDCANCEL:SendMessageW(h,WM_CLOSE,0,0);break;
+        switch(LOWORD(w)){case Browse:ChooseGame();break;case Save:SaveSettings();break;case Donate:OpenDonation();break;case About:OpenAbout();break;case IDOK:case Launch:LaunchGame();break;case IDCANCEL:SendMessageW(h,WM_CLOSE,0,0);break;
         case UnionBrowse:ChooseUnion();break;case UnionOpen:OpenUnion(false);break;case UnionCheck:OpenUnion(true);break;
         case UnionNotes:OpenModNotes();break;
         case UnionPage:TabCtrl_SetCurSel(settingsTabs,ModsPage);Layout();SetFocus(unionOpen);break;

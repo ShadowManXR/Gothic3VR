@@ -124,6 +124,9 @@ def build(args):
         shutil.copy2(ROOT / 'release' / name, out / name)
     for name in ('OPTIONAL-MODS-UNION.md', 'VR-MOD-COMPATIBILITY.md', 'CONTROLLER-COMPATIBILITY.md', 'ITEM-LOCATOR.md', 'INI-TWEAKS.md'):
         shutil.copy2(ROOT / 'docs' / name, out / name)
+    for name in ('AUTHORS.md', 'BRANDING.md'):
+        shutil.copy2(ROOT / name, out / name)
+    shutil.copy2(ROOT / 'docs/VERIFY-RELEASES.md', out / 'VERIFY-RELEASES.md')
     # Local, self-contained HTML; no remote scripts, fonts, tracking or assets.
     md = (out / 'START-HERE.md').read_text(encoding='utf-8')
     body = markdown_html(md)
@@ -166,6 +169,9 @@ Gothic 3 VR 1.0 — public release package.
         if 'LICENSE' in f['Path'].upper(): shutil.copy2(f['source'], licenses / Path(f['Path']).name)
     (out / 'THIRD-PARTY-NOTICES.txt').write_text(f'''Gothic 3 VR {VERSION} — third-party notices
 
+Original VR project creator and maintainer: PeCOS2k5. Official project: https://github.com/PeCOS2k5/Gothic3VR
+See AUTHORS.md and BRANDING.md for project credits, official channels and asset scope.
+
 Gothic 3 and its artwork remain the property of their respective owners. This is an unofficial VR modification. A separately purchased game is required.
 
 Gothic 3 SDK: Copyright (C) 2013-2025 Georgeto, GNU GPL version 3 or later. The VR plugin uses these bindings. The accompanying source archive contains the project, bindings, build scripts and applicable notices. See licenses/GPL-3.0.txt and licenses/GOTHIC3SDK-LICENSE.txt.
@@ -193,7 +199,7 @@ Main-menu music and custom visual assets are creator-supplied. Third-party conte
                 if p.is_file() and not any(x in p.parts for x in ('.git','__pycache__','node_modules')):
                     z.write(p, 'gothic3vr/' + p.relative_to(ROOT).as_posix())
         z.write(ROOT / 'CMakeLists.txt', 'gothic3vr/CMakeLists.txt')
-        for name in ('README.md', 'LICENSE', 'THIRD-PARTY-NOTICES.md', '.gitignore'):
+        for name in ('README.md', 'LICENSE', 'AUTHORS.md', 'BRANDING.md', 'THIRD-PARTY-NOTICES.md', '.gitignore'):
             z.write(ROOT / name, 'gothic3vr/' + name)
         z.write(ROOT / 'Script_Gothic3VRDiagnostics.ini', 'gothic3vr/Script_Gothic3VRDiagnostics.ini')
         for p in args.sdk.rglob('*'):
