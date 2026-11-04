@@ -362,8 +362,9 @@ set_target_properties(Gothic3VRVdxrProbe PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${
 
 include(CTest)
 enable_language(RC)
+configure_file(tools/LauncherVersion.h.in "${CMAKE_BINARY_DIR}/generated/launcher/LauncherVersion.h" @ONLY)
 add_executable(Gothic3VRLauncher WIN32 tools/Launcher.cpp tools/Launcher.rc)
-target_include_directories(Gothic3VRLauncher PRIVATE src)
+target_include_directories(Gothic3VRLauncher PRIVATE src "${CMAKE_BINARY_DIR}/generated/launcher")
 target_compile_features(Gothic3VRLauncher PRIVATE cxx_std_17)
 target_compile_definitions(Gothic3VRLauncher PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX UNICODE _UNICODE)
 target_link_libraries(Gothic3VRLauncher PRIVATE comctl32 comdlg32 shell32 user32 gdi32 gdiplus ole32 uxtheme)

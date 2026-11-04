@@ -2,7 +2,7 @@
 #pragma once
 
 constexpr int NavBase=500;
-wchar_t const* PageNames[PageCount]={L"Camera & controls",L"HUD & menus",L"Interaction",L"Left hand",L"Right hand",L"1H melee weapon",L"Bow",L"2H melee",L"Staff / Halberd",L"Crossbow",L"Magic",L"Radial menu",L"Shield",L"Graphics",L"Foveated rendering",L"Optional mods",L"INI tweaks",L"Controller mapping",L"Hand HUD"};
+wchar_t const* PageNames[PageCount]={L"Camera & controls",L"HUD & menus",L"Interaction",L"Left hand",L"Right hand",L"1H melee weapon",L"Bow",L"2H melee",L"Staff / Halberd",L"Crossbow",L"Magic",L"Radial menu",L"Shield",L"Graphics",L"Foveated rendering",L"Optional mods",L"INI tweaks",L"Controller mapping"};
 wchar_t const* PageDescriptions[PageCount]={
  L"Your view into Myrtana. Calibrate the camera and choose how you play.",
  L"Keep the interface comfortable, readable and within reach.",
@@ -21,8 +21,7 @@ wchar_t const* PageDescriptions[PageCount]={
  L"Keep the center sharp while reducing peripheral shading cost.",
  L"Manage optional Union+ mods with protection for your VR installation.",
  L"Tune native visibility, world simulation and graphics. Restart required.",
- L"Assign OpenXR controller buttons, double taps and two-button combinations.",
- L"Independent displays on the lower arms. Offsets use each display's local axes."
+ L"Assign OpenXR controller buttons, double taps and two-button combinations."
 };
 HWND navigation[PageCount]{};
 HFONT smallFont{},navFont{},brandFont{},sectionFont{};
@@ -61,7 +60,8 @@ void PaintCanvas(HDC dc,bool present=true){
   // One larger G3 VR emblem in the top-right header; no duplicate wordmark.
   auto icon=LoadImageW(instance,MAKEINTRESOURCEW(101),IMAGE_ICON,Scale(88),Scale(88),LR_SHARED);DrawIconEx(mem,Scale(w-118),Scale(8),HICON(icon),Scale(88),Scale(88),0,nullptr,DI_NORMAL);
   UiText(mem,L"SETTINGS",25,111,170,18,smallFont,Muted);
-  UiText(mem,L"PC VR · OPENXR · v1.0.9",15,40,200,20,smallFont,Gold,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
+  UiText(mem,L"PC VR  ·  OPENXR",25,40,180,20,smallFont,Gold,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
+  UiText(mem,L"Version " G3VR_LAUNCHER_VERSION_WIDE,25,65,180,18,smallFont,Muted,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
   for(auto const& p:panels)if(!p.heading.empty())UiText(mem,p.heading,p.x+22,p.y+15,p.w-44,22,sectionFont,Gold);
   UiText(mem,L"By PeCOS2k5",25,h-87,180,24,navFont,Ink);
   SelectObject(mem,old);DeleteDC(mem);
