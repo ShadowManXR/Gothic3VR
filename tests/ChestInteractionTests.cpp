@@ -1,4 +1,5 @@
 #include "ChestInteraction.h"
+#include "LecternInteraction.h"
 #include "ChestSkinPose.h"
 #include "DialogCameraLock.h"
 #include "RenderAlphaSnapshot.h"
@@ -9,6 +10,17 @@ using namespace diagnostic;
 #define CHECK(x) do{if(!(x)){printf("FAIL %d: %s\n",__LINE__,#x);return 1;}}while(0)
 void __cdecl Alpha(void* object,float value){*static_cast<float*>(object)=value;}
 int main(){
+    CHECK(LecternInteraction(true,96,nullptr,nullptr));
+    for(auto state:{"PS_Interact","PS_Interact_Bookstand","PS_Interact_End"}){
+        CHECK(LecternInteraction(true,0,state,nullptr));
+        CHECK(LecternInteraction(true,0,nullptr,state));
+        CHECK(!LecternInteraction(false,0,state,state));
+    }
+    CHECK(LecternInteraction(false,0,"PS_Interact_End",nullptr,true));
+    CHECK(!LecternInteraction(false,0,"PS_Normal_Loop",nullptr,true));
+    CHECK(!LecternInteraction(false,96,"PS_Interact_Bookstand",nullptr));
+    for(auto state:{"PS_Interact_Chest","PS_Interact_CampFire","PS_Interact_BookstandOther","PS_Normal_Take"})
+        CHECK(!LecternInteraction(true,0,state,nullptr));
     for(auto state:{"PS_Interact","PS_Interact_Chest","PS_Interact_Chest_Loop","PS_Interact_End"}){
         CHECK(ChestInteraction(true,0,state,state));CHECK(!ChestInteraction(false,0,state,state));}
     CHECK(ChestInteraction(true,99,nullptr,nullptr)&&ChestInteraction(true,100,nullptr,nullptr));

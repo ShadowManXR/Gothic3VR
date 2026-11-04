@@ -1,4 +1,9 @@
-# Gothic 3 VR 1.0.8
+# Gothic 3 VR 1.0.9
+
+- Lectern reading retains the calibrated first-person VR viewpoint with live headset tracking, including the return from reading.
+- Native reading animations, text, learning rewards, interaction timing and scripts remain unchanged.
+
+## Previous release: 1.0.8
 
 - Chest interactions keep the calibrated first-person VR viewpoint instead of switching to the native interaction camera or orbit.
 - Keep that viewpoint through chest closing until the native first-person camera has settled, and hide stowed back weapons in both eyes throughout the interaction.

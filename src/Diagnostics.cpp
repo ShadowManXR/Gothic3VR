@@ -50,6 +50,7 @@
 #include "NativeHandHud.h"
 #include "NativePickup.h"
 #include "NativeChestVisual.h"
+#include "NativeLecternCamera.h"
 #include "ControllerMappingIpc.h"
 #include "NativeMagicHandEffects.h"
 #include "RenderAlphaSnapshot.h"
@@ -144,7 +145,7 @@ diagnostic::NativeRadialItems gNativeRadialItems;
 diagnostic::NativeHandHud gHandHud;
 diagnostic::NativePickup gPickup;
 diagnostic::NativeChestVisual gChestVisual;
-diagnostic::ChestViewTransition gChestView;
+diagnostic::ChestViewTransition gChestView,gLecternView;
 diagnostic::NativeTrackedBow gTrackedBow;
 diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gParticleWorldHook,gSignpostFocusHook;
 diagnostic::FocusHook gFocusNameSizeHook;
@@ -377,7 +378,7 @@ struct StereoState
     float nativePosition[3]{},nativeRotation[3]{};
     float heightOffsetUnits=0;
     bool firstPerson=false;uintptr_t player=0;float playerPosition[3]{};diagnostic::CameraHeightAnchor heightAnchor;
-    bool dialog=false,chest=false;uintptr_t dialogPlayer=0;
+    bool dialog=false,chest=false,lectern=false;uintptr_t dialogPlayer=0;
     diagnostic::NativeCameraStabilizer cameraStabilizer;
     bool basePrepared=false,holdPlayerHeading=false,playerHeadingValid=false;
     diagnostic::Rotation3 frameBaseRotation,lastPlayerRotation;
@@ -1710,7 +1711,7 @@ void StopStereo()
     gCombatMovementRecovery.Reset();
     RestoreCurrentBodyFacing();gHeadBodyHeading.Reset();
     gKnockoutCamera.Reset();gActivityCameraGate.Reset();gCameraReturn.Reset();
-    gChestVisual.Reset();gChestView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=false;gStereo.dialogPlayer=0;
+    gChestVisual.Reset();gChestView.Reset();gLecternView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=gStereo.lectern=false;gStereo.dialogPlayer=0;
     RestoreCurrentHeroVoice();
     gFlameTargets.Reset();gTorchParticles.Reset();gParticleWorld.End();
     ReleaseNativeSneak();
@@ -1944,7 +1945,7 @@ void StereoCameraBase(CameraSnapshot const& saved,diagnostic::Rotation3& native,
 {
     if(gStereo.rendering&&gStereo.basePrepared){native=gStereo.frameBaseRotation;memcpy(basePosition,gStereo.frameBasePosition,sizeof(basePosition));return;}
     memcpy(basePosition,saved.position,sizeof(basePosition));native=diagnostic::NativeCameraRotation(saved.rotation);
-    if((gStereo.dialog||gStereo.chest)&&gDialogCamera.ApplyPlayer(gStereo.dialogPlayer,gStereo.playerPosition,native,basePosition))return;
+    if((gStereo.dialog||gStereo.chest||gStereo.lectern)&&gDialogCamera.ApplyPlayer(gStereo.dialogPlayer,gStereo.playerPosition,native,basePosition))return;
     if(!gStereo.firstPerson){ApplyThirdPersonOrbit(native,basePosition);return;}
     if(gStereo.firstPerson){
         if(gVrSettings.stableHorizon){
@@ -1977,7 +1978,7 @@ float DialogCameraClearance(float const (&pivot)[3],float const (&eye)[3],eCEnti
     return result;
 }
 void ApplyThirdPersonOrbit(diagnostic::Rotation3& rotation,float (&position)[3]){
-    if(gStereo.dialog||gStereo.chest||!gVrSettings.thirdPersonOrbit||!gApplication||!gApplication->IsGameRunning())return;
+    if(gStereo.dialog||gStereo.chest||gStereo.lectern||!gVrSettings.thirdPersonOrbit||!gApplication||!gApplication->IsGameRunning())return;
     auto* player=gCSession::GetInstance().GetPlayer();if(!diagnostic::Readable(player,sizeof(eCDynamicEntity))||!gThirdPersonOrbit.Requested(reinterpret_cast<uintptr_t>(player)))return;
     // Free third-person locomotion must retain the native camera/heading link.
     // Only stationary activities and recovery own a render-only orbit.
@@ -1993,7 +1994,7 @@ void ApplyThirdPersonOrbit(diagnostic::Rotation3& rotation,float (&position)[3])
 void PrepareComfortCameraBase(CameraSnapshot const& saved,diagnostic::HeadPose const&)
 {
     bool wasDialogLocked=gDialogCamera.Active();
-    if((gStereo.dialog||gStereo.chest)&&gStereo.dialogPlayer){
+    if((gStereo.dialog||gStereo.chest||gStereo.lectern)&&gStereo.dialogPlayer){
         auto* player=reinterpret_cast<eCDynamicEntity*>(gStereo.dialogPlayer);
         diagnostic::Rotation3 facing=gStereo.lastPlayerRotation;
         if(!gStereo.playerHeadingValid){auto const& world=player->GetWorldMatrix();
@@ -2003,7 +2004,7 @@ void PrepareComfortCameraBase(CameraSnapshot const& saved,diagnostic::HeadPose c
         gDialogCamera.CapturePlayer(gStereo.dialogPlayer,gStereo.playerPosition,facing,height,
             float(gVrSettings.numbers[6])*.01f*gConfig.unitsPerMeter,gConfig.unitsPerMeter);
     }else gDialogCamera.Release();
-    if(!wasDialogLocked&&gDialogCamera.Active())Message(gStereo.chest?"vr_chest_camera_player_view; live_head_tracking; chest_logic_native":"vr_dialog_camera_player_view; native_shots_ignored; live_head_tracking; dialogue_logic_native",0,true);
+    if(!wasDialogLocked&&gDialogCamera.Active())Message(gStereo.lectern?"vr_lectern_camera_player_view; live_head_tracking; reading_logic_native":gStereo.chest?"vr_chest_camera_player_view; live_head_tracking; chest_logic_native":"vr_dialog_camera_player_view; native_shots_ignored; live_head_tracking; dialogue_logic_native",0,true);
     bool stabilized=gStereo.firstPerson&&gStereo.player&&gVrSettings.stableHorizon;
     if(stabilized&&gVrSettings.smoothCamera){
         LARGE_INTEGER now;QueryPerformanceCounter(&now);
@@ -2011,7 +2012,7 @@ void PrepareComfortCameraBase(CameraSnapshot const& saved,diagnostic::HeadPose c
         gStereo.cameraStabilizer.Update(gStereo.player,gStereo.playerPosition,seconds,gConfig.unitsPerMeter,gVrSettings.cameraSmoothingMs,gVrSettings.cameraVerticalSmoothingMs);
     }else gStereo.cameraStabilizer.Reset();
     gStereo.basePrepared=false;StereoCameraBase(saved,gStereo.frameBaseRotation,gStereo.frameBasePosition);gStereo.basePrepared=true;
-    if(!gStereo.dialog&&!gStereo.chest){
+    if(!gStereo.dialog&&!gStereo.chest&&!gStereo.lectern){
         if(gStereo.firstPerson&&gStereo.player)gDialogCamera.RememberPlayer(gStereo.player,gStereo.frameBaseRotation,gStereo.frameBasePosition,gStereo.playerPosition,gConfig.unitsPerMeter);
         else gDialogCamera.Reset();
     }
@@ -2547,8 +2548,11 @@ bool PrepareStereoFrame(eCCameraBase* camera,diagnostic::StereoFrame& frame)
     bool chestCameraReady=cameraState.modeAvailable&&(cameraState.firstPerson||cameraState.tempFirstPerson)&&!cameraState.activity&&!cameraState.dialog&&
         gAutoFirstPersonProcess!=gProcess.load(std::memory_order_relaxed)&&GetTickCount64()>=gHumanHeightRestoreUntil;
     gStereo.chest=gChestView.Step(reinterpret_cast<uintptr_t>(chestPlayer),chestAllowed,chestRequested,chestCameraReady,GetTickCount64());
+    bool lecternAllowed=chestAllowed&&!gStereo.chest;
+    bool lecternRequested=lecternAllowed&&diagnostic::NativeLecternInteraction(chestPlayer,gStereo.lectern);
+    gStereo.lectern=gLecternView.Step(reinterpret_cast<uintptr_t>(chestPlayer),lecternAllowed,lecternRequested,chestCameraReady,GetTickCount64());
     gStereo.dialogPlayer=0;
-    if(gStereo.dialog||gStereo.chest){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity)))gStereo.dialogPlayer=reinterpret_cast<uintptr_t>(player);}
+    if(gStereo.dialog||gStereo.chest||gStereo.lectern){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity)))gStereo.dialogPlayer=reinterpret_cast<uintptr_t>(player);}
     else if(gDialogCamera.Active()){gDialogCamera.Release();Message("vr_dialog_camera_released; normal_camera_policy_resumed",0,true);}
     if(!diagnostic::StereoCameraAllowed(cameraState,gStereoRuntime.Connected())&&!gVrSettings.autoStart)return false;
     if(cameraState.gameRunning&&gConfig.keepFirstPerson&&!gFirstPersonLockAttempted)
@@ -2563,14 +2567,14 @@ bool PrepareStereoFrame(eCCameraBase* camera,diagnostic::StereoFrame& frame)
     // position during that transition frame.
     if(!cameraState.gameRunning){gHumanHeightSaved=false;gAnimalCameraActive=gActivityCameraActive=false;gHumanHeightRestoreUntil=0;}
     gStereo.heightAnchor.Context(cameraState.gameRunning,gVrSettings.stableHorizon);
-    gStereo.player=0;if(cameraState.gameRunning&&(gVrSettings.stableHorizon||gStereo.dialog||gStereo.chest)){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity))){gStereo.player=reinterpret_cast<uintptr_t>(player);auto root=player->GetWorldPosition();gStereo.playerPosition[0]=root.m_fX;gStereo.playerPosition[1]=root.m_fY;gStereo.playerPosition[2]=root.m_fZ;}}
+    gStereo.player=0;if(cameraState.gameRunning&&(gVrSettings.stableHorizon||gStereo.dialog||gStereo.chest||gStereo.lectern)){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity))){gStereo.player=reinterpret_cast<uintptr_t>(player);auto root=player->GetWorldPosition();gStereo.playerPosition[0]=root.m_fX;gStereo.playerPosition[1]=root.m_fY;gStereo.playerPosition[2]=root.m_fZ;}}
     bool switching=gAutoFirstPersonProcess==gProcess.load(std::memory_order_relaxed)||GetTickCount64()<gHumanHeightRestoreUntil;
     gStereo.firstPerson=diagnostic::ComfortFirstPerson(cameraState,gConfig.keepFirstPerson,gStereo.heightAnchor.Calibrated(gStereo.player),switching);
     gStereo.holdPlayerHeading=gStereo.firstPerson&&(!(cameraState.firstPerson||cameraState.tempFirstPerson)||switching||gFinisher.Busy(reinterpret_cast<eCEntity*>(gStereo.player)));
-    gStereo.heightOffsetUnits=(gStereo.firstPerson||gStereo.dialog||gStereo.chest)?gConfig.firstPersonHeightOffsetCm*.01f*gConfig.unitsPerMeter:0.f;
+    gStereo.heightOffsetUnits=(gStereo.firstPerson||gStereo.dialog||gStereo.chest||gStereo.lectern)?gConfig.firstPersonHeightOffsetCm*.01f*gConfig.unitsPerMeter:0.f;
     if(!gStereo.firstPerson||!gVrSettings.stableHorizon||!gVrSettings.smoothCamera)gStereo.cameraStabilizer.Reset();
     if(!cameraState.gameRunning||!gVrSettings.stableHorizon)gStereo.playerHeadingValid=false;
-    gStereo.hidePlayerHead=gConfig.hideFirstPersonHead&&(gStereo.firstPerson||gStereo.dialog||gStereo.chest);
+    gStereo.hidePlayerHead=gConfig.hideFirstPersonHead&&(gStereo.firstPerson||gStereo.dialog||gStereo.chest||gStereo.lectern);
     auto currentMode=diagnostic::CameraMode(cameraState);
     if(gStereo.cameraMode!=int(currentMode))
     {
@@ -2714,7 +2718,7 @@ void ReleaseWorldBindings(bool restoreAmmo)
     gTrackedArms.ResetBodyPosture();
     RestoreCurrentBodyFacing();gHeadBodyHeading.Reset();
     gKnockoutCamera.Reset();gActivityCameraGate.Reset();gCameraReturn.Reset();
-    gChestVisual.Reset();gChestView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=false;gStereo.dialogPlayer=0;
+    gChestVisual.Reset();gChestView.Reset();gLecternView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=gStereo.lectern=false;gStereo.dialogPlayer=0;
     RestoreCurrentHeroVoice();
     gFlameTargets.Reset();
     // Invoked before native Stop clears the player and destroys the old world.
@@ -3775,7 +3779,7 @@ void UpdateQuestControllers()
     // unequipped interaction, ranged weapons and the radial keep their bindings.
     auto* combatPlayer=gApplication&&gApplication->IsGameRunning()?gCSession::GetInstance().GetPlayer():nullptr;
     bool activity=diagnostic::NativeActivity(combatPlayer);
-    bool orbitContext=allowed&&gVrSettings.thirdPersonOrbit&&!gStereo.dialog&&!gStereo.chest&&!gStereo.firstPerson&&!animal&&gApplication&&gApplication->IsGameRunning()&&diagnostic::Readable(combatPlayer,sizeof(eCDynamicEntity))&&
+    bool orbitContext=allowed&&gVrSettings.thirdPersonOrbit&&!gStereo.dialog&&!gStereo.chest&&!gStereo.lectern&&!gStereo.firstPerson&&!animal&&gApplication&&gApplication->IsGameRunning()&&diagnostic::Readable(combatPlayer,sizeof(eCDynamicEntity))&&
         (CameraThirdPersonActivity(combatPlayer)||diagnostic::NativeRecovery(combatPlayer));
     unsigned orbitMode=orbitContext?(diagnostic::NativeRecovery(combatPlayer)?2:3):0;
     static unsigned lastOrbitMode=0;if(orbitMode!=lastOrbitMode){lastOrbitMode=orbitMode;Event event=Record(Kind::Message);sprintf_s(event.text,"vr_third_person_orbit_context mode=%u; render_only; native_actor_facing_preserved",orbitMode);Push(event,true);}
