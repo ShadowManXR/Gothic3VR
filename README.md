@@ -1,6 +1,6 @@
 # Gothic 3 VR
 
-Version **1.0.3**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
+Version **1.0.4**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
 ## Install and play
 
@@ -23,7 +23,7 @@ Windows 10/11 x64, an SSD, a PC VR headset and two tracked controllers are requi
 
 The VR radial quick-slot page shows the native item icons and current stack quantities for slots 1–9 and 0. Slot numbers remain visible; empty slots keep their numbered placeholders.
 
-The launcher's **HUD** page includes **Hide compass** (off by default). Save settings to apply it live while VR is active. The same option is `[Stereo] HideCompass=1` in `scripts/Script_Gothic3VRDiagnostics.ini`; set it to `0` to restore the compass.
+The launcher's **HUD & menus** page has independent **Show compass**, **Show slot bar**, and **Show health / mana / stamina panel** options. All three are off for new configurations and Defaults. Save settings to apply changes live in VR. Existing explicit preferences are preserved. The INI keys under `[Stereo]` are `HideCompass` (default `1`), `ShowSlotBar` (default `0`), and `ShowVitalsPanel` (default `0`). The VR radial remains available when the native slot bar is hidden. The slot bar and health/mana/stamina block, including their frames and backgrounds, always appear while the inventory is open; closing it restores your saved visibility options.
 
 ## Report a bug
 

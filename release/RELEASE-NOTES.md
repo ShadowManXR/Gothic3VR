@@ -1,4 +1,13 @@
-# Gothic 3 VR 1.0.3
+# Gothic 3 VR 1.0.4
+
+- Fixed leftover quick-slot and player-vital frames/backgrounds when their gameplay HUD options are disabled.
+- Inventory always shows the complete quick-slot bar and health/mana/stamina block; closing inventory restores the saved options.
+
+- Added independent launcher controls for the native compass, slot bar, and health/mana/stamina panel.
+- All three HUD displays are disabled in new configurations and when restoring Defaults. Saved explicit preferences remain intact.
+- HUD visibility changes apply live in VR; item actions, status values, and the radial menu keep working while the corresponding native widgets are hidden.
+
+## Previous release: 1.0.3
 
 - Added native quick-slot item icons and live stack quantities to the VR radial item wheel.
 - Corrected the radial icon lookup to use native slot digits (1–9, then 0), matching the quick-slot key sent on confirmation.

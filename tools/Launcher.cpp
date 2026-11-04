@@ -32,7 +32,7 @@ HWND graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,graphicsLabels[2],
 HWND aaLabel,aaCombo;
 HWND effectsLabel,effectsCombo;
 HWND runtimeLabel,runtimeCombo;
-HWND handsOnlyCheck,toggleSupportCheck,hideCompassCheck;
+HWND handsOnlyCheck,toggleSupportCheck,compassCheck,slotBarCheck,vitalsPanelCheck;
 HWND unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionHint,unionNotes;
 HWND unionShortcut;
 HWND iniLabels[diagnostic::ini_tweaks::Count]{},iniTracks[diagnostic::ini_tweaks::Count]{},iniValues[diagnostic::ini_tweaks::Count]{},iniUnits[diagnostic::ini_tweaks::Count]{};
@@ -55,7 +55,7 @@ constexpr int RuntimeChoice=47;
 constexpr int UnionNotes=48;
 constexpr int EffectsQuality=49;
 constexpr int Donate=50,FfrTransitionTrack=55,FfrTransitionEdit=56;
-constexpr int HandsOnly=57,ToggleSupport=58,HideCompass=59;
+constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61;
 constexpr wchar_t DonationUrl[]=L"https://ko-fi.com/pecos2k5";
 int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
@@ -133,7 +133,9 @@ void Fill() {
         SendMessageW(tracks[i],TBM_SETPOS,TRUE,settings.numbers[i]);SetDlgItemInt(window,EditBase+i,UINT(settings.numbers[i]),TRUE);}
     SendMessageW(aimTrack,TBM_SETRANGEMIN,FALSE,diagnostic::InteractionAimMinimum);SendMessageW(aimTrack,TBM_SETRANGEMAX,FALSE,diagnostic::InteractionAimMaximum);
     SendMessageW(aimTrack,TBM_SETPOS,TRUE,settings.interactionAimUpPercent);SetDlgItemInt(window,AimEdit,UINT(settings.interactionAimUpPercent),TRUE);
-    SendMessageW(hideCompassCheck,BM_SETCHECK,settings.hideCompass?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(compassCheck,BM_SETCHECK,settings.hideCompass?BST_UNCHECKED:BST_CHECKED,0);
+    SendMessageW(slotBarCheck,BM_SETCHECK,settings.showSlotBar?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(vitalsPanelCheck,BM_SETCHECK,settings.showVitalsPanel?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(bowReticleCheck,BM_SETCHECK,settings.bowReticle?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(heavyCheck,BM_SETCHECK,settings.heavyTwoHand?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(twoHandCheck,BM_SETCHECK,settings.twoHandedMelee?BST_CHECKED:BST_UNCHECKED,0);
@@ -174,7 +176,9 @@ bool Collect() {
     if(aimEnd==aimText||*aimEnd||aimValue<diagnostic::InteractionAimMinimum||aimValue>diagnostic::InteractionAimMaximum){
         Message(L"Selection vertical aim: enter a value between -200 and 200 %.",true);TabCtrl_SetCurSel(settingsTabs,InteractionPage);Layout();SetFocus(aimEdit);return false;}
     settings.interactionAimUpPercent=int(aimValue);
-    settings.hideCompass=SendMessageW(hideCompassCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.hideCompass=SendMessageW(compassCheck,BM_GETCHECK,0,0)!=BST_CHECKED;
+    settings.showSlotBar=SendMessageW(slotBarCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.showVitalsPanel=SendMessageW(vitalsPanelCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.bowReticle=SendMessageW(bowReticleCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.twoHandedMelee=SendMessageW(twoHandCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.handsOnly=SendMessageW(handsOnlyCheck,BM_GETCHECK,0,0)==BST_CHECKED;
@@ -284,7 +288,9 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         radialHint=Control(L"STATIC",L"Radial size changes independently of native menus and HUD.\n80% = smaller; 100% = the previous size. Save settings applies live.\nMenu: main menu / back. L3 tap: Sprint until stop. Double-tap left trigger: quick heal.\nDouble-tap Y: toggle Sneak; eye icon and vibration follow native state.\nRadial: R3 opens, right stick selects, A confirms, X cancels, B changes page.\nTrading: right grip = one item; right trigger = drag a stack.",0);
         handHint=Control(L"STATIC",L"Position offsets place the palm relative to the controller grip; rotations pivot at the palm.\nStart at 0 cm. Positive outward moves away from the other hand. Save settings applies live.",0);
         swordHint=Control(L"STATIC",L"Weight adds inertia; stabilization reduces jitter. Both at 0 = direct tracking.\nSave settings applies live to both 1H hands, including dual wield.",0);
-        hideCompassCheck=Control(L"BUTTON",L"Hide compass",WS_TABSTOP|BS_AUTOCHECKBOX,HideCompass);
+        compassCheck=Control(L"BUTTON",L"Show compass",WS_TABSTOP|BS_AUTOCHECKBOX,ShowCompass);
+        slotBarCheck=Control(L"BUTTON",L"Show slot bar",WS_TABSTOP|BS_AUTOCHECKBOX,ShowSlotBar);
+        vitalsPanelCheck=Control(L"BUTTON",L"Show health / mana / stamina panel",WS_TABSTOP|BS_AUTOCHECKBOX,ShowVitalsPanel);
         bowReticleCheck=Control(L"BUTTON",L"Aiming reticle (bow / crossbow / magic)",WS_TABSTOP|BS_AUTOCHECKBOX,BowReticle);
         bowHint=Control(L"STATIC",L"Right trigger: draw and release. String-hand influence: 0 = left-hand aim only.",0);
         bowGripHint=Control(L"STATIC",L"Grip offsets move only the bow, not your hand.\nToward fingers: away from the wrist.\nPalm depth: toward the palm surface.\nAcross palm: sideways along the grip.\nThe arrow stays above the grip. Save applies live.",0);
@@ -341,7 +347,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         case AntiAliasing:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Anti-aliasing applies after restarting the game. HUD and menus remain unfiltered.");}break;
         case EffectsQuality:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Fire & magic effect quality applies live with Save settings. Original restores native visuals.");}break;
         case RuntimeChoice:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Runtime changes apply after restarting the game. The Windows default runtime is unchanged.");}break;
-        case HideCompass:case BowReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
+        case ShowCompass:case ShowSlotBar:case ShowVitalsPanel:case BowReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
     case WM_CTLCOLOREDIT:case WM_CTLCOLORLISTBOX:SetBkColor(HDC(w),Field);SetTextColor(HDC(w),Ink);return reinterpret_cast<LRESULT>(editBrush);
     case WM_CTLCOLORSTATIC:case WM_CTLCOLORBTN:{
         wchar_t cls[64];GetClassNameW(HWND(l),cls,64);bool edit=!wcscmp(cls,L"Edit");SetBkMode(HDC(w),edit?OPAQUE:TRANSPARENT);SetBkColor(HDC(w),edit?Field:Card);SetTextColor(HDC(w),HWND(l)==subtitle||HWND(l)==status||HWND(l)==hint?Muted:Ink);
@@ -400,10 +406,12 @@ bool UiInteractionCheck(wchar_t const* path){
     TabCtrl_SetCurSel(settingsTabs,FoveatedPage);Layout();
     for(int width:{0,15,30}){SendMessageW(ffrTransitionTrack,TBM_SETPOS,TRUE,width);SendMessageW(window,WM_HSCROLL,TB_THUMBPOSITION,LPARAM(ffrTransitionTrack));ok=Collect()&&ok;ok=ok&&settings.ffrTransitionPercent==width;}
     settings=original;Fill();
-    for(HWND check:{hideCompassCheck,bowReticleCheck,heavyCheck,twoHandCheck,handsOnlyCheck,toggleSupportCheck}){
-        TabCtrl_SetCurSel(settingsTabs,check==hideCompassCheck?HudPage:check==bowReticleCheck?BowPage:check==heavyCheck||check==twoHandCheck?TwoHandPage:CameraPage);Layout();
+    for(HWND check:{compassCheck,slotBarCheck,vitalsPanelCheck,bowReticleCheck,heavyCheck,twoHandCheck,handsOnlyCheck,toggleSupportCheck}){
+        TabCtrl_SetCurSel(settingsTabs,check==compassCheck||check==slotBarCheck||check==vitalsPanelCheck?HudPage:check==bowReticleCheck?BowPage:check==heavyCheck||check==twoHandCheck?TwoHandPage:CameraPage);Layout();
         auto before=SendMessageW(check,BM_GETCHECK,0,0);SendMessageW(check,BM_CLICK,0,0);if(SendMessageW(check,BM_GETCHECK,0,0)==before){report+=L"Toggle failed: "+std::to_wstring(GetDlgCtrlID(check))+L"\r\n";ok=false;}
-        if(check==hideCompassCheck){ok=Collect()&&ok;ok=ok&&settings.hideCompass==(before!=BST_CHECKED);}
+        if(check==compassCheck){ok=Collect()&&ok;ok=ok&&settings.hideCompass==(before==BST_CHECKED);}
+        if(check==slotBarCheck){ok=Collect()&&ok;ok=ok&&settings.showSlotBar==(before!=BST_CHECKED);}
+        if(check==vitalsPanelCheck){ok=Collect()&&ok;ok=ok&&settings.showVitalsPanel==(before!=BST_CHECKED);}
         if(check==handsOnlyCheck){ok=Collect()&&ok;ok=ok&&settings.handsOnly==(before!=BST_CHECKED);}
         if(check==toggleSupportCheck){ok=Collect()&&ok;ok=ok&&settings.toggleSupportGrip==(before!=BST_CHECKED);}
         SendMessageW(check,BM_CLICK,0,0);ok=ok&&SendMessageW(check,BM_GETCHECK,0,0)==before;
@@ -422,7 +430,7 @@ bool UiInteractionCheck(wchar_t const* path){
     SendMessageW(ffrCombo,CB_SETCURSEL,0,0);SendMessageW(graphicsCombo,CB_SETCURSEL,1,0);settings.dlaaExperimental=true;ok=Collect()&&ok;ok=ok&&!settings.dlaaExperimental&&settings.ffrMode==0&&int(settings.upscaleMethod)==1;
     settings=original;Fill();ok=Collect()&&ok;
     for(unsigned i=0;i<diagnostic::VrNumberCount;++i)if(settings.numbers[i]!=original.numbers[i]){report+=L"Value mismatch: "+std::to_wstring(i)+L"\r\n";ok=false;}
-    ok=ok&&settings.autoStart==original.autoStart&&settings.trackedArms==original.trackedArms&&settings.controllers==original.controllers&&settings.twoHandedMelee==original.twoHandedMelee&&settings.bowReticle==original.bowReticle&&settings.hideCompass==original.hideCompass&&settings.handsOnly==original.handsOnly&&settings.toggleSupportGrip==original.toggleSupportGrip;
+    ok=ok&&settings.autoStart==original.autoStart&&settings.trackedArms==original.trackedArms&&settings.controllers==original.controllers&&settings.twoHandedMelee==original.twoHandedMelee&&settings.bowReticle==original.bowReticle&&settings.hideCompass==original.hideCompass&&settings.showSlotBar==original.showSlotBar&&settings.showVitalsPanel==original.showVitalsPanel&&settings.handsOnly==original.handsOnly&&settings.toggleSupportGrip==original.toggleSupportGrip;
     settings=original;Fill();dirty=false;
     TabCtrl_SetCurSel(settingsTabs,CameraPage);Layout();auto before=settings.numbers[0];int next=before<diagnostic::VrNumbers[0].maximum?before+1:before-1;SendMessageW(tracks[0],TBM_SETPOS,TRUE,next);SendMessageW(window,WM_HSCROLL,TB_THUMBPOSITION,LPARAM(tracks[0]));BOOL valid=FALSE;ok=ok&&int(GetDlgItemInt(window,EditBase,&valid,TRUE))==next&&valid;settings=original;Fill();dirty=false;
     if(nativeIni.ready&&nativeIni.available[5]){

@@ -1,4 +1,5 @@
 #include "VrSettings.h"
+#include "HudVisibility.h"
 #include "LauncherFixedFeatures.h"
 #include <cstdio>
 #include <string>
@@ -6,7 +7,33 @@ int wmain(int argc, wchar_t** argv) {
     static_assert(diagnostic::VrNumberCount==87);
     unsigned failures=0;auto check=[&](bool ok,char const* name){printf("%s %s\n",ok?"PASS":"FAIL",name);failures+=!ok;};
     wchar_t directory[MAX_PATH],path[MAX_PATH];GetTempPathW(MAX_PATH,directory);GetTempFileNameW(directory,L"gvs",0,path);
-    check(!diagnostic::LoadVrSettings(path).hideCompass,"Compass stays visible for existing configurations");
+    check(diagnostic::LoadVrSettings(path).hideCompass&&!diagnostic::LoadVrSettings(path).showSlotBar&&!diagnostic::LoadVrSettings(path).showVitalsPanel,"All optional native HUD displays default to disabled when keys are missing");
+    for(unsigned mask=0;mask<8;++mask){diagnostic::VrSettings value;value.hideCompass=!(mask&1);value.showSlotBar=(mask&2)!=0;value.showVitalsPanel=(mask&4)!=0;value.numbers[2]=120;
+        diagnostic::ApplyLauncherFixedFeatures(value);bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
+        check(saved&&loaded.hideCompass==value.hideCompass&&loaded.showSlotBar==value.showSlotBar&&loaded.showVitalsPanel==value.showVitalsPanel&&loaded.numbers[2]==120,"Each HUD visibility combination persists independently of other HUD settings");
+        diagnostic::HudVisibility show{!loaded.hideCompass,loaded.showSlotBar,loaded.showVitalsPanel};
+        check(diagnostic::HiddenHudControl(20545,show)==loaded.hideCompass&&diagnostic::HiddenHudControl(20380,show)==!loaded.showSlotBar&&
+              diagnostic::HiddenHudControl(20384,show)==!loaded.showVitalsPanel,"Native compass, quick slots and player vitals respect independent toggles");
+    }
+    struct Widget {unsigned id;Widget* parent;};Widget root{0,nullptr},bar{20379,&root},decoration{99,&bar},health{20387,&root},healthLabel{42,&health},focus{20386,&root},inventory{20394,&root};
+    auto hidden=[](Widget* window,diagnostic::HudVisibility show={}){return diagnostic::HiddenHudWindow(window,show,[](Widget* w){return w->id;},[](Widget* w){return w->parent;});};
+    check(hidden(&decoration)&&hidden(&healthLabel),"Hidden HUD panels suppress decorative and label descendants as well as bars");
+    check(!hidden(&focus)&&!hidden(&inventory)&&!hidden(&root),"Target focus bar, inventory and unrelated HUD controls remain available");
+    check(!hidden(&decoration,{false,true,false})&&!hidden(&healthLabel,{false,false,true}),"Enabling either HUD panel restores its own children independently");
+    check(diagnostic::HudPaintMessage(15)&&diagnostic::HudPaintMessage(20)&&diagnostic::HudPaintMessage(0x85)&&!diagnostic::HudPaintMessage(0x100)&&!diagnostic::HudPaintMessage(2),"Visibility filters only paint messages, preserving key events and destruction");
+    for(auto rva:{uintptr_t(0x2d1b44),uintptr_t(0x2d180c),uintptr_t(0x2d1924),uintptr_t(0x2d15d4)}){
+        auto id=diagnostic::HudViewControlId(UINT32_MAX,rva);
+        check(id!=UINT32_MAX&&diagnostic::HiddenHudControl(id,{}),"Anonymous native view root is classified so its frame and background hide with the bar");
+        auto shown=diagnostic::EffectiveHudVisibility({},true);
+        check(!diagnostic::HiddenHudControl(id,shown),"Inventory shows complete native slot and vital view roots despite disabled gameplay options");
+    }
+    auto outsideInventory=diagnostic::EffectiveHudVisibility({},false),insideInventory=diagnostic::EffectiveHudVisibility({},true);
+    check(!outsideInventory.slotBar&&!outsideInventory.vitals&&insideInventory.slotBar&&insideInventory.vitals&&!insideInventory.compass,"Inventory override shows both blocks without enabling the compass or changing gameplay defaults");
+    check(diagnostic::HudViewControlId(UINT32_MAX,0x12345)==UINT32_MAX,"Unrelated anonymous views are never suppressed");
+    diagnostic::HudInventoryFrameCache inventoryCache;unsigned inventoryQueries=0;
+    auto inventoryQuery=[&](){++inventoryQueries;return true;};inventoryCache.Get(1,inventoryQuery);inventoryCache.Get(1,inventoryQuery);
+    check(inventoryQueries==1&&!inventoryCache.Get(2,[&](){++inventoryQueries;return false;})&&inventoryQueries==2,"Inventory state is queried once per frame and refreshed on the next frame");
+    Widget cycle{7,nullptr};cycle.parent=&cycle;check(!hidden(&cycle),"Malformed parent cycle is bounded");
     for(bool hidden:{true,false}){diagnostic::VrSettings value;value.hideCompass=hidden;value.numbers[2]=120;value.bowReticle=false;
         diagnostic::ApplyLauncherFixedFeatures(value);
         bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);

@@ -45,7 +45,7 @@
 #include "NativeAttachedParticles.h"
 #include "ParticlePerformance.h"
 #include "NativeFogIntensity.h"
-#include "NativeCompass.h"
+#include "NativeHudVisibility.h"
 #include "NativeRadialItems.h"
 #include "ControllerMappingIpc.h"
 #include "NativeMagicHandEffects.h"
@@ -136,7 +136,7 @@ diagnostic::PlayerFocusDispatch gPlayerFocusDispatch;
 diagnostic::NativeBow gBow;
 diagnostic::NativeMagic gMagic;
 diagnostic::BowReticle gBowReticle;
-diagnostic::NativeCompass gNativeCompass;
+diagnostic::NativeHudVisibility gNativeHudVisibility;
 diagnostic::NativeRadialItems gNativeRadialItems;
 diagnostic::NativeTrackedBow gTrackedBow;
 diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gParticleWorldHook,gSignpostFocusHook;
@@ -322,6 +322,7 @@ IDirect3DDevice9* gMovieDevice=nullptr;thread_local bool gMoviePresentEntered=fa
 
 gCCameraAI_PS* gInstantTurnCamera=nullptr;gCCameraAI_PS* gLastControllerTurnCamera=nullptr;diagnostic::NativeControllerTurn gControllerYaw;
 bool MenuPanelActive();
+int NativeUiState();
 diagnostic::StereoRuntime gStereoRuntime;
 diagnostic::CameraRenderHook gCameraRenderHook;
 diagnostic::FocusHook gNativeRenderHooks[diagnostic::performance::RenderEntryCount];
@@ -2208,11 +2209,21 @@ bool __fastcall SignpostNameFocus(gCGUIEntityRenderer const* self,void*,eCEntity
         });
     }__except(EXCEPTION_EXECUTE_HANDLER){return false;}
 }
-void __fastcall PaintHudCompass(CFFGFCWnd* self,void*)
+int __fastcall NativeHudWindowProc(CFFGFCWnd* self,void*,unsigned message,unsigned w,unsigned l)
 {
-    if(gVrSettings.hideCompass&&gConfig.stereoEnabled&&gHeadControl.enabled&&
-       gStereoRuntime.Connected()&&!gStereo.shuttingDown&&!gStereo.fault)return;
-    gNativeCompass.Paint(self);
+    bool hidden=false;
+    if(diagnostic::HudPaintMessage(message)&&gConfig.stereoEnabled&&gHeadControl.enabled&&
+       gStereoRuntime.Connected()&&!gStereo.shuttingDown&&!gStereo.fault){
+        __try {
+            static diagnostic::HudInventoryFrameCache inventory;
+            auto epoch=gProcess.load(std::memory_order_relaxed)+gRender.load(std::memory_order_relaxed);
+            bool inventoryOpen=inventory.Get(epoch,[](){return NativeUiState()==int(gEGamePage_Inventory);});
+            auto show=diagnostic::EffectiveHudVisibility({!gVrSettings.hideCompass,gVrSettings.showSlotBar,gVrSettings.showVitalsPanel},inventoryOpen);
+            hidden=gNativeHudVisibility.Hidden(self,show);
+        }
+        __except(EXCEPTION_EXECUTE_HANDLER){hidden=false;}
+    }
+    return hidden?0:gNativeHudVisibility.Dispatch(self,message,w,l);
 }
 bool InstallControllerFocus()
 {
@@ -4059,8 +4070,8 @@ bool InstallStereoHook()
     InstallPupStereoCompatibility();
     InstallStereoOcclusion(engine);
     InstallFogIntensity(engine);
-    Message(gNativeCompass.Install(reinterpret_cast<void*>(&PaintHudCompass))?
-        "vr_compass_toggle_ready; native_paint_only":"vr_compass_toggle_unavailable; native_compass_preserved",0,true);
+    Message(gNativeHudVisibility.Install(reinterpret_cast<void*>(&NativeHudWindowProc))?
+        "vr_hud_visibility_ready; compass_quickbar_vitals; paint_only":"vr_hud_visibility_unavailable; native_hud_preserved",0,true);
     auto* mouse=GetProcAddress(engine,"?ToVirtualCoords@eCGUIModule@@QBEXIAAIAAJ@Z");
     if(!gUiMouseHook.Install(mouse,reinterpret_cast<void*>(&StereoUiMouse))){Message("stereo_ui_mouse_hook_refused",0,true);gStereo.fault=true;return false;}
     if(!InstallControllerFocus()){gWorldInteraction.fault=true;Message("controller_world_focus_hooks_refused; native_focus_preserved",0,true);}

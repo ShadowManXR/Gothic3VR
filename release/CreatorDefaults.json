@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "03394931f96853c139cf1e8118831905c711021fe6c046e75990ba7ffd93e0ac",
+  "sha256": "a23e7cd3e777b7280d91a249c49ee97a9c1e8d7d96e2fc81613be4fb57f92496",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -140,7 +140,9 @@
       "CrossbowGripLossDistanceCm": "20",
       "FogIntensityPercent": "30",
       "WorldLabelScalePercent": "50",
-      "HideCompass": "0"
+      "HideCompass": "1",
+      "ShowSlotBar": "0",
+      "ShowVitalsPanel": "0"
     },
     "Controllers": {
       "Enabled": "1",
