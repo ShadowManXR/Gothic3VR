@@ -32,7 +32,7 @@ HWND graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,graphicsLabels[2],
 HWND aaLabel,aaCombo;
 HWND effectsLabel,effectsCombo;
 HWND runtimeLabel,runtimeCombo;
-HWND handsOnlyCheck,toggleSupportCheck,compassCheck,slotBarCheck,vitalsPanelCheck;
+HWND handsOnlyCheck,toggleSupportCheck,compassCheck,slotBarCheck,vitalsPanelCheck,handHudCheck;
 HWND unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionHint,unionNotes;
 HWND unionShortcut;
 HWND iniLabels[diagnostic::ini_tweaks::Count]{},iniTracks[diagnostic::ini_tweaks::Count]{},iniValues[diagnostic::ini_tweaks::Count]{},iniUnits[diagnostic::ini_tweaks::Count]{};
@@ -47,7 +47,7 @@ HWND aimLabel,aimTrack,aimEdit,aimUnit,aimHint;
 HWND handHint,swordHint,bowHint,bowReticleCheck,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,crossbowHint,magicHint,radialHint,shieldHint;
 HFONT font,titleFont;HBRUSH background;UINT dpi=96;bool syncing=false,dirty=false;
 std::wstring executable,launcherIni;diagnostic::VrSettings settings;
-constexpr int Browse=10,Save=11,Reset=12,Launch=13,Resolution=17,Tabs=19,AimTrack=25,AimEdit=26,BowReticle=27,TwoHand=28,Heavy=29,GraphicsMethod=32,GraphicsTrack=33,GraphicsEdit=35,FfrMethod=38,FfrTrack=39,FfrEdit=40,TrackBase=100,EditBase=200;
+constexpr int Browse=10,Save=11,Reset=12,Launch=13,Resolution=17,Tabs=19,AimTrack=25,AimEdit=26,BowReticle=27,TwoHand=28,Heavy=29,GraphicsMethod=32,GraphicsTrack=33,GraphicsEdit=35,FfrMethod=38,FfrTrack=39,FfrEdit=40,TrackBase=1000,EditBase=200;
 constexpr int UnionBrowse=42,UnionOpen=43,UnionCheck=44;
 constexpr int UnionPage=45;
 constexpr int AntiAliasing=46;
@@ -55,10 +55,11 @@ constexpr int RuntimeChoice=47;
 constexpr int UnionNotes=48;
 constexpr int EffectsQuality=49;
 constexpr int Donate=50,FfrTransitionTrack=55,FfrTransitionEdit=56;
-constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61;
+constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61,HandHud=62;
 constexpr wchar_t DonationUrl[]=L"https://ko-fi.com/pecos2k5";
 int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
+    if(i>=87)return HandHudPage;
     if(i==86)return HudPage;
     if(i==85)return GraphicsPage;
     if(i==84)return CrossbowPage;
@@ -135,6 +136,7 @@ void Fill() {
     SendMessageW(aimTrack,TBM_SETPOS,TRUE,settings.interactionAimUpPercent);SetDlgItemInt(window,AimEdit,UINT(settings.interactionAimUpPercent),TRUE);
     SendMessageW(compassCheck,BM_SETCHECK,settings.hideCompass?BST_UNCHECKED:BST_CHECKED,0);
     SendMessageW(slotBarCheck,BM_SETCHECK,settings.showSlotBar?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(handHudCheck,BM_SETCHECK,settings.handHudEnabled?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(vitalsPanelCheck,BM_SETCHECK,settings.showVitalsPanel?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(bowReticleCheck,BM_SETCHECK,settings.bowReticle?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(heavyCheck,BM_SETCHECK,settings.heavyTwoHand?BST_CHECKED:BST_UNCHECKED,0);
@@ -178,6 +180,7 @@ bool Collect() {
     settings.interactionAimUpPercent=int(aimValue);
     settings.hideCompass=SendMessageW(compassCheck,BM_GETCHECK,0,0)!=BST_CHECKED;
     settings.showSlotBar=SendMessageW(slotBarCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.handHudEnabled=SendMessageW(handHudCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.showVitalsPanel=SendMessageW(vitalsPanelCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.bowReticle=SendMessageW(bowReticleCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.twoHandedMelee=SendMessageW(twoHandCheck,BM_GETCHECK,0,0)==BST_CHECKED;
@@ -290,6 +293,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         swordHint=Control(L"STATIC",L"Weight adds inertia; stabilization reduces jitter. Both at 0 = direct tracking.\nSave settings applies live to both 1H hands, including dual wield.",0);
         compassCheck=Control(L"BUTTON",L"Show compass",WS_TABSTOP|BS_AUTOCHECKBOX,ShowCompass);
         slotBarCheck=Control(L"BUTTON",L"Show slot bar",WS_TABSTOP|BS_AUTOCHECKBOX,ShowSlotBar);
+        handHudCheck=Control(L"BUTTON",L"Show hand HUD (both arms)",WS_TABSTOP|BS_AUTOCHECKBOX,HandHud);
         vitalsPanelCheck=Control(L"BUTTON",L"Show health / mana / stamina panel",WS_TABSTOP|BS_AUTOCHECKBOX,ShowVitalsPanel);
         bowReticleCheck=Control(L"BUTTON",L"Aiming reticle (bow / crossbow / magic)",WS_TABSTOP|BS_AUTOCHECKBOX,BowReticle);
         bowHint=Control(L"STATIC",L"Right trigger: draw and release. String-hand influence: 0 = left-hand aim only.",0);
@@ -347,7 +351,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         case AntiAliasing:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Anti-aliasing applies after restarting the game. HUD and menus remain unfiltered.");}break;
         case EffectsQuality:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Fire & magic effect quality applies live with Save settings. Original restores native visuals.");}break;
         case RuntimeChoice:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Runtime changes apply after restarting the game. The Windows default runtime is unchanged.");}break;
-        case ShowCompass:case ShowSlotBar:case ShowVitalsPanel:case BowReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
+        case HandHud:case ShowCompass:case ShowSlotBar:case ShowVitalsPanel:case BowReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
     case WM_CTLCOLOREDIT:case WM_CTLCOLORLISTBOX:SetBkColor(HDC(w),Field);SetTextColor(HDC(w),Ink);return reinterpret_cast<LRESULT>(editBrush);
     case WM_CTLCOLORSTATIC:case WM_CTLCOLORBTN:{
         wchar_t cls[64];GetClassNameW(HWND(l),cls,64);bool edit=!wcscmp(cls,L"Edit");SetBkMode(HDC(w),edit?OPAQUE:TRANSPARENT);SetBkColor(HDC(w),edit?Field:Card);SetTextColor(HDC(w),HWND(l)==subtitle||HWND(l)==status||HWND(l)==hint?Muted:Ink);
@@ -406,9 +410,10 @@ bool UiInteractionCheck(wchar_t const* path){
     TabCtrl_SetCurSel(settingsTabs,FoveatedPage);Layout();
     for(int width:{0,15,30}){SendMessageW(ffrTransitionTrack,TBM_SETPOS,TRUE,width);SendMessageW(window,WM_HSCROLL,TB_THUMBPOSITION,LPARAM(ffrTransitionTrack));ok=Collect()&&ok;ok=ok&&settings.ffrTransitionPercent==width;}
     settings=original;Fill();
-    for(HWND check:{compassCheck,slotBarCheck,vitalsPanelCheck,bowReticleCheck,heavyCheck,twoHandCheck,handsOnlyCheck,toggleSupportCheck}){
-        TabCtrl_SetCurSel(settingsTabs,check==compassCheck||check==slotBarCheck||check==vitalsPanelCheck?HudPage:check==bowReticleCheck?BowPage:check==heavyCheck||check==twoHandCheck?TwoHandPage:CameraPage);Layout();
+    for(HWND check:{handHudCheck,compassCheck,slotBarCheck,vitalsPanelCheck,bowReticleCheck,heavyCheck,twoHandCheck,handsOnlyCheck,toggleSupportCheck}){
+        TabCtrl_SetCurSel(settingsTabs,check==handHudCheck?HandHudPage:check==compassCheck||check==slotBarCheck||check==vitalsPanelCheck?HudPage:check==bowReticleCheck?BowPage:check==heavyCheck||check==twoHandCheck?TwoHandPage:CameraPage);Layout();
         auto before=SendMessageW(check,BM_GETCHECK,0,0);SendMessageW(check,BM_CLICK,0,0);if(SendMessageW(check,BM_GETCHECK,0,0)==before){report+=L"Toggle failed: "+std::to_wstring(GetDlgCtrlID(check))+L"\r\n";ok=false;}
+        if(check==handHudCheck){ok=Collect()&&ok;ok=ok&&settings.handHudEnabled==(before!=BST_CHECKED);}
         if(check==compassCheck){ok=Collect()&&ok;ok=ok&&settings.hideCompass==(before==BST_CHECKED);}
         if(check==slotBarCheck){ok=Collect()&&ok;ok=ok&&settings.showSlotBar==(before!=BST_CHECKED);}
         if(check==vitalsPanelCheck){ok=Collect()&&ok;ok=ok&&settings.showVitalsPanel==(before!=BST_CHECKED);}
@@ -461,7 +466,7 @@ bool UiInteractionCheck(wchar_t const* path){
       ok=ok&&opened&&!mappingListening&&diagnostic::mapping::Mask(binding)==(diagnostic::mapping::Bit(diagnostic::mapping::LeftGrip)|diagnostic::mapping::Bit(diagnostic::mapping::RightPrimary))&&binding.gesture==diagnostic::mapping::DoubleTap&&!source.Capturing(GetTickCount64());
       StopControllerCapture();mappingLink.Close();source.Close();settings.controllerBindings=saved;dirty=wasDirty;FillControllerMapper();
     }
-    ok=ok&&PageCount==18&&TabCtrl_GetItemCount(settingsTabs)==PageCount;
+    ok=ok&&PageCount==19&&TabCtrl_GetItemCount(settingsTabs)==PageCount;
     for(int page=0;page<PageCount;++page){SendMessageW(navigation[page],BM_CLICK,0,0);ok=ok&&TabCtrl_GetCurSel(settingsTabs)==page;
         ok=ok&&(IsWindowVisible(handsOnlyCheck)!=FALSE)==(page==CameraPage);
         ok=ok&&(IsWindowVisible(toggleSupportCheck)!=FALSE)==(page==CameraPage);
@@ -493,7 +498,7 @@ int WINAPI wWinMain(HINSTANCE module,HINSTANCE,LPWSTR,int show) {
     int width=Scale(checkWidth),height=Scale(checkHeight);if(uiCheckPath.empty()){width=std::min(width,int(work.right-work.left-24));height=std::min(height,int(work.bottom-work.top-24));}
     window=CreateWindowExW(WS_EX_COMPOSITED,cls.lpszClassName,L"Gothic 3 VR — Settings and launcher",WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN,work.left+std::max(0,int(work.right-work.left-width)/2),work.top+std::max(0,int(work.bottom-work.top-height)/2),width,height,nullptr,nullptr,module,nullptr);
     if(window&&!uiCheckPath.empty()){ShowWindow(window,SW_SHOWNOACTIVATE);UpdateWindow(window);bool ok=UiInteractionCheck(uiCheckPath.c_str());ok=UiCheck(uiCheckPath.c_str())&&ok;
-        wchar_t const* suffix[]={L"",L"-hud.bmp",L"-interaction.bmp",L"-left-hand.bmp",L"-right-hand.bmp",L"-sword.bmp",L"-bow.bmp",L"-two-hand.bmp",L"-staff.bmp",L"-crossbow.bmp",L"-magic.bmp",L"-radial.bmp",L"-shield.bmp",L"-graphics.bmp",L"-foveated.bmp",L"-mods.bmp",L"-ini-tweaks.bmp",L"-controller-mapping.bmp"};
+        wchar_t const* suffix[]={L"",L"-hud.bmp",L"-interaction.bmp",L"-left-hand.bmp",L"-right-hand.bmp",L"-sword.bmp",L"-bow.bmp",L"-two-hand.bmp",L"-staff.bmp",L"-crossbow.bmp",L"-magic.bmp",L"-radial.bmp",L"-shield.bmp",L"-graphics.bmp",L"-foveated.bmp",L"-mods.bmp",L"-ini-tweaks.bmp",L"-controller-mapping.bmp",L"-hand-hud.bmp"};
         for(int page=1;page<int(sizeof(suffix)/sizeof(suffix[0]));++page){TabCtrl_SetCurSel(settingsTabs,page);Layout();UpdateWindow(window);ok=UiCheck((uiCheckPath+suffix[page]).c_str())&&ok;}
         TabCtrl_SetCurSel(settingsTabs,CameraPage);Layout();ok=UiIdlePaintCheck(uiCheckPath.c_str())&&ok;
         DestroyWindow(window);for(HFONT f:{font,titleFont,smallFont,navFont,brandFont,sectionFont})DeleteObject(f);DeleteObject(background);ReleaseArtwork();return ok?0:1;}

@@ -47,6 +47,7 @@
 #include "NativeFogIntensity.h"
 #include "NativeHudVisibility.h"
 #include "NativeRadialItems.h"
+#include "NativeHandHud.h"
 #include "ControllerMappingIpc.h"
 #include "NativeMagicHandEffects.h"
 #include "RenderAlphaSnapshot.h"
@@ -138,6 +139,7 @@ diagnostic::NativeMagic gMagic;
 diagnostic::BowReticle gBowReticle;
 diagnostic::NativeHudVisibility gNativeHudVisibility;
 diagnostic::NativeRadialItems gNativeRadialItems;
+diagnostic::NativeHandHud gHandHud;
 diagnostic::NativeTrackedBow gTrackedBow;
 diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gParticleWorldHook,gSignpostFocusHook;
 diagnostic::FocusHook gFocusNameSizeHook;
@@ -2687,6 +2689,7 @@ void RestoreTrackedArms(bool end=false)
 }
 void ReleaseWorldBindings(bool restoreAmmo)
 {
+    gHandHud.Reset();
     gThirdPersonOrbit.Reset();
     gLocatorNativeInput.pulse.Cancel();
     gLocatorProjection.Reset();
@@ -3482,6 +3485,17 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
             }
             __finally {gOcclusionWorldEye=false;gNativeRenderScope=false;gSceneExecutionSample=false;gStereoRuntime.EndGpuEye(eye);}
             gStereoRuntime.NoteTiming(eye?diagnostic::performance::Stage::RightRender:diagnostic::performance::Stage::LeftRender,renderStarted);
+            __try {if(gVrSettings.handHudEnabled&&!gWorldLifecycle.Blocked()){
+                diagnostic::arms::Mat poses[2];bool available[2]{};
+                for(unsigned h=0;h<2;++h){diagnostic::arms::Mat lower,bind,hand,calibration,anchor;
+                    available[h]=gTrackedArms.LowerArmHud(h,lower,bind,hand,calibration)&&
+                        diagnostic::HandHudAnchor(bind,hand,calibration,h,anchor)&&
+                        diagnostic::HandHudPose(anchor,lower,gVrSettings.numbers+87+h*6,gConfig.unitsPerMeter,poses[h]);}
+                auto* wrapper=DeviceAccess::sGetAPIDevice();if(diagnostic::Readable(wrapper,sizeof(eCDX9Device))){
+                    float view[16],projection[16];for(unsigned r=0;r<4;++r)for(unsigned c=0;c<4;++c){view[r*4+c]=camera->GetViewMatrix()(r,c);projection[r*4+c]=camera->GetProjectionMatrix()(r,c);}
+                    gHandHud.Draw(reinterpret_cast<eCDX9Device*>(wrapper)->m_pDevice,view,projection,poses,available,gConfig.unitsPerMeter,gVrSettings.numbers+99);
+                }}}
+            __except(EXCEPTION_EXECUTE_HANDLER){gHandHud.Reset();Message("vr_hand_hud_unavailable",GetExceptionCode(),true);}
             RestoreTrackedArms();
             __try {auto* wrapper=DeviceAccess::sGetAPIDevice();if(diagnostic::Readable(wrapper,sizeof(eCDX9Device))){
                 float reticleProjection[16];for(unsigned row=0;row<4;++row)for(unsigned col=0;col<4;++col)reticleProjection[row*4+col]=camera->GetProjectionMatrix()(row,col);
@@ -3513,7 +3527,7 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
 #ifdef G3VR_SCENE_COST_TRIAL
         gCostLane=0;
 #endif
-        RestoreTrackedArms(true);
+        gHandHud.EndFrame();RestoreTrackedArms(true);
         if(gBowReticle.Active()&&gSample.load()){Event event=Record(Kind::Message);sprintf_s(event.text,"vr_ranged_reticle eye_visible=%d,%d uv=%.3f,%.3f/%.3f,%.3f frames=%llu",gBowReticle.visible[0],gBowReticle.visible[1],gBowReticle.lastU[0],gBowReticle.lastV[0],gBowReticle.lastU[1],gBowReticle.lastV[1],gBowReticle.frames);Push(event);}
         unsigned menuStaffHidden=menuStaff.Count();if(gWorldLifecycle.Blocked())menuStaff.Abandon();else menuStaff.Restore();
         if(gWorldLifecycle.Blocked())stowedWeapons.Abandon();else stowedWeapons.Restore();
@@ -3722,14 +3736,15 @@ void UpdateQuestControllers()
             }
         }
     }
-    // Snapshot only on the application thread, while the item wheel is open.
+    // Snapshot on the application thread for the wheel and independent hand HUD.
     // World transitions clear native ownership before another inventory read.
     if(gWorldLifecycle.Blocked())gNativeRadialItems.Reset();
     __try {
-        auto const& items=gNativeRadialItems.Update(gWorldLifecycle.Blocked()?nullptr:returnPlayer,commands.radial.visible&&commands.radial.page==0,now);
+        auto const& items=gNativeRadialItems.Update(gWorldLifecycle.Blocked()?nullptr:returnPlayer,(commands.radial.visible&&commands.radial.page==0)||gVrSettings.handHudEnabled,now);
+        gHandHud.Update(gWorldLifecycle.Blocked()?nullptr:returnPlayer,gVrSettings.handHudEnabled,items);
         gStereoRuntime.SetRadial(commands.radial,gVrSettings.numbers[51],&items);
     }__except(EXCEPTION_EXECUTE_HANDLER){
-        gNativeRadialItems.Reset();gStereoRuntime.SetRadial(commands.radial,gVrSettings.numbers[51]);
+        gHandHud.Reset();gNativeRadialItems.Reset();gStereoRuntime.SetRadial(commands.radial,gVrSettings.numbers[51]);
         Message("vr_radial_items_unavailable; numbered_slots_preserved",GetExceptionCode(),true);
     }
     gRadialOpen=commands.radial.visible;

@@ -1,4 +1,14 @@
-# Gothic 3 VR 1.0.4
+# Gothic 3 VR 1.0.5
+
+- Updated both hand HUD defaults to the user-calibrated positions and rotations.
+- Added separate slot-bar and status-block scale controls (25–200%, default 50%) on the Hand HUD page.
+
+- Added independent hand HUD displays attached to the hero's lower-arm bones: quick slots, item icons and stack quantities on the left; health/stamina/mana on the right.
+- Uses the installed game's original HUD background artwork and status colors. No game artwork is distributed with the mod.
+- Added a Hand HUD launcher page with an enabled-by-default toggle and separate position/rotation adjustments for each arm. Changes apply live.
+- Native HUD widgets keep their original positions, independent visibility options and inventory behavior.
+
+## Previous release: 1.0.4
 
 - Fixed leftover quick-slot and player-vital frames/backgrounds when their gameplay HUD options are disabled.
 - Inventory always shows the complete quick-slot bar and health/mana/stamina block; closing inventory restores the saved options.

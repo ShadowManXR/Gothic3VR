@@ -39,6 +39,7 @@ class NativeTrackedArms {
     EMotionFX::Node* nodes=nullptr;int count=0;RigArm rig[2];Mat landmarkBinds[2][3];bool landmarkBindsReady=false;arms::ArmTwistChain armTwist[2];arms::BoneTag tags[TrackedPalette::Limit];
     melee::MeleeHandling handling[2];Mat handlingAnchor,handlingTracking[2];bool handlingAnchorReady=false,handlingApplied[2]{};int handlingSettings[8]{20,15,30,20,25,15,30,20};
     melee::TwoHandWeight oneHandWeight;Mat weightedControllerGrip;bool weightedGripReady=false,heavyTwoHand=true;
+    Mat lowerHudPose[2];bool lowerHudReady[2]{};
     Mat renderHandDelta[2];bool renderHandReady[2]{};
     Mat bind[TrackedPalette::Limit],grip[2],controllerGrip[2];bool ready[2]{};Weapon weapons[2];melee::LockedMeleeAttachment meleeAttachments[2];
     arms::ShieldContact shieldContact;int shieldSettings[6]{0,0,0,0,0,0};
@@ -204,6 +205,10 @@ public:
     float PostureCameraHeight()const{return bodyPosture.CameraHeight();}
     float PostureNativeHeight()const{return bodyPosture.NativeHeight();}
     void RenderHandDeltas(Mat (&out)[2],bool (&available)[2])const{for(unsigned h=0;h<2;++h){out[h]=renderHandDelta[h];available[h]=scope&&!fault&&renderHandReady[h];}}
+    bool LowerArmHud(unsigned side,Mat& pose,Mat& lowerBind,Mat& handBind,Mat& calibration)const{
+        if(side>1||!scope||fault||!ready[side]||!lowerHudReady[side])return false;
+        pose=lowerHudPose[side];lowerBind=bind[rig[side].lower];handBind=bind[rig[side].hand];calibration=rig[side].calibration;return true;
+    }
     bool LeftSupportHeld()const{return twoHandGrip.holding||supportedCrossbow;}
     bool fault=false;
     melee::Sample CombatSample(unsigned hand=1)const{return hand<2?combatSamples[hand]:melee::Sample{};}
@@ -231,7 +236,7 @@ public:
         toggleSupportGrip=toggle;gripLossDistance=std::clamp(float(lossDistanceCm)*.01f,.10f,1.f);twoHandEnabled=enabled;memcpy(twoHandAngles,angles,sizeof(twoHandAngles));supportRadius=std::clamp(float(radius)*.01f,.05f,.25f);supportAllowed=allowed;}
     void SetStaffSettings(int const* angles,int radius,int forward,int depth,int lossDistanceCm=40){staffLossDistance=std::clamp(float(lossDistanceCm)*.01f,.10f,1.f);memcpy(staffAngles,angles,sizeof(staffAngles));staffRadius=std::clamp(float(radius)*.01f,.05f,.25f);staffGripForward=std::clamp(forward,-10,10);staffGripDepth=std::clamp(depth,-10,10);}
     void Begin(eCEntity* entity,ControllerFrame const& controllers,Rotation3 const& native,float const (&base)[3],Orientation center,float const (&origin)[3],float unitScale,float height,bool stabilizeBody,void (__cdecl* logger)(char const*),Vec const& renderCorrection={},Rotation3 const* trackedBodyHeading=nullptr){
-        End();renderHandReady[0]=renderHandReady[1]=false;combatSamples[0]=combatSamples[1]={};bowSample={};bowArrowReady=false;crossbowGeometry=false;if(fault||diagnostic::NativeRecovery(entity)){combatSamples[0]=combatSamples[1]={};return;}log=logger;units=unitScale;player=entity;
+        End();lowerHudReady[0]=lowerHudReady[1]=false;renderHandReady[0]=renderHandReady[1]=false;combatSamples[0]=combatSamples[1]={};bowSample={};bowArrowReady=false;crossbowGeometry=false;if(fault||diagnostic::NativeRecovery(entity)){combatSamples[0]=combatSamples[1]={};return;}log=logger;units=unitScale;player=entity;
         if(!BindRig(entity,logger))return;
         handlingApplied[0]=handlingApplied[1]=false;
         ControllerPose trackingOrigin;trackingOrigin.valid=trackingOrigin.tracked=true;trackingOrigin.quaternion[3]=1;
@@ -566,6 +571,8 @@ public:
                 change=arms::Multiply(inverse,arms::Multiply(castFinger[i],newHand));
             }
             Mat posed=arms::Multiply(palette.saved[i],change);if(!arms::Affine(posed)){fault=true;RestoreEye();return;}memcpy(data+i,&posed,sizeof(Mat));}
+        for(unsigned h=0;h<2;++h){lowerHudReady[h]=solved[h];if(solved[h])
+            lowerHudPose[h]=arms::Multiply(bind[rig[h].lower],Raw(data[rig[h].lower]));}
         if(PhysicalHandsOnly()){
             Vec wrists[2]{};for(unsigned h=0;h<2;++h)wrists[h]=solved[h]?solutions[h].wrist:arms::Position(bodyWorld);
             arms::HandsOnlySkin(reinterpret_cast<Mat*>(data),tags,unsigned(count),wrists[0],wrists[1],solved);

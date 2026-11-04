@@ -1,4 +1,5 @@
 #include "DualWield.h"
+#include "HandHudPose.h"
 #include "StaffMelee.h"
 #include "PhysicalBow.h"
 #include "MeleeHandling.h"
@@ -94,6 +95,18 @@ int main(){
             }
         }
     }
+    // A constant bind-space anchor follows the lower arm through translation,
+    // rotation and IK stretching, independently of wrist/controller changes.
+    Mat lowerBind,handBind;Position(handBind,{0,30,0});
+    for(unsigned side=0;side<2;++side){Mat anchor,pose;CHECK(HandHudAnchor(lowerBind,handBind,Mat{},side,anchor));
+        int offset[6]{0,0,0,0,0,0};Mat lower=Rotate(.3f,.5f,-.2f);Position(lower,{40000,150,-8000});
+        CHECK(HandHudPose(anchor,lower,offset,100,pose));CHECK(Near(Position(pose),Point(lower,Position(anchor))));
+        for(unsigned axis=0;axis<3;++axis){int moved[6]{};moved[axis]=10;Mat shifted;CHECK(HandHudPose(anchor,lower,moved,100,shifted));CHECK(std::fabs(Length(Position(shifted)-Position(pose))-10)<.01f);}
+        for(unsigned axis=0;axis<3;++axis){int turned[6]{};turned[3+axis]=90;Mat rotated;CHECK(HandHudPose(anchor,lower,turned,100,rotated));CHECK(Near(Position(rotated),Position(pose)));
+            Vec v=axis==0?Vec{0,1,0}:Vec{1,0,0};CHECK(std::fabs(Dot(Vector(rotated,v),Vector(pose,v)))<.01f);}
+        Mat stretched=lower;for(unsigned i=0;i<3;++i)stretched.m[i]*=1.5f;
+        CHECK(HandHudPose(anchor,stretched,offset,100,pose));CHECK(std::fabs(Length(Vector(pose,{1,0,0}))-1)<.001f);
+        CHECK(!HandHudPose(anchor,lower,offset,0,pose));}
     Vec refused;CHECK(!melee::SupportFistContact(Mat{}, {},2,100,refused));
     CHECK(!melee::SupportFistContact(Mat{}, {},0,0,refused));
     puts("PASS sword/axe support contact remains in closed palm during large swings and movement; staff contact settings unchanged");

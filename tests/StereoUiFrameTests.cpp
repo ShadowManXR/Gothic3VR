@@ -1,4 +1,5 @@
 ﻿#include "CinemaScope.h"
+#include "D3D9HandHud.h"
 #include "RadialTextureCopy.h"
 // Exercise the actual compositor submission code against a fake EndFrame.
 // No runtime, headset or game process is started by this test.
@@ -133,6 +134,28 @@ int main()
             device9->SetRenderState(D3DRS_SCISSORTESTENABLE,TRUE);device9->SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
             device9->SetTexture(0,atlas.Get());device9->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
             Microsoft::WRL::ComPtr<IDirect3DSurface9> originalIconTarget;device9->GetRenderTarget(0,&originalIconTarget);
+            {
+                using namespace diagnostic;
+                Microsoft::WRL::ComPtr<IDirect3DSurface9> depth;device9->CreateDepthStencilSurface(64,64,D3DFMT_D24S8,D3DMULTISAMPLE_NONE,0,TRUE,&depth,nullptr);
+                device9->SetDepthStencilSurface(depth.Get());D3DVIEWPORT9 full{0,0,64,64,0,1};device9->SetViewport(&full);
+                device9->SetRenderState(D3DRS_SCISSORTESTENABLE,FALSE);
+                device9->Clear(0,nullptr,D3DCLEAR_TARGET|D3DCLEAR_ZBUFFER,0xff000000,1,0);
+                device9->SetRenderState(D3DRS_SCISSORTESTENABLE,TRUE);
+                arms::Mat identity,pose;arms::Position(pose,{0,0,.5f});
+                std::vector<HandHudQuad> quads;AddHandHudQuad(quads,pose,1,1,100,100,0,0,100,100,nullptr,0xffff0000);
+                D3DMATRIX before;memcpy(&before,identity.m,sizeof(before));before._41=.12f;device9->SetTransform(D3DTS_WORLD,&before);
+                device9->BeginScene();bool drawn=DrawHandHudQuads(device9.Get(),identity.m,identity.m,quads);
+                check(drawn&&SUCCEEDED(device9->EndScene()),"Hand HUD draws inside the game's existing scene without ending it");
+                D3DMATRIX after{};device9->GetTransform(D3DTS_WORLD,&after);check(!memcmp(&before,&after,sizeof(before)),"Hand HUD restores native world transforms");
+                Microsoft::WRL::ComPtr<IDirect3DSurface9> readback;device9->CreateOffscreenPlainSurface(64,64,D3DFMT_X8R8G8B8,D3DPOOL_SYSTEMMEM,&readback,nullptr);
+                bool copied=SUCCEEDED(device9->GetRenderTargetData(originalIconTarget.Get(),readback.Get()));D3DLOCKED_RECT read{};
+                bool locked=copied&&SUCCEEDED(readback->LockRect(&read,nullptr,D3DLOCK_READONLY));
+                check(locked&&(*reinterpret_cast<uint32_t*>(static_cast<char*>(read.pBits)+32*read.Pitch+32*4)&0xffffff)==0xff0000,"Bone-space hand HUD geometry reaches the actual eye render target");
+                if(locked)readback->UnlockRect();
+                DWORD blend=0,fvf=0,scissor=0;device9->GetRenderState(D3DRS_ALPHABLENDENABLE,&blend);device9->GetFVF(&fvf);device9->GetRenderState(D3DRS_SCISSORTESTENABLE,&scissor);
+                check(blend==TRUE&&fvf==(D3DFVF_XYZ|D3DFVF_DIFFUSE)&&scissor==TRUE,"Hand HUD restores native blend, vertex format and scissor state");
+                device9->SetDepthStencilSurface(nullptr);device9->SetViewport(&originalIconViewport);
+            }
             auto compressedIcon=diagnostic::CopyRadialTexture(compressed.Get(),RECT{64,0,128,64});
             D3DVIEWPORT9 restoredViewport{};RECT restoredScissor{};DWORD restoredScissorEnabled=0,restoredBlend=0,restoredFvf=0;
             device9->GetViewport(&restoredViewport);device9->GetScissorRect(&restoredScissor);device9->GetRenderState(D3DRS_SCISSORTESTENABLE,&restoredScissorEnabled);

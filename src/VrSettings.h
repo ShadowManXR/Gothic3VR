@@ -99,7 +99,21 @@ inline constexpr VrSetting VrNumbers[] = {
     {L"StaffGripLossDistanceCm", L"Grip loss distance", 40, 10, 100, L"cm", 5},
     {L"CrossbowGripLossDistanceCm", L"Grip loss distance", 20, 10, 100, L"cm", 5},
     {L"FogIntensityPercent", L"Fog intensity", 30, 0, 100, L"%", 5},
-    {L"WorldLabelScalePercent", L"World label size", 50, 25, 150, L"%", 5}
+    {L"WorldLabelScalePercent", L"World label size", 50, 25, 150, L"%", 5},
+    {L"LeftHandHudXcm", L"Position X", -7, -50, 50, L"cm"},
+    {L"LeftHandHudYcm", L"Position Y", 0, -50, 50, L"cm"},
+    {L"LeftHandHudZcm", L"Position Z", 0, -50, 50, L"cm"},
+    {L"LeftHandHudPitchDeg", L"Pitch", -90, -180, 180, L"deg"},
+    {L"LeftHandHudYawDeg", L"Yaw", 180, -180, 180, L"deg"},
+    {L"LeftHandHudRollDeg", L"Roll", -90, -180, 180, L"deg"},
+    {L"RightHandHudXcm", L"Position X", 7, -50, 50, L"cm"},
+    {L"RightHandHudYcm", L"Position Y", 0, -50, 50, L"cm"},
+    {L"RightHandHudZcm", L"Position Z", 0, -50, 50, L"cm"},
+    {L"RightHandHudPitchDeg", L"Pitch", 90, -180, 180, L"deg"},
+    {L"RightHandHudYawDeg", L"Yaw", 0, -180, 180, L"deg"},
+    {L"RightHandHudRollDeg", L"Roll", -90, -180, 180, L"deg"},
+    {L"LeftHandHudScalePercent", L"Scale", 50, 25, 200, L"%", 5},
+    {L"RightHandHudScalePercent", L"Scale", 50, 25, 200, L"%", 5},
 };
 inline constexpr unsigned VrNumberCount = sizeof(VrNumbers)/sizeof(VrNumbers[0]);
 inline constexpr int InteractionAimMinimum=-200,InteractionAimMaximum=200;
@@ -109,6 +123,7 @@ struct VrSettings {
     VrSettings(){for(unsigned i=0;i<VrNumberCount;++i)numbers[i]=VrNumbers[i].initial;}
     bool autoStart=true, hideHead=true, keepFirstPerson=true, controllers=true, stableHorizon=true, smoothCamera=true, trackedArms=true, stableBody=true, roomScaleWalking=true;
     bool bowReticle=true,instantControllerTurn=true;
+    bool handHudEnabled=true;
     bool hideCompass=true,showSlotBar=false,showVitalsPanel=false;
     bool thirdPersonOrbit=true,physicalCrouching=true;
     bool handsOnly=false;
@@ -163,6 +178,7 @@ inline VrSettings LoadVrSettings(wchar_t const* path) {
     s.bowReticle=GetPrivateProfileIntW(L"Stereo",L"BowReticle",1,path)!=0;
     s.hideCompass=GetPrivateProfileIntW(L"Stereo",L"HideCompass",1,path)!=0;
     s.showSlotBar=GetPrivateProfileIntW(L"Stereo",L"ShowSlotBar",0,path)!=0;
+    s.handHudEnabled=GetPrivateProfileIntW(L"Stereo",L"HandHudEnabled",1,path)!=0;
     s.showVitalsPanel=GetPrivateProfileIntW(L"Stereo",L"ShowVitalsPanel",0,path)!=0;
     s.twoHandedMelee=GetPrivateProfileIntW(L"Stereo",L"TwoHandedMelee",1,path)!=0;
     s.heavyTwoHand=GetPrivateProfileIntW(L"Stereo",L"HeavyTwoHand",1,path)!=0;
@@ -222,7 +238,7 @@ inline bool SaveVrSettings(wchar_t const* path,VrSettings const& s) {
         write(L"AutoStart",s.autoStart);write(L"HideFirstPersonHead",s.hideHead);write(L"KeepFirstPerson",s.keepFirstPerson);
         write(L"StableHorizon",s.stableHorizon);
         write(L"BowReticle",s.bowReticle);
-        write(L"HideCompass",s.hideCompass);write(L"ShowSlotBar",s.showSlotBar);write(L"ShowVitalsPanel",s.showVitalsPanel);
+        write(L"HideCompass",s.hideCompass);write(L"ShowSlotBar",s.showSlotBar);write(L"ShowVitalsPanel",s.showVitalsPanel);write(L"HandHudEnabled",s.handHudEnabled);
         write(L"TwoHandedMelee",s.twoHandedMelee);write(L"HeavyTwoHand",s.heavyTwoHand);
         write(L"SmoothCamera",s.smoothCamera);
         write(L"CameraSmoothingMs",std::clamp(s.cameraSmoothingMs,0,250));

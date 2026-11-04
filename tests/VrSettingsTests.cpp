@@ -4,9 +4,15 @@
 #include <cstdio>
 #include <string>
 int wmain(int argc, wchar_t** argv) {
-    static_assert(diagnostic::VrNumberCount==87);
+    static_assert(diagnostic::VrNumberCount==101);
     unsigned failures=0;auto check=[&](bool ok,char const* name){printf("%s %s\n",ok?"PASS":"FAIL",name);failures+=!ok;};
     wchar_t directory[MAX_PATH],path[MAX_PATH];GetTempPathW(MAX_PATH,directory);GetTempFileNameW(directory,L"gvs",0,path);
+    auto missingHandHud=diagnostic::LoadVrSettings(path);
+    int expectedHandHud[]{-7,0,0,-90,180,-90,7,0,0,90,0,-90,50,50};
+    bool correctDefaults=true;for(unsigned i=0;i<14;++i)correctDefaults&=missingHandHud.numbers[87+i]==expectedHandHud[i];
+    check(correctDefaults,"Missing hand HUD keys use the calibrated transforms and 50 percent independent scales");
+    check(diagnostic::BoundVrNumber(diagnostic::VrNumbers[99],1)==25&&diagnostic::BoundVrNumber(diagnostic::VrNumbers[100],999)==200,"Both scales clamp to the supported 25 to 200 percent range");
+    check(diagnostic::LoadVrSettings(path).handHudEnabled,"Hand HUD defaults to enabled for existing configurations without the new key");
     check(diagnostic::LoadVrSettings(path).hideCompass&&!diagnostic::LoadVrSettings(path).showSlotBar&&!diagnostic::LoadVrSettings(path).showVitalsPanel,"All optional native HUD displays default to disabled when keys are missing");
     for(unsigned mask=0;mask<8;++mask){diagnostic::VrSettings value;value.hideCompass=!(mask&1);value.showSlotBar=(mask&2)!=0;value.showVitalsPanel=(mask&4)!=0;value.numbers[2]=120;
         diagnostic::ApplyLauncherFixedFeatures(value);bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
@@ -15,6 +21,13 @@ int wmain(int argc, wchar_t** argv) {
         check(diagnostic::HiddenHudControl(20545,show)==loaded.hideCompass&&diagnostic::HiddenHudControl(20380,show)==!loaded.showSlotBar&&
               diagnostic::HiddenHudControl(20384,show)==!loaded.showVitalsPanel,"Native compass, quick slots and player vitals respect independent toggles");
     }
+    for(bool enabled:{true,false}){diagnostic::VrSettings value;value.handHudEnabled=enabled;
+        value.showSlotBar=false;value.showVitalsPanel=false;value.numbers[8]=7;
+        for(unsigned i=87;i<101;++i)value.numbers[i]=i%2?diagnostic::VrNumbers[i].minimum:diagnostic::VrNumbers[i].maximum;
+        bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
+        bool same=true;for(unsigned i=87;i<101;++i)same&=loaded.numbers[i]==value.numbers[i];
+        check(saved&&same&&loaded.handHudEnabled==enabled&&!loaded.showSlotBar&&!loaded.showVitalsPanel&&loaded.numbers[8]==7,
+            "Both hand HUD transforms, independent scales and visibility round-trip independently of native HUD and palm calibration");}
     struct Widget {unsigned id;Widget* parent;};Widget root{0,nullptr},bar{20379,&root},decoration{99,&bar},health{20387,&root},healthLabel{42,&health},focus{20386,&root},inventory{20394,&root};
     auto hidden=[](Widget* window,diagnostic::HudVisibility show={}){return diagnostic::HiddenHudWindow(window,show,[](Widget* w){return w->id;},[](Widget* w){return w->parent;});};
     check(hidden(&decoration)&&hidden(&healthLabel),"Hidden HUD panels suppress decorative and label descendants as well as bars");

@@ -17,13 +17,14 @@ void Layout(){
  panels.clear();panels.push_back({x,compact?103:126,cw,compact?107:115,L""});
  bool dual=page==OneHandPage||page==TwoHandPage||page==StaffPage;
  if(page==IniTweaksPage){panels.push_back({x,top,col,ch,L"DISTANCES & STREAMING"});panels.push_back({x+col+18,top,col,ch,L"WORLD & GRAPHICS"});}
+ else if(page==HandHudPage){panels.push_back({x,top,col,ch,L"LEFT ARM - SLOT BAR"});panels.push_back({x+col+18,top,col,ch,L"RIGHT ARM - HEALTH / MANA / STAMINA"});}
  else if(page==ModsPage)panels.push_back({x,top,cw,ch,L"UNION+ 1.7.3"});
  else if(dual){panels.push_back({x,top,col,ch,L"ALIGNMENT & HANDLING"});panels.push_back({x+col+18,top,col,ch,L"COMBAT THRESHOLDS"});}
  else if(page==BowPage){panels.push_back({x,top,col,ch,L"ALIGNMENT & DRAW"});panels.push_back({x+col+18,top,col,ch,L"PALM GRIP"});}
  else if(page==CameraPage){panels.push_back({x,top,col,ch,L"CAMERA POSITION"});panels.push_back({x+col+18,top,col,ch,L"VR RUNTIME & CONTROLS"});}
  else panels.push_back({x,top,cw,ch,page==ModsPage?L"OPTIONAL MODS":page==BindingsPage?L"CONTROLLER BINDINGS":page==GraphicsPage||page==FoveatedPage?L"RENDERING":page==RadialPage?L"CONTROLS":page==HudPage?L"INTERFACE":L"CALIBRATION"});
  for(unsigned i=0;i<diagnostic::VrNumberCount;++i)for(HWND control:{labels[i],tracks[i],edits[i],units[i]})ShowWindow(control,SW_HIDE);
- for(HWND control:{compassCheck,slotBarCheck,vitalsPanelCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
+ for(HWND control:{handHudCheck,compassCheck,slotBarCheck,vitalsPanelCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)for(HWND control:{iniLabels[i],iniTracks[i],iniValues[i],iniUnits[i]})if(control)ShowWindow(control,SW_HIDE);
  for(HWND control:{iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
  for(int i=0;i<2;++i)for(HWND control:{graphicsLabels[i],graphicsTracks[i],graphicsEdits[i],graphicsUnits[i]})ShowWindow(control,SW_HIDE);
@@ -44,6 +45,10 @@ void Layout(){
   if(page==OneHandPage)show(swordHint,fx,fy+left.size()*spacing+12,col-44,86);
   if(page==TwoHandPage){show(twoHandCheck,fx,fy+left.size()*spacing+8,col-44,29);show(heavyCheck,x+col+40,fy+right.size()*spacing+18,col-44,45);show(twoHandHint,x+col+40,fy+right.size()*spacing+74,col-44,45);}
   if(page==StaffPage){show(twoHandCheck,x+col+40,fy+right.size()*spacing+8,col-44,29);show(staffHint,x+col+40,fy+right.size()*spacing+40,col-44,44);}
+ }else if(page==HandHudPage){
+  int spacing=compact?45:50;
+  for(unsigned row=0;row<7;++row){field(row<6?87+row:99,fx,fy+row*spacing,col-44);field(row<6?93+row:100,x+col+40,fy+row*spacing,col-44);}
+  show(handHudCheck,fx,fy+7*spacing+8,col-44,29);
  }else if(page==CameraPage){
   for(unsigned row=0;row<3;++row)field(row==0?0:row==1?6:7,fx,fy+row*72,col-44);
   int rx=x+col+40;

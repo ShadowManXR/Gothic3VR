@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "a23e7cd3e777b7280d91a249c49ee97a9c1e8d7d96e2fc81613be4fb57f92496",
+  "sha256": "2c1773b39778a81abbdbca0ff174d56d3490cc7dec28b013946089444c13513a",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -25,6 +25,9 @@
       "InstantControllerTurn": "1"
     },
     "Stereo": {
+      "HideCompass": "1",
+      "ShowSlotBar": "0",
+      "ShowVitalsPanel": "0",
       "FxaaEnabled": "1",
       "StableHorizon": "1",
       "ControllerTurnSpeedPercent": "60",
@@ -140,9 +143,21 @@
       "CrossbowGripLossDistanceCm": "20",
       "FogIntensityPercent": "30",
       "WorldLabelScalePercent": "50",
-      "HideCompass": "1",
-      "ShowSlotBar": "0",
-      "ShowVitalsPanel": "0"
+      "HandHudEnabled": "1",
+      "RightHandHudScalePercent": "50",
+      "LeftHandHudScalePercent": "50",
+      "LeftHandHudXcm": "-7",
+      "LeftHandHudYcm": "0",
+      "LeftHandHudZcm": "0",
+      "LeftHandHudPitchDeg": "-90",
+      "LeftHandHudYawDeg": "180",
+      "LeftHandHudRollDeg": "-90",
+      "RightHandHudXcm": "7",
+      "RightHandHudYcm": "0",
+      "RightHandHudZcm": "0",
+      "RightHandHudPitchDeg": "90",
+      "RightHandHudYawDeg": "0",
+      "RightHandHudRollDeg": "-90"
     },
     "Controllers": {
       "Enabled": "1",
