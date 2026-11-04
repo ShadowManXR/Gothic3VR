@@ -13,6 +13,7 @@ struct RenderAlphaSnapshot {
         for(unsigned i=0;i<count;++i)if(entries[i].object==object&&entries[i].set==set)return true;
         if(count==Capacity)return false;entries[count++]={object,set,alpha};return true;
     }
+    void Hide(){active=true;for(unsigned i=0;i<count;++i)entries[i].set(entries[i].object,0.f);}
     void Opaque(){active=true;for(unsigned i=0;i<count;++i)entries[i].set(entries[i].object,1.f);}
     void Restore(){if(!active)return;for(unsigned i=0;i<count;++i)entries[i].set(entries[i].object,entries[i].alpha);active=false;}
 };

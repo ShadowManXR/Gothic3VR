@@ -1,4 +1,11 @@
-# Gothic 3 VR 1.0.7
+# Gothic 3 VR 1.0.8
+
+- Chest interactions keep the calibrated first-person VR viewpoint instead of switching to the native interaction camera or orbit.
+- Keep that viewpoint through chest closing until the native first-person camera has settled, and hide stowed back weapons in both eyes throughout the interaction.
+- Suppressed the displayed player's chest animation by retaining the last gameplay skin pose for both eyes. Cold entry without a cached pose temporarily hides the avatar instead. All visual changes are restored after rendering.
+- Native chest scripts, alignment, animation events, chest lid motion, locks, lockpicking, loot generation, ownership and quest events continue unchanged.
+
+## Previous release: 1.0.7
 
 - Dialogue now retains the VR player's first-person viewpoint instead of moving to a side/third-person shot. Native speaker cuts and dialogue camera orbit no longer reposition the rendered VR camera.
 - Headset look, room-scale movement and stereo depth remain active. Native dialogue scripts, camera AI, subtitles, choices, voice and quest logic continue normally.
