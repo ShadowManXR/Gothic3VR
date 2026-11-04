@@ -7,7 +7,7 @@ namespace diagnostic {
 inline void ApplyLauncherFixedFeatures(VrSettings& s) {
     s.autoStart=s.keepFirstPerson=s.hideHead=s.roomScaleWalking=true;
     s.stableHorizon=s.smoothCamera=s.trackedArms=s.stableBody=true;
-    s.thirdPersonOrbit=s.physicalCrouching=true;
+    s.physicalCrouching=true;
     s.controllers=true;
     s.instantControllerTurn=true;
 }

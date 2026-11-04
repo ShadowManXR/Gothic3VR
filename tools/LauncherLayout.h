@@ -11,7 +11,8 @@ void Layout(){
  // The tab control remains the page model; the vertical buttons are its visible, keyboard-accessible navigation.
  Position(settingsTabs,0,0,1,1);ShowWindow(settingsTabs,SW_HIDE);ShowWindow(unionShortcut,SW_HIDE);
  Position(title,x,compact?24:43,cw-116,46);SetWindowTextW(title,PageNames[page]);Position(subtitle,x,compact?72:92,cw-116,25);SetWindowTextW(subtitle,PageDescriptions[page]);
- for(int p=0;p<PageCount;++p){int y=140+p*(compact?28:31);Position(navigation[p],14,y,202,compact?27:30);InvalidateRect(navigation[p],nullptr,FALSE);}
+ int navStep=std::min(compact?28:31,(h-250)/PageCount);
+ for(int p=0;p<PageCount;++p){int y=140+p*navStep;Position(navigation[p],14,y,202,navStep-1);InvalidateRect(navigation[p],nullptr,FALSE);}
  Position(pathLabel,x+22,compact?112:139,210,23);Position(pathEdit,x+22,compact?137:164,cw-142,27);Position(browse,x+cw-109,compact?135:162,87,31);
  Position(resolutionLabel,x+22,compact?177:207,190,22);Position(resolutionCombo,x+213,compact?172:202,cw-235,280);ShowWindow(resolutionHint,SW_HIDE);
  panels.clear();panels.push_back({x,compact?103:126,cw,compact?107:115,L""});
@@ -24,7 +25,7 @@ void Layout(){
  else if(page==CameraPage){panels.push_back({x,top,col,ch,L"CAMERA POSITION"});panels.push_back({x+col+18,top,col,ch,L"VR RUNTIME & CONTROLS"});}
  else panels.push_back({x,top,cw,ch,page==ModsPage?L"OPTIONAL MODS":page==BindingsPage?L"CONTROLLER BINDINGS":page==GraphicsPage||page==FoveatedPage?L"RENDERING":page==RadialPage?L"CONTROLS":page==HudPage?L"INTERFACE":L"CALIBRATION"});
  for(unsigned i=0;i<diagnostic::VrNumberCount;++i)for(HWND control:{labels[i],tracks[i],edits[i],units[i]})ShowWindow(control,SW_HIDE);
- for(HWND control:{handHudCheck,compassCheck,slotBarCheck,vitalsPanelCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
+ for(HWND control:{fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck,thirdPersonHint,handHudCheck,compassCheck,slotBarCheck,vitalsPanelCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)for(HWND control:{iniLabels[i],iniTracks[i],iniValues[i],iniUnits[i]})if(control)ShowWindow(control,SW_HIDE);
  for(HWND control:{iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
  for(int i=0;i<2;++i)for(HWND control:{graphicsLabels[i],graphicsTracks[i],graphicsEdits[i],graphicsUnits[i]})ShowWindow(control,SW_HIDE);
@@ -56,6 +57,12 @@ void Layout(){
   show(handsOnlyCheck,rx,fy+75,col-44,29);
   show(toggleSupportCheck,rx,fy+109,col-44,29);
   show(hint,rx,fy+158,col-44,compact?180:210);
+ }else if(page==ThirdPersonPage){
+  show(dialogueViewCheck,fx,fy,fw,29);
+  show(chestViewCheck,fx,fy+42,fw,29);
+  show(lecternViewCheck,fx,fy+84,fw,29);
+  show(thirdPersonOrbitCheck,fx,fy+140,fw,29);
+  show(thirdPersonHint,fx,fy+190,fw,150);
  }else if(page==BowPage){
   int spacing=compact?45:49,rx=x+col+40;
   unsigned aimFields[]{23,24,25,26,27,28,81},gripFields[]{29,30,31};
@@ -76,6 +83,7 @@ void Layout(){
   if(page==ShieldPage)show(shieldHint,fx,after,fw,70);
  }else if(page==InteractionPage){
   show(aimLabel,fx,fy,fw-110,22);show(aimTrack,fx,fy+26,fw,25);show(aimEdit,fx+fw-99,fy-2,58,27);show(aimUnit,fx+fw-35,fy,40,22);show(aimHint,fx,fy+83,fw,130);
+  show(fastPickupCheck,fx,fy+230,fw,29);
  }else if(page==BindingsPage){
   LayoutControllerMapper(fx,fy,fw,compact);
  }else if(page==GraphicsPage){

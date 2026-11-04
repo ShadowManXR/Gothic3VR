@@ -2,7 +2,7 @@
 #pragma once
 
 constexpr int NavBase=500;
-wchar_t const* PageNames[PageCount]={L"Camera & controls",L"HUD & menus",L"Interaction",L"Left hand",L"Right hand",L"1H melee weapon",L"Bow",L"2H melee",L"Staff / Halberd",L"Crossbow",L"Magic",L"Radial menu",L"Shield",L"Graphics",L"Foveated rendering",L"Optional mods",L"INI tweaks",L"Controller mapping"};
+wchar_t const* PageNames[PageCount]={L"Camera & controls",L"HUD & menus",L"Interaction",L"Left hand",L"Right hand",L"1H melee weapon",L"Bow",L"2H melee",L"Staff / Halberd",L"Crossbow",L"Magic",L"Radial menu",L"Shield",L"Graphics",L"Foveated rendering",L"Optional mods",L"INI tweaks",L"Controller mapping",L"Hand HUD",L"Third-person view"};
 wchar_t const* PageDescriptions[PageCount]={
  L"Your view into Myrtana. Calibrate the camera and choose how you play.",
  L"Keep the interface comfortable, readable and within reach.",
@@ -21,7 +21,9 @@ wchar_t const* PageDescriptions[PageCount]={
  L"Keep the center sharp while reducing peripheral shading cost.",
  L"Manage optional Union+ mods with protection for your VR installation.",
  L"Tune native visibility, world simulation and graphics. Restart required.",
- L"Assign OpenXR controller buttons, double taps and two-button combinations."
+ L"Assign OpenXR controller buttons, double taps and two-button combinations.",
+ L"Attach independent quick slots and status bars to your lower arms.",
+ L"Choose when to retain the first-person VR view or use the native camera."
 };
 HWND navigation[PageCount]{};
 HFONT smallFont{},navFont{},brandFont{},sectionFont{};

@@ -2544,14 +2544,15 @@ bool PrepareStereoFrame(eCCameraBase* camera,diagnostic::StereoFrame& frame)
     Event mode;CaptureCameraMode(mode);
     diagnostic::StereoCameraState cameraState{gApplication->IsGameRunning()!=GEFalse,mode.cameraModeValid,mode.firstPerson,mode.tempFirstPerson,mode.dialogCamera};
     if(cameraState.gameRunning){auto* player=gCSession::GetInstance().GetPlayer();cameraState.animal=diagnostic::NativeAnimalForm(player);cameraState.activity=!cameraState.animal&&CameraThirdPersonActivity(player);}
-    gStereo.dialog=cameraState.gameRunning&&cameraState.modeAvailable&&(cameraState.dialog||NativeUiState()==int(gEGamePage_Dialog))&&!cameraState.animal&&!cameraState.activity;
+    gStereo.dialog=gVrSettings.firstPersonDialogue&&cameraState.gameRunning&&cameraState.modeAvailable&&(cameraState.dialog||NativeUiState()==int(gEGamePage_Dialog))&&!cameraState.animal&&!cameraState.activity;
     auto* chestPlayer=cameraState.gameRunning?gCSession::GetInstance().GetPlayer():nullptr;
-    bool chestAllowed=cameraState.gameRunning&&!cameraState.animal&&!gStereo.dialog&&!diagnostic::NativeRecovery(chestPlayer);
+    bool interactionViewAllowed=cameraState.gameRunning&&!cameraState.animal&&!gStereo.dialog&&!diagnostic::NativeRecovery(chestPlayer);
+    bool chestAllowed=interactionViewAllowed&&gVrSettings.firstPersonChest;
     bool chestRequested=chestAllowed&&diagnostic::NativeChestInteraction(chestPlayer,gStereo.chest);
     bool chestCameraReady=cameraState.modeAvailable&&(cameraState.firstPerson||cameraState.tempFirstPerson)&&!cameraState.activity&&!cameraState.dialog&&
         gAutoFirstPersonProcess!=gProcess.load(std::memory_order_relaxed)&&GetTickCount64()>=gHumanHeightRestoreUntil;
     gStereo.chest=gChestView.Step(reinterpret_cast<uintptr_t>(chestPlayer),chestAllowed,chestRequested,chestCameraReady,GetTickCount64());
-    bool lecternAllowed=chestAllowed&&!gStereo.chest;
+    bool lecternAllowed=interactionViewAllowed&&gVrSettings.firstPersonLectern&&!gStereo.chest;
     bool lecternRequested=lecternAllowed&&diagnostic::NativeLecternInteraction(chestPlayer,gStereo.lectern);
     gStereo.lectern=gLecternView.Step(reinterpret_cast<uintptr_t>(chestPlayer),lecternAllowed,lecternRequested,chestCameraReady,GetTickCount64());
     gStereo.dialogPlayer=0;
@@ -4554,7 +4555,7 @@ bool InitializePaths()
 }
 
 bool SkipNativePickupPause(uintptr_t caller,diagnostic::PickupPause kind,void* args,gCScriptProcessingUnit* spu,GEBool fullStop){
-    if(!gPickup.Matches(caller,kind)||!args||fullStop)return false;
+    if(!gVrSettings.fastPickup||!gPickup.Matches(caller,kind)||!args||fullStop)return false;
     __try {
         if(GetCurrentThreadId()!=gApplicationThread.load()||!gHeadControl.enabled||!gConfig.stereoEnabled||
            gStereo.shuttingDown||gStereo.fault||gWorldLifecycle.Blocked()||MenuPanelActive()||

@@ -1,5 +1,7 @@
 # Gothic 3 VR 1.0.9
 
+- Added optional fast pickup on Interaction and a Third-person view launcher page with independent dialogue, chest, lectern and camera-orbit controls. Existing comfort behavior remains enabled by default; disabling restores the corresponding native behavior.
+
 - Lectern reading retains the calibrated first-person VR viewpoint with live headset tracking, including the return from reading.
 - Native reading animations, text, learning rewards, interaction timing and scripts remain unchanged.
 

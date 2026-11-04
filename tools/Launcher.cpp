@@ -37,6 +37,7 @@ HWND aaLabel,aaCombo;
 HWND effectsLabel,effectsCombo;
 HWND runtimeLabel,runtimeCombo;
 HWND handsOnlyCheck,toggleSupportCheck,compassCheck,slotBarCheck,vitalsPanelCheck,handHudCheck;
+HWND fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck,thirdPersonHint;
 HWND unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionHint,unionNotes;
 HWND unionShortcut;
 HWND iniLabels[diagnostic::ini_tweaks::Count]{},iniTracks[diagnostic::ini_tweaks::Count]{},iniValues[diagnostic::ini_tweaks::Count]{},iniUnits[diagnostic::ini_tweaks::Count]{};
@@ -60,7 +61,7 @@ constexpr int UnionNotes=48;
 constexpr int EffectsQuality=49;
 constexpr int Donate=50,FfrTransitionTrack=55,FfrTransitionEdit=56;
 constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61,HandHud=62;
-constexpr int About=63;
+constexpr int About=63,FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68;
 constexpr wchar_t DonationUrl[]=L"https://ko-fi.com/pecos2k5";
 int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
@@ -140,6 +141,11 @@ void Fill() {
         SendMessageW(tracks[i],TBM_SETPOS,TRUE,settings.numbers[i]);SetDlgItemInt(window,EditBase+i,UINT(settings.numbers[i]),TRUE);}
     SendMessageW(aimTrack,TBM_SETRANGEMIN,FALSE,diagnostic::InteractionAimMinimum);SendMessageW(aimTrack,TBM_SETRANGEMAX,FALSE,diagnostic::InteractionAimMaximum);
     SendMessageW(aimTrack,TBM_SETPOS,TRUE,settings.interactionAimUpPercent);SetDlgItemInt(window,AimEdit,UINT(settings.interactionAimUpPercent),TRUE);
+    SendMessageW(fastPickupCheck,BM_SETCHECK,settings.fastPickup?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(dialogueViewCheck,BM_SETCHECK,settings.firstPersonDialogue?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(chestViewCheck,BM_SETCHECK,settings.firstPersonChest?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(lecternViewCheck,BM_SETCHECK,settings.firstPersonLectern?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(thirdPersonOrbitCheck,BM_SETCHECK,settings.thirdPersonOrbit?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(compassCheck,BM_SETCHECK,settings.hideCompass?BST_UNCHECKED:BST_CHECKED,0);
     SendMessageW(slotBarCheck,BM_SETCHECK,settings.showSlotBar?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(handHudCheck,BM_SETCHECK,settings.handHudEnabled?BST_CHECKED:BST_UNCHECKED,0);
@@ -184,6 +190,11 @@ bool Collect() {
     if(aimEnd==aimText||*aimEnd||aimValue<diagnostic::InteractionAimMinimum||aimValue>diagnostic::InteractionAimMaximum){
         Message(L"Selection vertical aim: enter a value between -200 and 200 %.",true);TabCtrl_SetCurSel(settingsTabs,InteractionPage);Layout();SetFocus(aimEdit);return false;}
     settings.interactionAimUpPercent=int(aimValue);
+    settings.fastPickup=SendMessageW(fastPickupCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.firstPersonDialogue=SendMessageW(dialogueViewCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.firstPersonChest=SendMessageW(chestViewCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.firstPersonLectern=SendMessageW(lecternViewCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.thirdPersonOrbit=SendMessageW(thirdPersonOrbitCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.hideCompass=SendMessageW(compassCheck,BM_GETCHECK,0,0)!=BST_CHECKED;
     settings.showSlotBar=SendMessageW(slotBarCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.handHudEnabled=SendMessageW(handHudCheck,BM_GETCHECK,0,0)==BST_CHECKED;
@@ -297,6 +308,12 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         radialHint=Control(L"STATIC",L"Radial size changes independently of native menus and HUD.\n80% = smaller; 100% = the previous size. Save settings applies live.\nMenu: main menu / back. L3 tap: Sprint until stop. Double-tap left trigger: quick heal.\nDouble-tap Y: toggle Sneak; eye icon and vibration follow native state.\nRadial: R3 opens, right stick selects, A confirms, X cancels, B changes page.\nTrading: right grip = one item; right trigger = drag a stack.",0);
         handHint=Control(L"STATIC",L"Position offsets place the palm relative to the controller grip; rotations pivot at the palm.\nStart at 0 cm. Positive outward moves away from the other hand. Save settings applies live.",0);
         swordHint=Control(L"STATIC",L"Weight adds inertia; stabilization reduces jitter. Both at 0 = direct tracking.\nSave settings applies live to both 1H hands, including dual wield.",0);
+        fastPickupCheck=Control(L"BUTTON",L"Skip item pickup delay and animation",WS_TABSTOP|BS_AUTOCHECKBOX,FastPickup);
+        dialogueViewCheck=Control(L"BUTTON",L"Keep first-person view during dialogue",WS_TABSTOP|BS_AUTOCHECKBOX,DialogueView);
+        chestViewCheck=Control(L"BUTTON",L"Keep first-person view and suppress chest animation",WS_TABSTOP|BS_AUTOCHECKBOX,ChestView);
+        lecternViewCheck=Control(L"BUTTON",L"Keep first-person view when reading at lecterns",WS_TABSTOP|BS_AUTOCHECKBOX,LecternView);
+        thirdPersonOrbitCheck=Control(L"BUTTON",L"Allow camera orbit in third-person view",WS_TABSTOP|BS_AUTOCHECKBOX,ThirdPersonOrbit);
+        thirdPersonHint=Control(L"STATIC",L"Enabled view options retain the VR viewpoint. Turn one off to restore the native interaction camera.\nThe chest option also suppresses the displayed hero animation and back-mounted weapons. Turn it off to restore both.\nCamera orbit applies to native third-person activities.\nSave settings applies these choices live.",0);
         compassCheck=Control(L"BUTTON",L"Show compass",WS_TABSTOP|BS_AUTOCHECKBOX,ShowCompass);
         slotBarCheck=Control(L"BUTTON",L"Show slot bar",WS_TABSTOP|BS_AUTOCHECKBOX,ShowSlotBar);
         handHudCheck=Control(L"BUTTON",L"Show hand HUD (both arms)",WS_TABSTOP|BS_AUTOCHECKBOX,HandHud);
@@ -358,7 +375,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         case AntiAliasing:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Anti-aliasing applies after restarting the game. HUD and menus remain unfiltered.");}break;
         case EffectsQuality:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Fire & magic effect quality applies live with Save settings. Original restores native visuals.");}break;
         case RuntimeChoice:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Runtime changes apply after restarting the game. The Windows default runtime is unchanged.");}break;
-        case HandHud:case ShowCompass:case ShowSlotBar:case ShowVitalsPanel:case BowReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
+        case FastPickup:case DialogueView:case ChestView:case LecternView:case ThirdPersonOrbit:case HandHud:case ShowCompass:case ShowSlotBar:case ShowVitalsPanel:case BowReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
     case WM_CTLCOLOREDIT:case WM_CTLCOLORLISTBOX:SetBkColor(HDC(w),Field);SetTextColor(HDC(w),Ink);return reinterpret_cast<LRESULT>(editBrush);
     case WM_CTLCOLORSTATIC:case WM_CTLCOLORBTN:{
         wchar_t cls[64];GetClassNameW(HWND(l),cls,64);bool edit=!wcscmp(cls,L"Edit");SetBkMode(HDC(w),edit?OPAQUE:TRANSPARENT);SetBkColor(HDC(w),edit?Field:Card);SetTextColor(HDC(w),HWND(l)==subtitle||HWND(l)==status||HWND(l)==hint?Muted:Ink);
@@ -428,6 +445,15 @@ bool UiInteractionCheck(wchar_t const* path){
         if(check==toggleSupportCheck){ok=Collect()&&ok;ok=ok&&settings.toggleSupportGrip==(before!=BST_CHECKED);}
         SendMessageW(check,BM_CLICK,0,0);ok=ok&&SendMessageW(check,BM_GETCHECK,0,0)==before;
     }
+    for(auto control:{fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck}){
+        TabCtrl_SetCurSel(settingsTabs,control==fastPickupCheck?InteractionPage:ThirdPersonPage);Layout();
+        bool original=SendMessageW(control,BM_GETCHECK,0,0)==BST_CHECKED;
+        for(unsigned click=0;click<2;++click){SendMessageW(control,BM_CLICK,0,0);ok=Collect()&&ok;
+            bool value=control==fastPickupCheck?settings.fastPickup:control==dialogueViewCheck?settings.firstPersonDialogue:
+                control==chestViewCheck?settings.firstPersonChest:control==lecternViewCheck?settings.firstPersonLectern:settings.thirdPersonOrbit;
+            ok=ok&&value==(click?original:!original);
+        }
+    }
     settings.dlaaExperimental=true; // A stale retired flag must not disable active graphics options.
     ok=Collect()&&ok;
     ok=ok&&!settings.dlaaExperimental&&settings.ffrMode==original.ffrMode&&settings.upscaleMethod==original.upscaleMethod;
@@ -473,8 +499,12 @@ bool UiInteractionCheck(wchar_t const* path){
       ok=ok&&opened&&!mappingListening&&diagnostic::mapping::Mask(binding)==(diagnostic::mapping::Bit(diagnostic::mapping::LeftGrip)|diagnostic::mapping::Bit(diagnostic::mapping::RightPrimary))&&binding.gesture==diagnostic::mapping::DoubleTap&&!source.Capturing(GetTickCount64());
       StopControllerCapture();mappingLink.Close();source.Close();settings.controllerBindings=saved;dirty=wasDirty;FillControllerMapper();
     }
-    ok=ok&&PageCount==19&&TabCtrl_GetItemCount(settingsTabs)==PageCount;
+    ok=ok&&PageCount==20&&TabCtrl_GetItemCount(settingsTabs)==PageCount;
     for(int page=0;page<PageCount;++page){SendMessageW(navigation[page],BM_CLICK,0,0);ok=ok&&TabCtrl_GetCurSel(settingsTabs)==page;
+        ok=ok&&(IsWindowVisible(fastPickupCheck)!=FALSE)==(page==InteractionPage);
+        for(auto control:{dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck})
+            ok=ok&&(IsWindowVisible(control)!=FALSE)==(page==ThirdPersonPage);
+        ok=ok&&PageNames[page]&&*PageNames[page]&&PageDescriptions[page]&&*PageDescriptions[page];
         ok=ok&&(IsWindowVisible(handsOnlyCheck)!=FALSE)==(page==CameraPage);
         ok=ok&&(IsWindowVisible(toggleSupportCheck)!=FALSE)==(page==CameraPage);
         for(unsigned i=0;i<diagnostic::VrNumberCount;++i){bool expected=NumberPage(i)==page||(page==MagicPage&&i==28);
@@ -505,7 +535,7 @@ int WINAPI wWinMain(HINSTANCE module,HINSTANCE,LPWSTR,int show) {
     int width=Scale(checkWidth),height=Scale(checkHeight);if(uiCheckPath.empty()){width=std::min(width,int(work.right-work.left-24));height=std::min(height,int(work.bottom-work.top-24));}
     window=CreateWindowExW(WS_EX_COMPOSITED,cls.lpszClassName,L"Gothic 3 VR — Settings and launcher",WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN,work.left+std::max(0,int(work.right-work.left-width)/2),work.top+std::max(0,int(work.bottom-work.top-height)/2),width,height,nullptr,nullptr,module,nullptr);
     if(window&&!uiCheckPath.empty()){ShowWindow(window,SW_SHOWNOACTIVATE);UpdateWindow(window);bool ok=UiInteractionCheck(uiCheckPath.c_str());ok=UiCheck(uiCheckPath.c_str())&&ok;
-        wchar_t const* suffix[]={L"",L"-hud.bmp",L"-interaction.bmp",L"-left-hand.bmp",L"-right-hand.bmp",L"-sword.bmp",L"-bow.bmp",L"-two-hand.bmp",L"-staff.bmp",L"-crossbow.bmp",L"-magic.bmp",L"-radial.bmp",L"-shield.bmp",L"-graphics.bmp",L"-foveated.bmp",L"-mods.bmp",L"-ini-tweaks.bmp",L"-controller-mapping.bmp",L"-hand-hud.bmp"};
+        wchar_t const* suffix[]={L"",L"-hud.bmp",L"-interaction.bmp",L"-left-hand.bmp",L"-right-hand.bmp",L"-sword.bmp",L"-bow.bmp",L"-two-hand.bmp",L"-staff.bmp",L"-crossbow.bmp",L"-magic.bmp",L"-radial.bmp",L"-shield.bmp",L"-graphics.bmp",L"-foveated.bmp",L"-mods.bmp",L"-ini-tweaks.bmp",L"-controller-mapping.bmp",L"-hand-hud.bmp",L"-third-person.bmp"};
         for(int page=1;page<int(sizeof(suffix)/sizeof(suffix[0]));++page){TabCtrl_SetCurSel(settingsTabs,page);Layout();UpdateWindow(window);ok=UiCheck((uiCheckPath+suffix[page]).c_str())&&ok;}
         TabCtrl_SetCurSel(settingsTabs,CameraPage);Layout();ok=UiIdlePaintCheck(uiCheckPath.c_str())&&ok;
         DestroyWindow(window);for(HFONT f:{font,titleFont,smallFont,navFont,brandFont,sectionFont})DeleteObject(f);DeleteObject(background);ReleaseArtwork();return ok?0:1;}

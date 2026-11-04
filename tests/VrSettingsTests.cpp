@@ -8,6 +8,18 @@ int wmain(int argc, wchar_t** argv) {
     unsigned failures=0;auto check=[&](bool ok,char const* name){printf("%s %s\n",ok?"PASS":"FAIL",name);failures+=!ok;};
     wchar_t directory[MAX_PATH],path[MAX_PATH];GetTempPathW(MAX_PATH,directory);GetTempFileNameW(directory,L"gvs",0,path);
     auto missingHandHud=diagnostic::LoadVrSettings(path);
+    check(missingHandHud.fastPickup&&missingHandHud.firstPersonDialogue&&missingHandHud.firstPersonChest&&missingHandHud.firstPersonLectern,
+        "Missing comfort keys preserve the enabled 1.0.6 through 1.0.9 behavior");
+    for(unsigned mask=0;mask<32;++mask){diagnostic::VrSettings value;
+        value.fastPickup=(mask&1)!=0;value.firstPersonDialogue=(mask&2)!=0;
+        value.firstPersonChest=(mask&4)!=0;value.firstPersonLectern=(mask&8)!=0;value.thirdPersonOrbit=(mask&16)!=0;
+        value.numbers[0]=-31;value.numbers[8]=7;diagnostic::ApplyLauncherFixedFeatures(value);
+        bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
+        check(saved&&loaded.fastPickup==bool(mask&1)&&loaded.firstPersonDialogue==bool(mask&2)&&loaded.firstPersonChest==bool(mask&4)&&
+            loaded.firstPersonLectern==bool(mask&8)&&loaded.thirdPersonOrbit==bool(mask&16)&&loaded.numbers[0]==-31&&loaded.numbers[8]==7,
+            "All pickup and third-person choices survive launcher defaults enforcement and independent settings round-trip");
+    }
+
     int expectedHandHud[]{-7,0,0,-90,180,-90,7,0,0,90,0,-90,50,50};
     bool correctDefaults=true;for(unsigned i=0;i<14;++i)correctDefaults&=missingHandHud.numbers[87+i]==expectedHandHud[i];
     check(correctDefaults,"Missing hand HUD keys use the calibrated transforms and 50 percent independent scales");
@@ -77,7 +89,7 @@ int wmain(int argc, wchar_t** argv) {
         old.stableHorizon=old.smoothCamera=old.trackedArms=old.stableBody=false;
         old.thirdPersonOrbit=old.physicalCrouching=false;old.controllers=old.instantControllerTurn=false;old.numbers[0]=-32;old.numbers[7]=800;
         auto before=old;diagnostic::ApplyLauncherFixedFeatures(old);
-        bool fixed=old.autoStart&&old.keepFirstPerson&&old.hideHead&&old.roomScaleWalking&&old.stableHorizon&&old.smoothCamera&&old.trackedArms&&old.stableBody&&old.thirdPersonOrbit&&old.physicalCrouching;
+        bool fixed=old.autoStart&&old.keepFirstPerson&&old.hideHead&&old.roomScaleWalking&&old.stableHorizon&&old.smoothCamera&&old.trackedArms&&old.stableBody&&old.physicalCrouching&&!old.thirdPersonOrbit;
         check(fixed&&diagnostic::SaveVrSettings(path,old),"Removed launcher switches retain the approved enabled behavior for old configurations");
         auto loaded=diagnostic::LoadVrSettings(path);
         check(loaded.autoStart&&loaded.physicalCrouching&&loaded.trackedArms&&loaded.controllers&&loaded.instantControllerTurn&&memcmp(loaded.numbers,before.numbers,sizeof(old.numbers))==0&&loaded.openXrRuntime==before.openXrRuntime&&loaded.upscaleMethod==before.upscaleMethod&&loaded.ffrMode==before.ffrMode,

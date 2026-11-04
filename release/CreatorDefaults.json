@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "2c1773b39778a81abbdbca0ff174d56d3490cc7dec28b013946089444c13513a",
+  "sha256": "1cc81d9f79d8f5fbe59c01ff974b03da07f929186bc80126dc6e2b0058c8e687",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -157,7 +157,11 @@
       "RightHandHudZcm": "0",
       "RightHandHudPitchDeg": "90",
       "RightHandHudYawDeg": "0",
-      "RightHandHudRollDeg": "-90"
+      "RightHandHudRollDeg": "-90",
+      "FastPickup": "1",
+      "FirstPersonDialogue": "1",
+      "FirstPersonChest": "1",
+      "FirstPersonLectern": "1"
     },
     "Controllers": {
       "Enabled": "1",

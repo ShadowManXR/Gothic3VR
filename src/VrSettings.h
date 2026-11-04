@@ -124,6 +124,7 @@ struct VrSettings {
     bool autoStart=true, hideHead=true, keepFirstPerson=true, controllers=true, stableHorizon=true, smoothCamera=true, trackedArms=true, stableBody=true, roomScaleWalking=true;
     bool bowReticle=true,instantControllerTurn=true;
     bool handHudEnabled=true;
+    bool fastPickup=true,firstPersonDialogue=true,firstPersonChest=true,firstPersonLectern=true;
     bool hideCompass=true,showSlotBar=false,showVitalsPanel=false;
     bool thirdPersonOrbit=true,physicalCrouching=true;
     bool handsOnly=false;
@@ -179,6 +180,10 @@ inline VrSettings LoadVrSettings(wchar_t const* path) {
     s.hideCompass=GetPrivateProfileIntW(L"Stereo",L"HideCompass",1,path)!=0;
     s.showSlotBar=GetPrivateProfileIntW(L"Stereo",L"ShowSlotBar",0,path)!=0;
     s.handHudEnabled=GetPrivateProfileIntW(L"Stereo",L"HandHudEnabled",1,path)!=0;
+    s.fastPickup=GetPrivateProfileIntW(L"Stereo",L"FastPickup",1,path)!=0;
+    s.firstPersonDialogue=GetPrivateProfileIntW(L"Stereo",L"FirstPersonDialogue",1,path)!=0;
+    s.firstPersonChest=GetPrivateProfileIntW(L"Stereo",L"FirstPersonChest",1,path)!=0;
+    s.firstPersonLectern=GetPrivateProfileIntW(L"Stereo",L"FirstPersonLectern",1,path)!=0;
     s.showVitalsPanel=GetPrivateProfileIntW(L"Stereo",L"ShowVitalsPanel",0,path)!=0;
     s.twoHandedMelee=GetPrivateProfileIntW(L"Stereo",L"TwoHandedMelee",1,path)!=0;
     s.heavyTwoHand=GetPrivateProfileIntW(L"Stereo",L"HeavyTwoHand",1,path)!=0;
@@ -239,6 +244,7 @@ inline bool SaveVrSettings(wchar_t const* path,VrSettings const& s) {
         write(L"StableHorizon",s.stableHorizon);
         write(L"BowReticle",s.bowReticle);
         write(L"HideCompass",s.hideCompass);write(L"ShowSlotBar",s.showSlotBar);write(L"ShowVitalsPanel",s.showVitalsPanel);write(L"HandHudEnabled",s.handHudEnabled);
+        write(L"FastPickup",s.fastPickup);write(L"FirstPersonDialogue",s.firstPersonDialogue);write(L"FirstPersonChest",s.firstPersonChest);write(L"FirstPersonLectern",s.firstPersonLectern);
         write(L"TwoHandedMelee",s.twoHandedMelee);write(L"HeavyTwoHand",s.heavyTwoHand);
         write(L"SmoothCamera",s.smoothCamera);
         write(L"CameraSmoothingMs",std::clamp(s.cameraSmoothingMs,0,250));
