@@ -48,6 +48,7 @@
 #include "NativeHudVisibility.h"
 #include "NativeRadialItems.h"
 #include "NativeHandHud.h"
+#include "NativePickup.h"
 #include "ControllerMappingIpc.h"
 #include "NativeMagicHandEffects.h"
 #include "RenderAlphaSnapshot.h"
@@ -140,6 +141,7 @@ diagnostic::BowReticle gBowReticle;
 diagnostic::NativeHudVisibility gNativeHudVisibility;
 diagnostic::NativeRadialItems gNativeRadialItems;
 diagnostic::NativeHandHud gHandHud;
+diagnostic::NativePickup gPickup;
 diagnostic::NativeTrackedBow gTrackedBow;
 diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gParticleWorldHook,gSignpostFocusHook;
 diagnostic::FocusHook gFocusNameSizeHook;
@@ -4524,6 +4526,24 @@ bool InitializePaths()
     return true;
 }
 
+bool SkipNativePickupPause(uintptr_t caller,diagnostic::PickupPause kind,void* args,gCScriptProcessingUnit* spu,GEBool fullStop){
+    if(!gPickup.Matches(caller,kind)||!args||fullStop)return false;
+    __try {
+        if(GetCurrentThreadId()!=gApplicationThread.load()||!gHeadControl.enabled||!gConfig.stereoEnabled||
+           gStereo.shuttingDown||gStereo.fault||gWorldLifecycle.Blocked()||MenuPanelActive()||
+           !gApplication||!gApplication->IsGameRunning()||gCSession::GetInstance().IsPaused())return false;
+        if(!gPickup.Skip(caller,kind,args,spu,fullStop,gCSession::GetInstance().GetPlayer()))return false;
+        Message("vr_pickup_pause_skipped; native_inventory_transfer_preserved",kind==diagnostic::PickupPause::Wait?0:1,true);return true;
+    }__except(EXCEPTION_EXECUTE_HANDLER){Message("vr_pickup_pause_guard_fault; native_pickup_preserved",GetExceptionCode(),true);return false;}
+}
+GEBool __stdcall FastPickupWait(void* args,gCScriptProcessingUnit* spu,GEBool fullStop){
+    if(SkipNativePickupPause(reinterpret_cast<uintptr_t>(_ReturnAddress()),diagnostic::PickupPause::Wait,args,spu,fullStop))return GETrue;
+    return gPickup.Dispatch(diagnostic::PickupPause::Wait,args,spu,fullStop);
+}
+GEBool __stdcall FastPickupAnimation(void* args,gCScriptProcessingUnit* spu,GEBool fullStop){
+    if(SkipNativePickupPause(reinterpret_cast<uintptr_t>(_ReturnAddress()),diagnostic::PickupPause::Animation,args,spu,fullStop))return GETrue;
+    return gPickup.Dispatch(diagnostic::PickupPause::Animation,args,spu,fullStop);
+}
 void Initialize()
 {
     QueryPerformanceFrequency(&gFrequency);
@@ -4574,6 +4594,9 @@ void Initialize()
         if(gActionHook.installed&&!gBow.Install(reinterpret_cast<void*>(&PhysicalBowProjectile),TrackedArmsRecord))
             Message("vr_physical_bow_native_profile_refused; native_ranged_combat_preserved",0,true);
         gMagic.Initialize(gBow.ready,TrackedArmsRecord);
+        if(gPickup.Install(reinterpret_cast<void*>(&FastPickupWait),reinterpret_cast<void*>(&FastPickupAnimation)))
+            Message("vr_fast_pickup_installed; hero_only; skip_take_wait_and_animation; native_inventory_and_rules",0,true);
+        else Message("vr_fast_pickup_profile_refused; native_pickup_preserved",0,true);
         if(!InstallMovieHook())Message("vr_movie_PlayVideo_profile_refused; native_movies_preserved",0,true);
         if(InstallStereoHook()&&gConfig.stereoEnabled&&gConfig.headControlAllowed&&gConfig.trackingEnabled&&gVrSettings.autoStart){
             gHeadControl.enabled=true;gHeadControl.recenterPending=true;

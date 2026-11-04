@@ -1,4 +1,10 @@
-# Gothic 3 VR 1.0.5
+# Gothic 3 VR 1.0.6
+
+- Removed the VR player's native 500 ms pickup wait and the animations immediately before and after world-item inventory transfer.
+- The original script still handles inventory insertion, stack amounts, quick-slot assignment and pickup rules. NPC and non-VR pickups, other interactions and instruction cancellation retain their native behavior.
+- Applies only to the supported native binary profile; incompatible pickup hooks fall back to the original behavior.
+
+## Previous release: 1.0.5
 
 - Updated both hand HUD defaults to the user-calibrated positions and rotations.
 - Added separate slot-bar and status-block scale controls (25–200%, default 50%) on the Hand HUD page.
