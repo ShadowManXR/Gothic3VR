@@ -20,7 +20,7 @@ void OpenAbout(){
     dialog.dwCommonButtons=TDCBF_CLOSE_BUTTON;
     dialog.pszWindowTitle=L"About Gothic 3 VR";
     dialog.pszMainInstruction=L"Gothic 3 VR by PeCOS2k5";
-    dialog.pszContent=L"Created and maintained by PeCOS2k5.\n\n"
+    dialog.pszContent=L"Version " G3VR_LAUNCHER_VERSION_WIDE L"\nCreated and maintained by PeCOS2k5.\n\n"
         L"<a href=\"https://github.com/PeCOS2k5/Gothic3VR/releases\">Official downloads</a>   "
         L"<a href=\"https://www.nexusmods.com/gothic3/mods/115\">Nexus Mods</a>\n"
         L"<a href=\"https://github.com/PeCOS2k5/Gothic3VR\">Official repository</a>   "

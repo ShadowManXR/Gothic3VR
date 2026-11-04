@@ -11,6 +11,7 @@
 #include <vector>
 #include <gdiplus.h>
 #include <uxtheme.h>
+#include "LauncherVersion.h"
 #include "VrSettings.h"
 #include "LauncherCore.h"
 #include "LauncherFixedFeatures.h"
