@@ -130,6 +130,7 @@ struct Runtime
     uint64_t uiFrames=0,uiOnlyFrames=0;
     int diagnosticState=-100;uint64_t diagnosticChanged=0;unsigned diagnosticDumps=0;
     UiLayout uiLayout;
+    RadialItems radialItems,radialItemsUploaded;
     RadialState radial,radialUploaded;bool radialValid=false;int worldStatus=0,uploadedStatus=0;float radialScale=.8f;
     XrSwapchain radialSwapchain=XR_NULL_HANDLE;std::vector<XrSwapchainImageD3D11KHR> radialImages;
     QuestActions controllers;
@@ -667,17 +668,17 @@ struct Runtime
     void CaptureRadial()
     {
         if(!radial.visible&&!worldStatus)return;
-        if(radialValid&&radialUploaded.visible==radial.visible&&radialUploaded.page==radial.page&&radialUploaded.selected==radial.selected&&uploadedStatus==worldStatus)return;
+        if(radialValid&&radialUploaded.visible==radial.visible&&radialUploaded.page==radial.page&&radialUploaded.selected==radial.selected&&uploadedStatus==worldStatus&&(!radial.visible||radial.page||radialItemsUploaded==radialItems))return;
         if(!radialSwapchain){XrSwapchainCreateInfo info{XR_TYPE_SWAPCHAIN_CREATE_INFO};info.usageFlags=XR_SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT|XR_SWAPCHAIN_USAGE_TRANSFER_DST_BIT;
             info.format=DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;info.width=info.height=RadialPixels;info.sampleCount=info.faceCount=info.arraySize=info.mipCount=1;
             api.Check(api.CreateSwapchain(session,&info,&radialSwapchain),"radial swapchain");uint32_t count=0;api.Check(api.EnumerateSwapchainImages(radialSwapchain,0,&count,nullptr),"radial image count");
             radialImages.resize(count,{XR_TYPE_SWAPCHAIN_IMAGE_D3D11_KHR});api.Check(api.EnumerateSwapchainImages(radialSwapchain,count,&count,reinterpret_cast<XrSwapchainImageBaseHeader*>(radialImages.data())),"radial images");}
-        auto started=GetTickCount64();auto pixels=radial.visible?RadialImage(radial):WorldStatusImage(worldStatus);auto drawn=GetTickCount64();uint32_t image=0;XrSwapchainImageAcquireInfo acquire{XR_TYPE_SWAPCHAIN_IMAGE_ACQUIRE_INFO};api.Check(api.AcquireSwapchainImage(radialSwapchain,&acquire,&image),"acquire radial");
+        auto started=GetTickCount64();auto pixels=radial.visible?RadialImage(radial,radialItems):WorldStatusImage(worldStatus);auto drawn=GetTickCount64();uint32_t image=0;XrSwapchainImageAcquireInfo acquire{XR_TYPE_SWAPCHAIN_IMAGE_ACQUIRE_INFO};api.Check(api.AcquireSwapchainImage(radialSwapchain,&acquire,&image),"acquire radial");
         auto waitStarted=probes::Now();XrSwapchainImageWaitInfo wait{XR_TYPE_SWAPCHAIN_IMAGE_WAIT_INFO};wait.timeout=XR_INFINITE_DURATION;api.Check(api.WaitSwapchainImage(radialSwapchain,&wait),"wait radial");metrics.Add(performance::Stage::SwapchainWait,probes::Now()-waitStarted);
         XrSwapchainImageReleaseInfo release{XR_TYPE_SWAPCHAIN_IMAGE_RELEASE_INFO};g3vr::Scope returnImage{[&]{api.ReleaseSwapchainImage(radialSwapchain,&release);}};
         if(image>=radialImages.size())throw std::runtime_error("Invalid radial image index");
         QueueCopy(radialSwapchain);returnImage.finish=nullptr;renderer.context->UpdateSubresource(radialImages[image].texture,0,nullptr,pixels.data(),RadialPixels*4,0);
-        if(!batchCopies)CompleteCopies();radialUploaded=radial;uploadedStatus=worldStatus;radialValid=true;
+        if(!batchCopies)CompleteCopies();radialUploaded=radial;radialItemsUploaded=radialItems;uploadedStatus=worldStatus;radialValid=true;
         log.Line("{\"type\":\"radial_upload\",\"page\":"+std::to_string(radial.page)+",\"selected\":"+std::to_string(radial.selected)+",\"draw_ms\":"+std::to_string(drawn-started)+",\"total_ms\":"+std::to_string(GetTickCount64()-started)+"}");
     }
     void EndUi()
@@ -920,7 +921,7 @@ void StereoRuntime::Cancel() noexcept {try{if(implementation){auto& r=*static_ca
 void StereoRuntime::SetUiLayout(UiLayout const& layout) noexcept {if(implementation)static_cast<Runtime*>(implementation)->uiLayout=layout;}
 void StereoRuntime::SetFoveation(int mode,int diameter,int transition) noexcept {if(implementation)static_cast<Runtime*>(implementation)->RequestFoveation(mode,diameter,transition);}
 void StereoRuntime::SetUiDiagnosticState(int state) noexcept {if(implementation){auto* r=static_cast<Runtime*>(implementation);if(!probes::Enabled&&r->uiDumpFile.empty())return;if(state!=r->diagnosticState){r->diagnosticState=state;r->diagnosticChanged=r->uiFrames;}}}
-void StereoRuntime::SetRadial(RadialState const& state,int scalePercent) noexcept {if(implementation){auto& r=*static_cast<Runtime*>(implementation);r.radial=state;r.radialScale=float(std::clamp(scalePercent,40,120))*.01f;}}
+void StereoRuntime::SetRadial(RadialState const& state,int scalePercent,RadialItems const* items) noexcept {if(implementation){auto& r=*static_cast<Runtime*>(implementation);r.radial=state;r.radialItems=items?*items:RadialItems{};r.radialScale=float(std::clamp(scalePercent,40,120))*.01f;}}
 void StereoRuntime::SetWorldStatus(int status) noexcept {if(implementation)static_cast<Runtime*>(implementation)->worldStatus=std::clamp(status,0,4);}
 ControllerFrame StereoRuntime::Controllers() const noexcept {return implementation?static_cast<Runtime*>(implementation)->controllers.frame:ControllerFrame{};}
 bool StereoRuntime::Haptic(unsigned hand,float amplitude,int milliseconds) noexcept {try{if(!implementation)return false;auto& r=*static_cast<Runtime*>(implementation);bool sent=r.controllers.Pulse(r.api,r.session,hand,amplitude,milliseconds);if constexpr(probes::Enabled)r.log.Line("{\"type\":\"controller_haptic\",\"hand\":"+std::to_string(hand)+",\"result\":"+std::to_string(r.controllers.lastHapticResult)+",\"duration_ms\":"+std::to_string(milliseconds)+",\"sent\":"+(sent?"true":"false")+"}");return sent;}catch(...){return false;}}

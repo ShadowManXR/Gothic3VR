@@ -60,7 +60,7 @@ void PaintCanvas(HDC dc,bool present=true){
   // One larger G3 VR emblem in the top-right header; no duplicate wordmark.
   auto icon=LoadImageW(instance,MAKEINTRESOURCEW(101),IMAGE_ICON,Scale(88),Scale(88),LR_SHARED);DrawIconEx(mem,Scale(w-118),Scale(8),HICON(icon),Scale(88),Scale(88),0,nullptr,DI_NORMAL);
   UiText(mem,L"SETTINGS",25,111,170,18,smallFont,Muted);
-  UiText(mem,L"PC VR  ·  OPENXR",25,40,180,20,smallFont,Gold,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
+  UiText(mem,L"PC VR · OPENXR · v1.0.3",15,40,200,20,smallFont,Gold,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
   for(auto const& p:panels)if(!p.heading.empty())UiText(mem,p.heading,p.x+22,p.y+15,p.w-44,22,sectionFont,Gold);
   UiText(mem,L"Controller mapping",25,h-83,180,24,navFont,Ink);UiText(mem,L"Customize buttons in Settings",25,h-57,180,22,smallFont,Muted);
   SelectObject(mem,old);DeleteDC(mem);

@@ -40,7 +40,7 @@ def markdown_html(text):
             blocks.append('<p>'+inline(' '.join(paragraph))+'</p>')
     return '\n'.join(blocks)
 
-VERSION = '1.0.1'
+VERSION = '1.0.3'
 ROOT = Path(__file__).resolve().parents[1]
 
 def sha(p):
@@ -70,8 +70,10 @@ def build(args):
     # playlist skips startup branding without altering the actual Bink movies.
     # Deployment journals the original file for rollback and uninstall.
     add(ROOT / 'assets/startup/Ini/logo.ini', 'Ini/logo.ini')
-    add(game / 'Gothic3VRUnionGuard.exe', 'Gothic3VRUnionGuard.exe', pin=sha(binaries / 'Gothic3VRUnionGuard.exe'))
-    add(game / 'patches/Patch_Gothic3VRResolution.dll', 'patches/Patch_Gothic3VRResolution.dll', pin='A19A5801578358E3003027B94337FDE34CB278587DE310C08FB46C4AC8893C73')
+    # All locally built components must match the selected build, as enforced
+    # again by Install-Diagnostics. Accepted external runtimes stay pinned below.
+    add(binaries / 'Gothic3VRUnionGuard.exe', 'Gothic3VRUnionGuard.exe')
+    add(binaries / 'Patch_Gothic3VRResolution.dll', 'patches/Patch_Gothic3VRResolution.dll')
     runtime = 'scripts/Gothic3VRDiagnostics/'
     for name in ('openxr_loader.dll', 'OPENXR-LICENSE.txt', 'openvr_api.dll', 'OPENVR-LICENSE.txt', 'UPSCALER-LICENSES.txt', 'FXAA-LICENSE.txt'):
         add(game / runtime / name, runtime + name)

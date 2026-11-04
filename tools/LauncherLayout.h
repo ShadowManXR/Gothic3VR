@@ -23,7 +23,7 @@ void Layout(){
  else if(page==CameraPage){panels.push_back({x,top,col,ch,L"CAMERA POSITION"});panels.push_back({x+col+18,top,col,ch,L"VR RUNTIME & CONTROLS"});}
  else panels.push_back({x,top,cw,ch,page==ModsPage?L"OPTIONAL MODS":page==BindingsPage?L"CONTROLLER BINDINGS":page==GraphicsPage||page==FoveatedPage?L"RENDERING":page==RadialPage?L"CONTROLS":page==HudPage?L"INTERFACE":L"CALIBRATION"});
  for(unsigned i=0;i<diagnostic::VrNumberCount;++i)for(HWND control:{labels[i],tracks[i],edits[i],units[i]})ShowWindow(control,SW_HIDE);
- for(HWND control:{runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
+ for(HWND control:{hideCompassCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)for(HWND control:{iniLabels[i],iniTracks[i],iniValues[i],iniUnits[i]})if(control)ShowWindow(control,SW_HIDE);
  for(HWND control:{iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
  for(int i=0;i<2;++i)for(HWND control:{graphicsLabels[i],graphicsTracks[i],graphicsEdits[i],graphicsUnits[i]})ShowWindow(control,SW_HIDE);
@@ -63,7 +63,7 @@ void Layout(){
   std::vector<unsigned> fields;for(unsigned i=0;i<diagnostic::VrNumberCount;++i)if(NumberPage(i)==page||page==MagicPage&&i==28)fields.push_back(i);
   int spacing=compact?(page==CrossbowPage?42:45):page==BowPage?49:55;for(unsigned row=0;row<fields.size();++row)field(fields[row],fx,fy+row*spacing,fw);
   int after=fy+int(fields.size())*spacing+10;
-  if(page==HudPage){};
+  if(page==HudPage)show(hideCompassCheck,fx,after,fw,29);
   if(page==LeftHandPage||page==RightHandPage)show(handHint,fx,after,fw,70);
   if(page==CrossbowPage){show(bowReticleCheck,fx,after,fw,29);show(crossbowHint,fx,after+40,fw,44);}
   if(page==MagicPage){show(bowReticleCheck,fx,after,fw,29);show(magicHint,fx,after+40,fw,70);}

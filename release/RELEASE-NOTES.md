@@ -1,4 +1,11 @@
-# Gothic 3 VR 1.0.1
+# Gothic 3 VR 1.0.3
+
+- Added native quick-slot item icons and live stack quantities to the VR radial item wheel.
+- Corrected the radial icon lookup to use native slot digits (1–9, then 0), matching the quick-slot key sent on confirmation.
+- Added the launcher HUD option to hide the compass.
+- Added the application version beside PC VR / OpenXR in the launcher.
+
+## Previous release: 1.0.1
 
 Performance hotfix — 2 November 2026.
 

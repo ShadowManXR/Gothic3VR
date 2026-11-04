@@ -109,6 +109,7 @@ struct VrSettings {
     VrSettings(){for(unsigned i=0;i<VrNumberCount;++i)numbers[i]=VrNumbers[i].initial;}
     bool autoStart=true, hideHead=true, keepFirstPerson=true, controllers=true, stableHorizon=true, smoothCamera=true, trackedArms=true, stableBody=true, roomScaleWalking=true;
     bool bowReticle=true,instantControllerTurn=true;
+    bool hideCompass=false;
     bool thirdPersonOrbit=true,physicalCrouching=true;
     bool handsOnly=false;
     bool toggleSupportGrip=true;
@@ -160,6 +161,7 @@ inline VrSettings LoadVrSettings(wchar_t const* path) {
     s.handsOnly=GetPrivateProfileIntW(L"Controllers",L"HandsOnly",0,path)!=0;
     s.toggleSupportGrip=GetPrivateProfileIntW(L"Controllers",L"ToggleSupportGrip",1,path)!=0;
     s.bowReticle=GetPrivateProfileIntW(L"Stereo",L"BowReticle",1,path)!=0;
+    s.hideCompass=GetPrivateProfileIntW(L"Stereo",L"HideCompass",0,path)!=0;
     s.twoHandedMelee=GetPrivateProfileIntW(L"Stereo",L"TwoHandedMelee",1,path)!=0;
     s.heavyTwoHand=GetPrivateProfileIntW(L"Stereo",L"HeavyTwoHand",1,path)!=0;
     s.hideHead=GetPrivateProfileIntW(L"Stereo",L"HideFirstPersonHead",1,path)!=0;
@@ -218,6 +220,7 @@ inline bool SaveVrSettings(wchar_t const* path,VrSettings const& s) {
         write(L"AutoStart",s.autoStart);write(L"HideFirstPersonHead",s.hideHead);write(L"KeepFirstPerson",s.keepFirstPerson);
         write(L"StableHorizon",s.stableHorizon);
         write(L"BowReticle",s.bowReticle);
+        write(L"HideCompass",s.hideCompass);
         write(L"TwoHandedMelee",s.twoHandedMelee);write(L"HeavyTwoHand",s.heavyTwoHand);
         write(L"SmoothCamera",s.smoothCamera);
         write(L"CameraSmoothingMs",std::clamp(s.cameraSmoothingMs,0,250));

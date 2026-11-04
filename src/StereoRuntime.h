@@ -5,6 +5,7 @@
 #include "VrSettings.h"
 #include "ControllerData.h"
 #include "QuickRadial.h"
+#include "RadialItems.h"
 #include "FramePerformance.h"
 #include "UpdatePerformance.h"
 #include "NativePhasePerformance.h"
@@ -33,7 +34,7 @@ public:
     void SetUiLayout(UiLayout const& layout) noexcept;
     void SetFoveation(int mode,int diameterPercent,int transitionPercent=10) noexcept;
     void SetUiDiagnosticState(int state) noexcept;
-    void SetRadial(RadialState const& state,int scalePercent=80) noexcept;
+    void SetRadial(RadialState const& state,int scalePercent=80,RadialItems const* items=nullptr) noexcept;
     void SetWorldStatus(int status) noexcept;
     bool Submit() noexcept;
     void NoteTiming(performance::Stage stage,uint64_t started) noexcept;

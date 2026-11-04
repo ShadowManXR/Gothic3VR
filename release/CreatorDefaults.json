@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "d28383c7f44611e3555b5a880ea3fec45b4a7512c6de97017f9a083fed14ef41",
+  "sha256": "03394931f96853c139cf1e8118831905c711021fe6c046e75990ba7ffd93e0ac",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -139,7 +139,8 @@
       "StaffGripLossDistanceCm": "40",
       "CrossbowGripLossDistanceCm": "20",
       "FogIntensityPercent": "30",
-      "WorldLabelScalePercent": "50"
+      "WorldLabelScalePercent": "50",
+      "HideCompass": "0"
     },
     "Controllers": {
       "Enabled": "1",

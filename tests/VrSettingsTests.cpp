@@ -6,6 +6,11 @@ int wmain(int argc, wchar_t** argv) {
     static_assert(diagnostic::VrNumberCount==87);
     unsigned failures=0;auto check=[&](bool ok,char const* name){printf("%s %s\n",ok?"PASS":"FAIL",name);failures+=!ok;};
     wchar_t directory[MAX_PATH],path[MAX_PATH];GetTempPathW(MAX_PATH,directory);GetTempFileNameW(directory,L"gvs",0,path);
+    check(!diagnostic::LoadVrSettings(path).hideCompass,"Compass stays visible for existing configurations");
+    for(bool hidden:{true,false}){diagnostic::VrSettings value;value.hideCompass=hidden;value.numbers[2]=120;value.bowReticle=false;
+        diagnostic::ApplyLauncherFixedFeatures(value);
+        bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
+        check(saved&&loaded.hideCompass==hidden&&loaded.numbers[2]==120&&!loaded.bowReticle,"Compass preference round-trips independently of HUD scale and aiming reticle");}
     check(!diagnostic::LoadVrSettings(path).handsOnly,"Hands only remains opt-in for existing and fresh configurations");
     check(diagnostic::LoadVrSettings(path).numbers[82]==40,"Missing 2H grip loss distance defaults to 40 cm");
     check(diagnostic::LoadVrSettings(path).numbers[83]==40&&diagnostic::LoadVrSettings(path).numbers[84]==20,"Release defaults: staff grip loss 40 cm and crossbow grip loss 20 cm");

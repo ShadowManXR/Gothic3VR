@@ -1,4 +1,5 @@
 ﻿#include "CinemaScope.h"
+#include "RadialTextureCopy.h"
 // Exercise the actual compositor submission code against a fake EndFrame.
 // No runtime, headset or game process is started by this test.
 #include "../src/StereoRuntime.cpp"
@@ -106,6 +107,44 @@ int main()
             submitted.fail=true;runtime.begun=true;runtime.captured=3;bool failed=false;
             try{runtime.End(true);}catch(std::exception const&){failed=true;}
             check(failed&&!runtime.begun&&runtime.submitted==3,"EndFrame error preserves completed-submission count and cannot double-end");
+            auto d3dx=LoadLibraryExW(L"d3dx9_40.dll",nullptr,LOAD_LIBRARY_SEARCH_SYSTEM32);
+            check(d3dx!=nullptr,"installed native D3DX texture converter is available");
+            Microsoft::WRL::ComPtr<IDirect3D9Ex> d9;Microsoft::WRL::ComPtr<IDirect3DDevice9Ex> device9;
+            stereo::Hr(Direct3DCreate9Ex(D3D_SDK_VERSION,&d9),"icon D3D9Ex factory");
+            D3DPRESENT_PARAMETERS pp{};pp.Windowed=TRUE;pp.SwapEffect=D3DSWAPEFFECT_DISCARD;pp.hDeviceWindow=GetDesktopWindow();pp.BackBufferWidth=pp.BackBufferHeight=64;pp.BackBufferFormat=D3DFMT_X8R8G8B8;
+            stereo::Hr(d9->CreateDeviceEx(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,pp.hDeviceWindow,D3DCREATE_SOFTWARE_VERTEXPROCESSING,&pp,nullptr,&device9),"icon D3D9Ex device");
+            Microsoft::WRL::ComPtr<IDirect3DTexture9> atlas,staging;
+            stereo::Hr(device9->CreateTexture(128,64,1,0,D3DFMT_A8R8G8B8,D3DPOOL_SYSTEMMEM,&staging,nullptr),"icon atlas staging");
+            stereo::Hr(device9->CreateTexture(128,64,1,0,D3DFMT_A8R8G8B8,D3DPOOL_DEFAULT,&atlas,nullptr),"native default pool icon atlas");
+            D3DLOCKED_RECT iconLock{};stereo::Hr(staging->LockRect(0,&iconLock,nullptr,0),"icon atlas lock");
+            for(unsigned y=0;y<64;++y)for(unsigned x=0;x<128;++x)reinterpret_cast<uint32_t*>(static_cast<char*>(iconLock.pBits)+y*iconLock.Pitch)[x]=x<64?0xffff0000:0x802080e0;
+            staging->UnlockRect(0);stereo::Hr(device9->UpdateTexture(staging.Get(),atlas.Get()),"upload icon atlas");
+            auto nativeIcon=diagnostic::CopyRadialTexture(atlas.Get(),RECT{64,0,128,64});
+            check(nativeIcon&&(*nativeIcon)[32*64+32]==0x802080e0,"native default-pool atlas is cropped with alpha intact for the radial item icon");
+            check(!diagnostic::CopyRadialTexture(atlas.Get(),RECT{-1,0,64,64}),"invalid icon atlas rectangle is rejected");
+            Microsoft::WRL::ComPtr<IDirect3DTexture9> compressed,compressedStaging;
+            stereo::Hr(device9->CreateTexture(128,64,1,0,D3DFMT_DXT3,D3DPOOL_SYSTEMMEM,&compressedStaging,nullptr),"compressed icon staging");
+            stereo::Hr(device9->CreateTexture(128,64,1,0,D3DFMT_DXT3,D3DPOOL_DEFAULT,&compressed,nullptr),"native compressed icon atlas");
+            stereo::Hr(compressedStaging->LockRect(0,&iconLock,nullptr,0),"compressed atlas lock");
+            for(unsigned y=0;y<16;++y)for(unsigned x=0;x<32;++x){auto* block=static_cast<unsigned char*>(iconLock.pBits)+y*iconLock.Pitch+x*16;memset(block,0,16);memset(block,0x88,8);block[8]=0xe0;block[9]=7;block[10]=0xe0;block[11]=7;}
+            compressedStaging->UnlockRect(0);stereo::Hr(device9->UpdateTexture(compressedStaging.Get(),compressed.Get()),"compressed icon upload");
+            D3DVIEWPORT9 originalIconViewport{3,5,40,42,.2f,.8f};RECT originalScissor{7,9,31,35};
+            device9->SetViewport(&originalIconViewport);device9->SetScissorRect(&originalScissor);
+            device9->SetRenderState(D3DRS_SCISSORTESTENABLE,TRUE);device9->SetRenderState(D3DRS_ALPHABLENDENABLE,TRUE);
+            device9->SetTexture(0,atlas.Get());device9->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+            Microsoft::WRL::ComPtr<IDirect3DSurface9> originalIconTarget;device9->GetRenderTarget(0,&originalIconTarget);
+            auto compressedIcon=diagnostic::CopyRadialTexture(compressed.Get(),RECT{64,0,128,64});
+            D3DVIEWPORT9 restoredViewport{};RECT restoredScissor{};DWORD restoredScissorEnabled=0,restoredBlend=0,restoredFvf=0;
+            device9->GetViewport(&restoredViewport);device9->GetScissorRect(&restoredScissor);device9->GetRenderState(D3DRS_SCISSORTESTENABLE,&restoredScissorEnabled);
+            device9->GetRenderState(D3DRS_ALPHABLENDENABLE,&restoredBlend);device9->GetFVF(&restoredFvf);
+            Microsoft::WRL::ComPtr<IDirect3DSurface9> restoredTarget;Microsoft::WRL::ComPtr<IDirect3DBaseTexture9> restoredTexture;
+            device9->GetRenderTarget(0,&restoredTarget);device9->GetTexture(0,&restoredTexture);
+            check(!memcmp(&restoredViewport,&originalIconViewport,sizeof(restoredViewport))&&EqualRect(&restoredScissor,&originalScissor)&&restoredScissorEnabled&&restoredBlend&&
+                  restoredFvf==(D3DFVF_XYZ|D3DFVF_DIFFUSE)&&restoredTarget==originalIconTarget&&restoredTexture.Get()==atlas.Get(),"compressed icon conversion restores native viewport, target, texture, vertex format and render states");
+            stereo::Hr(device9->BeginScene(),"existing native scene");auto inSceneIcon=diagnostic::CopyRadialTexture(compressed.Get(),RECT{64,0,128,64});
+            check(inSceneIcon&&(*inSceneIcon)[32*64+32]==0x8800ff00&&SUCCEEDED(device9->EndScene()),"icon conversion preserves an already active native scene");
+            check(compressedIcon&&(*compressedIcon)[32*64+32]==0x8800ff00,"compressed native DXT3 atlas converts to BGRA with translucent item pixels intact");
+            if(d3dx)FreeLibrary(d3dx);
             runtime.renderer.Initialize();D3D11_QUERY_DESC query{D3D11_QUERY_EVENT,0};stereo::Hr(runtime.renderer.device->CreateQuery(&query,&runtime.fence11),"radial GPU fence");
             D3D11_TEXTURE2D_DESC desc{};desc.Width=desc.Height=diagnostic::RadialPixels;desc.MipLevels=desc.ArraySize=desc.SampleDesc.Count=1;desc.Format=DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;desc.BindFlags=D3D11_BIND_RENDER_TARGET;
             stereo::ComPtr<ID3D11Texture2D> target,readback;stereo::Hr(runtime.renderer.device->CreateTexture2D(&desc,nullptr,&target),"radial GPU target");
@@ -118,6 +157,16 @@ int main()
             check(matches&&radialAcquires==1&&radialReleases==1,"actual radial image survives D3D11 upload with exact premultiplied alpha and all labels");
             runtime.CaptureRadial();check(radialAcquires==1,"unchanged radial reuses last released XR image without rerasterizing or acquiring");
             runtime.radial.selected=3;runtime.CaptureRadial();runtime.CompleteCopies();check(radialAcquires==2&&radialReleases==2&&runtime.radialUploaded.selected==3,"selection change uploads and releases a fresh image");
+            auto icon=std::make_shared<diagnostic::RadialIcon>();icon->fill(0xff40a0e0);
+            runtime.radialItems[0]={7,icon};runtime.CaptureRadial();runtime.CompleteCopies();
+            check(radialAcquires==3&&runtime.radialItemsUploaded[0].amount==7,"new item icon invalidates the radial image without a selection change");
+            runtime.radialItems[0].amount=6;runtime.CaptureRadial();runtime.CompleteCopies();
+            check(radialAcquires==4&&runtime.radialItemsUploaded[0].amount==6,"quantity changes invalidate the radial upload cache");
+            runtime.CaptureRadial();check(radialAcquires==4,"unchanged items and counts reuse the radial image");
+            runtime.radialItems[0]={};runtime.CaptureRadial();runtime.CompleteCopies();
+            check(radialAcquires==5&&!runtime.radialItemsUploaded[0].icon,"cleared quick slots cannot retain a stale uploaded icon");
+            // Restore the fixture's acquisition baseline for status-layer checks.
+            radialAcquires-=3;radialReleases-=3;
             runtime.radial.visible=false;runtime.CaptureRadial();check(radialAcquires==2,"hidden radial allocates and uploads nothing");
             settings.numbers[1]=-70;settings.numbers[2]=100;settings.numbers[5]=200;runtime.uiLayout=diagnostic::PanelLayout(settings,false);
             runtime.worldStatus=1;runtime.CaptureRadial();check(radialAcquires==3&&runtime.uploadedStatus==1,"native sneak status uploads despite radial being hidden");

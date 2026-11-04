@@ -45,6 +45,8 @@
 #include "NativeAttachedParticles.h"
 #include "ParticlePerformance.h"
 #include "NativeFogIntensity.h"
+#include "NativeCompass.h"
+#include "NativeRadialItems.h"
 #include "ControllerMappingIpc.h"
 #include "NativeMagicHandEffects.h"
 #include "RenderAlphaSnapshot.h"
@@ -134,6 +136,8 @@ diagnostic::PlayerFocusDispatch gPlayerFocusDispatch;
 diagnostic::NativeBow gBow;
 diagnostic::NativeMagic gMagic;
 diagnostic::BowReticle gBowReticle;
+diagnostic::NativeCompass gNativeCompass;
+diagnostic::NativeRadialItems gNativeRadialItems;
 diagnostic::NativeTrackedBow gTrackedBow;
 diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gParticleWorldHook,gSignpostFocusHook;
 diagnostic::FocusHook gFocusNameSizeHook;
@@ -2204,6 +2208,12 @@ bool __fastcall SignpostNameFocus(gCGUIEntityRenderer const* self,void*,eCEntity
         });
     }__except(EXCEPTION_EXECUTE_HANDLER){return false;}
 }
+void __fastcall PaintHudCompass(CFFGFCWnd* self,void*)
+{
+    if(gVrSettings.hideCompass&&gConfig.stereoEnabled&&gHeadControl.enabled&&
+       gStereoRuntime.Connected()&&!gStereo.shuttingDown&&!gStereo.fault)return;
+    gNativeCompass.Paint(self);
+}
 bool InstallControllerFocus()
 {
     auto game=GetModuleHandleW(L"Game.dll");wchar_t path[MAX_PATH];unsigned char digest[32]{};
@@ -3701,7 +3711,16 @@ void UpdateQuestControllers()
             }
         }
     }
-    gStereoRuntime.SetRadial(commands.radial,gVrSettings.numbers[51]);
+    // Snapshot only on the application thread, while the item wheel is open.
+    // World transitions clear native ownership before another inventory read.
+    if(gWorldLifecycle.Blocked())gNativeRadialItems.Reset();
+    __try {
+        auto const& items=gNativeRadialItems.Update(gWorldLifecycle.Blocked()?nullptr:returnPlayer,commands.radial.visible&&commands.radial.page==0,now);
+        gStereoRuntime.SetRadial(commands.radial,gVrSettings.numbers[51],&items);
+    }__except(EXCEPTION_EXECUTE_HANDLER){
+        gNativeRadialItems.Reset();gStereoRuntime.SetRadial(commands.radial,gVrSettings.numbers[51]);
+        Message("vr_radial_items_unavailable; numbered_slots_preserved",GetExceptionCode(),true);
+    }
     gRadialOpen=commands.radial.visible;
     // Physical melee consumes neither trigger as a native attack. Menu clicks,
     // unequipped interaction, ranged weapons and the radial keep their bindings.
@@ -4040,6 +4059,8 @@ bool InstallStereoHook()
     InstallPupStereoCompatibility();
     InstallStereoOcclusion(engine);
     InstallFogIntensity(engine);
+    Message(gNativeCompass.Install(reinterpret_cast<void*>(&PaintHudCompass))?
+        "vr_compass_toggle_ready; native_paint_only":"vr_compass_toggle_unavailable; native_compass_preserved",0,true);
     auto* mouse=GetProcAddress(engine,"?ToVirtualCoords@eCGUIModule@@QBEXIAAIAAJ@Z");
     if(!gUiMouseHook.Install(mouse,reinterpret_cast<void*>(&StereoUiMouse))){Message("stereo_ui_mouse_hook_refused",0,true);gStereo.fault=true;return false;}
     if(!InstallControllerFocus()){gWorldInteraction.fault=true;Message("controller_world_focus_hooks_refused; native_focus_preserved",0,true);}

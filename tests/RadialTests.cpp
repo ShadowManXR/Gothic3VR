@@ -99,6 +99,24 @@ int wmain(int argc,wchar_t** argv) {
     check(!wcscmp(RadialLabel(1,5),L"Main menu"),"Main menu label replaces Weapon");
     check(!wcscmp(RadialLabel(1,6),L"Quicksave"),"Utility label matches the Quicksave action");
     check(RadialCount(0)==10&&RadialCount(1)==8&&!wcscmp(RadialLabel(1,7),L"Back"),"utility page excludes sneak and walk; quickslots retain all ten sectors");
+    RadialItems items;auto icon=std::make_shared<RadialIcon>();icon->fill(0xff2080e0);
+    items[0]={42,icon};items[9]={1,icon};auto itemPixels=RadialImage({true,0,0},items);
+    check(itemPixels[134*RadialPixels+384]==0xef1d77d1,"native BGRA item icon is blended into its own radial sector with panel alpha");
+    auto changed=items;changed[0].amount=41;
+    check(changed!=items&&RadialImage({true,0,0},changed)!=itemPixels,"quantity updates change the image without moving the selection");
+    auto empty=items;empty[0]={};
+    check(RadialImage({true,0,0},empty)!=itemPixels,"consumed or cleared slots remove stale artwork and counts");
+    auto missingIcon=items;missingIcon[0].icon.reset();
+    check(RadialImage({true,0,0},missingIcon)!=itemPixels,"missing icons fall back to a number while retaining the stack count");
+    check(RadialImage({true,0,1},items)==RadialImage({true,0,1}),"action page ignores inventory artwork and quantities");
+    for(unsigned sector=0;sector<10;++sector){
+        // Different stack IDs for each native digit expose any index rotation.
+        int nativeStacksByDigit[]={100,101,102,103,104,105,106,107,108,109};
+        unsigned displayedDigit=unsigned(_wtoi(RadialLabel(0,int(sector))));
+        check(nativeStacksByDigit[RadialHotkey(sector)]==100+int(displayedDigit),"displayed item lookup matches the selected quick-key digit for every sector, including 0");
+    }
+    // Optional preview uses fixture colors, never copied game artwork.
+    if(argc>3)pixels=itemPixels;
     auto benchmark=GetTickCount64();for(int page=0;page<2;++page)for(int selected=-1;selected<RadialCount(page);++selected)RadialImage({true,selected,page});
     printf("Cached radial render: 20 variants in %llu ms\n",static_cast<unsigned long long>(GetTickCount64()-benchmark));
     if(argc>1){FILE* file=nullptr;_wfopen_s(&file,argv[1],L"wb");if(file){BITMAPFILEHEADER header{};header.bfType=0x4d42;header.bfOffBits=sizeof(header)+sizeof(BITMAPINFOHEADER);header.bfSize=header.bfOffBits+unsigned(pixels.size()*4);BITMAPINFOHEADER info{};info.biSize=sizeof(info);info.biWidth=768;info.biHeight=-768;info.biPlanes=1;info.biBitCount=32;fwrite(&header,sizeof(header),1,file);fwrite(&info,sizeof(info),1,file);fwrite(pixels.data(),4,pixels.size(),file);fclose(file);}}
