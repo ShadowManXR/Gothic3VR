@@ -19,6 +19,8 @@
     VALUE "InternalName", "Gothic3VRLauncher\0"
     VALUE "OriginalFilename", "Gothic3VRLauncher.exe\0"
     VALUE "ProductName", "Gothic 3 VR\0"
+    VALUE "CompanyName", "PeCOS2k5\0"
+    VALUE "LegalCopyright", "Copyright (C) 2026 PeCOS2k5. Third-party rights reserved.\0"
     VALUE "ProductVersion", "1.0.0\0"
    END
   END

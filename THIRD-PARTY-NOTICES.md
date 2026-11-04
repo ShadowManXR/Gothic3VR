@@ -2,6 +2,8 @@
 
 The Gothic 3 VR project code is GPL-3.0-or-later; the full license text is in [LICENSE](LICENSE). Third-party components retain the terms in their original notices. Including a file in this repository does not change its ownership or license.
 
+The original VR project creator and maintainer is PeCOS2k5. See [AUTHORS.md](AUTHORS.md) for project credits and [BRANDING.md](BRANDING.md) for official channels and the separate scope of project identity and visual assets.
+
 | Component | Notice / source record |
 |---|---|
 | Gothic 3 SDK, Georgeto and contributors | Separate dependency: [upstream](https://github.com/georgeto/gothic3sdk), `LICENSE` and `COPYING` in that checkout; GPL-3.0-or-later |

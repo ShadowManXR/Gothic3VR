@@ -1,3 +1,6 @@
+// Gothic 3 VR — project created and maintained by PeCOS2k5.
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Original and third-party credits: AUTHORS.md and THIRD-PARTY-NOTICES.md.
 #include <g3sdk/Script.h>
 #include "RuntimeProbePolicy.h"
 #if defined(G3VR_CLEAN_RUNTIME) && !defined(G3VR_SCENE_COST_TRIAL) && !defined(G3VR_RENDERER_FEASIBILITY) && !defined(G3VR_DX11_VALIDATION)
