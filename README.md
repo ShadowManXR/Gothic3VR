@@ -47,6 +47,18 @@ In-game captures of combat, exploration, dialogue and trading in VR.
 
 Open a [bug report](https://github.com/PeCOS2k5/Gothic3VR/issues/new?template=bug_report.yml) and describe how to reproduce the problem. The form asks for the mod version, headset/controllers, VR provider, PC/settings, installed mods and relevant logs or screenshots. Search [existing issues](https://github.com/PeCOS2k5/Gothic3VR/issues) before submitting the same problem again.
 
+## Roadmap 
+
+- Replace all third-person actions with first-person perspectives or full-fledged VR-native actions.
+- Implement finger articulation that responds to specific key presses.
+- Fix camera culling issues at close range.
+- Add the ability to pick up and equip weapons, potions, spells, and other items that can be carried on the player's body.
+- Optimize the engine and implement multithreading.
+- Upgrade the combat system to meet modern VR standards.
+- Add the ability to issue commands to companions using gestures.
+- Add the ability to cast magic using gestures.
+- VR parkour?
+
 ## Build from source
 
 The game/plugin are **32-bit**. Meta Link uses a separate **64-bit** compositor host. Build both architectures; a standalone plugin DLL is not a complete installation.
