@@ -2,6 +2,14 @@
 
 Version **1.1.1 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
+## How does it differ from the main version?
+
+An enhanced mod that incorporates modern VR mechanics and reflects my vision of how Gothic 3 should be played in VR.
+
+- Added a HUD display on the character's arm.
+- Disabled third-person camera views during dialogues, chest looting, reading at a lectern, etc.
+- Also includes minor fixes.
+
 ## Install and play
 
 Use the release installer and follow the [installation and first-launch guide](release/START-HERE.md). A separately purchased copy of Gothic 3 is required; Forsaken Gods is not supported.
