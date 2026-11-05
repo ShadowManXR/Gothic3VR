@@ -1,4 +1,6 @@
-# Gothic 3 VR 1.1.1
+# Gothic 3 VR 1.1.1 beta
+
+- Removed the Donate and About / Credits buttons and the creator label from the launcher footer.
 
 - Added Game INI with fog intensity (default 100%) and detailed-world, distant-landscape and vegetation draw distances. Native distance edits preserve other settings and use the existing backup/restart workflow.
 

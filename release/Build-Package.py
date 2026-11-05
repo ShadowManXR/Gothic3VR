@@ -40,7 +40,7 @@ def markdown_html(text):
             blocks.append('<p>'+inline(' '.join(paragraph))+'</p>')
     return '\n'.join(blocks)
 
-VERSION = '1.1.1'
+VERSION = '1.1.1-beta'
 ROOT = Path(__file__).resolve().parents[1]
 
 def sha(p):

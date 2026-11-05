@@ -123,8 +123,7 @@ void Layout(){
   show(unionHint,rx,fy+88,iw,ch-150);
  }
  SetWindowTextW(reset,page==IniTweaksPage||page==GameIniPage?L"CP defaults":L"Defaults");
- Position(status,x,h-89,cw,23);Position(reset,x,h-53,112,35);Position(donate,w/2-82,h-55,164,39);Position(save,w-393,h-55,152,39);Position(launch,w-224,h-55,194,39);
- Position(about,25,h-58,180,34);
+ Position(status,x,h-89,cw,23);Position(reset,x,h-53,112,35);Position(save,w-393,h-55,152,39);Position(launch,w-224,h-55,194,39);
  UpdateNativeTooltipRects();
  ClearCanvas();HDC dc=GetDC(window);PaintCanvas(dc,false);ReleaseDC(window,dc);
  if(wasVisible){SendMessageW(window,WM_SETREDRAW,TRUE,0);RedrawWindow(window,nullptr,nullptr,RDW_INVALIDATE|RDW_ALLCHILDREN|RDW_UPDATENOW|RDW_FRAME|RDW_NOERASE);}

@@ -28,7 +28,7 @@
 namespace {
 HINSTANCE instance;HWND window,pathEdit,status,preview;
 HWND tracks[diagnostic::VrNumberCount],edits[diagnostic::VrNumberCount],labels[diagnostic::VrNumberCount],units[diagnostic::VrNumberCount];
-HWND title,subtitle,pathLabel,browse,save,reset,launch,donate,about,hint;
+HWND title,subtitle,pathLabel,browse,save,reset,launch,hint;
 HWND resolutionLabel,resolutionCombo,resolutionHint;
 HWND ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint;
 HWND ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit;
@@ -59,10 +59,9 @@ constexpr int AntiAliasing=46;
 constexpr int RuntimeChoice=47;
 constexpr int UnionNotes=48;
 constexpr int EffectsQuality=49;
-constexpr int Donate=50,FfrTransitionTrack=55,FfrTransitionEdit=56;
+constexpr int FfrTransitionTrack=55,FfrTransitionEdit=56;
 constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61,HandHud=62;
-constexpr int About=63,FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68;
-constexpr wchar_t DonationUrl[]=L"https://ko-fi.com/pecos2k5";
+constexpr int FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68;
 int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
     if(i>=87)return HandHudPage;
@@ -81,11 +80,6 @@ std::wstring Ini(){return diagnostic::ParentDirectory(executable)+L"\\scripts\\S
 std::wstring OptionsIni(){wchar_t documents[MAX_PATH];if(FAILED(SHGetFolderPathW(nullptr,CSIDL_PERSONAL,nullptr,SHGFP_TYPE_CURRENT,documents)))return L"";
     return std::wstring(documents)+L"\\Gothic3\\UserOptions.ini";}
 void Message(wchar_t const* text,bool error=false){SetWindowTextW(status,text);if(error)MessageBoxW(window,text,L"Gothic 3 VR",MB_OK|MB_ICONERROR);}
-void OpenDonation(){
-    auto result=ShellExecuteW(window,L"open",DonationUrl,nullptr,nullptr,SW_SHOWNORMAL);
-    if(INT_PTR(result)<=32)Message(L"Could not open your browser. Visit https://ko-fi.com/pecos2k5.",true);
-    else Message(L"Thank you for supporting Gothic 3 VR. Ko-fi opened in your browser.");
-}
 void StyleControl(HWND,wchar_t const*,DWORD);
 HWND Control(wchar_t const* cls,wchar_t const* text,DWORD style,int id=0) {
     HWND h=CreateWindowExW(cls==std::wstring(L"EDIT")?WS_EX_CLIENTEDGE:0,cls,text,WS_CHILD|WS_VISIBLE|style|(!wcscmp(cls,L"STATIC")?SS_NOPREFIX:0),0,0,0,0,window,reinterpret_cast<HMENU>(INT_PTR(id)),instance,nullptr);
@@ -116,7 +110,6 @@ void GraphicsPreview(){
     EnableWindow(graphicsTracks[1],enabled);EnableWindow(graphicsEdits[1],enabled);
 }
 #include "LauncherTheme.h"
-#include "LauncherAbout.h"
 #include "ModCompatibilityView.h"
 void UpdateNativeTooltipRects();
 #include "LauncherLayout.h"
@@ -330,8 +323,6 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         hint=Control(L"STATIC",L"Default controls (edit in Controller mapping):\nR3: radial; right stick: select; A: confirm; X: cancel; B: page. X: inventory; B: weapon.\nL3: sprint until stop. Double left trigger: heal. Double Y: sneak. Menu: back. L3+R3 (0.5 s): recenter.",0);
         status=Control(L"STATIC",L"Connect your headset through the selected OpenXR runtime before launching.",0);
         reset=Control(L"BUTTON",L"Defaults",WS_TABSTOP,Reset);save=Control(L"BUTTON",L"Save settings",WS_TABSTOP,Save);
-        donate=Control(L"BUTTON",L"Donate",WS_TABSTOP,Donate);
-        about=Control(L"BUTTON",L"About / Credits",WS_TABSTOP,About);
         launch=Control(L"BUTTON",L"Save and launch",WS_TABSTOP|BS_DEFPUSHBUTTON,Launch);CreateNativeIniControls();CreateControllerMapper();SetTimer(h,MapperTimer,100,nullptr);Fill();Layout();return 0;
     case WM_TIMER:if(w==MapperTimer){TickControllerMapper();return 0;}break;
     case WM_SIZE:Layout();return 0;
@@ -363,7 +354,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
             if((kind==diagnostic::ini_tweaks::Kind::Number&&HIWORD(w)==EN_CHANGE)||(kind==diagnostic::ini_tweaks::Kind::Choice&&HIWORD(w)==CBN_SELCHANGE)||(kind==diagnostic::ini_tweaks::Kind::Toggle&&HIWORD(w)==BN_CLICKED)){
                 if(kind==diagnostic::ini_tweaks::Kind::Number){BOOL valid=FALSE;int value=int(GetDlgItemInt(h,IniValueBase+i,&valid,TRUE));if(valid){nativeIni.values[i]=value;SendMessageW(iniTracks[i],TBM_SETPOS,TRUE,value);}}
                 nativeIniDirty=true;Message(L"INI tweaks changed. Close Gothic 3, then Save settings; restart required.");return 0;}}
-        switch(LOWORD(w)){case Browse:ChooseGame();break;case Save:SaveSettings();break;case Donate:OpenDonation();break;case About:OpenAbout();break;case IDOK:case Launch:LaunchGame();break;case IDCANCEL:SendMessageW(h,WM_CLOSE,0,0);break;
+        switch(LOWORD(w)){case Browse:ChooseGame();break;case Save:SaveSettings();break;case IDOK:case Launch:LaunchGame();break;case IDCANCEL:SendMessageW(h,WM_CLOSE,0,0);break;
         case UnionBrowse:ChooseUnion();break;case UnionOpen:OpenUnion(false);break;case UnionCheck:OpenUnion(true);break;
         case UnionNotes:OpenModNotes();break;
         case UnionPage:TabCtrl_SetCurSel(settingsTabs,ModsPage);Layout();SetFocus(unionOpen);break;

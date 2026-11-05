@@ -66,7 +66,6 @@ void PaintCanvas(HDC dc,bool present=true){
   UiText(mem,L"PC VR  ·  OPENXR",25,40,180,20,smallFont,Gold,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
   UiText(mem,L"Version " G3VR_LAUNCHER_VERSION_WIDE,25,65,180,18,smallFont,Muted,DT_CENTER|DT_SINGLELINE|DT_VCENTER);
   for(auto const& p:panels)if(!p.heading.empty())UiText(mem,p.heading,p.x+22,p.y+15,p.w-44,22,sectionFont,Gold);
-  UiText(mem,L"By PeCOS2k5",25,h-87,180,24,navFont,Ink);
   SelectObject(mem,old);DeleteDC(mem);
  }
  if(present){HDC mem=CreateCompatibleDC(dc);auto old=SelectObject(mem,canvas);BitBlt(dc,0,0,c.right,c.bottom,mem,0,0,SRCCOPY);SelectObject(mem,old);DeleteDC(mem);}
@@ -135,19 +134,12 @@ void DrawButton(DRAWITEMSTRUCT const& d){
   bool checked=SendMessageW(d.hwndItem,BM_GETCHECK,0,0)==BST_CHECKED;RECT box{r.left+Scale(2),r.top+(r.bottom-r.top-Scale(17))/2,r.left+Scale(19),r.top+(r.bottom-r.top+Scale(17))/2};auto b=CreateSolidBrush(checked?Gold:Field);FillRect(dc,&box,b);DeleteObject(b);auto pen=CreatePen(PS_SOLID,1,checked?Gold:RGB(98,101,109));auto oldPen=SelectObject(dc,pen);auto oldB=SelectObject(dc,GetStockObject(NULL_BRUSH));Rectangle(dc,box.left,box.top,box.right,box.bottom);SelectObject(dc,oldB);SelectObject(dc,oldPen);DeleteObject(pen);
   if(checked){pen=CreatePen(PS_SOLID,Scale(2),RGB(25,23,20));oldPen=SelectObject(dc,pen);MoveToEx(dc,box.left+Scale(4),box.top+Scale(8),nullptr);LineTo(dc,box.left+Scale(7),box.top+Scale(11));LineTo(dc,box.left+Scale(13),box.top+Scale(5));SelectObject(dc,oldPen);DeleteObject(pen);}r.left+=Scale(30);
  }else{
-  Gdiplus::Graphics g(dc);g.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);bool primary=id==Launch,support=id==Donate,hot=GetPropW(d.hwndItem,L"Hot")!=nullptr;Gdiplus::Color fill=primary?Gdiplus::Color(255,down?185:220,down?132:169,89):selected?Gdiplus::Color(255,49,42,33):Gdiplus::Color(255,down?48:30,down?47:33,down?47:40);
-  if(support)fill=down?Gdiplus::Color(255,65,42,27):hot?Gdiplus::Color(255,62,43,31):Gdiplus::Color(255,43,31,25);
+  Gdiplus::Graphics g(dc);g.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);bool primary=id==Launch;Gdiplus::Color fill=primary?Gdiplus::Color(255,down?185:220,down?132:169,89):selected?Gdiplus::Color(255,49,42,33):Gdiplus::Color(255,down?48:30,down?47:33,down?47:40);
   if(nav&&!selected)fill=GetPropW(d.hwndItem,L"Hot")?Gdiplus::Color(180,29,31,36):Gdiplus::Color(0,12,15,20);
-  Rounded(g,Gdiplus::RectF(float(r.left+1),float(r.top+1),float(r.right-r.left-2),float(r.bottom-r.top-2)),float(Scale(6)),fill,support?Gdiplus::Color(255,hot?235:190,hot?188:141,hot?119:77):selected?Gdiplus::Color(255,105,80,46):nav?Gdiplus::Color(0,0,0,0):Gdiplus::Color(255,71,67,59));
-  if(support){
-   float x=float(r.left+Scale(40)),y=float((r.top+r.bottom)/2-Scale(7)),s=float(Scale(16));
-   Gdiplus::GraphicsPath heart;heart.StartFigure();heart.AddBezier(x+s*.5f,y+s*.22f,x-s*.05f,y-s*.25f,x-s*.25f,y+s*.4f,x+s*.5f,y+s);
-   heart.AddBezier(x+s*.5f,y+s,x+s*1.25f,y+s*.4f,x+s*1.05f,y-s*.25f,x+s*.5f,y+s*.22f);heart.CloseFigure();
-   Gdiplus::SolidBrush accent(Gdiplus::Color(255,hot?243:221,hot?151:119,hot?124:92));g.FillPath(&accent,&heart);r.left+=Scale(24);
-  }
+  Rounded(g,Gdiplus::RectF(float(r.left+1),float(r.top+1),float(r.right-r.left-2),float(r.bottom-r.top-2)),float(Scale(6)),fill,selected?Gdiplus::Color(255,105,80,46):nav?Gdiplus::Color(0,0,0,0):Gdiplus::Color(255,71,67,59));
   if(nav){wchar_t number[8];swprintf_s(number,L"%02d",id-NavBase+1);auto f=SelectObject(dc,smallFont);SetTextColor(dc,selected?Gold:RGB(96,103,112));RECT n=r;n.left+=Scale(13);n.right=n.left+Scale(26);DrawTextW(dc,number,-1,&n,DT_LEFT|DT_SINGLELINE|DT_VCENTER);SelectObject(dc,f);r.left+=Scale(46);}
  }
- SetTextColor(dc,disabled?RGB(99,103,111):id==Launch?RGB(25,22,18):id==Donate?RGB(248,220,178):selected?Gold:Ink);
+ SetTextColor(dc,disabled?RGB(99,103,111):id==Launch?RGB(25,22,18):selected?Gold:Ink);
  DrawTextW(dc,text,-1,&r,DT_SINGLELINE|DT_VCENTER|DT_END_ELLIPSIS|DT_NOPREFIX|(nav||check?DT_LEFT:DT_CENTER));
  if(focus){RECT f=d.rcItem;InflateRect(&f,-Scale(4),-Scale(4));DrawFocusRect(dc,&f);}SelectObject(dc,oldFont);
 }
