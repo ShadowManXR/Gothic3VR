@@ -15,13 +15,6 @@ An enhanced mod that incorporates modern VR mechanics and reflects my vision of 
 
 Use the release installer and follow the [installation and first-launch guide](release/START-HERE.md). A separately purchased copy of Gothic 3 is required; Forsaken Gods is not supported.
 
-The supported native patch order is:
-
-1. Community Patch **1.75.14**.
-2. Update Pack **1.04.11**.
-3. Complete Update Pack **1.05.10 Public Beta** archive.
-4. Parallel Universe Patch **1.1.1**.
-
 Windows 10/11 x64, an SSD, a PC VR headset and two tracked controllers are required. Select Virtual Desktop / VDXR, Meta Quest Link / Air Link, or SteamVR in the launcher. The reference hardware is Quest 3 / Touch and RTX 4080; other hardware needs separate validation. Steam, GOG and retail editions were tested with the supported native patch profile.
 
 - [Release features and limitations](release/RELEASE-NOTES.md)
