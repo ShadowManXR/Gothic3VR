@@ -41,6 +41,20 @@ The **Hand HUD** page controls independent lower-arm displays: the original quic
 
 The launcher's **HUD & menus** page has independent **Show compass**, **Show slot bar**, and **Show health / mana / stamina panel** options. All three are off for new configurations and Defaults. Save settings to apply changes live in VR. Existing explicit preferences are preserved. The INI keys under `[Stereo]` are `HideCompass` (default `1`), `ShowSlotBar` (default `0`), and `ShowVitalsPanel` (default `0`). The VR radial remains available when the native slot bar is hidden. The slot bar and health/mana/stamina block, including their frames and backgrounds, always appear while the inventory is open; closing it restores your saved visibility options.
 
+## Screenshots
+
+In-game captures of combat, exploration, dialogue and trading in VR.
+
+<p>
+  <a href="screenshots/VirtualDesktop.Android-20261105-134921.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-134921.jpg" alt="VR combat with the hand-mounted status bars" width="49%"></a>
+  <a href="screenshots/VirtualDesktop.Android-20261105-135040.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-135040.jpg" alt="Exploring a desert settlement in VR" width="49%"></a>
+</p>
+
+<p>
+  <a href="screenshots/VirtualDesktop.Android-20261105-135056.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-135056.jpg" alt="First-person character dialogue in VR" width="49%"></a>
+  <a href="screenshots/VirtualDesktop.Android-20261105-135129.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-135129.jpg" alt="Trading interface and hand-mounted status bars in VR" width="49%"></a>
+</p>
+
 ## Report a bug
 
 Open a [bug report](https://github.com/PeCOS2k5/Gothic3VR/issues/new?template=bug_report.yml) and describe how to reproduce the problem. The form asks for the mod version, headset/controllers, VR provider, PC/settings, installed mods and relevant logs or screenshots. Search [existing issues](https://github.com/PeCOS2k5/Gothic3VR/issues) before submitting the same problem again.
