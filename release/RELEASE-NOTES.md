@@ -1,4 +1,8 @@
-# Gothic 3 VR 1.1.0 beta
+# Gothic 3 VR 1.1.1
+
+- Added Game INI with fog intensity (default 100%) and detailed-world, distant-landscape and vegetation draw distances. Native distance edits preserve other settings and use the existing backup/restart workflow.
+
+## Previous release: 1.1.0 beta
 
 Launcher and release version: 1.1.0 beta. Includes the HUD and interaction work developed as versions 1.0.2 through 1.0.9.
 

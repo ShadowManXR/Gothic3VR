@@ -8,6 +8,12 @@ int wmain(int argc, wchar_t** argv) {
     unsigned failures=0;auto check=[&](bool ok,char const* name){printf("%s %s\n",ok?"PASS":"FAIL",name);failures+=!ok;};
     wchar_t directory[MAX_PATH],path[MAX_PATH];GetTempPathW(MAX_PATH,directory);GetTempFileNameW(directory,L"gvs",0,path);
     auto missingHandHud=diagnostic::LoadVrSettings(path);
+    check(missingHandHud.numbers[85]==100&&diagnostic::VrSettings{}.numbers[85]==100,
+        "New and missing-key configurations preserve native fog at 100 percent");
+    for(int fog:{0,30,100}){auto value=diagnostic::VrSettings{};value.numbers[85]=fog;value.numbers[0]=-31;
+        bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
+        check(saved&&loaded.numbers[85]==fog&&loaded.numbers[0]==-31,"Explicit fog preferences survive save/load without resetting camera calibration");}
+
     check(missingHandHud.fastPickup&&missingHandHud.firstPersonDialogue&&missingHandHud.firstPersonChest&&missingHandHud.firstPersonLectern,
         "Missing comfort keys preserve the enabled 1.0.6 through 1.0.9 behavior");
     for(unsigned mask=0;mask<32;++mask){diagnostic::VrSettings value;

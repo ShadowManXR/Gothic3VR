@@ -17,7 +17,8 @@ void Layout(){
  Position(resolutionLabel,x+22,compact?177:207,190,22);Position(resolutionCombo,x+213,compact?172:202,cw-235,280);ShowWindow(resolutionHint,SW_HIDE);
  panels.clear();panels.push_back({x,compact?103:126,cw,compact?107:115,L""});
  bool dual=page==OneHandPage||page==TwoHandPage||page==StaffPage;
- if(page==IniTweaksPage){panels.push_back({x,top,col,ch,L"DISTANCES & STREAMING"});panels.push_back({x+col+18,top,col,ch,L"WORLD & GRAPHICS"});}
+ if(page==IniTweaksPage){panels.push_back({x,top,col,ch,L"STREAMING"});panels.push_back({x+col+18,top,col,ch,L"WORLD & GRAPHICS"});}
+ else if(page==GameIniPage)panels.push_back({x,top,cw,ch,L"FOG & DRAW DISTANCE"});
  else if(page==HandHudPage){panels.push_back({x,top,col,ch,L"LEFT ARM - SLOT BAR"});panels.push_back({x+col+18,top,col,ch,L"RIGHT ARM - HEALTH / MANA / STAMINA"});}
  else if(page==ModsPage)panels.push_back({x,top,cw,ch,L"UNION+ 1.7.3"});
  else if(dual){panels.push_back({x,top,col,ch,L"ALIGNMENT & HANDLING"});panels.push_back({x+col+18,top,col,ch,L"COMBAT THRESHOLDS"});}
@@ -27,7 +28,7 @@ void Layout(){
  for(unsigned i=0;i<diagnostic::VrNumberCount;++i)for(HWND control:{labels[i],tracks[i],edits[i],units[i]})ShowWindow(control,SW_HIDE);
  for(HWND control:{fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck,thirdPersonHint,handHudCheck,compassCheck,slotBarCheck,vitalsPanelCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)for(HWND control:{iniLabels[i],iniTracks[i],iniValues[i],iniUnits[i]})if(control)ShowWindow(control,SW_HIDE);
- for(HWND control:{iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
+ for(HWND control:{gameIniHint,iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
  for(int i=0;i<2;++i)for(HWND control:{graphicsLabels[i],graphicsTracks[i],graphicsEdits[i],graphicsUnits[i]})ShowWindow(control,SW_HIDE);
  for(HWND control:{mappingLive,mappingActionLabel,mappingAction,mappingModeLabel,mappingMode,mappingButtonLabel,mappingButton,mappingModifierLabel,mappingModifier,mappingListen,mappingClear,mappingDefaults,mappingStatus,mappingHint})if(control)ShowWindow(control,SW_HIDE);
  auto show=[](HWND control,int a,int b,int c,int d){Position(control,a,b,c,d);ShowWindow(control,SW_SHOW);};
@@ -57,6 +58,15 @@ void Layout(){
   show(handsOnlyCheck,rx,fy+75,col-44,29);
   show(toggleSupportCheck,rx,fy+109,col-44,29);
   show(hint,rx,fy+158,col-44,compact?180:210);
+ }else if(page==GameIniPage){
+  field(85,fx,fy,fw);
+  int spacing=compact?55:62;
+  for(unsigned i=0;i<3;++i){int y=fy+65+i*spacing;
+   show(iniLabels[i],fx,y,fw-120,22);show(iniValues[i],fx+fw-116,y-2,72,27);
+   show(iniUnits[i],fx+fw-39,y,39,22);show(iniTracks[i],fx,y+25,fw-120,19);
+  }
+  show(gameIniHint,fx,fy+65+3*spacing+12,fw,compact?82:115);
+  show(iniReload,fx,bottom-43,145,32);show(iniBackups,fx+165,bottom-43,145,32);
  }else if(page==ThirdPersonPage){
   show(dialogueViewCheck,fx,fy,fw,29);
   show(chestViewCheck,fx,fy+42,fw,29);
@@ -92,20 +102,19 @@ void Layout(){
   int aaY=fy+(compact?213:258),effectsY=fy+(compact?258:311);
   show(graphicsPreview,fx,fy+(compact?173:210),fw,28);show(aaLabel,fx,aaY,180,24);show(aaCombo,fx+185,aaY-4,fw-185,180);
   show(effectsLabel,fx,effectsY,180,24);show(effectsCombo,fx+185,effectsY-4,fw-185,180);
-  field(85,fx,fy+(compact?302:357),fw);
-  show(graphicsHint,fx,fy+(compact?350:417),fw,40);
+  show(graphicsHint,fx,fy+(compact?302:357),fw,40);
  }else if(page==FoveatedPage){
   show(ffrLabel,fx,fy,180,24);show(ffrCombo,fx+185,fy-4,fw-185,180);show(ffrCenterLabel,fx,fy+72,fw-110,24);show(ffrTrack,fx,fy+99,fw,25);show(ffrEdit,fx+fw-99,fy+70,58,27);show(ffrUnit,fx+fw-35,fy+72,40,24);show(ffrTransitionLabel,fx,fy+148,fw-110,24);show(ffrTransitionTrack,fx,fy+175,fw-110,25);show(ffrTransitionEdit,fx+fw-99,fy+146,58,27);show(ffrTransitionUnit,fx+fw-35,fy+148,40,24);show(ffrHint,fx,fy+220,fw,compact?151:190);
  }else if(page==IniTweaksPage){
   int spacing=compact?53:60,iw=col-44,rx=x+col+40;
   auto number=[&](unsigned i,int atX,int atY){show(iniLabels[i],atX,atY,iw-120,22);show(iniValues[i],atX+iw-116,atY-2,72,27);show(iniUnits[i],atX+iw-39,atY,39,22);show(iniTracks[i],atX,atY+25,iw-120,19);};
-  for(unsigned i=0;i<5;++i)number(i,fx,fy+i*spacing);
+  for(unsigned i=3;i<5;++i)number(i,fx,fy+(i-3)*spacing);
   number(5,rx,fy);number(6,rx,fy+spacing);
   int choicesY=fy+2*spacing+7,gap=compact?33:40;
   for(unsigned i=7;i<=9;++i){int y=choicesY+(i-7)*gap;show(iniLabels[i],rx,y,iw-178,23);show(iniValues[i],rx+iw-172,y-3,172,180);}
   int toggleY=choicesY+3*gap+3;
   for(unsigned i=10;i<diagnostic::ini_tweaks::Count;++i)show(iniValues[i],rx,toggleY+(i-10)*(compact?25:29),iw,26);
-  show(iniHint,fx,fy+5*spacing+5,iw,compact?60:76);show(iniHintRight,rx,toggleY+3*(compact?25:29)+6,iw,compact?40:48);
+  show(iniHint,fx,fy+2*spacing+12,iw,compact?75:90);show(iniHintRight,rx,toggleY+3*(compact?25:29)+6,iw,compact?40:48);
   show(iniReload,fx,bottom-43,145,32);show(iniBackups,rx,bottom-43,145,32);
  }else if(page==ModsPage){
   int iw=col-44,rx=x+col+40;
@@ -113,7 +122,7 @@ void Layout(){
   show(unionOpen,fx,fy+88,iw,35);show(unionCheck,fx,fy+131,iw,35);show(unionNotes,fx,fy+174,iw,35);
   show(unionHint,rx,fy+88,iw,ch-150);
  }
- SetWindowTextW(reset,page==IniTweaksPage?L"CP defaults":L"Defaults");
+ SetWindowTextW(reset,page==IniTweaksPage||page==GameIniPage?L"CP defaults":L"Defaults");
  Position(status,x,h-89,cw,23);Position(reset,x,h-53,112,35);Position(donate,w/2-82,h-55,164,39);Position(save,w-393,h-55,152,39);Position(launch,w-224,h-55,194,39);
  Position(about,25,h-58,180,34);
  UpdateNativeTooltipRects();

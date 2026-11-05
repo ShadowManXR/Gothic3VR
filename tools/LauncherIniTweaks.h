@@ -39,6 +39,7 @@ void CreateNativeIniControls(){
   }
   TOOLINFOW tip{};tip.cbSize=sizeof(tip);tip.uFlags=TTF_TRANSPARENT;tip.hwnd=window;tip.hinst=instance;tip.uId=i+1;tip.lpszText=const_cast<wchar_t*>(f.hint);SendMessageW(iniTooltipWindow,TTM_ADDTOOLW,0,LPARAM(&tip));
  }
+ gameIniHint=Control(L"STATIC",L"Fog: 100% = original game fog; 0% = no fog. Fog applies live.\nDistances: 100 units = 1 metre. Higher values increase rendering cost.\nClose Gothic 3 before saving distance changes, then restart.\nDistant landscape distance must exceed high-detail distance.",0);
  iniHint=Control(L"STATIC",L"",0);iniHintRight=Control(L"STATIC",L"Restart Gothic 3 after applying changes.\nCP manages resource memory caches automatically.",0);
  iniReload=Control(L"BUTTON",L"Reload INIs",WS_TABSTOP,IniReload);iniBackups=Control(L"BUTTON",L"Open backups",WS_TABSTOP,IniBackups);
  LoadNativeIni();
@@ -48,7 +49,7 @@ bool CollectNativeIni(){
  if(!nativeIni.ready){Message(L"Native INIs are unavailable. Run the flat game once and Reload INIs.",true);return false;}
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)if(nativeIni.available[i]){auto const& f=diagnostic::ini_tweaks::Fields[i];int value=0;
   if(f.kind==diagnostic::ini_tweaks::Kind::Number){wchar_t text[64];GetWindowTextW(iniValues[i],text,64);wchar_t* end=nullptr;long n=wcstol(text,&end,10);
-   if(end==text||*end||n<f.minimum||n>f.maximum){wchar_t error[256];swprintf_s(error,L"%s: enter a whole number between %d and %d.",f.label,f.minimum,f.maximum);Message(error,true);TabCtrl_SetCurSel(settingsTabs,IniTweaksPage);Layout();SetFocus(iniValues[i]);return false;}value=int(n);
+   if(end==text||*end||n<f.minimum||n>f.maximum){wchar_t error[256];swprintf_s(error,L"%s: enter a whole number between %d and %d.",f.label,f.minimum,f.maximum);Message(error,true);TabCtrl_SetCurSel(settingsTabs,i<3?GameIniPage:IniTweaksPage);Layout();SetFocus(iniValues[i]);return false;}value=int(n);
   }else if(f.kind==diagnostic::ini_tweaks::Kind::Choice)value=int(SendMessageW(iniValues[i],CB_GETCURSEL,0,0));
   else value=SendMessageW(iniValues[i],BM_GETCHECK,0,0)==BST_CHECKED;
   nativeIni.values[i]=value;
@@ -64,7 +65,7 @@ void OpenIniBackups(){
 
 void UpdateNativeTooltipRects(){
  if(!iniTooltipWindow)return;
- bool nativePage=TabCtrl_GetCurSel(settingsTabs)==IniTweaksPage;
+ int page=TabCtrl_GetCurSel(settingsTabs);bool nativePage=page==IniTweaksPage||page==GameIniPage;
  if(!nativePage)SendMessageW(iniTooltipWindow,TTM_POP,0,0);
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i){
   RECT bounds{};bool first=true;
@@ -76,7 +77,7 @@ void UpdateNativeTooltipRects(){
  }
 }
 void RelayNativeTooltip(MSG const& input){
- if(!iniTooltipWindow||TabCtrl_GetCurSel(settingsTabs)!=IniTweaksPage||input.message!=WM_MOUSEMOVE)return;
+ if(!iniTooltipWindow||(TabCtrl_GetCurSel(settingsTabs)!=IniTweaksPage&&TabCtrl_GetCurSel(settingsTabs)!=GameIniPage)||input.message!=WM_MOUSEMOVE)return;
  if(input.hwnd!=window&&!IsChild(window,input.hwnd))return;
  MSG relayed=input;POINT p{short(LOWORD(input.lParam)),short(HIWORD(input.lParam))};
  MapWindowPoints(input.hwnd,window,&p,1);relayed.hwnd=window;relayed.lParam=MAKELPARAM(p.x,p.y);
@@ -87,7 +88,7 @@ bool NativeTooltipCheck(std::wstring& report){
  if(DrawTrack(tooltipDraw)!=CDRF_DODEFAULT){report+=L"Tooltip rendering was intercepted by the slider painter.\r\n";return false;}
  if(!IsWindow(iniTooltipWindow)||SendMessageW(iniTooltipWindow,TTM_GETTOOLCOUNT,0,0)!=diagnostic::ini_tweaks::Count){report+=L"Native tooltip registration failed: "+std::to_wstring(SendMessageW(iniTooltipWindow,TTM_GETTOOLCOUNT,0,0))+L"\r\n";return false;}
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i){
-  HWND control=iniLabels[i]?iniLabels[i]:iniValues[i];RECT r;GetWindowRect(control,&r);MapWindowPoints(nullptr,window,reinterpret_cast<POINT*>(&r),2);
+  HWND control=iniLabels[i]?iniLabels[i]:iniValues[i];if(!IsWindowVisible(control))continue;RECT r;GetWindowRect(control,&r);MapWindowPoints(nullptr,window,reinterpret_cast<POINT*>(&r),2);
   TTHITTESTINFOW hit{};hit.hwnd=window;hit.pt={(r.left+r.right)/2,(r.top+r.bottom)/2};hit.ti.cbSize=sizeof(hit.ti);
   if(!SendMessageW(iniTooltipWindow,TTM_HITTESTW,0,LPARAM(&hit))||hit.ti.uId!=i+1){report+=L"Native tooltip hit test failed: "+std::to_wstring(i)+L"\r\n";return false;}
   wchar_t text[2048]{};TOOLINFOW tip{};tip.cbSize=sizeof(tip);tip.hwnd=window;tip.uId=i+1;tip.lpszText=text;

@@ -98,7 +98,7 @@ inline constexpr VrSetting VrNumbers[] = {
     {L"TwoHandGripLossDistanceCm", L"Grip loss distance", 40, 10, 100, L"cm", 5},
     {L"StaffGripLossDistanceCm", L"Grip loss distance", 40, 10, 100, L"cm", 5},
     {L"CrossbowGripLossDistanceCm", L"Grip loss distance", 20, 10, 100, L"cm", 5},
-    {L"FogIntensityPercent", L"Fog intensity", 30, 0, 100, L"%", 5},
+    {L"FogIntensityPercent", L"Fog intensity", 100, 0, 100, L"%", 5},
     {L"WorldLabelScalePercent", L"World label size", 50, 25, 150, L"%", 5},
     {L"LeftHandHudXcm", L"Position X", -7, -50, 50, L"cm"},
     {L"LeftHandHudYcm", L"Position Y", 0, -50, 50, L"cm"},

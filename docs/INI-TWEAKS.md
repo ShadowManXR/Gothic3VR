@@ -1,6 +1,8 @@
 # Native INI tweaks
 
-The launcher's **INI tweaks** page edits the selected game's `Ini/ge3.ini` and the Windows Documents `Gothic3/UserOptions.ini`. Opening the page, reloading it or saving an unchanged page does not apply a preset. Existing values are the initial values; the creator's VR Defaults preset is unchanged.
+The launcher's **Game INI** page provides fog intensity (default **100%**, unchanged native fog) and the three draw-distance controls. Fog is stored in the VR mod INI and applies live. Draw distances require a restart. The **INI tweaks** page retains streaming, simulation and other native engine options. Both pages share Reload INIs, native INI backups and transactional saving.
+
+The launcher's native INI editor edits the selected game's `Ini/ge3.ini` and the Windows Documents `Gothic3/UserOptions.ini`. Opening the page, reloading it or saving an unchanged page does not apply a preset. Existing values are the initial values; the creator's VR Defaults preset is unchanged.
 
 The page offers:
 

@@ -4,5 +4,5 @@
 enum LauncherPage {
     CameraPage,HudPage,InteractionPage,LeftHandPage,RightHandPage,OneHandPage,
     BowPage,TwoHandPage,StaffPage,CrossbowPage,MagicPage,RadialPage,ShieldPage,
-    GraphicsPage,FoveatedPage,ModsPage,IniTweaksPage,BindingsPage,HandHudPage,ThirdPersonPage,PageCount
+    GraphicsPage,FoveatedPage,ModsPage,IniTweaksPage,BindingsPage,HandHudPage,ThirdPersonPage,GameIniPage,PageCount
 };

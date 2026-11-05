@@ -41,7 +41,7 @@ HWND fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPers
 HWND unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionHint,unionNotes;
 HWND unionShortcut;
 HWND iniLabels[diagnostic::ini_tweaks::Count]{},iniTracks[diagnostic::ini_tweaks::Count]{},iniValues[diagnostic::ini_tweaks::Count]{},iniUnits[diagnostic::ini_tweaks::Count]{};
-HWND iniHint{},iniHintRight{},iniReload{},iniBackups{},iniTooltipWindow{};
+HWND iniHint{},iniHintRight{},iniReload{},iniBackups{},iniTooltipWindow{},gameIniHint{};
 std::wstring iniTooltips[diagnostic::ini_tweaks::Count];
 diagnostic::ini_tweaks::Model nativeIni;bool nativeIniDirty=false;
 constexpr int IniTrackBase=600,IniValueBase=650,IniReload=690,IniBackups=691;
@@ -67,7 +67,7 @@ int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
     if(i>=87)return HandHudPage;
     if(i==86)return HudPage;
-    if(i==85)return GraphicsPage;
+    if(i==85)return GameIniPage;
     if(i==84)return CrossbowPage;
     if(i==83)return StaffPage;
     if(i==82)return TwoHandPage;
@@ -371,7 +371,14 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         case GraphicsMethod:case Resolution:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){GraphicsPreview();dirty=true;Message(L"Resolution will apply at the next game launch.");}break;
         case IniReload:LoadNativeIni();Message(L"Native INIs reloaded. Unsaved INI edits were discarded; VR calibration is unchanged.");break;
         case IniBackups:OpenIniBackups();break;
-        case Reset:if(TabCtrl_GetCurSel(settingsTabs)==IniTweaksPage){diagnostic::ini_tweaks::Defaults(nativeIni);FillNativeIni();nativeIniDirty=nativeIni.Changed();Message(L"CP distance defaults and Very High graphics defaults staged. Save settings to apply.");break;}settings=diagnostic::VrSettings{};Fill();dirty=true;Message(L"Defaults restored. Save to apply.");break;
+        case Reset:if(TabCtrl_GetCurSel(settingsTabs)==GameIniPage){
+            auto defaults=nativeIni;diagnostic::ini_tweaks::Defaults(defaults);
+            for(unsigned i=0;i<3;++i)if(nativeIni.available[i])nativeIni.values[i]=defaults.values[i];
+            nativeIni.forceNativeDistances=nativeIni.forceNativeDistances||defaults.forceNativeDistances;
+            FillNativeIni();nativeIniDirty=nativeIni.Changed();settings.numbers[85]=100;
+            SendMessageW(tracks[85],TBM_SETPOS,TRUE,100);SetDlgItemInt(h,EditBase+85,100,FALSE);dirty=true;
+            Message(L"Fog 100% and native distance defaults staged. Save settings to apply.");break;}
+        if(TabCtrl_GetCurSel(settingsTabs)==IniTweaksPage){diagnostic::ini_tweaks::Defaults(nativeIni);FillNativeIni();nativeIniDirty=nativeIni.Changed();Message(L"CP distance defaults and Very High graphics defaults staged. Save settings to apply.");break;}settings=diagnostic::VrSettings{};Fill();dirty=true;Message(L"Defaults restored. Save to apply.");break;
         case AntiAliasing:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Anti-aliasing applies after restarting the game. HUD and menus remain unfiltered.");}break;
         case EffectsQuality:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Fire & magic effect quality applies live with Save settings. Original restores native visuals.");}break;
         case RuntimeChoice:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Runtime changes apply after restarting the game. The Windows default runtime is unchanged.");}break;
@@ -483,6 +490,19 @@ bool UiInteractionCheck(wchar_t const* path){
         SendMessageW(reset,BM_CLICK,0,0);for(unsigned i=0;i<diagnostic::VrNumberCount;++i)ok=ok&&settings.numbers[i]==original.numbers[i];
         SendMessageW(iniReload,BM_CLICK,0,0);ok=ok&&!nativeIniDirty&&nativeIni.values==nativeOriginal.values;
         ok=ok&&diagnostic::ini_tweaks::Bytes(nativeIni.game)==gameBefore&&diagnostic::ini_tweaks::Bytes(nativeIni.user)==userBefore;
+        SendMessageW(navigation[GameIniPage],BM_CLICK,0,0);ok=NativeTooltipCheck(report)&&ok;
+        for(unsigned i=0;i<3;++i)if(nativeIni.available[i]){
+            int next=diagnostic::ini_tweaks::Snap(i,nativeIni.values[i]+diagnostic::ini_tweaks::Fields[i].step);
+            SendMessageW(iniTracks[i],TBM_SETPOS,TRUE,next);SendMessageW(window,WM_HSCROLL,TB_THUMBPOSITION,LPARAM(iniTracks[i]));
+            ok=ok&&int(GetDlgItemInt(window,IniValueBase+i,nullptr,TRUE))==next;
+        }
+        SetDlgItemInt(window,EditBase+85,30,FALSE);ok=Collect()&&ok;ok=ok&&settings.numbers[85]==30;
+        auto staged=nativeIni;SendMessageW(reset,BM_CLICK,0,0);ok=ok&&settings.numbers[85]==100;
+        auto expected=nativeOriginal;diagnostic::ini_tweaks::Defaults(expected);
+        for(unsigned i=0;i<3;++i)if(nativeIni.available[i])ok=ok&&nativeIni.values[i]==expected.values[i];
+        for(unsigned i=3;i<diagnostic::ini_tweaks::Count;++i)ok=ok&&nativeIni.values[i]==staged.values[i];
+        ok=ok&&diagnostic::ini_tweaks::Bytes(nativeIni.game)==gameBefore&&diagnostic::ini_tweaks::Bytes(nativeIni.user)==userBefore;
+        settings=original;Fill();dirty=false;
         nativeIni=nativeOriginal;nativeIniDirty=nativeWasDirty;FillNativeIni();
     }
     {SendMessageW(navigation[ModsPage],BM_CLICK,0,0);ok=ok&&IsWindowVisible(unionHint)&&IsWindowVisible(unionOpen)&&!GetDlgItem(window,710)&&!GetDlgItem(window,711)&&!GetDlgItem(window,714);}
@@ -499,9 +519,11 @@ bool UiInteractionCheck(wchar_t const* path){
       ok=ok&&opened&&!mappingListening&&diagnostic::mapping::Mask(binding)==(diagnostic::mapping::Bit(diagnostic::mapping::LeftGrip)|diagnostic::mapping::Bit(diagnostic::mapping::RightPrimary))&&binding.gesture==diagnostic::mapping::DoubleTap&&!source.Capturing(GetTickCount64());
       StopControllerCapture();mappingLink.Close();source.Close();settings.controllerBindings=saved;dirty=wasDirty;FillControllerMapper();
     }
-    ok=ok&&PageCount==20&&TabCtrl_GetItemCount(settingsTabs)==PageCount;
+    ok=ok&&PageCount==21&&TabCtrl_GetItemCount(settingsTabs)==PageCount;
     for(int page=0;page<PageCount;++page){SendMessageW(navigation[page],BM_CLICK,0,0);ok=ok&&TabCtrl_GetCurSel(settingsTabs)==page;
         ok=ok&&(IsWindowVisible(fastPickupCheck)!=FALSE)==(page==InteractionPage);
+        for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)
+            ok=ok&&(IsWindowVisible(iniValues[i])!=FALSE)==(page==(i<3?GameIniPage:IniTweaksPage));
         for(auto control:{dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck})
             ok=ok&&(IsWindowVisible(control)!=FALSE)==(page==ThirdPersonPage);
         ok=ok&&PageNames[page]&&*PageNames[page]&&PageDescriptions[page]&&*PageDescriptions[page];
@@ -535,7 +557,7 @@ int WINAPI wWinMain(HINSTANCE module,HINSTANCE,LPWSTR,int show) {
     int width=Scale(checkWidth),height=Scale(checkHeight);if(uiCheckPath.empty()){width=std::min(width,int(work.right-work.left-24));height=std::min(height,int(work.bottom-work.top-24));}
     window=CreateWindowExW(WS_EX_COMPOSITED,cls.lpszClassName,L"Gothic 3 VR — Settings and launcher",WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN,work.left+std::max(0,int(work.right-work.left-width)/2),work.top+std::max(0,int(work.bottom-work.top-height)/2),width,height,nullptr,nullptr,module,nullptr);
     if(window&&!uiCheckPath.empty()){ShowWindow(window,SW_SHOWNOACTIVATE);UpdateWindow(window);bool ok=UiInteractionCheck(uiCheckPath.c_str());ok=UiCheck(uiCheckPath.c_str())&&ok;
-        wchar_t const* suffix[]={L"",L"-hud.bmp",L"-interaction.bmp",L"-left-hand.bmp",L"-right-hand.bmp",L"-sword.bmp",L"-bow.bmp",L"-two-hand.bmp",L"-staff.bmp",L"-crossbow.bmp",L"-magic.bmp",L"-radial.bmp",L"-shield.bmp",L"-graphics.bmp",L"-foveated.bmp",L"-mods.bmp",L"-ini-tweaks.bmp",L"-controller-mapping.bmp",L"-hand-hud.bmp",L"-third-person.bmp"};
+        wchar_t const* suffix[]={L"",L"-hud.bmp",L"-interaction.bmp",L"-left-hand.bmp",L"-right-hand.bmp",L"-sword.bmp",L"-bow.bmp",L"-two-hand.bmp",L"-staff.bmp",L"-crossbow.bmp",L"-magic.bmp",L"-radial.bmp",L"-shield.bmp",L"-graphics.bmp",L"-foveated.bmp",L"-mods.bmp",L"-ini-tweaks.bmp",L"-controller-mapping.bmp",L"-hand-hud.bmp",L"-third-person.bmp",L"-game-ini.bmp"};
         for(int page=1;page<int(sizeof(suffix)/sizeof(suffix[0]));++page){TabCtrl_SetCurSel(settingsTabs,page);Layout();UpdateWindow(window);ok=UiCheck((uiCheckPath+suffix[page]).c_str())&&ok;}
         TabCtrl_SetCurSel(settingsTabs,CameraPage);Layout();ok=UiIdlePaintCheck(uiCheckPath.c_str())&&ok;
         DestroyWindow(window);for(HFONT f:{font,titleFont,smallFont,navFont,brandFont,sectionFont})DeleteObject(f);DeleteObject(background);ReleaseArtwork();return ok?0:1;}
