@@ -89,8 +89,7 @@ inline Model Load(fs::path const& gameFile,fs::path const& userFile){
  m.ready=true;return m;
 }
 inline void Defaults(Model& m){
- int high[]={0,6000,8000,10000},low[]={0,25000,50000,100000},vegetation[]={0,4000,5000,6500,7500};
- std::array<int,Count> v={high[m.highTier],low[m.lowTier],vegetation[m.vegetationTier],10000,34000,4000,120,3,4,4,1,1,1};
+ std::array<int,Count> v={20000,200000,10000,10000,34000,10000,120,3,4,4,1,1,1};
  for(unsigned i=0;i<Count;++i)if(m.available[i])m.values[i]=v[i];
  m.forceNativeDistances=m.ready&&Read(m.game,L"Gothic3VR.IniTweaks",L"OwnDistances")!=L"1";
 }

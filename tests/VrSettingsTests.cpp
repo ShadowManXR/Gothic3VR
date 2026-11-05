@@ -166,7 +166,7 @@ int wmain(int argc, wchar_t** argv) {
     check(s.numbers[70]==100&&s.numbers[71]==50&&s.numbers[72]==50,"existing configurations get lower independent stab speed defaults");
     check(s.numbers[67]==25&&s.numbers[68]==15&&s.numbers[69]==15,"missing stab keys use separate short thrust defaults");
     check(s.numbers[64]==600&&s.numbers[65]==600&&s.numbers[66]==600,"existing configurations gain speed gates without changing saved distance or calibration");
-    check(s.numbers[29]==9&&s.numbers[30]==2&&s.numbers[31]==0,"bow grip has separate defaults without changing existing hand calibration");
+    check(s.numbers[29]==8&&s.numbers[30]==3&&s.numbers[31]==0,"bow grip has separate defaults without changing existing hand calibration");
     check(s.numbers[58]==0&&s.numbers[61]==0&&s.numbers[62]==-10&&s.numbers[63]==0,"shield defaults retain native orientation and separate palm calibration");
     s.numbers[58]=25;s.numbers[61]=3;s.numbers[62]=-2;s.numbers[63]=1;
     check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).numbers[58]==25&&diagnostic::LoadVrSettings(path).numbers[61]==3,"shield settings round-trip independently of hand and bow calibration");
@@ -241,7 +241,7 @@ int wmain(int argc, wchar_t** argv) {
     check(!comfort.stableBody,"stable body can be disabled and round-trips independently of the horizon");
     check(!comfort.roomScaleWalking,"physical body following can be disabled independently of optical 6DoF tracking");
     s.numbers[7]=9999;check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).numbers[7]==2000,"out-of-range turn speed is bounded at the new maximum");
-    check(s.numbers[8]==0&&s.numbers[14]==0,"existing installations move both hands 5 cm outward by default");
+    check(s.numbers[8]==-5&&s.numbers[9]==-6&&s.numbers[14]==-5&&s.numbers[15]==-6&&s.numbers[20]==-4,"missing calibration keys default to 5 cm inward, 6 cm down and -4 degree sword pitch");
     int handValues[]={-7,3,8,25,-40,12,9,-2,-5,-18,32,-15};
     for(unsigned i=0;i<12;++i)s.numbers[8+i]=handValues[i];
     bool handSaved=diagnostic::SaveVrSettings(path,s);auto calibrated=diagnostic::LoadVrSettings(path);

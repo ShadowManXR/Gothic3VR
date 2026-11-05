@@ -300,7 +300,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         graphicsHint=Control(L"STATIC",L"Fog: 100% = current world fog; 0% = clear world-fog ramp. Sky colors and draw distances stay unchanged.\nSave settings applies fog / effects live. AA / upscaler changes need a restart.",0);
         shieldHint=Control(L"STATIC",L"Raise shield / weapon to chest level, then hold right grip to block.\nNative timing, stamina and skills apply. Save settings applies live.",0);
         radialHint=Control(L"STATIC",L"Radial size changes independently of native menus and HUD.\n80% = smaller; 100% = the previous size. Save settings applies live.\nMenu: main menu / back. L3 tap: Sprint until stop. Double-tap left trigger: quick heal.\nRight stick up: jump. Down: toggle Sneak; eye icon and vibration follow native state.\nRadial: R3 opens, right stick selects, A confirms, X cancels, B changes page.\nTrading: right grip = one item; right trigger = drag a stack.",0);
-        handHint=Control(L"STATIC",L"Position offsets place the palm relative to the controller grip; rotations pivot at the palm.\nStart at 0 cm. Positive outward moves away from the other hand. Save settings applies live.",0);
+        handHint=Control(L"STATIC",L"Position offsets place the palm relative to the controller grip; rotations pivot at the palm.\nNegative outward moves inward. Negative up moves down. Save settings applies live.",0);
         swordHint=Control(L"STATIC",L"Weight adds inertia; stabilization reduces jitter. Both at 0 = direct tracking.\nSave settings applies live to both 1H hands, including dual wield.",0);
         fastPickupCheck=Control(L"BUTTON",L"Skip item pickup delay and animation",WS_TABSTOP|BS_AUTOCHECKBOX,FastPickup);
         dialogueViewCheck=Control(L"BUTTON",L"Keep first-person view during dialogue",WS_TABSTOP|BS_AUTOCHECKBOX,DialogueView);
@@ -370,7 +370,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
             FillNativeIni();nativeIniDirty=nativeIni.Changed();settings.numbers[85]=100;
             SendMessageW(tracks[85],TBM_SETPOS,TRUE,100);SetDlgItemInt(h,EditBase+85,100,FALSE);dirty=true;
             Message(L"Fog 100% and native distance defaults staged. Save settings to apply.");break;}
-        if(TabCtrl_GetCurSel(settingsTabs)==IniTweaksPage){diagnostic::ini_tweaks::Defaults(nativeIni);FillNativeIni();nativeIniDirty=nativeIni.Changed();Message(L"CP distance defaults and Very High graphics defaults staged. Save settings to apply.");break;}settings=diagnostic::VrSettings{};Fill();dirty=true;Message(L"Defaults restored. Save to apply.");break;
+        if(TabCtrl_GetCurSel(settingsTabs)==IniTweaksPage){diagnostic::ini_tweaks::Defaults(nativeIni);FillNativeIni();nativeIniDirty=nativeIni.Changed();Message(L"INI tweak defaults staged. Save settings to apply.");break;}settings=diagnostic::VrSettings{};Fill();dirty=true;Message(L"Defaults restored. Save to apply.");break;
         case AntiAliasing:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Anti-aliasing applies after restarting the game. HUD and menus remain unfiltered.");}break;
         case EffectsQuality:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Fire & magic effect quality applies live with Save settings. Original restores native visuals.");}break;
         case RuntimeChoice:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Runtime changes apply after restarting the game. The Windows default runtime is unchanged.");}break;
