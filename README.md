@@ -1,9 +1,5 @@
 # Gothic 3 VR
 
-**Created and maintained by PeCOS2k5.**
-
-[Official downloads](https://github.com/PeCOS2k5/Gothic3VR/releases) · [Official Nexus Mods page](https://www.nexusmods.com/gothic3/mods/115) · [Authors and credits](AUTHORS.md) · [Project identity](BRANDING.md) · [Verify a release](docs/VERIFY-RELEASES.md)
-
 Version **1.1.1**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
 ## Install and play
@@ -25,7 +21,7 @@ Windows 10/11 x64, an SSD, a PC VR headset and two tracked controllers are requi
 - [Optional Union+ 1.7.3 integration](docs/OPTIONAL-MODS-UNION.md)
 - [INI tweaks](docs/INI-TWEAKS.md)
 
-The VR radial quick-slot page shows the native item icons and current stack quantities for slots 1–9 and 0. Slot numbers remain visible; empty slots keep their numbered placeholders.
+The VR radial quick-slot page shows the native item icons and current stack quantities for slots 1â€“9 and 0. Slot numbers remain visible; empty slots keep their numbered placeholders.
 
 VR chest interactions retain the calibrated first-person view and suppress the visible player animation. Native chest scripts and animation events continue internally, preserving the chest lid, lockpicking, loot, ownership and quest logic. The displayed hero pose is frozen during the interaction and restored after each eye; a cold entry without a previous gameplay pose hides the avatar until the interaction ends.
 
@@ -33,7 +29,7 @@ VR dialogue keeps the player's first-person viewpoint and live headset tracking,
 
 In VR, world-item pickups skip the native 500 ms wait and the animations around inventory transfer. The game's original pickup script still performs the transfer and applies its normal rules. NPCs, non-VR play, chests, mining, crafting, and other activities retain their existing behavior.
 
-The **Hand HUD** page controls independent lower-arm displays: the original quick-slot artwork, item icons and quantities on the left, and health/stamina/mana bars on the right. **Show hand HUD (both arms)** is enabled by default. Each side has its own position X/Y/Z (cm), pitch/yaw/roll (degrees), and Scale (25�200%); Save applies changes live. Offsets use the display's local axes: X across, Y up, Z away from its face. The displays attach to `Hero_Left_Arm_Arm_2` and `Hero_Right_Arm_Arm_2` (the installed rig's lower-arm bones), including during frozen two-hand poses. Tracking loss or world transitions hide them. The native HUD stays in its original location and retains its separate visibility preferences. INI keys under `[Stereo]`: `HandHudEnabled=1`, `LeftHandHudXcm/Ycm/Zcm`, `LeftHandHudPitchDeg/YawDeg/RollDeg`, and the corresponding `RightHandHud...` keys. Calibrated defaults: left position -7/0/0 cm, rotation -90/180/-90 degrees; right position 7/0/0 cm, rotation 90/0/-90 degrees. Both scales default to 50% (`LeftHandHudScalePercent` and `RightHandHudScalePercent`). Scaling keeps the attachment center fixed and resizes the entire display, including icons and quantities.
+The **Hand HUD** page controls independent lower-arm displays: the original quick-slot artwork, item icons and quantities on the left, and health/stamina/mana bars on the right. **Show hand HUD (both arms)** is enabled by default. Each side has its own position X/Y/Z (cm), pitch/yaw/roll (degrees), and Scale (25–200%); Save applies changes live. Offsets use the display's local axes: X across, Y up, Z away from its face. The displays attach to `Hero_Left_Arm_Arm_2` and `Hero_Right_Arm_Arm_2` (the installed rig's lower-arm bones), including during frozen two-hand poses. Tracking loss or world transitions hide them. The native HUD stays in its original location and retains its separate visibility preferences. INI keys under `[Stereo]`: `HandHudEnabled=1`, `LeftHandHudXcm/Ycm/Zcm`, `LeftHandHudPitchDeg/YawDeg/RollDeg`, and the corresponding `RightHandHud...` keys. Calibrated defaults: left position -7/0/0 cm, rotation -90/180/-90 degrees; right position 7/0/0 cm, rotation 90/0/-90 degrees. Both scales default to 50% (`LeftHandHudScalePercent` and `RightHandHudScalePercent`). Scaling keeps the attachment center fixed and resizes the entire display, including icons and quantities.
 
 The launcher's **HUD & menus** page has independent **Show compass**, **Show slot bar**, and **Show health / mana / stamina panel** options. All three are off for new configurations and Defaults. Save settings to apply changes live in VR. Existing explicit preferences are preserved. The INI keys under `[Stereo]` are `HideCompass` (default `1`), `ShowSlotBar` (default `0`), and `ShowVitalsPanel` (default `0`). The VR radial remains available when the native slot bar is hidden. The slot bar and health/mana/stamina block, including their frames and backgrounds, always appear while the inventory is open; closing it restores your saved visibility options.
 
