@@ -63,8 +63,6 @@ constexpr int FfrTransitionTrack=55,FfrTransitionEdit=56;
 constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61,HandHud=62;
 constexpr int FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68;
 int Scale(int n){return MulDiv(n,int(dpi),96);}
-// Keep the saved outward/up convention while displaying inward/down in the launcher.
-int HandOffsetSign(unsigned i){return (i==8||i==9||i==14||i==15)?-1:1;}
 int NumberPage(unsigned i){
     if(i==diagnostic::FirstPersonNearClipIndex)return CameraPage;
     if(i>=87)return HandHudPage;
@@ -134,8 +132,7 @@ void Fill() {
     for(unsigned i=0;i<diagnostic::VrNumberCount;++i){auto const& f=diagnostic::VrNumbers[i];
         SendMessageW(tracks[i],TBM_SETRANGEMIN,FALSE,f.minimum);SendMessageW(tracks[i],TBM_SETRANGEMAX,FALSE,f.maximum);
         SendMessageW(tracks[i],TBM_SETLINESIZE,0,f.step);SendMessageW(tracks[i],TBM_SETPAGESIZE,0,f.step);
-        int displayed=settings.numbers[i]*HandOffsetSign(i);
-        SendMessageW(tracks[i],TBM_SETPOS,TRUE,displayed);SetDlgItemInt(window,EditBase+i,UINT(displayed),TRUE);}
+        SendMessageW(tracks[i],TBM_SETPOS,TRUE,settings.numbers[i]);SetDlgItemInt(window,EditBase+i,UINT(settings.numbers[i]),TRUE);}
     SendMessageW(aimTrack,TBM_SETRANGEMIN,FALSE,diagnostic::InteractionAimMinimum);SendMessageW(aimTrack,TBM_SETRANGEMAX,FALSE,diagnostic::InteractionAimMaximum);
     SendMessageW(aimTrack,TBM_SETPOS,TRUE,settings.interactionAimUpPercent);SetDlgItemInt(window,AimEdit,UINT(settings.interactionAimUpPercent),TRUE);
     SendMessageW(fastPickupCheck,BM_SETCHECK,settings.fastPickup?BST_CHECKED:BST_UNCHECKED,0);
@@ -182,7 +179,7 @@ bool Collect() {
         auto const& f=diagnostic::VrNumbers[i];if(end==text||*end||n<f.minimum||n>f.maximum||(n-f.minimum)%f.step!=0){
             wchar_t error[256];swprintf_s(error,L"%s: enter a value between %d and %d %s (step %d).",f.label,f.minimum,f.maximum,f.unit,f.step);Message(error,true);
             TabCtrl_SetCurSel(settingsTabs,NumberPage(i));Layout();SetFocus(edits[i]);return false;}
-        settings.numbers[i]=int(n)*HandOffsetSign(i);}
+        settings.numbers[i]=int(n);}
     wchar_t aimText[64];GetWindowTextW(aimEdit,aimText,64);wchar_t* aimEnd=nullptr;long aimValue=wcstol(aimText,&aimEnd,10);
     if(aimEnd==aimText||*aimEnd||aimValue<diagnostic::InteractionAimMinimum||aimValue>diagnostic::InteractionAimMaximum){
         Message(L"Selection vertical aim: enter a value between -200 and 200 %.",true);TabCtrl_SetCurSel(settingsTabs,InteractionPage);Layout();SetFocus(aimEdit);return false;}
@@ -303,7 +300,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         graphicsHint=Control(L"STATIC",L"Fog: 100% = current world fog; 0% = clear world-fog ramp. Sky colors and draw distances stay unchanged.\nSave settings applies fog / effects live. AA / upscaler changes need a restart.",0);
         shieldHint=Control(L"STATIC",L"Raise shield / weapon to chest level, then hold right grip to block.\nNative timing, stamina and skills apply. Save settings applies live.",0);
         radialHint=Control(L"STATIC",L"Radial size changes independently of native menus and HUD.\n80% = smaller; 100% = the previous size. Save settings applies live.\nMenu: main menu / back. L3 tap: Sprint until stop. Double-tap left trigger: quick heal.\nRight stick up: jump. Down: toggle Sneak; eye icon and vibration follow native state.\nRadial: R3 opens, right stick selects, A confirms, X cancels, B changes page.\nTrading: right grip = one item; right trigger = drag a stack.",0);
-        handHint=Control(L"STATIC",L"Position offsets place the palm relative to the controller grip; rotations pivot at the palm.\nPositive values move inward and down. Save settings applies live.",0);
+        handHint=Control(L"STATIC",L"Position offsets place the palm relative to the controller grip; rotations pivot at the palm.\nNegative outward moves inward. Negative up moves down. Save settings applies live.",0);
         swordHint=Control(L"STATIC",L"Weight adds inertia; stabilization reduces jitter. Both at 0 = direct tracking.\nSave settings applies live to both 1H hands, including dual wield.",0);
         fastPickupCheck=Control(L"BUTTON",L"Skip item pickup delay and animation",WS_TABSTOP|BS_AUTOCHECKBOX,FastPickup);
         dialogueViewCheck=Control(L"BUTTON",L"Keep first-person view during dialogue",WS_TABSTOP|BS_AUTOCHECKBOX,DialogueView);

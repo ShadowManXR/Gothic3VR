@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "8ab46c1d49b579dd8e5828e9e1d6ee97649f55135e434233b027474d724a75f8",
+  "sha256": "7b312490acde93758e3267885bac578dedf4f34c35c2bd87b27df20d4e505733",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -48,14 +48,14 @@
       "SmoothCamera": "1",
       "CameraSmoothingMs": "40",
       "CameraVerticalSmoothingMs": "100",
-      "LeftHandOutwardCm": "-5",
-      "LeftHandUpCm": "-6",
+      "LeftHandOutwardCm": "5",
+      "LeftHandUpCm": "5",
       "LeftHandForwardCm": "0",
       "LeftHandPitchDeg": "0",
       "LeftHandYawDeg": "0",
       "LeftHandRollDeg": "0",
-      "RightHandOutwardCm": "-5",
-      "RightHandUpCm": "-6",
+      "RightHandOutwardCm": "5",
+      "RightHandUpCm": "5",
       "RightHandForwardCm": "0",
       "RightHandPitchDeg": "0",
       "RightHandYawDeg": "0",

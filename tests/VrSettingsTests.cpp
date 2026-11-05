@@ -241,7 +241,7 @@ int wmain(int argc, wchar_t** argv) {
     check(!comfort.stableBody,"stable body can be disabled and round-trips independently of the horizon");
     check(!comfort.roomScaleWalking,"physical body following can be disabled independently of optical 6DoF tracking");
     s.numbers[7]=9999;check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).numbers[7]==2000,"out-of-range turn speed is bounded at the new maximum");
-    check(s.numbers[8]==-5&&s.numbers[9]==-6&&s.numbers[14]==-5&&s.numbers[15]==-6&&s.numbers[20]==-4,"missing calibration keys default to 5 cm inward, 6 cm down and -4 degree sword pitch");
+    check(s.numbers[8]==5&&s.numbers[9]==5&&s.numbers[14]==5&&s.numbers[15]==5&&s.numbers[20]==-4,"missing calibration keys default to 5 cm outward, 5 cm up and -4 degree sword pitch");
     int handValues[]={-7,3,8,25,-40,12,9,-2,-5,-18,32,-15};
     for(unsigned i=0;i<12;++i)s.numbers[8+i]=handValues[i];
     bool handSaved=diagnostic::SaveVrSettings(path,s);auto calibrated=diagnostic::LoadVrSettings(path);
