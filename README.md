@@ -46,14 +46,18 @@ The launcher's **HUD & menus** page has independent **Show compass**, **Show slo
 In-game captures of combat, exploration, dialogue and trading in VR.
 
 <p>
-  <a href="screenshots/VirtualDesktop.Android-20261105-134921.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-134921.jpg" alt="VR combat with the hand-mounted status bars" width="49%"></a>
-  <a href="screenshots/VirtualDesktop.Android-20261105-135040.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-135040.jpg" alt="Exploring a desert settlement in VR" width="49%"></a>
+  <a href="screenshots/1.1.1/VirtualDesktop.Android-20261105-134921.jpg"><img src="screenshots/1.1.1/VirtualDesktop.Android-20261105-134921.jpg" alt="VR combat with the hand-mounted status bars" width="49%"></a>
+  <a href="screenshots/1.1.1/VirtualDesktop.Android-20261105-135040.jpg"><img src="screenshots/1.1.1/VirtualDesktop.Android-20261105-135040.jpg" alt="Exploring a desert settlement in VR" width="49%"></a>
 </p>
 
 <p>
-  <a href="screenshots/VirtualDesktop.Android-20261105-135056.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-135056.jpg" alt="First-person character dialogue in VR" width="49%"></a>
-  <a href="screenshots/VirtualDesktop.Android-20261105-135129.jpg"><img src="screenshots/VirtualDesktop.Android-20261105-135129.jpg" alt="Trading interface and hand-mounted status bars in VR" width="49%"></a>
+  <a href="screenshots/1.1.1/VirtualDesktop.Android-20261105-135056.jpg"><img src="screenshots/1.1.1/VirtualDesktop.Android-20261105-135056.jpg" alt="First-person character dialogue in VR" width="49%"></a>
+  <a href="screenshots/1.1.1/VirtualDesktop.Android-20261105-135129.jpg"><img src="screenshots/1.1.1/VirtualDesktop.Android-20261105-135129.jpg" alt="Trading interface and hand-mounted status bars in VR" width="49%"></a>
 </p>
+
+**Quest 3 controls (1.1.2 beta)**
+
+[![Default Quest 3 controller bindings](screenshots/1.1.2/controllers-gothic3vr.png)](screenshots/1.1.2/controllers-gothic3vr.png)
 
 ## Report a bug
 
