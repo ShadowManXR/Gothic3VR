@@ -13,6 +13,8 @@ An enhanced mod that incorporates modern VR mechanics and reflects my vision of 
 
 ## Install and play
 
+[Download here](https://github.com/ShadowManXR/Gothic3VR/releases)
+
 Use the release installer and follow the [installation and first-launch guide](release/START-HERE.md). A separately purchased copy of Gothic 3 is required; Forsaken Gods is not supported.
 
 Windows 10/11 x64, an SSD, a PC VR headset and two tracked controllers are required. Select Virtual Desktop / VDXR, Meta Quest Link / Air Link, or SteamVR in the launcher. The reference hardware is Quest 3 / Touch and RTX 4080; other hardware needs separate validation. Steam, GOG and retail editions were tested with the supported native patch profile.
