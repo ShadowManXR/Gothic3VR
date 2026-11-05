@@ -2,6 +2,8 @@
 
 - Setup can download and apply missing native game patches in order, verify each download, and recheck the installed game before deploying VR. Manual patching remains available.
 
+- Camera & controls exposes the first-person VR near clipping distance (1–25 cm, default 13 cm). It applies live without changing native camera INI settings.
+
 ## Previous release: 1.1.2 beta
 
 - Right stick up jumps; right stick down toggles learned Sneak.

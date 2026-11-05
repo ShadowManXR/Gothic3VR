@@ -114,7 +114,9 @@ inline constexpr VrSetting VrNumbers[] = {
     {L"RightHandHudRollDeg", L"Roll", -90, -180, 180, L"deg"},
     {L"LeftHandHudScalePercent", L"Scale", 50, 25, 200, L"%", 5},
     {L"RightHandHudScalePercent", L"Scale", 50, 25, 200, L"%", 5},
+    {L"FirstPersonNearClipCm", L"Near clipping distance", 13, 1, 25, L"cm"},
 };
+inline constexpr unsigned FirstPersonNearClipIndex = 101;
 inline constexpr unsigned VrNumberCount = sizeof(VrNumbers)/sizeof(VrNumbers[0]);
 inline constexpr int InteractionAimMinimum=-200,InteractionAimMaximum=200;
 struct VrSettings {

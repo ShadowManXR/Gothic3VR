@@ -1774,17 +1774,22 @@ void __fastcall StereoProjectionUpdate(eCCameraBase* camera,void*,bool calculate
 }
 struct CameraSnapshot
 {
-    float position[3]{},rotation[3]{},view[16]{},projection[16]{};
+    float position[3]{},rotation[3]{},view[16]{},projection[16]{},clipDepth[2]{};
 };
 void SaveStereoCamera(eCCameraBase& camera,CameraSnapshot& saved)
 {
+    auto const& clip=camera.GetClipDepth();saved.clipDepth[0]=clip.GetX();saved.clipDepth[1]=clip.GetY();
     auto const& p=camera.GetPosition();saved.position[0]=p.m_fX;saved.position[1]=p.m_fY;saved.position[2]=p.m_fZ;
     auto const& r=camera.GetRotation();saved.rotation[0]=r.m_fX;saved.rotation[1]=r.m_fY;saved.rotation[2]=r.m_fZ;
     for(int row=0;row<4;++row)for(int col=0;col<4;++col){saved.view[row*4+col]=camera.GetViewMatrix()(row,col);saved.projection[row*4+col]=camera.GetProjectionMatrix()(row,col);}
 }
 void RestoreStereoCamera(eCCameraBase& camera,CameraSnapshot const& saved)
 {
-    gStereo.eyeActive=false;camera.SetPosition(bCVector(saved.position[0],saved.position[1],saved.position[2]));camera.SetRotation(bCVector(saved.rotation[0],saved.rotation[1],saved.rotation[2]));
+    gStereo.eyeActive=false;
+    auto const& clip=camera.GetClipDepth();
+    if(clip.GetX()!=saved.clipDepth[0]||clip.GetY()!=saved.clipDepth[1])
+        camera.SetClipDepth(bCVector2(saved.clipDepth[0],saved.clipDepth[1]));
+    camera.SetPosition(bCVector(saved.position[0],saved.position[1],saved.position[2]));camera.SetRotation(bCVector(saved.rotation[0],saved.rotation[1],saved.rotation[2]));
     camera.UpdateViewport(GETrue);bCMatrix view,projection;
     for(int row=0;row<4;++row)for(int col=0;col<4;++col){view(row,col)=saved.view[row*4+col];projection(row,col)=saved.projection[row*4+col];}
     camera.SetViewMatrix(view);camera.UpdateViewport(GEFalse);camera.SetProjectionMatrix(projection);
@@ -2271,11 +2276,26 @@ bool SetStereoEye(eCCameraBase& camera,CameraSnapshot const& saved,diagnostic::S
     // pitch must not turn this height adjustment into a forward displacement.
     position[1]+=gStereo.heightOffsetUnits;
     auto const& clip=camera.GetClipDepth();float nearZ=clip.GetX(),farZ=clip.GetY();if(!std::isfinite(nearZ)||!std::isfinite(farZ)||nearZ<=0||farZ<=nearZ)return false;
+    // The native first-person camera forces its own near plane. Override
+    // ClipDepth for both VR eyes so projection updates use the same range.
+    // RenderLowPoly still supplies its own depth range in the projection hook.
+    if(gStereo.firstPerson){
+        float firstPersonNear=gConfig.unitsPerMeter*.01f*gVrSettings.numbers[diagnostic::FirstPersonNearClipIndex];
+        if(firstPersonNear<farZ)nearZ=firstPersonNear;
+    }
     diagnostic::StereoProjection(eye.fov,nearZ,farZ,gStereo.projection);
     if(!gStereoRuntime.ApplyTemporalProjection(index,gStereo.projection))return false;
     gStereo.detailFar=farZ;
+    if(clip.GetX()!=nearZ)camera.SetClipDepth(bCVector2(nearZ,farZ));
     camera.SetPosition(bCVector(position[0],position[1],position[2]));camera.SetRotation(bCVector(rotation[0],rotation[1],rotation[2]));camera.UpdateViewport(GETrue);
     StereoProjectionUpdate(&camera,nullptr,true);camera.ExecuteGfxCamera();
+    static float reportedNear=0;
+    float effectiveNear=camera.GetClipDepth().GetX();
+    if(index==0&&std::fabs(effectiveNear-reportedNear)>.001f&&gApplication&&gApplication->IsGameRunning()){
+        reportedNear=effectiveNear;char text[160];
+        sprintf_s(text,"vr_detail_projection_depth near_cm=%.3f native_near_cm=%.3f far_cm=%.1f",100.f*effectiveNear/gConfig.unitsPerMeter,100.f*saved.clipDepth[0]/gConfig.unitsPerMeter,100.f*farZ/gConfig.unitsPerMeter);
+        Message(text,0,true);
+    }
     for(int row=0;row<4;++row)for(int col=0;col<4;++col)if(std::fabs(camera.GetProjectionMatrix()(row,col)-gStereo.projection[row*4+col])>.0001f)return false;
     return diagnostic::RotationError(diagnostic::NativeCameraRotation(rotation),CameraViewRotation(camera))<.001f;
 }

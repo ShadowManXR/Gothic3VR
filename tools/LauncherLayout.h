@@ -52,7 +52,8 @@ void Layout(){
   for(unsigned row=0;row<7;++row){field(row<6?87+row:99,fx,fy+row*spacing,col-44);field(row<6?93+row:100,x+col+40,fy+row*spacing,col-44);}
   show(handHudCheck,fx,fy+7*spacing+8,col-44,29);
  }else if(page==CameraPage){
-  for(unsigned row=0;row<3;++row)field(row==0?0:row==1?6:7,fx,fy+row*72,col-44);
+  unsigned cameraFields[]{0,6,7,diagnostic::FirstPersonNearClipIndex};
+  for(unsigned row=0;row<4;++row)field(cameraFields[row],fx,fy+row*72,col-44);
   int rx=x+col+40;
   show(runtimeLabel,rx,fy,col-44,22);show(runtimeCombo,rx,fy+26,col-44,180);
   show(handsOnlyCheck,rx,fy+75,col-44,29);

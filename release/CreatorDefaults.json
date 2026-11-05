@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "0dcea35797e73c77b203a8fd769ba6e48f0e69f4650a9aa84f95e3001f01b129",
+  "sha256": "f2c8148b0dc9e974f904d57539f40fb93b8c7ac32334a7d8fa1e2e3f7255eec7",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -161,7 +161,8 @@
       "FastPickup": "1",
       "FirstPersonDialogue": "1",
       "FirstPersonChest": "1",
-      "FirstPersonLectern": "1"
+      "FirstPersonLectern": "1",
+      "FirstPersonNearClipCm": "13"
     },
     "Controllers": {
       "Enabled": "1",

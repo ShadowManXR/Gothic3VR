@@ -64,6 +64,7 @@ constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVi
 constexpr int FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68;
 int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
+    if(i==diagnostic::FirstPersonNearClipIndex)return CameraPage;
     if(i>=87)return HandHudPage;
     if(i==86)return HudPage;
     if(i==85)return GameIniPage;
@@ -320,7 +321,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         magicHint=Control(L"STATIC",L"Right trigger: cast. Grip offsets move the item without moving the hand.\nAnimal form: hold X + Y for 0.5 s to return human and recenter.",0);
         crossbowHint=Control(L"STATIC",L"Right trigger: fire. Left grip: stable aim. One-hand aim sways. Reload stays native.",0);
         staffHint=Control(L"STATIC",L"0 weight / stabilization = direct tracking.\nSave settings applies live.",0);
-        hint=Control(L"STATIC",L"Default controls (edit in Controller mapping):\nR3: radial; right stick: select; A: confirm; X: cancel; B: page. X: inventory; B: weapon.\nL3: sprint until stop. Double left trigger: heal. Double Y: sneak. Menu: back. L3+R3 (0.5 s): recenter.",0);
+        hint=Control(L"STATIC",L"Default controls (edit in Controller mapping):\nR3: radial; right stick: select; A: confirm; X: cancel; B: page. X: inventory; B: weapon.\nL3: sprint until stop. Double left trigger: heal. Right stick up: jump. Down: sneak. Menu: back. L3+R3 (0.5 s): recenter.\nNear clipping distance applies only to first-person VR. Save settings to apply live.",0);
         status=Control(L"STATIC",L"Connect your headset through the selected OpenXR runtime before launching.",0);
         reset=Control(L"BUTTON",L"Defaults",WS_TABSTOP,Reset);save=Control(L"BUTTON",L"Save settings",WS_TABSTOP,Save);
         launch=Control(L"BUTTON",L"Save and launch",WS_TABSTOP|BS_DEFPUSHBUTTON,Launch);CreateNativeIniControls();CreateControllerMapper();SetTimer(h,MapperTimer,100,nullptr);Fill();Layout();return 0;

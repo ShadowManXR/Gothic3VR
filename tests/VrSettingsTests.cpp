@@ -4,10 +4,16 @@
 #include <cstdio>
 #include <string>
 int wmain(int argc, wchar_t** argv) {
-    static_assert(diagnostic::VrNumberCount==101);
+    static_assert(diagnostic::VrNumberCount==102);
     unsigned failures=0;auto check=[&](bool ok,char const* name){printf("%s %s\n",ok?"PASS":"FAIL",name);failures+=!ok;};
     wchar_t directory[MAX_PATH],path[MAX_PATH];GetTempPathW(MAX_PATH,directory);GetTempFileNameW(directory,L"gvs",0,path);
     auto missingHandHud=diagnostic::LoadVrSettings(path);
+    constexpr auto nearClip=diagnostic::FirstPersonNearClipIndex;
+    check(missingHandHud.numbers[nearClip]==13,"Missing near clip setting defaults to 13 cm");
+    auto camera=missingHandHud;camera.numbers[nearClip]=5;
+    check(diagnostic::SaveVrSettings(path,camera)&&diagnostic::LoadVrSettings(path).numbers[nearClip]==5,"Near clip preference survives save and reload");
+    auto const& nearField=diagnostic::VrNumbers[nearClip];
+    check(diagnostic::BoundVrNumber(nearField,0)==1&&diagnostic::BoundVrNumber(nearField,100)==25,"Near clip remains positive and within supported range");
     check(missingHandHud.numbers[85]==100&&diagnostic::VrSettings{}.numbers[85]==100,
         "New and missing-key configurations preserve native fog at 100 percent");
     for(int fog:{0,30,100}){auto value=diagnostic::VrSettings{};value.numbers[85]=fog;value.numbers[0]=-31;
