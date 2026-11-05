@@ -40,7 +40,7 @@ def markdown_html(text):
             blocks.append('<p>'+inline(' '.join(paragraph))+'</p>')
     return '\n'.join(blocks)
 
-VERSION = '1.0.2'
+VERSION = '1.1.0-beta'
 ROOT = Path(__file__).resolve().parents[1]
 
 def sha(p):
@@ -53,7 +53,7 @@ def build(args):
     for flag in ('RUNTIME_PROBES', 'DX11_VALIDATION', 'RENDERER_FEASIBILITY', 'SCENE_COST_TRIAL', 'DRAW_COST_TRIAL', 'ENTITY_COST_TRIAL', 'STEREO_FRAME_CAPTURE', 'UI_COMPOSITION_CAPTURE', 'TEST_NATIVE_NVIDIA_TEMPORAL'):
         assert f'G3VR_{flag}:BOOL=OFF' in cache, f'Development mode enabled: {flag}'
     project = (ROOT / 'CMakeLists.txt').read_text(encoding='utf-8')
-    assert f'project(Gothic3VRDiagnostics VERSION {VERSION} ' in project, 'Package/source version mismatch'
+    assert f'project(Gothic3VRDiagnostics VERSION {VERSION.split("-")[0]} ' in project, 'Package/source version mismatch'
     assert not any(out.iterdir()) if out.exists() else True, 'Use a new empty output directory'
     out.mkdir(parents=True, exist_ok=True)
     files = []

@@ -4,7 +4,7 @@
 
 [Official downloads](https://github.com/PeCOS2k5/Gothic3VR/releases) · [Official Nexus Mods page](https://www.nexusmods.com/gothic3/mods/115) · [Authors and credits](AUTHORS.md) · [Project identity](BRANDING.md) · [Verify a release](docs/VERIFY-RELEASES.md)
 
-Version **1.0.2**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
+Version **1.1.0 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
 ## Install and play
 
