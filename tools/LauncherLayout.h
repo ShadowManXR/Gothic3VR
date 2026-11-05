@@ -30,7 +30,7 @@ void Layout(){
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)for(HWND control:{iniLabels[i],iniTracks[i],iniValues[i],iniUnits[i]})if(control)ShowWindow(control,SW_HIDE);
  for(HWND control:{gameIniHint,iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
  for(int i=0;i<2;++i)for(HWND control:{graphicsLabels[i],graphicsTracks[i],graphicsEdits[i],graphicsUnits[i]})ShowWindow(control,SW_HIDE);
- for(HWND control:{mappingLive,mappingActionLabel,mappingAction,mappingModeLabel,mappingMode,mappingButtonLabel,mappingButton,mappingModifierLabel,mappingModifier,mappingListen,mappingClear,mappingDefaults,mappingStatus,mappingHint})if(control)ShowWindow(control,SW_HIDE);
+ for(HWND control:{mappingLeftHanded,mappingJump,mappingLive,mappingActionLabel,mappingAction,mappingModeLabel,mappingMode,mappingButtonLabel,mappingButton,mappingModifierLabel,mappingModifier,mappingListen,mappingClear,mappingDefaults,mappingStatus,mappingHint})if(control)ShowWindow(control,SW_HIDE);
  auto show=[](HWND control,int a,int b,int c,int d){Position(control,a,b,c,d);ShowWindow(control,SW_SHOW);};
  auto field=[&](unsigned i,int fx,int fy,int width){
   show(labels[i],fx,fy,width-110,21);show(edits[i],fx+width-99,fy-2,58,27);show(units[i],fx+width-35,fy+1,40,23);show(tracks[i],fx,fy+23,width-110,18);

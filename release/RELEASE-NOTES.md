@@ -1,4 +1,9 @@
-# Gothic 3 VR 1.1.1 beta
+# Gothic 3 VR 1.1.2 beta
+
+- Right stick up jumps; right stick down toggles learned Sneak.
+- Controller mapping includes a Rebind Jump shortcut and an optional left-handed layout that mirrors sticks and paired buttons.
+
+## Previous release: 1.1.1 beta
 
 - Fixed native INI backup-folder collisions when multiple saves occur within the same Windows clock tick. Each save now reserves a separate session atomically.
 

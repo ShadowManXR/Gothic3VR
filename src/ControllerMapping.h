@@ -6,11 +6,11 @@
 #include <cstdint>
 namespace diagnostic::mapping {
 enum Button {None,LeftTrigger,LeftGrip,LeftPrimary,LeftSecondary,LeftStick,LeftMenu,
- RightTrigger,RightGrip,RightPrimary,RightSecondary,RightStick,RightMenu,ButtonCount};
+ RightTrigger,RightGrip,RightPrimary,RightSecondary,RightStick,RightMenu,RightStickUp,RightStickDown,LeftStickUp,LeftStickDown,ButtonCount};
 enum Gesture {Hold,Press,DoubleTap,HoldHalfSecond,GestureCount};
 enum Action {Interact,Block,Support,ShieldBlock,Jump,Inventory,Weapon,Menu,Sprint,Sneak,Heal,
  RadialOpen,RadialConfirm,RadialCancel,RadialPage,Recenter,Locator,ReturnHuman,UiSelect,UiOneItem,OffhandTrigger,ActionCount};
-inline constexpr wchar_t const* ButtonNames[]={L"Unassigned",L"Left trigger",L"Left grip",L"Left primary (X / A)",L"Left secondary (Y / B)",L"Left stick click (L3)",L"Left application menu",L"Right trigger",L"Right grip",L"Right primary (A)",L"Right secondary (B)",L"Right stick click (R3)",L"Right application menu"};
+inline constexpr wchar_t const* ButtonNames[]={L"Unassigned",L"Left trigger",L"Left grip",L"Left primary (X / A)",L"Left secondary (Y / B)",L"Left stick click (L3)",L"Left application menu",L"Right trigger",L"Right grip",L"Right primary (A)",L"Right secondary (B)",L"Right stick click (R3)",L"Right application menu",L"Right stick up",L"Right stick down",L"Left stick up",L"Left stick down"};
 inline constexpr wchar_t const* GestureNames[]={L"Hold",L"Single press",L"Double tap (450 ms)",L"Hold for 0.5 seconds"};
 inline constexpr wchar_t const* Keys[]={L"Interact",L"Block",L"SupportGrip",L"ShieldBlock",L"Jump",L"Inventory",L"DrawWeapon",L"MainMenu",L"Sprint",L"Sneak",L"QuickHeal",L"RadialOpen",L"RadialConfirm",L"RadialCancel",L"RadialPage",L"Recenter",L"ItemLocator",L"ReturnHuman",L"MenuSelect",L"TradeOneItem",L"OffhandTrigger"};
 inline constexpr wchar_t const* ActionNames[]={L"Interact / fire / bow string / power strike",L"Weapon block",L"Support grip (2H / staff / crossbow)",L"Shield block (1H + shield only)",L"Jump",L"Inventory",L"Draw / sheathe weapon",L"Main menu / back",L"Sprint until stop",L"Toggle sneak",L"Quick heal",L"Open / close radial",L"Radial: confirm",L"Radial: cancel",L"Radial: next page",L"Recenter camera",L"Toggle item locator",L"Return from animal form",L"Menu: select / drag stack",L"Trade: one item",L"Off-hand trigger / power strike"};
@@ -19,18 +19,28 @@ inline constexpr wchar_t const* ActionNames[]={L"Interact / fire / bow string / 
 inline constexpr unsigned Contexts[]={1,1,1,1,1,1,1,3,1,1,1,7,4,4,4,7,1,8,2,2,1};
 struct Binding {int button=None,modifier=None,gesture=Hold;bool operator==(Binding const& x)const{return button==x.button&&modifier==x.modifier&&gesture==x.gesture;}};
 struct Config {
+ bool leftHanded=false;
  std::array<Binding,ActionCount> bindings{{
  {RightTrigger,None,Hold},{RightGrip,None,Hold},{LeftGrip,None,Hold},{LeftGrip,None,Hold},
- {RightPrimary,None,Hold},{LeftPrimary,None,Hold},{RightSecondary,None,Hold},{LeftMenu,None,Hold},
- {LeftStick,None,Press},{LeftSecondary,None,DoubleTap},{LeftTrigger,None,DoubleTap},
+ {RightStickUp,None,Press},{LeftPrimary,None,Hold},{RightSecondary,None,Hold},{LeftMenu,None,Hold},
+ {LeftStick,None,Press},{RightStickDown,None,Press},{LeftTrigger,None,DoubleTap},
  {RightStick,None,Press},{RightPrimary,None,Press},{LeftPrimary,None,Press},{RightSecondary,None,Press},
  {RightStick,LeftStick,HoldHalfSecond},{LeftPrimary,LeftTrigger,Press},{LeftPrimary,LeftSecondary,Hold},
  {RightTrigger,None,Hold},{RightGrip,None,Press},{LeftTrigger,None,Hold}}};
- bool operator==(Config const& x)const{return bindings==x.bindings;}
+ bool operator==(Config const& x)const{return leftHanded==x.leftHanded&&bindings==x.bindings;}
 };
 inline bool Valid(Binding const& b){return b.button>=None&&b.button<ButtonCount&&b.modifier>=None&&b.modifier<ButtonCount&&b.gesture>=Hold&&b.gesture<GestureCount&&(b.modifier==None||b.modifier!=b.button);}
 inline uint32_t Bit(int button){return button>None&&button<ButtonCount?1u<<(button-1):0;}
-inline uint32_t Mask(Binding const& b){return Bit(b.button)|Bit(b.modifier);}
+// Application-menu buttons stay where the runtime exposes them.
+inline int LayoutButton(int button,bool leftHanded){
+ if(!leftHanded)return button;
+ if(button>=LeftTrigger&&button<=LeftStick)return button+6;
+ if(button>=RightTrigger&&button<=RightStick)return button-6;
+ if(button==RightStickUp||button==RightStickDown)return button+2;
+ if(button==LeftStickUp||button==LeftStickDown)return button-2;
+ return button;
+}
+inline uint32_t Mask(Binding const& b,bool leftHanded=false){return Bit(LayoutButton(b.button,leftHanded))|Bit(LayoutButton(b.modifier,leftHanded));}
 inline bool Active(ControllerFrame const& f,Action action){return f.bindingsMapped&&(f.bindingHeld&(1u<<action));}
 inline bool Pushed(ControllerFrame const& f,Action action){return f.bindingsMapped&&(f.bindingPressed&(1u<<action));}
 inline bool Chord(ControllerFrame const& f,Action action){return f.bindingsMapped&&(f.bindingChord&(1u<<action));}
@@ -50,12 +60,24 @@ public:
    if(!active)continue;bits|=analog&((3u)<<shift);
    if(hand.primary)bits|=1u<<(shift+2);if(hand.secondary)bits|=1u<<(shift+3);
    if(hand.stickClick)bits|=1u<<(shift+4);if(hand.menu)bits|=1u<<(shift+5);
-  }return bits;
+  }
+  for(unsigned h=0;h<2;++h){
+   auto const& hand=f.hands[h];float x=hand.stick[0],y=hand.stick[1];
+   auto up=Bit(h?RightStickUp:LeftStickUp),down=Bit(h?RightStickDown:LeftStickDown),vertical=up|down;
+   auto prior=analog&vertical;analog&=~vertical;
+   if((hand.active||(f.availableButtons&vertical))&&std::isfinite(x)&&std::isfinite(y)){
+    if(y>=.4f&&(prior==up||(y>.65f&&y>std::fabs(x))))analog|=up;
+    else if(y<=-.4f&&(prior==down||(-y>.65f&&-y>std::fabs(x))))analog|=down;
+   }
+   bits|=analog&vertical;
+  }
+  return bits;
  }
  ControllerFrame Step(ControllerFrame const& raw,Config const& config,uint64_t now,bool suppress=false,uint32_t enabled=~0u){
   bool changed=!configuredOnce||!(configured==config);if(changed){configured=config;configuredOnce=true;Reset();}
   if(enabled!=enabledBefore){Reset();enabledBefore=enabled;}
   uint32_t buttons=Buttons(raw);auto out=raw;Digital(out);out.bindingsMapped=true;
+  if(config.leftHanded)for(unsigned axis=0;axis<2;++axis)std::swap(out.hands[0].stick[axis],out.hands[1].stick[axis]);
   bool fresh=raw.focused&&raw.timeMs&&now>=raw.timeMs&&now-raw.timeMs<=100;
   if(!raw.focused||suppress||(previous&&raw.timeMs<previous)){Reset();out.focused=false;return out;}
   // Streaming/render stalls are not button releases or focus loss. Suspend
@@ -67,10 +89,10 @@ public:
   if(!armed){bool sticks=true;for(auto const& h:raw.hands)sticks&=std::isfinite(h.stick[0])&&std::isfinite(h.stick[1])&&std::hypot(h.stick[0],h.stick[1])<.25f;
    if(!buttons&&sticks)armed=true;cached=out;cached.focused=false;return cached;}
   consumed&=buttons;
-  for(unsigned i=0;i<ActionCount;++i){auto const& b=config.bindings[i];auto mask=Mask(b);
+  for(unsigned i=0;i<ActionCount;++i){auto const& b=config.bindings[i];auto mask=Mask(b,config.leftHanded);
    if((enabled&(1u<<i))&&b.button&&b.modifier&&(buttons&mask)==mask){out.bindingChord|=1u<<i;consumed|=mask;}
   }
-  for(unsigned i=0;i<ActionCount;++i){auto const& b=config.bindings[i];auto& s=states[i];auto mask=Mask(b);
+  for(unsigned i=0;i<ActionCount;++i){auto const& b=config.bindings[i];auto& s=states[i];auto mask=Mask(b,config.leftHanded);
    bool down=(enabled&(1u<<i))&&b.button&&(buttons&mask)==mask;
    if(!b.modifier&&(consumed&mask)&&!(i==Support&&b.gesture==Hold)){down=false;s.tap=0;}
    bool rising=down&&!s.down;bool active=false;

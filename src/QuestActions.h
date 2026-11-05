@@ -6,7 +6,7 @@
 #include <cstring>
 #include <algorithm>
 #include <cmath>
-#include "ControllerData.h"
+#include "ControllerMapping.h"
 #include "ControllerProfiles.h"
 namespace diagnostic {
 class QuestActions {
@@ -74,7 +74,7 @@ public:
                 auto flags=XR_SPACE_LOCATION_POSITION_VALID_BIT|XR_SPACE_LOCATION_ORIENTATION_VALID_BIT;if((location.locationFlags&flags)!=flags)return p;
                 p.valid=true;auto tracked=XR_SPACE_LOCATION_POSITION_TRACKED_BIT|XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT;p.tracked=(location.locationFlags&tracked)==tracked;p.position[0]=location.pose.position.x;p.position[1]=location.pose.position.y;p.position[2]=location.pose.position.z;p.quaternion[0]=location.pose.orientation.x;p.quaternion[1]=location.pose.orientation.y;p.quaternion[2]=location.pose.orientation.z;p.quaternion[3]=location.pose.orientation.w;return p;};
             out.grip=pose(grip,grips[h],local);out.aim=pose(aim,aims[h],local);out.aimInView=pose(aim,aims[h],view);
-            get.action=stick;XrActionStateVector2f vector{XR_TYPE_ACTION_STATE_VECTOR2F};api.Check(api.GetActionStateVector2f(session,&get,&vector),"controller joystick");if(vector.isActive){out.stick[0]=vector.currentState.x;out.stick[1]=vector.currentState.y;}
+            get.action=stick;XrActionStateVector2f vector{XR_TYPE_ACTION_STATE_VECTOR2F};api.Check(api.GetActionStateVector2f(session,&get,&vector),"controller joystick");if(vector.isActive){out.stick[0]=vector.currentState.x;out.stick[1]=vector.currentState.y;frame.availableButtons|=mapping::Bit(h?mapping::RightStickUp:mapping::LeftStickUp)|mapping::Bit(h?mapping::RightStickDown:mapping::LeftStickDown);}
             auto number=[&](XrAction a){get.action=a;XrActionStateFloat state{XR_TYPE_ACTION_STATE_FLOAT};api.Check(api.GetActionStateFloat(session,&get,&state),"controller analog input");if(state.isActive)frame.availableButtons|=1u<<(h*6+(a==squeeze?1:0));return state.isActive?state.currentState:0.f;};
             auto button=[&](XrAction a){get.action=a;XrActionStateBoolean state{XR_TYPE_ACTION_STATE_BOOLEAN};api.Check(api.GetActionStateBoolean(session,&get,&state),"controller button");if(state.isActive)frame.availableButtons|=1u<<(h*6+(a==primary?2:a==secondary?3:a==stickClick?4:5));return state.isActive&&state.currentState;};
             out.trigger=number(trigger);out.squeeze=number(squeeze);out.primary=button(primary);out.secondary=button(secondary);out.stickClick=button(stickClick);out.menu=h==0&&button(menu);

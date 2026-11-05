@@ -46,7 +46,7 @@ std::wstring iniTooltips[diagnostic::ini_tweaks::Count];
 diagnostic::ini_tweaks::Model nativeIni;bool nativeIniDirty=false;
 constexpr int IniTrackBase=600,IniValueBase=650,IniReload=690,IniBackups=691;
 HWND settingsTabs;
-HWND mappingLive,mappingActionLabel,mappingAction,mappingModeLabel,mappingMode,mappingButtonLabel,mappingButton,mappingModifierLabel,mappingModifier,mappingListen,mappingClear,mappingDefaults,mappingStatus,mappingHint;
+HWND mappingLeftHanded,mappingJump,mappingLive,mappingActionLabel,mappingAction,mappingModeLabel,mappingMode,mappingButtonLabel,mappingButton,mappingModifierLabel,mappingModifier,mappingListen,mappingClear,mappingDefaults,mappingStatus,mappingHint;
 void LayoutControllerMapper(int,int,int,bool);
 HWND aimLabel,aimTrack,aimEdit,aimUnit,aimHint;
 HWND handHint,swordHint,bowHint,bowReticleCheck,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,crossbowHint,magicHint,radialHint,shieldHint;
@@ -298,7 +298,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         graphicsPreview=Control(L"STATIC",L"",0);
         graphicsHint=Control(L"STATIC",L"Fog: 100% = current world fog; 0% = clear world-fog ramp. Sky colors and draw distances stay unchanged.\nSave settings applies fog / effects live. AA / upscaler changes need a restart.",0);
         shieldHint=Control(L"STATIC",L"Raise shield / weapon to chest level, then hold right grip to block.\nNative timing, stamina and skills apply. Save settings applies live.",0);
-        radialHint=Control(L"STATIC",L"Radial size changes independently of native menus and HUD.\n80% = smaller; 100% = the previous size. Save settings applies live.\nMenu: main menu / back. L3 tap: Sprint until stop. Double-tap left trigger: quick heal.\nDouble-tap Y: toggle Sneak; eye icon and vibration follow native state.\nRadial: R3 opens, right stick selects, A confirms, X cancels, B changes page.\nTrading: right grip = one item; right trigger = drag a stack.",0);
+        radialHint=Control(L"STATIC",L"Radial size changes independently of native menus and HUD.\n80% = smaller; 100% = the previous size. Save settings applies live.\nMenu: main menu / back. L3 tap: Sprint until stop. Double-tap left trigger: quick heal.\nRight stick up: jump. Down: toggle Sneak; eye icon and vibration follow native state.\nRadial: R3 opens, right stick selects, A confirms, X cancels, B changes page.\nTrading: right grip = one item; right trigger = drag a stack.",0);
         handHint=Control(L"STATIC",L"Position offsets place the palm relative to the controller grip; rotations pivot at the palm.\nStart at 0 cm. Positive outward moves away from the other hand. Save settings applies live.",0);
         swordHint=Control(L"STATIC",L"Weight adds inertia; stabilization reduces jitter. Both at 0 = direct tracking.\nSave settings applies live to both 1H hands, including dual wield.",0);
         fastPickupCheck=Control(L"BUTTON",L"Skip item pickup delay and animation",WS_TABSTOP|BS_AUTOCHECKBOX,FastPickup);
@@ -342,9 +342,9 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         if(HWND(l)==aimTrack){syncing=true;SetDlgItemInt(h,AimEdit,UINT(SendMessageW(aimTrack,TBM_GETPOS,0,0)),TRUE);syncing=false;dirty=true;Message(L"Selection changed. Save settings to apply in-game.");return 0;}
         for(unsigned i=0;i<diagnostic::VrNumberCount;++i)if(HWND(l)==tracks[i]){syncing=true;int snapped=diagnostic::BoundVrNumber(diagnostic::VrNumbers[i],int(SendMessageW(tracks[i],TBM_GETPOS,0,0)));SendMessageW(tracks[i],TBM_SETPOS,TRUE,snapped);SetDlgItemInt(h,EditBase+i,UINT(snapped),TRUE);syncing=false;dirty=true;Message(L"Settings changed. Save to apply.");}return 0;
     case WM_COMMAND:
-        if(ControllerMapperCommand(LOWORD(w),HIWORD(w)))return 0;
         if(LOWORD(w)>=NavBase&&LOWORD(w)<NavBase+PageCount&&HIWORD(w)==BN_CLICKED){int page=LOWORD(w)-NavBase;if(TabCtrl_GetCurSel(settingsTabs)!=page){TabCtrl_SetCurSel(settingsTabs,page);Layout();}return 0;}
         if(HIWORD(w)==BN_CLICKED&&l&&GetPropW(HWND(l),L"Toggle")){SendMessageW(HWND(l),BM_SETCHECK,SendMessageW(HWND(l),BM_GETCHECK,0,0)==BST_CHECKED?BST_UNCHECKED:BST_CHECKED,0);}
+        if(ControllerMapperCommand(LOWORD(w),HIWORD(w)))return 0;
         if(HIWORD(w)==EN_CHANGE&&!syncing&&LOWORD(w)==FfrEdit){BOOL valid=FALSE;int value=int(GetDlgItemInt(h,FfrEdit,&valid,FALSE));if(valid)SendMessageW(ffrTrack,TBM_SETPOS,TRUE,value);dirty=true;return 0;}
         if(HIWORD(w)==EN_CHANGE&&!syncing&&LOWORD(w)==FfrTransitionEdit){BOOL valid=FALSE;int value=int(GetDlgItemInt(h,FfrTransitionEdit,&valid,FALSE));if(valid)SendMessageW(ffrTransitionTrack,TBM_SETPOS,TRUE,value);dirty=true;return 0;}
         if(HIWORD(w)==EN_CHANGE&&!syncing&&LOWORD(w)>=GraphicsEdit&&LOWORD(w)<GraphicsEdit+2){int i=LOWORD(w)-GraphicsEdit;BOOL valid=FALSE;int value=int(GetDlgItemInt(h,GraphicsEdit+i,&valid,FALSE));if(valid)SendMessageW(graphicsTracks[i],TBM_SETPOS,TRUE,value);dirty=true;GraphicsPreview();return 0;}
@@ -500,6 +500,10 @@ bool UiInteractionCheck(wchar_t const* path){
     {auto saved=settings.controllerBindings;bool wasDirty=dirty;
       SendMessageW(navigation[BindingsPage],BM_CLICK,0,0);
       ok=ok&&IsWindowVisible(mappingAction)&&IsWindowVisible(mappingListen);
+      SendMessageW(mappingJump,BM_CLICK,0,0);
+      ok=ok&&mappingSelected==diagnostic::mapping::Jump&&IsWindowVisible(mappingLeftHanded);
+      SendMessageW(mappingLeftHanded,BM_CLICK,0,0);ok=ok&&settings.controllerBindings.leftHanded!=saved.leftHanded;
+      SendMessageW(mappingLeftHanded,BM_CLICK,0,0);ok=ok&&settings.controllerBindings.leftHanded==saved.leftHanded;
       SendMessageW(mappingAction,CB_SETCURSEL,diagnostic::mapping::Heal,0);FillControllerMapper();
       diagnostic::mapping::Link source;bool opened=source.Open(Ini().c_str(),true);
       diagnostic::ControllerFrame raw;raw.focused=true;raw.timeMs=GetTickCount64();raw.availableButtons=0xfff;

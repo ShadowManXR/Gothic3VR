@@ -21,10 +21,24 @@ int main(){
  r.raw.hands[0].trigger=.9f;Check(r.Step().hands[0].trigger==1,"offhand trigger remains available for dual-wield power strikes");
  r.raw.hands[1].trigger=.5f;Check(m::Active(r.Step(),m::Interact),"analog mapping uses release hysteresis");
  r.raw.hands[1].trigger=.2f;Check(!m::Active(r.Step(),m::Interact),"trigger releases below threshold");}
- {Rig r;r.raw.hands[0].secondary=true;Check(!m::Pushed(r.Step(),m::Sneak),"first Y tap does not sneak");r.raw.hands[0].secondary=false;r.Step(40);r.raw.hands[0].secondary=true;auto f=r.Step(80);
- Check(m::Pushed(f,m::Sneak),"double tap produces exactly one completed sneak gesture");Check(!m::Pushed(r.Step(),m::Sneak),"holding second tap cannot repeat");
- ControllerSneakToggle toggle;toggle.Step(1,true,true,false,true,100,true);Check(toggle.Step(1,true,true,true,true,200,true),"completed mapped gesture toggles native sneak mode once");
- Check(toggle.Step(1,true,true,false,true,216,true),"sneak remains selected after pulse release");}
+ {Rig r;ControllerTranslator translator;auto step=[&](){auto f=r.Step();return translator.Translate(f,r.time,true,false,2.6f,1.4f,2,0);};
+ step();r.raw.hands[1].stick[0]=.95f;r.raw.hands[1].stick[1]=.7f;auto c=step();
+ Check(!c.held[Jump]&&c.turnX==.95f,"horizontal turn does not trigger jump");
+ r.raw.hands[1].stick[0]=0;c=step();Check(c.held[Jump]&&!c.sneakToggleButton,"right stick up jumps");
+ r.raw.hands[1].stick[1]=.5f;Check(!step().held[Jump],"held direction and threshold jitter do not repeat jump");
+ r.raw.hands[1].stick[1]=-.9f;c=step();Check(c.sneakToggleButton&&!c.held[Jump],"right stick down emits a single sneak toggle");
+ Check(!step().sneakToggleButton,"held down direction does not repeat sneak");
+ r.raw.hands[1].stick[1]=0;step();r.raw.hands[1].primary=true;r.raw.hands[0].secondary=true;step();
+ r.raw.hands[0].secondary=false;step();r.raw.hands[0].secondary=true;c=step();Check(!c.held[Jump]&&!c.sneakToggleButton,"old A and Y bindings no longer trigger jump or sneak");
+ r.raw.hands[1].stickClick=true;step();r.raw.hands[1].stick[1]=.9f;c=step();
+ Check(c.radial.visible&&!c.held[Jump]&&!c.sneakToggleButton,"radial keeps exclusive use of stick directions");}
+ {Rig r;r.config.leftHanded=true;r.Step();r.Step();
+ r.raw.hands[0].stick[1]=.9f;r.raw.hands[1].stick[0]=.5f;r.raw.hands[1].primary=true;r.raw.hands[0].secondary=true;
+ r.raw.hands[0].grip.valid=true;r.raw.hands[0].menu=true;auto f=r.Step();
+ Check(m::Pushed(f,m::Jump)&&m::Active(f,m::Inventory)&&m::Active(f,m::Weapon),"mirrored layout maps left stick up to jump, A to X and Y to B");
+ Check(f.hands[0].stick[0]==.5f&&f.hands[1].stick[1]==.9f&&f.hands[0].grip.valid&&m::Active(f,m::Menu),"mirror swaps stick axes but preserves poses and application menu");
+ r.raw.hands[0].stick[1]=-.9f;r.raw.hands[0].squeeze=.9f;f=r.Step();
+ Check(m::Pushed(f,m::Sneak)&&m::Active(f,m::Block),"mirrored stick down and grip reach the expected actions");}
  {Rig r;r.raw.hands[0].squeeze=.9f;r.raw.hands[0].trigger=.9f;r.Step();r.raw.hands[0].trigger=0;r.Step(40);r.raw.hands[0].trigger=.9f;auto f=r.Step(80);
  Check(m::Pushed(f,m::Heal)&&f.hands[0].squeeze==1,"double-trigger heal does not release 2H support grip");}
  {Rig r;auto enabled=~(1u<<m::Locator);r.raw.timeMs=400;r.engine.Step(r.raw,r.config,400,false,enabled);r.raw.timeMs=416;r.engine.Step(r.raw,r.config,416,false,enabled);r.raw.hands[0].primary=true;r.raw.hands[0].trigger=.9f;r.raw.timeMs=432;
@@ -53,7 +67,7 @@ int main(){
  Check(c.held[Sprint],"mapped sprint activates on completed press while moving");r.raw.hands[0].stickClick=false;f=r.Step();c=translator.Translate(f,r.time,true,false,2.6f,1.4f,2,0);Check(c.held[Sprint],"sprint persists after mapped button release");r.raw.hands[0].stick[1]=0;f=r.Step();c=translator.Translate(f,r.time,true,false,2.6f,1.4f,2,0);Check(!c.held[Sprint],"stopping cancels mapped sprint");}
  {Rig r;ControllerTranslator translator;auto f=r.Step();translator.Translate(f,r.time,true,false,2.6f,1.4f,2,0);r.raw.hands[1].stickClick=true;f=r.Step();auto c=translator.Translate(f,r.time,true,false,2.6f,1.4f,2,0);
  Check(c.radial.visible,"mapped default radial opens through actual translator");r.raw.hands[1].stickClick=false;f=r.Step();c=translator.Translate(f,r.time,true,false,2.6f,1.4f,2,0);Check(c.radial.visible,"radial survives physical button release");}
- {wchar_t dir[MAX_PATH],file[MAX_PATH];GetTempPathW(MAX_PATH,dir);GetTempFileNameW(dir,L"g3m",0,file);m::Config config;config.bindings[m::Heal]={m::RightPrimary,m::LeftGrip,m::DoubleTap};
+ {wchar_t dir[MAX_PATH],file[MAX_PATH];GetTempPathW(MAX_PATH,dir);GetTempFileNameW(dir,L"g3m",0,file);m::Config config;config.leftHanded=true;config.bindings[m::Heal]={m::RightPrimary,m::LeftGrip,m::DoubleTap};
  WritePrivateProfileStringW(L"ControllerBindings",L"UnknownFutureOption",L"retain",file);
  Check(m::Save(file,config)&&m::Load(file)==config,"all bindings and gestures round-trip without changing unknown settings");wchar_t text[32];GetPrivateProfileStringW(L"ControllerBindings",L"UnknownFutureOption",L"",text,32,file);Check(wcscmp(text,L"retain")==0,"unknown mapping config remains intact");
  WritePrivateProfileStringW(L"ControllerBindings",L"Interact.Button",L"999",file);Check(m::Load(file).bindings[m::Interact]==m::Config{}.bindings[m::Interact],"invalid saved mapping falls back safely");
