@@ -16,6 +16,12 @@ int main(){
  CHECK(m.ready&&m.values[0]==8000&&m.values[1]==25000&&m.values[2]==6500&&m.values[12]==1);
  CHECK(Save(m,backups).ok&&Bytes(ini)==initialGame&&Bytes(user)==initialUser&&!fs::exists(backups));
  puts("PASS read-only load and unchanged save preserve both exact files; active detail tiers are used");
+ auto firstSession=NewBackupSession(backups,L"fixed-timestamp");Text(firstSession/L"original.ini","keep");
+ auto secondSession=NewBackupSession(backups,L"fixed-timestamp"),thirdSession=NewBackupSession(backups,L"fixed-timestamp");
+ CHECK(firstSession!=secondSession&&firstSession!=thirdSession&&secondSession!=thirdSession);
+ CHECK(Bytes(firstSession/L"original.ini")==std::vector<char>({'k','e','e','p'}));
+ puts("PASS repeated identical timestamps create distinct backup sessions without overwriting originals");
+
  m.values[0]=12000;m.values[3]=14000;m.values[5]=5000;m.values[8]=1;
  auto saved=Save(m,backups);CHECK(saved.ok&&saved.changed&&Bytes(saved.backup/L"ge3.ini")==initialGame&&Bytes(saved.backup/L"UserOptions.ini")==initialUser);
  CHECK(Read(ini,L"Option.Sliders",L"DistanceHigh.fFarClippingPlane_Medium")==L"12000"&&Read(ini,L"Option.Sliders",L"DistanceHigh.fFarClippingPlane_High")==L"10000.0");

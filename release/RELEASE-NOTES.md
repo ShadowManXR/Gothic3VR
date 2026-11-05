@@ -1,5 +1,7 @@
 # Gothic 3 VR 1.1.1 beta
 
+- Fixed native INI backup-folder collisions when multiple saves occur within the same Windows clock tick. Each save now reserves a separate session atomically.
+
 - Removed the Donate and About / Credits buttons and the creator label from the launcher footer.
 
 - Added Game INI with fog intensity (default 100%) and detailed-world, distant-landscape and vegetation draw distances. Native distance edits preserve other settings and use the existing backup/restart workflow.

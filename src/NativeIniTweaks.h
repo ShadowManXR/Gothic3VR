@@ -101,6 +101,17 @@ inline fs::path BackupRoot(fs::path const& gameFile){
 }
 inline std::vector<char> Bytes(fs::path const& p){std::ifstream f(p,std::ios::binary);if(!f)throw std::runtime_error("Cannot read INI");return {std::istreambuf_iterator<char>(f),{}};}
 inline bool Linked(fs::path p){for(;!p.empty()&&p!=p.parent_path();p=p.parent_path()){auto a=GetFileAttributesW(p.c_str());if(a!=INVALID_FILE_ATTRIBUTES&&(a&FILE_ATTRIBUTE_REPARSE_POINT))return true;}return false;}
+inline fs::path NewBackupSession(fs::path const& base,std::wstring const& stamp){
+ fs::create_directories(base);
+ // Several saves can share the same Windows clock tick. Claim each folder
+ // atomically so an existing session is never reused or overwritten.
+ for(unsigned attempt=0;attempt<1024;++attempt){
+  auto path=base/(stamp+L"-"+std::to_wstring(attempt));
+  if(CreateDirectoryW(path.c_str(),nullptr))return path;
+  if(GetLastError()!=ERROR_ALREADY_EXISTS)throw std::runtime_error("Could not create the external INI backup folder.");
+ }
+ throw std::runtime_error("Could not reserve a unique external INI backup folder.");
+}
 struct Result {bool ok=false,changed=false;std::wstring error;fs::path backup;};
 // Optional commit observer exists for deterministic filesystem failure tests;
 // the launcher always uses the default null observer.
@@ -128,7 +139,7 @@ inline Result Save(Model const& m,fs::path const& backupBase={},CommitObserver o
   auto gameRoot=fs::weakly_canonical(m.game.parent_path().parent_path()),canonicalBase=fs::weakly_canonical(base);
   auto rel=canonicalBase.lexically_relative(gameRoot);if(!rel.empty()&&*rel.begin()!=L"..")throw std::runtime_error("Backups must stay outside the game directory.");
   SYSTEMTIME t;GetLocalTime(&t);wchar_t stamp[80];swprintf_s(stamp,L"%04u%02u%02u-%02u%02u%02u-%llu-%lu",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond,GetTickCount64(),GetCurrentProcessId());
-  r.backup=base/stamp;fs::create_directories(r.backup);
+  r.backup=NewBackupSession(base,stamp);
   for(unsigned f=0;f<2;++f)if(needed[f]){
    auto attr=GetFileAttributesW(files[f].c_str());if(attr==INVALID_FILE_ATTRIBUTES||(attr&FILE_ATTRIBUTE_READONLY)||Linked(files[f]))throw std::runtime_error("INI is missing, read-only or linked.");
    HANDLE access=CreateFileW(files[f].c_str(),GENERIC_READ|GENERIC_WRITE|DELETE,FILE_SHARE_READ|FILE_SHARE_DELETE,nullptr,OPEN_EXISTING,0,nullptr);
