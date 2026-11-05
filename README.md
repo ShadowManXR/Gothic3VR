@@ -1,4 +1,4 @@
-# Gothic 3 VR
+# Gothic 3 VR+
 
 Version **1.1.5 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
