@@ -1,8 +1,12 @@
-# Gothic 3 VR 1.1.3 beta
+# Gothic 3 VR 1.1.5 beta
+
+- Set both hands to 5 cm outward and 5 cm up by default. Set one-handed melee pitch to -4 degrees and bow grip offsets to 8 cm toward the fingers and 3 cm palm depth.
+- Set launcher defaults to 10,000 units for NPC and creature processing, 20,000 for high-detail draw distance, 200,000 for distant landscape and 10,000 for vegetation.
+- Added a first-person VR near clipping control under Camera & controls, with a 13 cm default.
+
+## Previous release: 1.1.3 beta
 
 - Setup can download and apply missing native game patches in order, verify each download, and recheck the installed game before deploying VR. Manual patching remains available.
-
-- Camera & controls exposes the first-person VR near clipping distance (1–25 cm, default 13 cm). It applies live without changing native camera INI settings.
 
 ## Previous release: 1.1.2 beta
 

@@ -37,7 +37,7 @@ If Setup detects missing or incompatible native patch files in the selected game
 4. Extract the **complete Update Pack 1.05.10 Public Beta ZIP** into the same game folder, replacing the files supplied by the archive (author's thread, post #293). Copy all supplied files, not only Script_Game.dll.
 5. Install **Parallel Universe Patch 1.1.1**. Follow its included readme; install it after the native patches. Confirm the flat game works before adding VR.
 6. Install the x64 Visual C++ runtime above and set up your chosen PC VR provider. For wireless Virtual Desktop, use a wired PC-to-router connection and a suitable 5 GHz network; see [Virtual Desktop's requirements](https://www.vrdesktop.net/).
-7. Close Gothic 3, its VR launcher and Union+. Run **Gothic3VR-1.1.3-beta-Setup.exe**. Select the folder containing Gothic3.exe. The installer checks the supported DLL hashes before installing and explains any mismatch.
+7. Close Gothic 3, its VR launcher and Union+. Run **Gothic3VR-1.1.5-beta-Setup.exe**. Select the folder containing Gothic3.exe. The installer checks the supported DLL hashes before installing and explains any mismatch.
 8. Keep **VR core** selected. The **DXVK / NVIDIA FFR backend**, **VR main-menu artwork**, and **custom main-menu music** are separate optional components. The graphics backend is selected initially to match the creator preset. On an unvalidated GPU, omit it and turn FFR Off in the launcher. Existing graphics proxies must be removed separately before setup; setup refuses unknown d3d9.dll, dxgi.dll and d3d11.dll wrappers.
 9. Open **Gothic 3 VR** from its shortcut. Check **Game executable**, then choose your provider in **Camera & controls → OpenXR runtime**. The creator preset initially selects **Virtual Desktop / VDXR**; select **Meta Link** if using Quest Link / Air Link, or **SteamVR** if using SteamVR. The installer does not switch the Windows-wide runtime or install OpenComposite.
 10. Activate the headset/controllers in the selected provider, then **Save and launch**. Start a **new game** for a fresh patch/content installation. Keep backups of existing saves before changing story or content mods.
@@ -118,7 +118,7 @@ Backups and install journals are stored in `%LOCALAPPDATA%\Gothic3VR\Installatio
 
 This is the version 1.0 launch package. The setup is not code-signed. Compatibility on untested headsets and GPUs is not guaranteed. No files are published or uploaded automatically.
 
-The installer also includes the [corresponding source archive](Gothic3VR-1.1.3-beta-Source.zip) and third-party license notices, installed outside the game resource tree.
+The installer also includes the [corresponding source archive](Gothic3VR-1.1.5-beta-Source.zip) and third-party license notices, installed outside the game resource tree.
 
 Support the project: [ko-fi.com/pecos2k5](https://ko-fi.com/pecos2k5).
 
