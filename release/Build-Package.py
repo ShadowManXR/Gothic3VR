@@ -40,7 +40,7 @@ def markdown_html(text):
             blocks.append('<p>'+inline(' '.join(paragraph))+'</p>')
     return '\n'.join(blocks)
 
-VERSION = '1.1.2-beta'
+VERSION = '1.1.3-beta'
 ROOT = Path(__file__).resolve().parents[1]
 
 def sha(p):
@@ -147,7 +147,7 @@ Install all FOUR native patch packages first, in this order:
 4. Parallel Universe Patch 1.1.1
    Gothic_3_Parallel_Universe_Patch_v1.1.1.exe
 
-The two Update Packs are separate required downloads. Installing only the Public Beta does not replace the initial 1.04.11 step. Reference download hashes are in Prerequisites.json.
+Setup can download and install the required patches from Google Drive after checking your game folder. The two Update Packs are separate packages and Setup applies 1.04.11 before the Public Beta when both are needed. Download hashes are in Prerequisites.json.
 
 Start and exit the flat game before installing VR. Read START-HERE.html for download links and setup instructions. Native patches, Microsoft runtimes and VR providers are separate downloads.
 

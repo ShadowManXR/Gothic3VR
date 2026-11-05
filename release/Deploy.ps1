@@ -1,12 +1,14 @@
 ﻿[CmdletBinding()]
 param(
- [ValidateSet('Check','Install','Uninstall','CheckUninstall')][string]$Mode='Check',
+ [ValidateSet('Check','Install','Uninstall','CheckUninstall','ApplyBeta')][string]$Mode='Check',
  [Parameter(Mandatory=$true)][string]$GameDirectory,
  [string]$ManifestFile='',
  [string]$PayloadFile='',
  [string]$Components='core,graphics,branding,music',
  [string]$StateDirectory=(Join-Path $env:LOCALAPPDATA 'Gothic3VR\Installations'),
- [string]$ReportFile=''
+ [string]$ReportFile='',
+ [string]$PrerequisitePlan='',
+ [string]$BetaDirectory=''
 )
 $ErrorActionPreference='Stop'
 $helperRoot=[IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Path)
@@ -33,6 +35,28 @@ function JsonSave([string]$p,$value){
  if(Test-Path -LiteralPath $p){[IO.File]::Replace($temp,$p,[NullString]::Value)}else{[IO.File]::Move($temp,$p)}
 }
 function CopySafe([string]$from,[string]$to){NoLinks $from;NoLinks $to;[IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($to))|Out-Null;[IO.File]::Copy($from,$to,$true)}
+function WritePrerequisitePlan($packages, $missing){
+ # The manifest pins the final native DLLs. SharedBase comes from CP,
+ # GFC from 1.04.11, and the remaining non-PUP DLLs from the beta.
+ $cp = 'SharedBase.dll' -in $missing.Path
+ $updatePack = $cp -or 'GFC.dll' -in $missing.Path
+ $beta = $updatePack -or ($missing.Path -match '^(Engine|Game|GUI|Script)\.dll$|^scripts\\Script_Game\.dll$')
+ $parallel = $cp -or ($missing.Path -match '^(scripts\\Script_paru|paru_s1|paru_s1_opt|paru_s2)\.dll$')
+ $needed = @($cp, $updatePack, $beta, $parallel)
+ $lines = foreach($package in ($packages | Sort-Object Order)){
+  if(!$needed[$package.Order - 1]){continue}
+  Need ($package.DriveId -match '^[A-Za-z0-9_-]+$') "No automatic download is configured for $($package.Name)."
+  $filename = if($package.DriveFilename){$package.DriveFilename}else{$package.Filename}
+  $digest = if($package.DriveSha256){$package.DriveSha256}else{$package.Sha256}
+  $package.Order
+  $package.Name
+  $filename
+  $digest
+  "https://drive.usercontent.google.com/download?id=$($package.DriveId)&export=download&confirm=t"
+ }
+ Need ($lines.Count -gt 0) 'No automatic download is available for the detected prerequisite files.'
+ [IO.File]::WriteAllLines($PrerequisitePlan, [string[]]$lines, [Text.UTF8Encoding]::new($false))
+}
 function Snapshot([string]$path,[string]$name,[string]$folder){
  if(Test-Path -LiteralPath $path){$saved=Relative $folder $name;CopySafe $path $saved;return [ordered]@{Path=$name;Existed=$true;Saved=$saved;Sha=(Hash $saved)}}
  return [ordered]@{Path=$name;Existed=$false;Saved='';Sha=''}
@@ -65,14 +89,41 @@ try {
  if($Mode -notin @('Check','CheckUninstall')){[IO.Directory]::CreateDirectory($state)|Out-Null;NoLinks $state;$transactionLock=[IO.File]::Open((Join-Path $state 'transaction.lock'),[IO.FileMode]::OpenOrCreate,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)}
  if(Test-Path -LiteralPath $pendingFile){
   $pending=Get-Content -LiteralPath $pendingFile -Raw -Encoding UTF8|ConvertFrom-Json;Need ($pending.Game -eq $game) 'Recovery belongs to another game.'
-  if($Mode -in @('Check','CheckUninstall')){Note 'A pending transaction will be recovered before installation.'}
+  if($Mode -eq 'Check' -and $PrerequisitePlan -and $pending.Kind -eq 'Beta'){
+   NoLinks $state
+   $transactionLock=[IO.File]::Open((Join-Path $state 'transaction.lock'),[IO.FileMode]::OpenOrCreate,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)
+   if(Test-Path -LiteralPath $pendingFile){
+    $pending=Get-Content -LiteralPath $pendingFile -Raw -Encoding UTF8|ConvertFrom-Json
+    if($pending.Game -eq $game -and $pending.Kind -eq 'Beta'){
+     RestoreSnapshots $pending.Entries
+     [IO.File]::Delete($pendingFile)
+     Note 'Recovered the interrupted Public Beta installation.'
+    }
+   }
+   $transactionLock.Dispose();$transactionLock=$null
+  }elseif($Mode -in @('Check','CheckUninstall')){Note 'A pending transaction will be recovered before installation.'}
   else{
    $committed=(Test-Path -LiteralPath $journalFile) -and ((Get-Content -LiteralPath $journalFile -Raw -Encoding UTF8|ConvertFrom-Json).TransactionId -eq $pending.Id)
    if(!$committed){RestoreSnapshots $pending.Entries}
    [IO.File]::Delete($pendingFile);Note 'Recovered the interrupted file transaction.'
   }
  }
- if($Mode -in @('Uninstall','CheckUninstall')){
+ if($Mode -eq 'ApplyBeta'){
+  $source=Full $BetaDirectory
+  Need (!(Below $source $game) -and $source -ne $game) 'Extract the beta outside the game folder first.'
+  NoLinks $source
+  Need (Test-Path -LiteralPath (Relative $source 'scripts\Script_Game.dll') -PathType Leaf) 'Unexpected Public Beta archive layout.'
+  $paths=@(Get-ChildItem -LiteralPath $source -Recurse -File -Force | ForEach-Object {$_.FullName.Substring($source.Length + 1)})
+  $session=Join-Path $state ([guid]::NewGuid().ToString('N'))
+  $snapshots=@(foreach($name in $paths){Snapshot (Relative $game $name) $name (Join-Path $session 'rollback')})
+  $id=[guid]::NewGuid().ToString('N')
+  JsonSave $pendingFile ([ordered]@{Game=$game;Id=$id;Kind='Beta';Entries=$snapshots})
+  try{
+   foreach($name in $paths){CopySafe (Relative $source $name) (Relative $game $name)}
+   [IO.File]::Delete($pendingFile)
+  }catch{RestoreSnapshots $snapshots;[IO.File]::Delete($pendingFile);throw}
+  Note 'Installed the complete Update Pack 1.05.10 Public Beta.'
+ }elseif($Mode -in @('Uninstall','CheckUninstall')){
   Need (Test-Path -LiteralPath $journalFile) 'No installer journal exists for this game.'
   $journal=Get-Content -LiteralPath $journalFile -Raw -Encoding UTF8|ConvertFrom-Json;Need ($journal.Game -eq $game -and $journal.State -eq 'Installed') 'No active VR installation is recorded.'
   $restore=@();foreach($e in $journal.Files){$target=Relative $game $e.Path
@@ -98,7 +149,13 @@ try {
   Need ($manifest.Format -eq 1) 'Unsupported payload manifest.'
   $selected=@('core')+@($Components.Split(',')|Where-Object {$_ -and $_ -ne 'core'})
   foreach($c in $selected){Need ($c -in @('core','graphics','branding','music')) 'Unknown installer component.'}
-  foreach($r in $manifest.Required){$p=Relative $game $r.Path;Need ((Test-Path -LiteralPath $p) -and (Hash $p) -eq $r.Sha) ("Unsupported prerequisite: "+$r.Path+". "+$r.Help)}
+  $missing=@(foreach($r in $manifest.Required){
+   $p=Relative $game $r.Path
+   if(!(Test-Path -LiteralPath $p -PathType Leaf) -or (Hash $p) -ne $r.Sha){$r}
+  })
+  if($missing.Count -and ($Mode -ne 'Check' -or !$PrerequisitePlan)){
+   throw ("Unsupported prerequisite: "+$missing[0].Path+". "+$missing[0].Help)
+  }
   foreach($proxy in @('dxgi.dll','d3d11.dll')){Need (!(Test-Path -LiteralPath (Join-Path $game $proxy))) "Remove the external $proxy / ReShade / dgVoodoo proxy before installing VR."}
   $d3d9=Join-Path $game 'd3d9.dll';if(Test-Path -LiteralPath $d3d9){Need ((Hash $d3d9) -eq $manifest.GraphicsSha) 'Unrecognized d3d9.dll. Remove or disable the external graphics wrapper before installing VR.'}
   $files=@($manifest.Files|Where-Object {$_.Component -in $selected})
@@ -108,6 +165,11 @@ try {
   foreach($f in Get-ChildItem -LiteralPath $game -Recurse -File -Force){$base=$f.Name.ToLowerInvariant();if($leaves.ContainsKey($base)){Need ((Full $f.FullName) -eq $leaves[$base]) "Duplicate resource found: $($f.FullName). Move old VR backups outside the game folder."}}
   foreach($name in (@($files.Path)+@('Gothic3VRLauncher.ini','Ini\ge3.ini'))){$p=Relative $game $name;if(Test-Path -LiteralPath $p){Need (((Get-Item -LiteralPath $p).Attributes -band [IO.FileAttributes]::ReadOnly) -eq 0) "Read-only destination: $p"}}
   Need ((Hash $PayloadFile) -eq $manifest.PayloadSha) 'Payload archive checksum mismatch.'
+  if($missing.Count){
+   Need (!(Test-Path -LiteralPath $pendingFile)) 'A pending VR file transaction needs recovery before native patches can be installed.'
+   WritePrerequisitePlan $manifest.PrerequisitePackages $missing
+   exit 2
+  }
   Note 'Validated CP 1.75.14, Update Pack 1.05.10, PUP 1.1.1, payload paths and resource names.'
   if($Mode -eq 'Install'){
    [IO.Directory]::CreateDirectory($state)|Out-Null;NoLinks $state

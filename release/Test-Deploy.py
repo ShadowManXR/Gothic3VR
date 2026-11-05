@@ -43,9 +43,10 @@ def case(name):
         files.append(dict(Path=name.replace('/','\\'),Sha=hashlib.sha256(data).hexdigest().upper(),Component=comp,Policy='if-missing' if name.endswith('Script_Gothic3VRDiagnostics.ini') else 'replace'))
     manifest=dict(Format=1,Version='test-1',PayloadSha=sha(archive),GraphicsSha=hashlib.sha256(payload['d3d9.dll']).hexdigest().upper(),Required=[dict(Path='Native.dll',Sha=sha(game/'Native.dll'),Help='Fixture prerequisite')],Files=files)
     m=folder/'manifest.json';write(m,json.dumps(manifest));return game,m,archive,manifest
-def run(mode,game,m,archive,ok=True,components='core,graphics,branding,music'):
-    p=subprocess.run([str(PS),'-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',str(HERE/'Deploy.ps1'),'-Mode',mode,'-GameDirectory',str(game),'-ManifestFile',str(m),'-PayloadFile',str(archive),'-StateDirectory',str(STATE),'-Components',components],capture_output=True,timeout=90,creationflags=subprocess.CREATE_NO_WINDOW)
+def run(mode,game,m,archive,ok=True,components='core,graphics,branding,music',extra=(),expected_exit=None):
+    p=subprocess.run([str(PS),'-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',str(HERE/'Deploy.ps1'),'-Mode',mode,'-GameDirectory',str(game),'-ManifestFile',str(m),'-PayloadFile',str(archive),'-StateDirectory',str(STATE),'-Components',components,*extra],capture_output=True,timeout=90,creationflags=subprocess.CREATE_NO_WINDOW)
     output=(p.stdout+p.stderr).decode('utf-8',errors='replace')
+    if expected_exit is not None and p.returncode!=expected_exit:raise AssertionError(f'{mode}: exit {p.returncode}\n{output}')
     if (p.returncode==0)!=ok:raise AssertionError(f'{mode}: exit {p.returncode}\n{output}')
     return output
 def check(ok,label):
@@ -57,6 +58,30 @@ def ini(p):
 def unchanged(game):return not (game/'Gothic3VRLauncher.exe').exists()
 
 g,m,z,d=case('rejected-native');write(g/'Native.dll',b'wrong');out=run('Check',g,m,z,False);check('Unsupported prerequisite' in out and unchanged(g),'Wrong native build is rejected before copying')
+
+g,m,z,d=case('native-patch-plan')
+paths=['SharedBase.dll','GFC.dll','scripts/Script_Game.dll','paru_s2.dll']
+d['Required']=[dict(Path=p.replace('/','\\'),Sha=hashlib.sha256(p.encode()).hexdigest(),Help='Fixture prerequisite') for p in paths]
+d['PrerequisitePackages']=json.loads((HERE/'Prerequisites.json').read_text())['Packages']
+write(m,json.dumps(d))
+plan=g.parent/'patch-plan.txt'
+for path,orders in zip(paths,([1,2,3,4],[2,3,4],[3,4],[4])):
+    run('Check',g,m,z,False,extra=['-PrerequisitePlan',str(plan)],expected_exit=2)
+    assert [int(line) for line in plan.read_text().splitlines()[::5]]==orders
+    write(g/path,path)
+plan.unlink()
+run('Check',g,m,z,extra=['-PrerequisitePlan',str(plan)])
+check(not plan.exists() and unchanged(g),'Patch preflight plans dependencies in order and skips supported native files')
+(g/paths[2]).unlink()
+run('Check',g,m,z,False,extra=['-PrerequisitePlan',str(plan)],expected_exit=2)
+check(plan.read_text().splitlines()[::5]==['3'],'Missing beta can be installed independently')
+beta=g.parent/'beta'
+write(beta/paths[2],paths[2])
+write(beta/'Data/beta.p00','complete beta archive fixture')
+run('ApplyBeta',g,m,z,extra=['-BetaDirectory',str(beta)])
+run('Check',g,m,z)
+check((g/'Data/beta.p00').read_bytes()==(beta/'Data/beta.p00').read_bytes(),'Complete beta overlay passes native preflight')
+
 g,m,z,d=case('duplicate');write(g/'old-backup/Script_Gothic3VRDiagnostics.dll',b'old');out=run('Install',g,m,z,False);check('Duplicate resource' in out and unchanged(g),'Duplicate resource backups are rejected')
 g,m,z,d=case('unknown-proxy');write(g/'d3d9.dll',b'unrecognized');out=run('Install',g,m,z,False);check('Unrecognized d3d9.dll' in out and unchanged(g),'Unknown graphics proxy is preserved and rejected')
 g,m,z,d=case('unsafe-payload');d['Files'][0]['Path']='..\\escaped.dll';write(m,json.dumps(d));out=run('Install',g,m,z,False);check('Unsafe payload path' in out and not (g.parent/'escaped.dll').exists(),'Traversal cannot escape the selected game')

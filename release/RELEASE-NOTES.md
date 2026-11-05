@@ -1,4 +1,8 @@
-# Gothic 3 VR 1.1.2 beta
+# Gothic 3 VR 1.1.3 beta
+
+- Setup can download and apply missing native game patches in order, verify each download, and recheck the installed game before deploying VR. Manual patching remains available.
+
+## Previous release: 1.1.2 beta
 
 - Right stick up jumps; right stick down toggles learned Sneak.
 - Controller mapping includes a Rebind Jump shortcut and an optional left-handed layout that mirrors sticks and paired buttons.

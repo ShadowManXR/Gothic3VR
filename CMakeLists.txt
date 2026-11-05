@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(Gothic3VRDiagnostics VERSION 1.1.2 LANGUAGES CXX C)
+project(Gothic3VRDiagnostics VERSION 1.1.3 LANGUAGES CXX C)
 set(G3VR_RELEASE_LABEL "${PROJECT_VERSION} beta")
 option(G3VR_STEREO_FRAME_CAPTURE "Build explicitly armed bounded stereo video only" OFF)
 option(G3VR_UI_COMPOSITION_CAPTURE "Build bounded explicitly armed HUD alpha snapshots only" OFF)

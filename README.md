@@ -1,6 +1,6 @@
 # Gothic 3 VR
 
-Version **1.1.2 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
+Version **1.1.3 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
 ## How does it differ from the main version?
 
@@ -88,7 +88,7 @@ ctest --test-dir build -C Release --output-on-failure -R "diagnostic_meta_(pipe|
 python release/Build-Package.py --game "<supported game directory>" --build build --sdk ../gothic3sdk --output "<new empty package directory>"
 ```
 
-The source packaging tool does not install into the game. Compile the Inno Setup script separately to produce a user-facing installer. For developer deployment of a complete, validated payload matching the selected build:
+The source packaging tool does not install into the game. Compile the Inno Setup script with Inno Setup 6.5 or newer to produce a user-facing installer. For developer deployment of a complete, validated payload matching the selected build:
 
 ```powershell
 ./tools/Install-Diagnostics.ps1 -GameDirectory "<game directory>" -BuildDirectory build -PackageDirectory "<package directory>"
