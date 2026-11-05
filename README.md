@@ -6,6 +6,7 @@ Version **1.1.3 beta**. An unofficial, fully stereoscopic VR modification for Go
 
 An enhanced mod that incorporates modern VR mechanics and reflects my vision of how Gothic 3 should be played in VR.
 
+- One-click installation (provided there is an internet connection and access to the server, patches are automatically downloaded and installed into the game)
 - Added a HUD display on the character's arm.
 - Disabled third-person camera views during dialogues, chest looting, reading at a lectern, etc.
 - Also includes minor fixes.
