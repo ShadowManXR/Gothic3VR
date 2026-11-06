@@ -49,7 +49,7 @@ bool CollectNativeIni(){
  if(!nativeIni.ready){Message(L"Native INIs are unavailable. Run the flat game once and Reload INIs.",true);return false;}
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)if(nativeIni.available[i]){auto const& f=diagnostic::ini_tweaks::Fields[i];int value=0;
   if(f.kind==diagnostic::ini_tweaks::Kind::Number){wchar_t text[64];GetWindowTextW(iniValues[i],text,64);wchar_t* end=nullptr;long n=wcstol(text,&end,10);
-   if(end==text||*end||n<f.minimum||n>f.maximum){wchar_t error[256];swprintf_s(error,L"%s: enter a whole number between %d and %d.",f.label,f.minimum,f.maximum);Message(error,true);TabCtrl_SetCurSel(settingsTabs,i<3?GameIniPage:IniTweaksPage);Layout();SetFocus(iniValues[i]);return false;}value=int(n);
+   if(end==text||*end||n<f.minimum||n>f.maximum){wchar_t error[256];swprintf_s(error,L"%s: enter a whole number between %d and %d.",f.label,f.minimum,f.maximum);Message(error,true);TabCtrl_SetCurSel(settingsTabs,diagnostic::ini_tweaks::GameIniField(i)?GameIniPage:IniTweaksPage);Layout();SetFocus(iniValues[i]);return false;}value=int(n);
   }else if(f.kind==diagnostic::ini_tweaks::Kind::Choice)value=int(SendMessageW(iniValues[i],CB_GETCURSEL,0,0));
   else value=SendMessageW(iniValues[i],BM_GETCHECK,0,0)==BST_CHECKED;
   nativeIni.values[i]=value;

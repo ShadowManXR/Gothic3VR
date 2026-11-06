@@ -1,4 +1,8 @@
-# Gothic 3 VR 1.1.6 beta
+# Gothic 3 VR 1.2.7 beta
+
+- Added a Test mode checkbox under Game INI. It defaults to off and applies the native game setting before launch.
+
+## Previous release: 1.1.6 beta
 
 - The bow and crossbow aiming crosshair defaults to off. Enable it under HUD & menus in the launcher. Magic retains its own aiming reticle setting.
 

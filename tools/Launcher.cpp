@@ -368,11 +368,12 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         case IniBackups:OpenIniBackups();break;
         case Reset:if(TabCtrl_GetCurSel(settingsTabs)==GameIniPage){
             auto defaults=nativeIni;diagnostic::ini_tweaks::Defaults(defaults);
-            for(unsigned i=0;i<3;++i)if(nativeIni.available[i])nativeIni.values[i]=defaults.values[i];
+            for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)
+                if(diagnostic::ini_tweaks::GameIniField(i)&&nativeIni.available[i])nativeIni.values[i]=defaults.values[i];
             nativeIni.forceNativeDistances=nativeIni.forceNativeDistances||defaults.forceNativeDistances;
             FillNativeIni();nativeIniDirty=nativeIni.Changed();settings.numbers[85]=100;
             SendMessageW(tracks[85],TBM_SETPOS,TRUE,100);SetDlgItemInt(h,EditBase+85,100,FALSE);dirty=true;
-            Message(L"Fog 100% and native distance defaults staged. Save settings to apply.");break;}
+            Message(L"Game INI defaults staged. Save settings to apply.");break;}
         if(TabCtrl_GetCurSel(settingsTabs)==IniTweaksPage){diagnostic::ini_tweaks::Defaults(nativeIni);FillNativeIni();nativeIniDirty=nativeIni.Changed();Message(L"INI tweak defaults staged. Save settings to apply.");break;}settings=diagnostic::VrSettings{};Fill();dirty=true;Message(L"Defaults restored. Save to apply.");break;
         case AntiAliasing:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Anti-aliasing applies after restarting the game. HUD and menus remain unfiltered.");}break;
         case EffectsQuality:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Fire & magic effect quality applies live with Save settings. Original restores native visuals.");}break;
@@ -495,7 +496,8 @@ bool UiInteractionCheck(wchar_t const* path){
         auto staged=nativeIni;SendMessageW(reset,BM_CLICK,0,0);ok=ok&&settings.numbers[85]==100;
         auto expected=nativeOriginal;diagnostic::ini_tweaks::Defaults(expected);
         for(unsigned i=0;i<3;++i)if(nativeIni.available[i])ok=ok&&nativeIni.values[i]==expected.values[i];
-        for(unsigned i=3;i<diagnostic::ini_tweaks::Count;++i)ok=ok&&nativeIni.values[i]==staged.values[i];
+        for(unsigned i=3;i<diagnostic::ini_tweaks::Count;++i)
+            ok=ok&&nativeIni.values[i]==(diagnostic::ini_tweaks::GameIniField(i)&&nativeIni.available[i]?expected.values[i]:staged.values[i]);
         ok=ok&&diagnostic::ini_tweaks::Bytes(nativeIni.game)==gameBefore&&diagnostic::ini_tweaks::Bytes(nativeIni.user)==userBefore;
         settings=original;Fill();dirty=false;
         nativeIni=nativeOriginal;nativeIniDirty=nativeWasDirty;FillNativeIni();
@@ -522,7 +524,7 @@ bool UiInteractionCheck(wchar_t const* path){
     for(int page=0;page<PageCount;++page){SendMessageW(navigation[page],BM_CLICK,0,0);ok=ok&&TabCtrl_GetCurSel(settingsTabs)==page;
         ok=ok&&(IsWindowVisible(fastPickupCheck)!=FALSE)==(page==InteractionPage);
         for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)
-            ok=ok&&(IsWindowVisible(iniValues[i])!=FALSE)==(page==(i<3?GameIniPage:IniTweaksPage));
+            ok=ok&&(IsWindowVisible(iniValues[i])!=FALSE)==(page==(diagnostic::ini_tweaks::GameIniField(i)?GameIniPage:IniTweaksPage));
         for(auto control:{dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck})
             ok=ok&&(IsWindowVisible(control)!=FALSE)==(page==ThirdPersonPage);
         ok=ok&&PageNames[page]&&*PageNames[page]&&PageDescriptions[page]&&*PageDescriptions[page];

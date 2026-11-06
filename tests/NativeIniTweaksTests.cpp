@@ -41,6 +41,15 @@ int main(){
  puts("PASS external edits, native ranges, distance ordering and in-game backup destinations are rejected");
  reset();WritePrivateProfileStringW(L"Options.Details",L"Performance",L"High",user.c_str());m=Load(ini,user);CHECK(m.values[0]==10000&&m.values[2]==6500&&m.values[8]==3);m.values[8]=1;
  CHECK(Save(m,backups).ok&&Read(user,L"Options.Details",L"Performance")==L"Custom"&&Read(user,L"Options.Custom",L"ShadowQuality")==L"1"&&Read(user,L"Options.Custom",L"TextureQuality")==L"2"&&Read(user,L"Options.Custom",L"Bloom")==L"1");
+ reset();WritePrivateProfileStringW(L"Options.Details",L"Performance",L"High",user.c_str());
+ auto presetUser=Bytes(user);m=Load(ini,user);CHECK(m.available[TestMode]&&m.values[TestMode]==0);
+ m.values[TestMode]=1;
+ CHECK(Save(m,backups).ok&&Read(ini,L"Game",L"TestMode")==L"true"&&Bytes(user)==presetUser);
+ m=Load(ini,user);CHECK(m.values[TestMode]==1);
+ m.values[TestMode]=0;
+ CHECK(Save(m,backups).ok&&Read(ini,L"Game",L"TestMode")==L"false"&&Bytes(user)==presetUser);
+ CHECK(Read(ini,L"Gothic3VR.IniTweaks",L"OwnDistances").empty());
+ puts("PASS Test mode defaults off and toggles independently of the graphics preset");
  puts("PASS a preset becomes Custom without silently resetting its other effective options");
  reset();m=Load(ini,user);m.values[5]=4500;m.values[8]=1;HANDLE lock=CreateFileW(user.c_str(),GENERIC_READ,FILE_SHARE_READ,nullptr,OPEN_EXISTING,0,nullptr);
  CHECK(lock!=INVALID_HANDLE_VALUE);CHECK(!Save(m,backups).ok&&Bytes(ini)==initialGame);CloseHandle(lock);

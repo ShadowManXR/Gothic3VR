@@ -18,7 +18,7 @@ void Layout(){
  panels.clear();panels.push_back({x,compact?103:126,cw,compact?107:115,L""});
  bool dual=page==OneHandPage||page==TwoHandPage||page==StaffPage;
  if(page==IniTweaksPage){panels.push_back({x,top,col,ch,L"STREAMING"});panels.push_back({x+col+18,top,col,ch,L"WORLD & GRAPHICS"});}
- else if(page==GameIniPage)panels.push_back({x,top,cw,ch,L"FOG & DRAW DISTANCE"});
+ else if(page==GameIniPage)panels.push_back({x,top,cw,ch,L"GAME SETTINGS"});
  else if(page==HandHudPage){panels.push_back({x,top,col,ch,L"LEFT ARM - SLOT BAR"});panels.push_back({x+col+18,top,col,ch,L"RIGHT ARM - HEALTH / MANA / STAMINA"});}
  else if(page==ModsPage)panels.push_back({x,top,cw,ch,L"UNION+ 1.7.3"});
  else if(dual){panels.push_back({x,top,col,ch,L"ALIGNMENT & HANDLING"});panels.push_back({x+col+18,top,col,ch,L"COMBAT THRESHOLDS"});}
@@ -66,7 +66,9 @@ void Layout(){
    show(iniLabels[i],fx,y,fw-120,22);show(iniValues[i],fx+fw-116,y-2,72,27);
    show(iniUnits[i],fx+fw-39,y,39,22);show(iniTracks[i],fx,y+25,fw-120,19);
   }
-  show(gameIniHint,fx,fy+65+3*spacing+12,fw,compact?82:115);
+  int after=fy+65+3*spacing;
+  show(iniValues[diagnostic::ini_tweaks::TestMode],fx,after,fw,29);
+  show(gameIniHint,fx,after+34,fw,compact?82:115);
   show(iniReload,fx,bottom-43,145,32);show(iniBackups,fx+165,bottom-43,145,32);
  }else if(page==ThirdPersonPage){
   show(dialogueViewCheck,fx,fy,fw,29);
@@ -113,7 +115,7 @@ void Layout(){
   int choicesY=fy+2*spacing+7,gap=compact?33:40;
   for(unsigned i=7;i<=9;++i){int y=choicesY+(i-7)*gap;show(iniLabels[i],rx,y,iw-178,23);show(iniValues[i],rx+iw-172,y-3,172,180);}
   int toggleY=choicesY+3*gap+3;
-  for(unsigned i=10;i<diagnostic::ini_tweaks::Count;++i)show(iniValues[i],rx,toggleY+(i-10)*(compact?25:29),iw,26);
+  for(unsigned i=10;i<=diagnostic::ini_tweaks::ShaderCache;++i)show(iniValues[i],rx,toggleY+(i-10)*(compact?25:29),iw,26);
   show(iniHint,fx,fy+2*spacing+12,iw,compact?75:90);show(iniHintRight,rx,toggleY+3*(compact?25:29)+6,iw,compact?40:48);
   show(iniReload,fx,bottom-43,145,32);show(iniBackups,rx,bottom-43,145,32);
  }else if(page==ModsPage){

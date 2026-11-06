@@ -19,6 +19,8 @@
 namespace diagnostic::ini_tweaks {
 namespace fs=std::filesystem;
 enum class Kind { Number, Choice, Toggle };
+inline constexpr unsigned ShaderCache=12, TestMode=13;
+inline constexpr bool GameIniField(unsigned i){return i<3||i==TestMode;}
 struct Field {wchar_t const* label;int minimum,maximum,step;Kind kind;wchar_t const* hint;};
 inline constexpr Field Fields[]={
  {L"High-detail draw distance",1000,50000,500,Kind::Number,L"Detailed world and objects. Increasing this can add substantial CPU and GPU work. Edits the active native detail tier."},
@@ -33,7 +35,8 @@ inline constexpr Field Fields[]={
  {L"Texture filtering",0,4,1,Kind::Choice,L"Native TextureFilter: Linear or anisotropic 2x, 4x, 8x, 16x. Improves oblique surface clarity; does not change texture resolution."},
  {L"Depth of field",0,1,1,Kind::Toggle,L"Native DepthOfField post effect. Turn off to keep the view sharp instead of adding focus blur."},
  {L"Film grain / noise",0,1,1,Kind::Toggle,L"Native Noise post effect. Turn off for a cleaner headset image."},
- {L"Native shader cache",0,1,1,Kind::Toggle,L"Inverse of Render.DisableShaderCache. Keep enabled for native shader caching. Resource/RAM caches are managed automatically by CP 1.75."}
+ {L"Native shader cache",0,1,1,Kind::Toggle,L"Inverse of Render.DisableShaderCache. Keep enabled for native shader caching. Resource/RAM caches are managed automatically by CP 1.75."},
+ {L"Test mode",0,1,1,Kind::Toggle,L"Sets [Game] TestMode. Applies the next time Gothic 3 starts."}
 };
 inline constexpr unsigned Count=sizeof(Fields)/sizeof(Fields[0]);
 inline constexpr wchar_t const* NativeOptionKeys[]={L"DistanceHigh",L"DistanceLow",L"ObjectDetails",L"TextureQuality",L"TextureFilter",L"VegetationQuality",L"VegetationViewRange",L"ShadowQuality",L"LensFlare",L"Bloom",L"DepthOfField",L"Antialiasing",L"Noise",L"Feedback",L"ColorGrading"};
@@ -81,15 +84,20 @@ inline Model Load(fs::path const& gameFile,fs::path const& userFile){
  m.bindings[10]={true,L"Options.Custom",L"DepthOfField",{}};
  m.bindings[11]={true,L"Options.Custom",L"Noise",{}};
  m.bindings[12]={false,L"Engine.Setup",L"Render.DisableShaderCache",{}};
- for(unsigned i=0;i<Count;++i){auto& b=m.bindings[i];b.raw=b.user?m.options[b.key]:Read(gameFile,b.section.c_str(),b.key.c_str());
-  int value=0;bool valid=i==12?(!_wcsicmp(b.raw.c_str(),L"false")||!_wcsicmp(b.raw.c_str(),L"true")):Integer(b.raw,value);
-  if(i==12)value=!_wcsicmp(b.raw.c_str(),L"false")?1:0;
+ m.bindings[TestMode]={false,L"Game",L"TestMode",{}};
+ for(unsigned i=0;i<Count;++i){auto& b=m.bindings[i];b.raw=b.user?m.options[b.key]:Read(gameFile,b.section.c_str(),b.key.c_str(),i==TestMode?L"false":L"");
+  int value=0;bool valid;
+  if(i==ShaderCache||i==TestMode){
+   const bool enabled=!_wcsicmp(b.raw.c_str(),L"true");
+   const bool disabled=!_wcsicmp(b.raw.c_str(),L"false");
+   valid=enabled||disabled;value=i==ShaderCache?disabled:enabled;
+  }else valid=Integer(b.raw,value);
   m.values[i]=m.original[i]=value;m.available[i]=valid&&value>=Fields[i].minimum&&value<=Fields[i].maximum&&(i!=1||m.lowTier!=0);
  }
  m.ready=true;return m;
 }
 inline void Defaults(Model& m){
- std::array<int,Count> v={20000,200000,10000,10000,34000,10000,120,3,4,4,1,1,1};
+ std::array<int,Count> v={20000,200000,10000,10000,34000,10000,120,3,4,4,1,1,1,0};
  for(unsigned i=0;i<Count;++i)if(m.available[i])m.values[i]=v[i];
  m.forceNativeDistances=m.ready&&Read(m.game,L"Gothic3VR.IniTweaks",L"OwnDistances")!=L"1";
 }
@@ -120,12 +128,13 @@ inline Result Save(Model const& m,fs::path const& backupBase={},CommitObserver o
  if(!m.Changed()){r.ok=true;return r;}
  std::array<fs::path,2> files={m.game,m.user},staged{},saved{};
  std::array<bool,2> needed{};std::array<std::vector<char>,2> before;
- bool preset=m.performance!=L"Custom";
+ bool preset=false;
  for(unsigned i=0;i<Count;++i)if(m.Changed(i)){
   if(m.values[i]<Fields[i].minimum||m.values[i]>Fields[i].maximum){r.error=L"An INI value is outside its supported range.";return r;}
   needed[m.bindings[i].user?1:0]=true;
+  if(i!=TestMode&&m.performance!=L"Custom")preset=true;
  }
- if(m.forceNativeDistances)needed[0]=true;
+ if(m.forceNativeDistances){needed[0]=true;preset=m.performance!=L"Custom";}
  if(preset)needed[1]=true;
  if(m.lowTier&&m.values[1]<=m.values[0]&&(m.Changed(0)||m.Changed(1))){r.error=L"Distant landscape distance must exceed high-detail distance.";return r;}
  unsigned committed=0;
@@ -151,7 +160,8 @@ inline Result Save(Model const& m,fs::path const& backupBase={},CommitObserver o
   auto write=[&](unsigned f,wchar_t const* section,wchar_t const* key,std::wstring const& value){if(!WritePrivateProfileStringW(section,key,value.c_str(),staged[f].c_str()))throw std::runtime_error("Could not write the staged INI.");};
   if(preset){for(auto const& p:current.options)if(!p.second.empty())write(1,L"Options.Custom",p.first.c_str(),p.second);write(1,L"Options.Details",L"Performance",L"Custom");}
   for(unsigned i=0;i<Count;++i)if(m.Changed(i)){
-   auto const& b=m.bindings[i];auto value=i==12?(m.values[i]?L"false":L"true"):std::to_wstring(m.values[i]);
+   auto const& b=m.bindings[i];auto value=std::to_wstring(m.values[i]);
+   if(i==ShaderCache||i==TestMode)value=(m.values[i]!=0)==(i==TestMode)?L"true":L"false";
    write(b.user?1:0,b.section.c_str(),b.key.c_str(),value);
   }
   if(m.DistancesChanged())write(0,L"Gothic3VR.IniTweaks",L"OwnDistances",L"1");
