@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "fe9eab1bfe06c57e669d6ef81254b9bcdd35734e097994e2f1442a8e8d74b1fb",
+  "sha256": "a89d774a3b2d114eb7b377ebd4a9f86b402ad7aa7dee37bc1c9ab35b5299f822",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -28,6 +28,7 @@
       "HideCompass": "1",
       "ShowSlotBar": "0",
       "ShowVitalsPanel": "0",
+      "ShowTargetHealthBar": "1",
       "FxaaEnabled": "1",
       "StableHorizon": "1",
       "ControllerTurnSpeedPercent": "60",

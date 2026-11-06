@@ -2239,7 +2239,7 @@ int __fastcall NativeHudWindowProc(CFFGFCWnd* self,void*,unsigned message,unsign
             static diagnostic::HudInventoryFrameCache inventory;
             auto epoch=gProcess.load(std::memory_order_relaxed)+gRender.load(std::memory_order_relaxed);
             bool inventoryOpen=inventory.Get(epoch,[](){return NativeUiState()==int(gEGamePage_Inventory);});
-            auto show=diagnostic::EffectiveHudVisibility({!gVrSettings.hideCompass,gVrSettings.showSlotBar,gVrSettings.showVitalsPanel},inventoryOpen);
+            auto show=diagnostic::EffectiveHudVisibility({!gVrSettings.hideCompass,gVrSettings.showSlotBar,gVrSettings.showVitalsPanel,gVrSettings.showTargetHealthBar},inventoryOpen);
             hidden=gNativeHudVisibility.Hidden(self,show);
         }
         __except(EXCEPTION_EXECUTE_HANDLER){hidden=false;}

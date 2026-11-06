@@ -37,13 +37,15 @@ int wmain(int argc, wchar_t** argv) {
     check(correctDefaults,"Missing hand HUD keys use the calibrated transforms and 50 percent independent scales");
     check(diagnostic::BoundVrNumber(diagnostic::VrNumbers[99],1)==25&&diagnostic::BoundVrNumber(diagnostic::VrNumbers[100],999)==200,"Both scales clamp to the supported 25 to 200 percent range");
     check(diagnostic::LoadVrSettings(path).handHudEnabled,"Hand HUD defaults to enabled for existing configurations without the new key");
-    check(diagnostic::LoadVrSettings(path).hideCompass&&!diagnostic::LoadVrSettings(path).showSlotBar&&!diagnostic::LoadVrSettings(path).showVitalsPanel,"All optional native HUD displays default to disabled when keys are missing");
-    for(unsigned mask=0;mask<8;++mask){diagnostic::VrSettings value;value.hideCompass=!(mask&1);value.showSlotBar=(mask&2)!=0;value.showVitalsPanel=(mask&4)!=0;value.numbers[2]=120;
+    check(diagnostic::LoadVrSettings(path).hideCompass&&!diagnostic::LoadVrSettings(path).showSlotBar&&!diagnostic::LoadVrSettings(path).showVitalsPanel,"Compass, slot bar and player vitals default to disabled when keys are missing");
+    check(diagnostic::LoadVrSettings(path).showTargetHealthBar,"Target health bar defaults to enabled when its key is missing");
+    for(unsigned mask=0;mask<16;++mask){diagnostic::VrSettings value;value.showTargetHealthBar=(mask&8)!=0;value.hideCompass=!(mask&1);value.showSlotBar=(mask&2)!=0;value.showVitalsPanel=(mask&4)!=0;value.numbers[2]=120;
         diagnostic::ApplyLauncherFixedFeatures(value);bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
-        check(saved&&loaded.hideCompass==value.hideCompass&&loaded.showSlotBar==value.showSlotBar&&loaded.showVitalsPanel==value.showVitalsPanel&&loaded.numbers[2]==120,"Each HUD visibility combination persists independently of other HUD settings");
-        diagnostic::HudVisibility show{!loaded.hideCompass,loaded.showSlotBar,loaded.showVitalsPanel};
+        check(saved&&loaded.hideCompass==value.hideCompass&&loaded.showSlotBar==value.showSlotBar&&loaded.showVitalsPanel==value.showVitalsPanel&&loaded.showTargetHealthBar==value.showTargetHealthBar&&loaded.numbers[2]==120,"Each HUD visibility combination persists independently of other HUD settings");
+        diagnostic::HudVisibility show{!loaded.hideCompass,loaded.showSlotBar,loaded.showVitalsPanel,loaded.showTargetHealthBar};
         check(diagnostic::HiddenHudControl(20545,show)==loaded.hideCompass&&diagnostic::HiddenHudControl(20380,show)==!loaded.showSlotBar&&
-              diagnostic::HiddenHudControl(20384,show)==!loaded.showVitalsPanel,"Native compass, quick slots and player vitals respect independent toggles");
+              diagnostic::HiddenHudControl(20384,show)==!loaded.showVitalsPanel&&diagnostic::HiddenHudControl(20381,show)==!loaded.showTargetHealthBar,
+              "Native compass, quick slots, player vitals and target health respect independent toggles");
     }
     for(bool enabled:{true,false}){diagnostic::VrSettings value;value.handHudEnabled=enabled;
         value.showSlotBar=false;value.showVitalsPanel=false;value.numbers[8]=7;
@@ -52,10 +54,13 @@ int wmain(int argc, wchar_t** argv) {
         bool same=true;for(unsigned i=87;i<101;++i)same&=loaded.numbers[i]==value.numbers[i];
         check(saved&&same&&loaded.handHudEnabled==enabled&&!loaded.showSlotBar&&!loaded.showVitalsPanel&&loaded.numbers[8]==7,
             "Both hand HUD transforms, independent scales and visibility round-trip independently of native HUD and palm calibration");}
-    struct Widget {unsigned id;Widget* parent;};Widget root{0,nullptr},bar{20379,&root},decoration{99,&bar},health{20387,&root},healthLabel{42,&health},focus{20386,&root},inventory{20394,&root};
+    struct Widget {unsigned id;Widget* parent;};Widget root{0,nullptr},bar{20379,&root},decoration{99,&bar},health{20387,&root},healthLabel{42,&health},focus{diagnostic::HudViewControlId(UINT32_MAX,0x2d16fc),&root},focusChild{99,&focus},inventory{20394,&root};
     auto hidden=[](Widget* window,diagnostic::HudVisibility show={}){return diagnostic::HiddenHudWindow(window,show,[](Widget* w){return w->id;},[](Widget* w){return w->parent;});};
     check(hidden(&decoration)&&hidden(&healthLabel),"Hidden HUD panels suppress decorative and label descendants as well as bars");
     check(!hidden(&focus)&&!hidden(&inventory)&&!hidden(&root),"Target focus bar, inventory and unrelated HUD controls remain available");
+    auto hideTarget=diagnostic::EffectiveHudVisibility({false,false,false,false},true);
+    check(hidden(&focusChild,hideTarget)&&!hidden(&healthLabel,hideTarget)&&!hidden(&decoration,hideTarget)&&!hidden(&inventory,hideTarget),
+          "Hiding target health also hides its anonymous view children and leaves inventory HUD available");
     check(!hidden(&decoration,{false,true,false})&&!hidden(&healthLabel,{false,false,true}),"Enabling either HUD panel restores its own children independently");
     check(diagnostic::HudPaintMessage(15)&&diagnostic::HudPaintMessage(20)&&diagnostic::HudPaintMessage(0x85)&&!diagnostic::HudPaintMessage(0x100)&&!diagnostic::HudPaintMessage(2),"Visibility filters only paint messages, preserving key events and destruction");
     for(auto rva:{uintptr_t(0x2d1b44),uintptr_t(0x2d180c),uintptr_t(0x2d1924),uintptr_t(0x2d15d4)}){
