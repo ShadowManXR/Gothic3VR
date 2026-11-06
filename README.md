@@ -1,6 +1,6 @@
 # Gothic 3 VR+
 
-Version **1.2.8 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
+Version **1.1.9 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
 ## How does it differ from the main version?
 
@@ -25,9 +25,9 @@ Windows 10/11 x64, an SSD, a PC VR headset and two tracked controllers are requi
 - [Optional Union+ 1.7.3 integration](docs/OPTIONAL-MODS-UNION.md)
 - [INI tweaks](docs/INI-TWEAKS.md)
 
-**Quest 3 controls (1.1.2 beta)**
+**Quest 3 controls (1.1.9 beta)**
 
-[![Default Quest 3 controller bindings](screenshots/1.1.2/controllers-gothic3vr.png)](screenshots/1.1.2/controllers-gothic3vr.png)
+[![Default Quest 3 controller bindings](screenshots/1.1.9/controllers-gothic3vr-v2.png)](screenshots/1.1.9/controllers-gothic3vr-v2.png)
 
 ## Screenshots
 

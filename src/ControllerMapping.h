@@ -23,7 +23,7 @@ struct Config {
  std::array<Binding,ActionCount> bindings{{
  {RightTrigger,None,Hold},{RightGrip,None,Hold},{LeftGrip,None,Hold},{LeftGrip,None,Hold},
  {RightStickUp,None,Press},{LeftPrimary,None,Hold},{RightSecondary,None,Hold},{LeftMenu,None,Hold},
- {LeftStick,None,Press},{RightStickDown,None,Press},{LeftTrigger,None,DoubleTap},
+ {LeftStick,None,Press},{RightStickDown,None,Press},{LeftSecondary,None,DoubleTap},
  {RightStick,None,Press},{RightPrimary,None,Press},{LeftPrimary,None,Press},{RightSecondary,None,Press},
  {RightStick,LeftStick,HoldHalfSecond},{LeftPrimary,LeftTrigger,Press},{LeftPrimary,LeftSecondary,Hold},
  {RightTrigger,None,Hold},{RightGrip,None,Press},{LeftTrigger,None,Hold}}};

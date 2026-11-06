@@ -1,4 +1,8 @@
-# Gothic 3 VR 1.2.8 beta
+# Gothic 3 VR 1.1.9 beta
+
+- Quick Heal now defaults to a double-press of Y, or B with the left-handed layout. Saved custom bindings are preserved.
+
+## Previous release: 1.2.8 beta
 
 - Added Show target health bar under HUD & menus. Enabled by default, it controls the native health bar for the character in focus.
 

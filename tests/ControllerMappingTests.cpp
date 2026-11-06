@@ -39,14 +39,24 @@ int main(){
  Check(f.hands[0].stick[0]==.5f&&f.hands[1].stick[1]==.9f&&f.hands[0].grip.valid&&m::Active(f,m::Menu),"mirror swaps stick axes but preserves poses and application menu");
  r.raw.hands[0].stick[1]=-.9f;r.raw.hands[0].squeeze=.9f;f=r.Step();
  Check(m::Pushed(f,m::Sneak)&&m::Active(f,m::Block),"mirrored stick down and grip reach the expected actions");}
- {Rig r;r.raw.hands[0].squeeze=.9f;r.raw.hands[0].trigger=.9f;r.Step();r.raw.hands[0].trigger=0;r.Step(40);r.raw.hands[0].trigger=.9f;auto f=r.Step(80);
- Check(m::Pushed(f,m::Heal)&&f.hands[0].squeeze==1,"double-trigger heal does not release 2H support grip");}
+ for(bool mirrored:{false,true}){
+  Rig r;r.config.leftHanded=mirrored;ControllerTranslator translator;
+  auto step=[&](unsigned elapsed=16){auto f=r.Step(elapsed);return translator.Translate(f,r.time,true,false,2.6f,1.4f,2,0,true,false,false,false,true);};
+  step();step();auto& healHand=r.raw.hands[mirrored?1:0];healHand.squeeze=.9f;
+  healHand.trigger=.9f;Check(!step().quickHeal,"first trigger press does not heal");healHand.trigger=0;step(40);
+  healHand.trigger=.9f;Check(!step(80).quickHeal,"double trigger does not heal by default");healHand.trigger=0;step();
+  healHand.secondary=true;Check(!step().quickHeal,"one secondary-button press does not heal");
+  healHand.secondary=false;step(40);healHand.secondary=true;
+  Check(step(80).quickHeal&&m::Active(r.Step(),m::Support),mirrored?"double B heals with mirrored controls":"double Y heals without releasing 2H support");
+  Check(!step().quickHeal,"holding the second press does not repeat quick heal");
+ }
  {Rig r;auto enabled=~(1u<<m::Locator);r.raw.timeMs=400;r.engine.Step(r.raw,r.config,400,false,enabled);r.raw.timeMs=416;r.engine.Step(r.raw,r.config,416,false,enabled);r.raw.hands[0].primary=true;r.raw.hands[0].trigger=.9f;r.raw.timeMs=432;
  auto f=r.engine.Step(r.raw,r.config,432,false,enabled);Check(m::Active(f,m::Inventory)&&!m::Pushed(f,m::Locator),"missing optional locator cannot consume inventory input");}
  {Rig r;r.raw.hands[0].primary=true;r.raw.hands[0].trigger=.9f;auto f=r.Step();
  Check(m::Pushed(f,m::Locator)&&!m::Active(f,m::Inventory)&&!m::Active(f,m::Heal),"locator chord consumes inventory and heal buttons");
  r.raw.hands[0].trigger=0;Check(!m::Active(r.Step(),m::Inventory),"modifier release does not leak a held primary into inventory");}
- {Rig r;r.raw.hands[0].trigger=.9f;r.Step();r.raw.hands[0].primary=true;r.Step();r.raw.hands[0].trigger=0;r.raw.hands[0].primary=false;r.Step();r.raw.hands[0].trigger=.9f;Check(!m::Pushed(r.Step(80),m::Heal),"locator chord cancels a pending first heal tap");}
+ {Rig r;r.config.bindings[m::Heal]={m::LeftTrigger,m::None,m::DoubleTap};r.Step();r.Step();
+ r.raw.hands[0].trigger=.9f;r.Step();r.raw.hands[0].primary=true;r.Step();r.raw.hands[0].trigger=0;r.raw.hands[0].primary=false;r.Step();r.raw.hands[0].trigger=.9f;Check(!m::Pushed(r.Step(80),m::Heal),"locator chord cancels a pending first heal tap");}
  {Rig r;r.raw.hands[0].stickClick=r.raw.hands[1].stickClick=true;auto f=r.Step();
  Check(m::Chord(f,m::Recenter)&&!m::Pushed(f,m::Recenter)&&!m::Active(f,m::Sprint)&&!m::Active(f,m::RadialOpen),"recenter chord suppresses sprint and radial immediately");
  f=r.Step(499);Check(!m::Pushed(f,m::Recenter),"half-second chord never fires early");f=r.Step(1);Check(m::Pushed(f,m::Recenter),"half-second chord fires once at threshold");Check(!m::Pushed(r.Step(100),m::Recenter),"held recenter never repeats");}

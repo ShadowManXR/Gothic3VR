@@ -4,7 +4,7 @@ Install **Technical Mods → ItemLocator** through **Optional mods → Open prot
 
 The VR adapter supports the original 1.0.7 and the 1.0.8 binary included in the local Union+ pack. Hold **left trigger + tap X** to toggle markers. The plugin's configured keyboard shortcut is read from its native object; Union+'s default Y and the older F13 configuration both work. Keyboard input remains native. No changes to the original DLL or INI are needed.
 
-X alone opens inventory; double left trigger heals. The Locator chord cancels the pending potion pair. It is unavailable in menus, radial selection, activities, animal form and recovery states.
+X alone opens inventory. Double-press Y to heal with the default layout. The Locator chord is unavailable in menus, radial selection, activities, animal form and recovery states.
 
 Manage filters in Union+. Search radius remains subject to Entity.ROI; VR does not raise it. Quest-item and quest-target filters can override regular categories. Larger searches can add CPU cost. The original plugin requires Community Patch 1.75.14 and Parallel Universe Patch.
 

@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "a89d774a3b2d114eb7b377ebd4a9f86b402ad7aa7dee37bc1c9ab35b5299f822",
+  "sha256": "34129af404a2c08fcdcb843bf903c07d5f14ff1d50171d6f12dbd89184e0058e",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -209,7 +209,7 @@
       "Sneak.Button": "14",
       "Sneak.Modifier": "0",
       "Sneak.Gesture": "1",
-      "QuickHeal.Button": "1",
+      "QuickHeal.Button": "4",
       "QuickHeal.Modifier": "0",
       "QuickHeal.Gesture": "2",
       "RadialOpen.Button": "11",
