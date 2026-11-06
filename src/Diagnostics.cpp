@@ -2246,11 +2246,57 @@ int __fastcall NativeHudWindowProc(CFFGFCWnd* self,void*,unsigned message,unsign
     }
     return hidden?0:gNativeHudVisibility.Dispatch(self,message,w,l);
 }
+diagnostic::FocusHook gNativeUseStackHook,gNativeJournalListHook;
+void* gNativeUseStackCleanup=nullptr;
+void* gNativeJournalListFallback=nullptr;
+
+__declspec(naked) void GuardNativeUseStack()
+{
+    __asm {
+        pushfd
+        test ecx, ecx
+        jz noInventory
+        popfd
+        jmp dword ptr [gNativeUseStackHook]
+    noInventory:
+        popfd
+        jmp dword ptr [gNativeUseStackCleanup]
+    }
+}
+
+__declspec(naked) void GuardNativeJournalList()
+{
+    __asm {
+        pushfd
+        test ecx, ecx
+        jz noOwner
+        popfd
+        jmp dword ptr [gNativeJournalListHook]
+    noOwner:
+        popfd
+        mov eax, 0
+        jmp dword ptr [gNativeJournalListFallback]
+    }
+}
+
 bool InstallControllerFocus()
 {
     auto game=GetModuleHandleW(L"Game.dll");wchar_t path[MAX_PATH];unsigned char digest[32]{};
     constexpr unsigned char expected[32]={0x47,0x28,0xa4,0x7b,0x24,0x4a,0xdc,0xb0,0xea,0x2e,0xc3,0x50,0x1d,0xb0,0x49,0x94,0x90,0x9d,0xcf,0xcf,0xf3,0x38,0xc7,0xb8,0x07,0x5f,0x2b,0x68,0xdd,0x8d,0x6e,0x00};
     if(!game||!GetModuleFileNameW(game,path,MAX_PATH)||!diagnostic::FileSha256(path,digest)||memcmp(digest,expected,32))return false;
+    // OnPlayerUseStack can receive a cleared inventory context while switching
+    // pages. Skip dispatch on null and let the native string destructor run.
+    auto* gameBase=reinterpret_cast<unsigned char*>(game);
+    constexpr unsigned char useStackPrefix[]={0x8b,0x01,0x8b,0x3e,0x52};
+    gNativeUseStackCleanup=gameBase+0xa2d24;
+    Message(gNativeUseStackHook.Install(gameBase+0xa2d08,reinterpret_cast<void*>(&GuardNativeUseStack),useStackPrefix,sizeof(useStackPrefix))?
+        "native_inventory_use_stack_null_guard_ready":"native_inventory_use_stack_null_guard_unavailable",0,true);
+    // If the selected entity and player are both unavailable, use the
+    // function's existing empty-list path instead of asking a null owner.
+    constexpr unsigned char journalListPrefix[]={0x8b,0x01,0x8b,0x90,0xec,0x00,0x00,0x00};
+    gNativeJournalListFallback=gameBase+0x844c9;
+    Message(gNativeJournalListHook.Install(gameBase+0x844bd,reinterpret_cast<void*>(&GuardNativeJournalList),journalListPrefix,sizeof(journalListPrefix))?
+        "native_journal_list_null_guard_ready":"native_journal_list_null_guard_unavailable",0,true);
     auto* drawName=GetProcAddress(game,"?DrawFocusName@gCGUIEntityRenderer@@IAE_NPBVeCEntity@@M@Z");
     if(reinterpret_cast<unsigned char*>(drawName)==reinterpret_cast<unsigned char*>(game)+0x79cb0&&
         gFocusNameSizeHook.Install(drawName,reinterpret_cast<void*>(&RangedFocusName),diagnostic::FocusHook::FindPrefix,6))Message("vr_world_label_scale_ready; context_and_fonts_cached_per_frame; native_name_filter_preserved",0,true);
