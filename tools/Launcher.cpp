@@ -28,7 +28,7 @@
 namespace {
 HINSTANCE instance;HWND window,pathEdit,status,preview;
 HWND tracks[diagnostic::VrNumberCount],edits[diagnostic::VrNumberCount],labels[diagnostic::VrNumberCount],units[diagnostic::VrNumberCount];
-HWND title,subtitle,pathLabel,browse,save,reset,launch,hint;
+HWND title,subtitle,pathLabel,browse,save,reset,credits,launch,hint;
 HWND resolutionLabel,resolutionCombo,resolutionHint;
 HWND ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint;
 HWND ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit;
@@ -52,7 +52,7 @@ HWND aimLabel,aimTrack,aimEdit,aimUnit,aimHint;
 HWND handHint,swordHint,bowHint,bowReticleCheck,magicReticleCheck,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,crossbowHint,magicHint,radialHint,shieldHint;
 HFONT font,titleFont;HBRUSH background;UINT dpi=96;bool syncing=false,dirty=false;
 std::wstring executable,launcherIni;diagnostic::VrSettings settings;
-constexpr int Browse=10,Save=11,Reset=12,Launch=13,Resolution=17,Tabs=19,AimTrack=25,AimEdit=26,BowReticle=27,TwoHand=28,Heavy=29,GraphicsMethod=32,GraphicsTrack=33,GraphicsEdit=35,FfrMethod=38,FfrTrack=39,FfrEdit=40,TrackBase=1000,EditBase=200;
+constexpr int Browse=10,Save=11,Reset=12,Launch=13,Credits=14,Resolution=17,Tabs=19,AimTrack=25,AimEdit=26,BowReticle=27,TwoHand=28,Heavy=29,GraphicsMethod=32,GraphicsTrack=33,GraphicsEdit=35,FfrMethod=38,FfrTrack=39,FfrEdit=40,TrackBase=1000,EditBase=200;
 constexpr int UnionBrowse=42,UnionOpen=43,UnionCheck=44;
 constexpr int UnionPage=45;
 constexpr int AntiAliasing=46;
@@ -329,7 +329,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         staffHint=Control(L"STATIC",L"0 weight / stabilization = direct tracking.\nSave settings applies live.",0);
         hint=Control(L"STATIC",L"Default controls (edit in Controller mapping):\nR3: radial; right stick: select; A: confirm; X: cancel; B: page. X: inventory; B: weapon.\nL3: sprint until stop. Double-press Y: heal. Right stick up: jump. Down: sneak. Menu: back. L3+R3 (0.5 s): recenter.\nNear clipping distance applies only to first-person VR. Save settings to apply live.",0);
         status=Control(L"STATIC",L"Connect your headset through the selected OpenXR runtime before launching.",0);
-        reset=Control(L"BUTTON",L"Defaults",WS_TABSTOP,Reset);save=Control(L"BUTTON",L"Save settings",WS_TABSTOP,Save);
+        reset=Control(L"BUTTON",L"Defaults",WS_TABSTOP,Reset);credits=Control(L"BUTTON",L"Credits",WS_TABSTOP,Credits);save=Control(L"BUTTON",L"Save settings",WS_TABSTOP,Save);
         launch=Control(L"BUTTON",L"Save and launch",WS_TABSTOP|BS_DEFPUSHBUTTON,Launch);CreateNativeIniControls();CreateControllerMapper();SetTimer(h,MapperTimer,100,nullptr);Fill();Layout();return 0;
     case WM_TIMER:if(w==MapperTimer){TickControllerMapper();return 0;}break;
     case WM_SIZE:Layout();return 0;
@@ -361,7 +361,14 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
             if((kind==diagnostic::ini_tweaks::Kind::Number&&HIWORD(w)==EN_CHANGE)||(kind==diagnostic::ini_tweaks::Kind::Choice&&HIWORD(w)==CBN_SELCHANGE)||(kind==diagnostic::ini_tweaks::Kind::Toggle&&HIWORD(w)==BN_CLICKED)){
                 if(kind==diagnostic::ini_tweaks::Kind::Number){BOOL valid=FALSE;int value=int(GetDlgItemInt(h,IniValueBase+i,&valid,TRUE));if(valid){nativeIni.values[i]=value;SendMessageW(iniTracks[i],TBM_SETPOS,TRUE,value);}}
                 nativeIniDirty=true;Message(L"INI tweaks changed. Close Gothic 3, then Save settings; restart required.");return 0;}}
-        switch(LOWORD(w)){case Browse:ChooseGame();break;case Save:SaveSettings();break;case IDOK:case Launch:LaunchGame();break;case IDCANCEL:SendMessageW(h,WM_CLOSE,0,0);break;
+        switch(LOWORD(w)){case Browse:ChooseGame();break;
+        case Credits:
+            MessageBoxW(h,L"Gothic 3 is the work of its original developers and rights holders. "
+                L"The Gothic 3 SDK was created by Georgeto and contributors. "
+                L"Thanks to the authors of the native patches, OpenXR/OpenVR, Union+, and the included graphics dependencies.\n"
+                L"By PeCOS2k5 and ShadowManXR",L"Credits",MB_OK|MB_ICONINFORMATION);
+            break;
+        case Save:SaveSettings();break;case IDOK:case Launch:LaunchGame();break;case IDCANCEL:SendMessageW(h,WM_CLOSE,0,0);break;
         case UnionBrowse:ChooseUnion();break;case UnionOpen:OpenUnion(false);break;case UnionCheck:OpenUnion(true);break;
         case UnionNotes:OpenModNotes();break;
         case UnionPage:TabCtrl_SetCurSel(settingsTabs,ModsPage);Layout();SetFocus(unionOpen);break;

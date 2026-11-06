@@ -28,8 +28,8 @@
       "DriveId": "1O3GzoFP1eX2dju_5oeDCsy9wElhdNujd",
       "DriveFilename": "G3_UpdatePack_v1.05.10_PublicBeta.7z",
       "DriveSha256": "398CF379E385A605842B9518389D1F23AA5123AA539EBAD99AED153D865F152E",
-      "DownloadUrl": "https://forum.worldofplayers.de/forum/threads/1347969-Release-Gothic-3-v1-75-Update-Pack/page15",
-      "Installation": "Extract the entire ZIP over an existing Update Pack 1.04.11 installation, replacing its supplied files."
+      "DownloadUrl": "https://drive.google.com/drive/folders/1NhI9WN9QUHa-75DtadNtVPlujwAuUrzz?usp=sharing",
+      "Installation": "Extract the archive and copy the contents of the UpdatePack v1.05.10 PublicBeta folder over the existing Update Pack 1.04.11 installation."
     },
     {
       "Order": 4,

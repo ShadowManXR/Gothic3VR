@@ -1,6 +1,8 @@
 # Gothic 3 VR 1.1.9 beta
 
 - Quick Heal now defaults to a double-press of Y, or B with the left-handed layout. Saved custom bindings are preserved.
+- Added a Credits button in the bottom-left corner of the launcher.
+- Updated the manual Update Pack 1.05.10 Public Beta download link and extraction instructions.
 
 ## Previous release: 1.2.8 beta
 

@@ -142,8 +142,8 @@ Install all FOUR native patch packages first, in this order:
    Gothic_3_EE_Patch_v1.75.14_Int_Full.exe
 2. Update Pack 1.04.11 (EXE installer)
    Gothic_3_EE_v1.75_Int_Update_Pack_v1.04.11.exe
-3. Update Pack 1.05.10 Public Beta (extract the entire ZIP over 1.04.11)
-   3. Update Pack v1.05.10 Public Beta.zip
+3. Update Pack 1.05.10 Public Beta (copy the extracted patch contents over 1.04.11)
+   G3_UpdatePack_v1.05.10_PublicBeta.7z
 4. Parallel Universe Patch 1.1.1
    Gothic_3_Parallel_Universe_Patch_v1.1.1.exe
 

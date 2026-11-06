@@ -26,15 +26,15 @@ Update Pack **1.04.11** and **1.05.10 Public Beta** are separate packages. Insta
 |---|---|---|
 | 1 | [Community Patch 1.75.14](https://www.worldofgothic.de/dl/download_478.htm) | `Gothic_3_EE_Patch_v1.75.14_Int_Full.exe` |
 | 2 | [Update Pack 1.04.11](https://www.worldofgothic.de/dl/download_523.htm) | `Gothic_3_EE_v1.75_Int_Update_Pack_v1.04.11.exe` |
-| 3 | [Update Pack 1.05.10 Public Beta](https://forum.worldofplayers.de/forum/threads/1347969-Release-Gothic-3-v1-75-Update-Pack/page15) | `3. Update Pack v1.05.10 Public Beta.zip` |
+| 3 | [Update Pack 1.05.10 Public Beta](https://drive.google.com/drive/folders/1NhI9WN9QUHa-75DtadNtVPlujwAuUrzz?usp=sharing) | `G3_UpdatePack_v1.05.10_PublicBeta.7z` |
 | 4 | [Parallel Universe Patch 1.1.1](https://www.worldofgothic.de/dl/download_678.htm) | `Gothic_3_Parallel_Universe_Patch_v1.1.1.exe` |
 
-If Setup detects missing or incompatible native patch files in the selected game folder, it offers to download and apply the required patches in order. Setup verifies each download against the SHA-256 fingerprints in `Prerequisites.json` and checks the installed files again before adding VR. The automatic Public Beta download is a 7z archive. You can also install the reference packages manually using the steps below.
+If Setup detects missing or incompatible native patch files in the selected game folder, it offers to download and apply the required patches in order. Setup verifies each download against the SHA-256 fingerprints in `Prerequisites.json` and checks the installed files again before adding VR. You can also download the patches and install them manually using the steps below.
 
 1. Install Gothic 3 on an SSD in a folder your Windows account can write to. Start the flat game once, then exit it.
 2. Install **[Community Patch 1.75.14](https://www.worldofgothic.de/dl/download_478.htm)**. Select the actual game folder. Start and exit the flat game again.
 3. Install **Update Pack 1.04.11** using its EXE installer.
-4. Extract the **complete Update Pack 1.05.10 Public Beta ZIP** into the same game folder, replacing the files supplied by the archive (author's thread, post #293). Copy all supplied files, not only Script_Game.dll.
+4. Extract **G3_UpdatePack_v1.05.10_PublicBeta.7z**. Copy all contents of its `UpdatePack v1.05.10 PublicBeta` folder into the Gothic 3 game folder and replace the supplied files.
 5. Install **Parallel Universe Patch 1.1.1**. Follow its included readme; install it after the native patches. Confirm the flat game works before adding VR.
 6. Install the x64 Visual C++ runtime above and set up your chosen PC VR provider. For wireless Virtual Desktop, use a wired PC-to-router connection and a suitable 5 GHz network; see [Virtual Desktop's requirements](https://www.vrdesktop.net/).
 7. Close Gothic 3, its VR launcher and Union+. Run **Gothic3VR-1.1.9-beta-Setup.exe**. Select the folder containing Gothic3.exe. The installer checks the supported DLL hashes before installing and explains any mismatch.
