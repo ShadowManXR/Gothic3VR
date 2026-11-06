@@ -12,7 +12,7 @@ An enhanced mod that incorporates modern VR mechanics and reflects my vision of 
 
 ## Install and play
 
-[Download here](https://github.com/ShadowManXR/Gothic3VR/releases/Gothic3VR-1.1.9-beta-Setup.exe)
+[Download here](https://github.com/ShadowManXR/Gothic3VR/releases/download/v1.1.9-beta/Gothic3VR-1.1.9-beta-Setup.exe)
 
 Use the release installer and follow the [installation and first-launch guide](release/START-HERE.md). A separately purchased copy of Gothic 3 is required; Forsaken Gods is not supported.
 
