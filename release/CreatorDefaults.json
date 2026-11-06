@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "7b312490acde93758e3267885bac578dedf4f34c35c2bd87b27df20d4e505733",
+  "sha256": "fe9eab1bfe06c57e669d6ef81254b9bcdd35734e097994e2f1442a8e8d74b1fb",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -72,7 +72,8 @@
       "BowGripForwardCm": "8",
       "BowGripDepthCm": "3",
       "BowGripSideCm": "0",
-      "BowReticle": "1",
+      "BowReticle": "0",
+      "MagicReticle": "1",
       "TwoHandPitchDeg": "-30",
       "TwoHandYawDeg": "0",
       "TwoHandRollDeg": "0",

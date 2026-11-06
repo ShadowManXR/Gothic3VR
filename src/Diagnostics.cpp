@@ -3483,7 +3483,11 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
                 gMagicHandEffects.Reset();gTorchParticles.Reset();Message("vr_magic_hand_effect_capture_refused; native_effects_preserved",0,true);
             }
         }}__except(EXCEPTION_EXECUTE_HANDLER){gMagicHandEffects.Reset();gTorchParticles.Reset();gMagicHandLayoutReady=false;Message("vr_magic_hand_effect_capture_fault; native_effects_preserved",GetExceptionCode(),true);}
-        __try {gBowReticle.Prepare(gMagic.aim.sample.valid?gMagic.aim.sample:gTrackedArms.BowSample(),gVrSettings.bowReticle&&gBow.ready&&!gBow.fault&&!gRadialOpen&&!MenuPanelActive());}
+        __try {
+            const bool aimingMagic=gMagic.aim.sample.valid;
+            const bool showReticle=aimingMagic?gVrSettings.magicReticle:gVrSettings.bowReticle;
+            gBowReticle.Prepare(aimingMagic?gMagic.aim.sample:gTrackedArms.BowSample(),showReticle&&gBow.ready&&!gBow.fault&&!gRadialOpen&&!MenuPanelActive());
+        }
         __except(EXCEPTION_EXECUTE_HANDLER){gBowReticle.fault=true;gBowReticle.Reset();Message("vr_bow_reticle_prepare_fault; reticle_disabled",GetExceptionCode(),true);}
         BeginStowedWeaponVisibility(stowedWeapons);
         gStereoRuntime.NoteTiming(diagnostic::performance::Stage::Arms,armsStarted);
@@ -4273,8 +4277,14 @@ void Observe(eCApplication* app, int hook)
     if(applicationThread&&hook==0){__try{BeginInstantControllerTurn();}__except(EXCEPTION_EXECUTE_HANDLER){gInstantTurnCamera=nullptr;Message("vr_instant_turn_scope_refused",GetExceptionCode(),true);}}
     bool captureUi=applicationThread && hook==3 && !gCinemaScope.Active(GetCurrentThreadId()) && BeginStereoUi();uint64_t uiEpoch=gMovieEpoch;
     gCFocus_PS* bowFocus=nullptr;bool nativeCrosshair=false;
-    if(captureUi&&(gBowReticle.Active()||(!gVrSettings.bowReticle&&(gTrackedArms.BowSample().valid||gMagic.aim.sample.valid)))&&!MenuPanelActive()&&!gRadialOpen){
-        __try {auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity)))bowFocus=static_cast<gCFocus_PS*>(player->GetPropertySet(eEPropertySetType_Focus));
+    if(captureUi&&!MenuPanelActive()&&!gRadialOpen){
+        __try {
+            auto* player=gCSession::GetInstance().GetPlayer();
+            const bool aimingMagic=gMagic.aim.sample.valid;
+            const bool hideNative=aimingMagic?!gVrSettings.magicReticle:
+                !gVrSettings.bowReticle&&(gTrackedArms.BowSample().valid||gBow.Weapon(player));
+            if((gBowReticle.Active()||hideNative)&&diagnostic::Readable(player,sizeof(eCDynamicEntity)))
+                bowFocus=static_cast<gCFocus_PS*>(player->GetPropertySet(eEPropertySetType_Focus));
             if(diagnostic::Readable(bowFocus,sizeof(*bowFocus))){nativeCrosshair=bowFocus->GetDrawCrossHair();bowFocus->SetDrawCrossHair(GEFalse);auto* manager=gCSession::GetInstance().GetGUIManager();if(manager)manager->ShowCrossHair(GEFalse);}else bowFocus=nullptr;
         }__except(EXCEPTION_EXECUTE_HANDLER){bowFocus=nullptr;Message("vr_bow_native_crosshair_hide_fault",GetExceptionCode(),true);}
     }

@@ -170,7 +170,7 @@ int wmain(int argc, wchar_t** argv) {
     check(s.numbers[58]==0&&s.numbers[61]==0&&s.numbers[62]==-10&&s.numbers[63]==0,"shield defaults retain native orientation and separate palm calibration");
     s.numbers[58]=25;s.numbers[61]=3;s.numbers[62]=-2;s.numbers[63]=1;
     check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).numbers[58]==25&&diagnostic::LoadVrSettings(path).numbers[61]==3,"shield settings round-trip independently of hand and bow calibration");
-    check(s.bowReticle,"existing configurations keep bow reticle enabled by default");
+    check(!s.bowReticle&&s.magicReticle,"missing reticle settings hide the bow crosshair and retain the magic reticle");
     check(s.numbers[0]==-25&&s.numbers[1]==-150&&s.numbers[4]==100&&!s.autoStart,"preserve existing height, clamp bounds, reject malformed value, honor autostart off");
     check(s.instantControllerTurn,"instant turn remains independent of native locomotion");
     check(s.numbers[51]==65,"radial defaults smaller independently of HUD and menu scale");
@@ -220,7 +220,12 @@ int wmain(int argc, wchar_t** argv) {
     check(magic.numbers[48]==6&&magic.numbers[49]==3&&magic.numbers[50]==-2&&magic.numbers[8]==s.numbers[8]&&magic.numbers[28]==120,"magic offsets preserve controller calibration and aim stabilization");
     s.numbers[29]=-4;s.numbers[30]=7;s.numbers[31]=-2;check(diagnostic::SaveVrSettings(path,s),"bow contact offsets save atomically");
     auto contact=diagnostic::LoadVrSettings(path);check(contact.numbers[29]==-4&&contact.numbers[30]==7&&contact.numbers[31]==-2&&contact.numbers[8]==s.numbers[8]&&contact.numbers[28]==120,"bow contact offsets round-trip independently of tracking and aim");
-    for(bool enabled:{false,true}){s.bowReticle=enabled;check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).bowReticle==enabled&&diagnostic::LoadVrSettings(path).numbers[28]==120,"bow reticle on/off round-trips without altering aim stabilization or hand calibration");}
+    for(bool enabled:{false,true}){
+        s.bowReticle=enabled;s.magicReticle=!enabled;
+        const bool saved=diagnostic::SaveVrSettings(path,s);
+        const auto loaded=diagnostic::LoadVrSettings(path);
+        check(saved&&loaded.bowReticle==enabled&&loaded.magicReticle!=enabled&&loaded.numbers[28]==120,"bow and magic reticles round-trip independently");
+    }
     check(s.twoHandedMelee&&s.numbers[32]==-30&&s.numbers[35]==10,"existing configurations get separate two-hand defaults");
     check(s.heavyTwoHand,"heavy one-hand 2H handling defaults on for existing configurations");
     for(bool enabled:{false,true}){s.heavyTwoHand=enabled;check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).heavyTwoHand==enabled,"heavy 2H option round-trips independently of support grip");}

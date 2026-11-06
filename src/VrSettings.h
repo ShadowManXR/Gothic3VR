@@ -124,7 +124,7 @@ struct VrSettings {
     int numbers[VrNumberCount]{};
     VrSettings(){for(unsigned i=0;i<VrNumberCount;++i)numbers[i]=VrNumbers[i].initial;}
     bool autoStart=true, hideHead=true, keepFirstPerson=true, controllers=true, stableHorizon=true, smoothCamera=true, trackedArms=true, stableBody=true, roomScaleWalking=true;
-    bool bowReticle=true,instantControllerTurn=true;
+    bool bowReticle=false,magicReticle=true,instantControllerTurn=true;
     bool handHudEnabled=true;
     bool fastPickup=true,firstPersonDialogue=true,firstPersonChest=true,firstPersonLectern=true;
     bool hideCompass=true,showSlotBar=false,showVitalsPanel=false;
@@ -178,7 +178,9 @@ inline VrSettings LoadVrSettings(wchar_t const* path) {
     s.physicalCrouching=GetPrivateProfileIntW(L"Controllers",L"PhysicalCrouching",1,path)!=0;
     s.handsOnly=GetPrivateProfileIntW(L"Controllers",L"HandsOnly",0,path)!=0;
     s.toggleSupportGrip=GetPrivateProfileIntW(L"Controllers",L"ToggleSupportGrip",1,path)!=0;
-    s.bowReticle=GetPrivateProfileIntW(L"Stereo",L"BowReticle",1,path)!=0;
+    s.bowReticle=GetPrivateProfileIntW(L"Stereo",L"BowReticle",0,path)!=0;
+    const auto legacyMagicReticle=GetPrivateProfileIntW(L"Stereo",L"BowReticle",1,path);
+    s.magicReticle=GetPrivateProfileIntW(L"Stereo",L"MagicReticle",legacyMagicReticle,path)!=0;
     s.hideCompass=GetPrivateProfileIntW(L"Stereo",L"HideCompass",1,path)!=0;
     s.showSlotBar=GetPrivateProfileIntW(L"Stereo",L"ShowSlotBar",0,path)!=0;
     s.handHudEnabled=GetPrivateProfileIntW(L"Stereo",L"HandHudEnabled",1,path)!=0;
@@ -245,6 +247,7 @@ inline bool SaveVrSettings(wchar_t const* path,VrSettings const& s) {
         write(L"AutoStart",s.autoStart);write(L"HideFirstPersonHead",s.hideHead);write(L"KeepFirstPerson",s.keepFirstPerson);
         write(L"StableHorizon",s.stableHorizon);
         write(L"BowReticle",s.bowReticle);
+        write(L"MagicReticle",s.magicReticle);
         write(L"HideCompass",s.hideCompass);write(L"ShowSlotBar",s.showSlotBar);write(L"ShowVitalsPanel",s.showVitalsPanel);write(L"HandHudEnabled",s.handHudEnabled);
         write(L"FastPickup",s.fastPickup);write(L"FirstPersonDialogue",s.firstPersonDialogue);write(L"FirstPersonChest",s.firstPersonChest);write(L"FirstPersonLectern",s.firstPersonLectern);
         write(L"TwoHandedMelee",s.twoHandedMelee);write(L"HeavyTwoHand",s.heavyTwoHand);

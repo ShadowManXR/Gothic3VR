@@ -26,7 +26,7 @@ void Layout(){
  else if(page==CameraPage){panels.push_back({x,top,col,ch,L"CAMERA POSITION"});panels.push_back({x+col+18,top,col,ch,L"VR RUNTIME & CONTROLS"});}
  else panels.push_back({x,top,cw,ch,page==ModsPage?L"OPTIONAL MODS":page==BindingsPage?L"CONTROLLER BINDINGS":page==GraphicsPage||page==FoveatedPage?L"RENDERING":page==RadialPage?L"CONTROLS":page==HudPage?L"INTERFACE":L"CALIBRATION"});
  for(unsigned i=0;i<diagnostic::VrNumberCount;++i)for(HWND control:{labels[i],tracks[i],edits[i],units[i]})ShowWindow(control,SW_HIDE);
- for(HWND control:{fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck,thirdPersonHint,handHudCheck,compassCheck,slotBarCheck,vitalsPanelCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
+ for(HWND control:{fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck,thirdPersonHint,handHudCheck,compassCheck,slotBarCheck,vitalsPanelCheck,runtimeLabel,runtimeCombo,handsOnlyCheck,toggleSupportCheck,ffrLabel,ffrCombo,ffrCenterLabel,ffrTrack,ffrEdit,ffrUnit,ffrHint,ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit,graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,aaLabel,aaCombo,effectsLabel,effectsCombo,unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionNotes,unionHint,handHint,swordHint,bowHint,bowGripHint,twoHandCheck,heavyCheck,twoHandHint,staffHint,radialHint,shieldHint,magicHint,crossbowHint,bowReticleCheck,magicReticleCheck,aimLabel,aimTrack,aimEdit,aimUnit,aimHint,hint})ShowWindow(control,SW_HIDE);
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)for(HWND control:{iniLabels[i],iniTracks[i],iniValues[i],iniUnits[i]})if(control)ShowWindow(control,SW_HIDE);
  for(HWND control:{gameIniHint,iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
  for(int i=0;i<2;++i)for(HWND control:{graphicsLabels[i],graphicsTracks[i],graphicsEdits[i],graphicsUnits[i]})ShowWindow(control,SW_HIDE);
@@ -79,17 +79,16 @@ void Layout(){
   unsigned aimFields[]{23,24,25,26,27,28,81},gripFields[]{29,30,31};
   for(unsigned row=0;row<7;++row)field(aimFields[row],fx,fy+row*spacing,col-44);
   for(unsigned row=0;row<3;++row)field(gripFields[row],rx,fy+row*spacing,col-44);
-  show(bowReticleCheck,fx,fy+7*spacing+3,col-44,29);
   show(bowGripHint,rx,fy+3*spacing+10,col-44,150);
   show(bowHint,rx,fy+3*spacing+174,col-44,70);
  }else if(page!=InteractionPage&&page!=GraphicsPage&&page!=FoveatedPage&&page!=ModsPage&&page!=IniTweaksPage&&page!=BindingsPage){
   std::vector<unsigned> fields;for(unsigned i=0;i<diagnostic::VrNumberCount;++i)if(NumberPage(i)==page||page==MagicPage&&i==28)fields.push_back(i);
   int spacing=compact?(page==CrossbowPage?42:45):page==BowPage?49:55;for(unsigned row=0;row<fields.size();++row)field(fields[row],fx,fy+row*spacing,fw);
   int after=fy+int(fields.size())*spacing+10;
-  if(page==HudPage){show(compassCheck,fx,after,fw,29);show(slotBarCheck,fx,after+32,fw,29);show(vitalsPanelCheck,fx,after+64,fw,29);}
+  if(page==HudPage){show(compassCheck,fx,after,fw,29);show(slotBarCheck,fx,after+32,fw,29);show(vitalsPanelCheck,fx,after+64,fw,29);show(bowReticleCheck,fx,after+96,fw,29);}
   if(page==LeftHandPage||page==RightHandPage)show(handHint,fx,after,fw,70);
-  if(page==CrossbowPage){show(bowReticleCheck,fx,after,fw,29);show(crossbowHint,fx,after+40,fw,44);}
-  if(page==MagicPage){show(bowReticleCheck,fx,after,fw,29);show(magicHint,fx,after+40,fw,70);}
+  if(page==CrossbowPage)show(crossbowHint,fx,after,fw,44);
+  if(page==MagicPage){show(magicReticleCheck,fx,after,fw,29);show(magicHint,fx,after+40,fw,70);}
   if(page==RadialPage)show(radialHint,fx,after+4,fw,190);
   if(page==ShieldPage)show(shieldHint,fx,after,fw,70);
  }else if(page==InteractionPage){

@@ -1,4 +1,8 @@
-# Gothic 3 VR 1.1.5 beta
+# Gothic 3 VR 1.1.6 beta
+
+- The bow and crossbow aiming crosshair defaults to off. Enable it under HUD & menus in the launcher. Magic retains its own aiming reticle setting.
+
+## Previous release: 1.1.5 beta
 
 - Set both hands to 5 cm outward and 5 cm up by default. Set one-handed melee pitch to -4 degrees and bow grip offsets to 8 cm toward the fingers and 3 cm palm depth.
 - Set launcher defaults to 10,000 units for NPC and creature processing, 20,000 for high-detail draw distance, 200,000 for distant landscape and 10,000 for vegetation.
