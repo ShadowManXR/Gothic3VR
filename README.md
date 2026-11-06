@@ -6,7 +6,6 @@ Version **1.1.9 beta**. An unofficial, fully stereoscopic VR modification for Go
 
 An enhanced mod that incorporates modern VR mechanics and reflects my vision of how Gothic 3 should be played in VR.
 
-- One-click installation (provided there is an internet connection and access to the server, patches are automatically downloaded and installed into the game)
 - Added a HUD display on the character's arm.
 - Disabled third-person camera views during dialogues, chest looting, reading at a lectern, etc.
 - Also includes minor fixes.
@@ -112,6 +111,6 @@ This delegates to the same `release/Deploy.ps1` used by Setup, including process
 
 Project code is **GPL-3.0-or-later**; see [LICENSE](LICENSE). This declaration does not relicense third-party code, commercial game content, trademarks, custom artwork or music. See [third-party notices](THIRD-PARTY-NOTICES.md) for dependency notices and asset scope. The commercial game and its native patch binaries are not supplied by this source repository.
 
-Modified versions are welcome under the GPL. Preserve applicable notices and identify your changes; independently maintained builds must not be presented as official PeCOS2k5 releases. See [AUTHORS.md](AUTHORS.md) and [BRANDING.md](BRANDING.md).
+Modified versions are welcome under the GPL. Preserve applicable notices and identify your changes; independently maintained builds must not be presented as official PeCOS2k5 and ShadowManXR releases. See [AUTHORS.md](AUTHORS.md) and [BRANDING.md](BRANDING.md).
 
 Gothic 3 is the work of its original developers and rights holders. Gothic 3 SDK is by Georgeto and contributors. Thanks to the authors of the native patches, OpenXR/OpenVR, Union+ and the included graphics dependencies.
