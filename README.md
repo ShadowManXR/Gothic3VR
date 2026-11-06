@@ -1,4 +1,4 @@
-# Gothic 3 VR
+# Gothic 3 VR+
 
 Version **1.1.6 beta**. An unofficial, fully stereoscopic VR modification for Gothic 3, with tracked head and hands, motion-based combat and controller-operated menus.
 
@@ -12,6 +12,8 @@ An enhanced mod that incorporates modern VR mechanics and reflects my vision of 
 - Also includes minor fixes.
 
 ## Install and play
+
+[Download here](https://github.com/ShadowManXR/Gothic3VR/releases)
 
 Use the release installer and follow the [installation and first-launch guide](release/START-HERE.md). A separately purchased copy of Gothic 3 is required; Forsaken Gods is not supported.
 
@@ -44,6 +46,18 @@ In-game captures of combat, exploration, dialogue and trading in VR.
 ## Report a bug
 
 Open a [bug report](https://github.com/PeCOS2k5/Gothic3VR/issues/new?template=bug_report.yml) and describe how to reproduce the problem. The form asks for the mod version, headset/controllers, VR provider, PC/settings, installed mods and relevant logs or screenshots. Search [existing issues](https://github.com/PeCOS2k5/Gothic3VR/issues) before submitting the same problem again.
+
+## Roadmap 
+
+- Replace all third-person actions with first-person perspectives or full-fledged VR-native actions.
+- Implement finger articulation that responds to specific key presses.
+- Fix camera culling issues at close range.
+- Add the ability to pick up and equip weapons, potions, spells, and other items that can be carried on the player's body.
+- Optimize the engine and implement multithreading.
+- Upgrade the combat system to meet modern VR standards.
+- Add the ability to issue commands to companions using gestures.
+- Add the ability to cast magic using gestures.
+- VR parkour?
 
 ## Build from source
 
