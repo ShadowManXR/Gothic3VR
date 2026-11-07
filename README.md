@@ -113,4 +113,29 @@ Project code is **GPL-3.0-or-later**; see [LICENSE](LICENSE). This declaration d
 
 Modified versions are welcome under the GPL. Preserve applicable notices and identify your changes; independently maintained builds must not be presented as official PeCOS2k5 and ShadowManXR releases. See [AUTHORS.md](AUTHORS.md) and [BRANDING.md](BRANDING.md).
 
-Gothic 3 is the work of its original developers and rights holders. Gothic 3 SDK is by Georgeto and contributors. Thanks to the authors of the native patches, OpenXR/OpenVR, Union+ and the included graphics dependencies.
+Special thanks to the developers and contributors whose work has helped improve and expand Gothic 3 over the years.
+
+### Gothic 3 Community Patch 1.75.14
+
+- Developed by: Community Patch Team / Mad Vulture Games
+- Supported by: Nordic Games
+
+### Gothic 3 Update Pack 1.04
+
+- Developed by: Dimus, zandr, Guzz (aka killer-m), and Mechanic
+
+### Gothic 3 Update Pack 1.05
+
+- Main Developer: zandr
+- Based on: Gothic 3 Update Pack 1.04
+
+### Gothic 3 Parallel Universe Patch
+
+- Created by: George    
+- Additional Credits: MadFaTal, Askanius, Gregox, Robespier, Seeev, Knighter, Hero3000, Feyn, chris-40, controlled, NicoDE, and the Community Story Project team.
+
+## Disclaimer
+
+Gothic 3 © THQ Nordic AB. Originally developed by Piranha Bytes.
+
+All Gothic 3 trademarks, characters, artwork, audio, and other original game assets remain the property of their respective rights holders.
