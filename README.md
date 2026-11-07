@@ -8,6 +8,8 @@ An enhanced mod that incorporates modern VR mechanics and reflects my vision of 
 
 - Added a HUD display on the character's arm.
 - Disabled third-person camera views during dialogues, chest looting, reading at a lectern, etc.
+- Control layout updated to modern standards
+- Fixed the offset between the controllers and the hands for the Quest 3.
 - Also includes minor fixes.
 
 ## Install and play
