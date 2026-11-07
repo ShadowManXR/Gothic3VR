@@ -24,6 +24,9 @@ public:
         return true;
     }
 };
+inline bool SkipChestApproach(bool enabled,bool player,bool chest,char const* parent){
+    return enabled&&player&&chest&&parent&&!strcmp(parent,"PS_Interact");
+}
 inline bool ChestInteraction(bool chestTarget,int action,char const* task,char const* state,bool wasChest=false){
     if(!chestTarget)return wasChest&&((task&&!strcmp(task,"PS_Interact_End"))||(state&&!strcmp(state,"PS_Interact_End")));
     auto chest=[](char const* name){return name&&(!strcmp(name,"PS_Interact_Chest")||!strcmp(name,"PS_Interact_Chest_Loop"));};

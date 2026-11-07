@@ -29,6 +29,12 @@ int main(){
     CHECK(!ChestInteraction(false,0,"PS_Normal_Loop","PS_Normal_Loop",true));
     for(auto state:{"PS_Interact_ChestOther","PS_Normal_Take","PS_Interact_CampFire","PS_Interact_Mining"})
         CHECK(!ChestInteraction(true,0,"PS_Player",state));
+    CHECK(SkipChestApproach(true,true,true,"PS_Interact"));
+    CHECK(!SkipChestApproach(false,true,true,"PS_Interact"));
+    CHECK(!SkipChestApproach(true,false,true,"PS_Interact"));
+    CHECK(!SkipChestApproach(true,true,false,"PS_Interact"));
+    CHECK(!SkipChestApproach(true,true,true,"PS_Interact_End"));
+    CHECK(!SkipChestApproach(true,true,true,nullptr));
     ChestViewTransition transition;
     CHECK(!transition.Step(1,true,false,true,0));
     CHECK(transition.Step(1,true,true,false,10));
