@@ -180,6 +180,7 @@ class NativeTrackedArms {
     }}
 public:
     void ResetBodyPosture(){bodyPosture.Reset();physicalCrouch.Reset();crouchLowerReady=false;}
+    bool usePalettePose=false;
     void SetBodyVisibility(bool firstPerson,bool handsOnly){firstPersonBody=firstPerson;handsOnlySelected=handsOnly;}
     bool PhysicalHandsOnly()const{return FirstPersonHandsOnly(firstPersonBody,handsOnlySelected,physicalCrouch.HandsOnly());}
     void PreparePhysicalCrouch(eCEntity* entity,bool enabled,HeadPose const& head,float standingY,uint64_t now){
@@ -321,7 +322,7 @@ public:
     }
     bool Matches(eCVisualAnimationFactory const* self)const{return scope&&!fault&&self==factory;}
     bool FrozenFrame()const{return frozen.Matches(reinterpret_cast<uintptr_t>(player),reinterpret_cast<uintptr_t>(factory),unsigned(count));}
-    void PrepareFrozenFrame(void* original,GEU32 frame){
+    void PrepareFrozenFrame(void* original,GEU32 frame,void (*preparePose)(eCVisualAnimationFactory*,bCMatrix const&)=nullptr){
         frozen.Reset();if(!scope||fault||(!ready[0]&&!ready[1]&&!stableBody)||!ValidateRig())return;
         auto* item=gCEntity::GetWeapon(player,GETrue);auto* left=gCEntity::GetWeapon(player,GEFalse);
         bool shield=ready[0]&&Readable(left,sizeof(eCEntity))&&left!=player&&gCEntity::GetUseType(left)==gEUseType_Shield;
@@ -337,6 +338,7 @@ public:
         // frustum pass, AFTER ranged support geometry is prepared. Native
         // false/cache hits are validated by Apply.
         reinterpret_cast<Update>(original)(factory,frame,player->GetWorldMatrix());
+        if(preparePose)preparePose(factory,player->GetWorldMatrix());
         Apply(factory,player->GetWorldMatrix());
         auto& matrices=factory->m_arrRenderMatrices;
         if(palette.address&&matrices.GetCount()==count&&Readable(matrices.AccessArray(),count*sizeof(Mat))&&
@@ -371,7 +373,13 @@ public:
         // The palette's final argument must be the player's world matrix, not a
         // camera-relative matrix. Reject a renderer variant with another convention.
         Mat actual=Raw(player->GetWorldMatrix());for(int i=0;i<16;++i)if(std::fabs(actual.m[i]-entityWorld.m[i])>.05f){if(!worldMismatchReported){worldMismatchReported=true;Report("vr_arms_world_argument_mismatch; native_arms_preserved");}return;}
-        for(int i=0;i<count;++i){bCMatrix model=wrapper->GetWorldMatrix(nodes+i);bone[i]=arms::Multiply(Raw(model),entityWorld);if(!arms::Affine(bone[i]))return;}
+        for(int i=0;i<count;++i){
+            // A scoped chest freeze replaces the skin, not the animation wrapper.
+            // Derive deltas from the skin pose that will actually be rendered.
+            if(usePalettePose)bone[i]=arms::Multiply(bind[i],Raw(data[i]));
+            else {bCMatrix model=wrapper->GetWorldMatrix(nodes+i);bone[i]=arms::Multiply(Raw(model),entityWorld);}
+            if(!arms::Affine(bone[i]))return;
+        }
         for(unsigned slot=0;slot<2;++slot){unsigned h=slot==0?1:0;auto* item=gCEntity::GetWeapon(player,slot==0);
             if(!ready[h]||item==player||!Readable(item,sizeof(eCEntity))||(slot==1&&weapons[0].entity==item))continue;
             int type=gCEntity::GetUseType(item);if(!PhysicalMeleeType(type))continue;
@@ -395,7 +403,8 @@ public:
                melee::AnchorSummonedSword(item->GetName().GetText(),type,h,weapons[slot].tracked))weapons[slot].entity=item;
         }
         Mat bodyWorld,bodyDelta[TrackedPalette::Limit],armBase[2];bool bodyApplied=false;Vec bodyShift{};
-        if(stableBody&&arms::BodyWorld(entityWorld,bodyHeading,bodyWorld,bodyRenderCorrection)){
+        // The chest skin already supplies a fixed body pose. Only the arms may change it.
+        if(stableBody&&!usePalettePose&&arms::BodyWorld(entityWorld,bodyHeading,bodyWorld,bodyRenderCorrection)){
             Mat ground=bodyWorld;
             bodyApplied=arms::BodyPoseDeltas(entityWorld,ground,bind,bone,bodyParts,unsigned(count),pelvis,
                 bodyPosture.Crouched(),bodyPosture.Pickup(),crouchLowerReady?crouchLower:nullptr,bodyWorld,bodyDelta);

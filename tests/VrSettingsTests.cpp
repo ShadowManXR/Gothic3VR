@@ -20,15 +20,15 @@ int wmain(int argc, wchar_t** argv) {
         bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
         check(saved&&loaded.numbers[85]==fog&&loaded.numbers[0]==-31,"Explicit fog preferences survive save/load without resetting camera calibration");}
 
-    check(missingHandHud.fastPickup&&missingHandHud.firstPersonDialogue&&missingHandHud.firstPersonChest&&missingHandHud.firstPersonLectern,
+    check(missingHandHud.fastPickup&&missingHandHud.firstPersonDialogue&&missingHandHud.firstPersonChest&&missingHandHud.firstPersonLectern&&missingHandHud.firstPersonCooking,
         "Missing comfort keys preserve the enabled 1.0.6 through 1.0.9 behavior");
-    for(unsigned mask=0;mask<32;++mask){diagnostic::VrSettings value;
+    for(unsigned mask=0;mask<64;++mask){diagnostic::VrSettings value;
         value.fastPickup=(mask&1)!=0;value.firstPersonDialogue=(mask&2)!=0;
-        value.firstPersonChest=(mask&4)!=0;value.firstPersonLectern=(mask&8)!=0;value.thirdPersonOrbit=(mask&16)!=0;
+        value.firstPersonChest=(mask&4)!=0;value.firstPersonLectern=(mask&8)!=0;value.thirdPersonOrbit=(mask&16)!=0;value.firstPersonCooking=(mask&32)!=0;
         value.numbers[0]=-31;value.numbers[8]=7;diagnostic::ApplyLauncherFixedFeatures(value);
         bool saved=diagnostic::SaveVrSettings(path,value);auto loaded=diagnostic::LoadVrSettings(path);
         check(saved&&loaded.fastPickup==bool(mask&1)&&loaded.firstPersonDialogue==bool(mask&2)&&loaded.firstPersonChest==bool(mask&4)&&
-            loaded.firstPersonLectern==bool(mask&8)&&loaded.thirdPersonOrbit==bool(mask&16)&&loaded.numbers[0]==-31&&loaded.numbers[8]==7,
+            loaded.firstPersonLectern==bool(mask&8)&&loaded.thirdPersonOrbit==bool(mask&16)&&loaded.firstPersonCooking==bool(mask&32)&&loaded.numbers[0]==-31&&loaded.numbers[8]==7,
             "All pickup and third-person choices survive launcher defaults enforcement and independent settings round-trip");
     }
 

@@ -1,13 +1,13 @@
 #ifndef PackageDir
   #error PackageDir must point to a verified release staging directory
 #endif
-#define Version "1.1.9-beta"
+#define Version "1.2.0-beta"
 
 [Setup]
 AppId={{872AAFD4-B6F2-4BE7-812F-2D5B19A22425}
 AppName=Gothic 3 VR
-AppVersion=1.1.9 beta
-VersionInfoVersion=1.1.9.0
+AppVersion={#Version}
+VersionInfoVersion=1.2.0.0
 AppPublisher=PeCOS2k5
 AppPublisherURL=https://github.com/PeCOS2k5/Gothic3VR
 AppSupportURL=https://github.com/PeCOS2k5/Gothic3VR/issues

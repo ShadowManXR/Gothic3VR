@@ -3,6 +3,7 @@
 #include "VirtualHook.h"
 #include "ChestSkinPose.h"
 #include "ChestInteraction.h"
+#include "CookingInteraction.h"
 namespace diagnostic {
 inline bool NativeChestInteraction(eCEntity* player,bool wasChest=false){
     if(!Readable(player,sizeof(eCDynamicEntity)))return false;
@@ -11,6 +12,15 @@ inline bool NativeChestInteraction(eCEntity* player,bool wasChest=false){
     auto* target=routine->GetSPU().GetTargetEntity();
     bool chest=Readable(target,sizeof(eCDynamicEntity))&&int(gCEntity::GetUseType(target))==106;
     return ChestInteraction(chest,routine->GetAction().GetValue(),routine->GetCurrentTask().GetText(),routine->GetCurrentState().GetText(),wasChest);
+}
+inline bool NativeCookingInteraction(eCEntity* player,bool wasCooking=false){
+    if(!Readable(player,sizeof(eCDynamicEntity)))return false;
+    auto* routine=static_cast<gCScriptRoutine_PS*>(player->GetPropertySet(eEPropertySetType_ScriptRoutine));
+    if(!Readable(routine,sizeof(*routine)))return false;
+    auto* target=routine->GetSPU().GetTargetEntity();
+    bool cooking=Readable(target,sizeof(eCDynamicEntity))&&CookingTarget(int(gCEntity::GetUseType(target)));
+    return CookingInteraction(cooking,routine->GetAction().GetValue(),routine->GetCurrentTask().GetText(),
+        routine->GetCurrentState().GetText(),wasCooking);
 }
 // Freeze only the displayed hero skin. Animation events, interaction alignment,
 // chest lid motion, lock checks and script timing still run in the native game.

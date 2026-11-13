@@ -3,6 +3,7 @@
 #include "HeldWeaponVisuals.h"
 #include "NativeRangedVisual.h"
 #include "TrackedArmsMath.h"
+#include "CookingInteraction.h"
 namespace diagnostic { namespace visual {
 using MenuWeaponScope=VisibilityScope<ranged::EntityVisualAccess>;
 struct StowedInventoryAccess : ranged::EntityVisualAccess {
@@ -22,6 +23,16 @@ inline bool ReadName(eCEntity* entity,char (&name)[128]){
     auto const& source=entity->GetName();int size=source.GetLength();auto* text=source.GetText();
     if(size<0||size>=128||!Readable(text,size_t(size)+1)||text[size])return false;
     memcpy(name,text,size_t(size)+1);return true;
+}
+inline bool CaptureCookingProps(eCEntity* player,MenuWeaponScope& scope){
+    if(!Readable(player,sizeof(eCEntity)))return true;
+    for(unsigned slot=0;slot<2;++slot){
+        auto* item=gCEntity::GetWeapon(player,slot==0);
+        if(!item||item==player||!Readable(item,sizeof(eCEntity)))continue;
+        char name[128]{};
+        if(ReadName(item,name)&&CookingProp(name)&&!scope.Capture(item))return false;
+    }
+    return true;
 }
 struct FlameTreeAccess {
     using Entity=eCEntity;

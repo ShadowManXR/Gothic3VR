@@ -1,6 +1,6 @@
 {
   "source": "Creator-approved current settings for release 1.0, 2026-11-01",
-  "sha256": "34129af404a2c08fcdcb843bf903c07d5f14ff1d50171d6f12dbd89184e0058e",
+  "sha256": "4c5286b6fa0a05e1e949142d2d612d269078788cf1a0faa90af7f496e595851c",
   "sections": {
     "Diagnostics": {
       "Enabled": "1",
@@ -164,6 +164,7 @@
       "FirstPersonDialogue": "1",
       "FirstPersonChest": "1",
       "FirstPersonLectern": "1",
+      "FirstPersonCooking": "1",
       "FirstPersonNearClipCm": "13"
     },
     "Controllers": {

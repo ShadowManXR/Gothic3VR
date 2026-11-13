@@ -1,4 +1,5 @@
 #include "ChestInteraction.h"
+#include "CookingInteraction.h"
 #include "LecternInteraction.h"
 #include "ChestSkinPose.h"
 #include "DialogCameraLock.h"
@@ -29,6 +30,24 @@ int main(){
     CHECK(!ChestInteraction(false,0,"PS_Normal_Loop","PS_Normal_Loop",true));
     for(auto state:{"PS_Interact_ChestOther","PS_Normal_Take","PS_Interact_CampFire","PS_Interact_Mining"})
         CHECK(!ChestInteraction(true,0,"PS_Player",state));
+    CHECK(SkipChestApproach(true,true,true,"PS_Interact"));
+    CHECK(!SkipChestApproach(false,true,true,"PS_Interact"));
+    CHECK(!SkipChestApproach(true,false,true,"PS_Interact"));
+    CHECK(!SkipChestApproach(true,true,false,"PS_Interact"));
+    CHECK(!SkipChestApproach(true,true,true,"PS_Interact_End"));
+    CHECK(!SkipChestApproach(true,true,true,nullptr));
+    CHECK(CookingProp("It_Stick")&&CookingProp("It_Meat"));
+    CHECK(!CookingProp(nullptr)&&!CookingProp("It_StickOther")&&!CookingProp("It_Sword"));
+    CHECK(CookingTarget(61)&&CookingTarget(88)&&!CookingTarget(89)&&!CookingTarget(106));
+    for(auto state:{"PS_Interact_Campfire","PS_Interact_Barbecue","PS_Interact_Loop","PS_Interact_End"}){
+        CHECK(CookingInteraction(true,0,state,nullptr));
+        CHECK(!CookingInteraction(false,0,state,nullptr));
+    }
+    CHECK(CookingInteraction(false,0,"PS_Interact_End",nullptr,true));
+    CHECK(CookingInteraction(true,73,nullptr,nullptr));
+    CHECK(CookingInteraction(true,94,nullptr,nullptr));
+    CHECK(!CookingInteraction(true,0,"PS_Normal_Loop",nullptr));
+    CHECK(!CookingInteraction(true,0,"PS_Interact_CampfireOther",nullptr));
     ChestViewTransition transition;
     CHECK(!transition.Step(1,true,false,true,0));
     CHECK(transition.Step(1,true,true,false,10));

@@ -1,4 +1,10 @@
-# Gothic 3 VR 1.1.9 beta
+# Gothic 3 VR 1.2.0-beta
+
+- Added **First-person cooking** under **Third-person view** in the launcher. It defaults to on, keeps hands tracked, and caps cooking transition waits at 25 ms.
+- Improved first-person chest looting by keeping the camera and hand tracking active during the native interaction.
+- Aligned fire arrows with the bow while aiming and at release, and attached the flame to the held arrow.
+
+## Previous release: 1.1.9 beta
 
 - Quick Heal now defaults to a double-press of Y, or B with the left-handed layout. Saved custom bindings are preserved.
 

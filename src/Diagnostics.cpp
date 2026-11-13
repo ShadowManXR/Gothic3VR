@@ -148,7 +148,9 @@ diagnostic::NativeRadialItems gNativeRadialItems;
 diagnostic::NativeHandHud gHandHud;
 diagnostic::NativePickup gPickup;
 diagnostic::NativeChestVisual gChestVisual;
-diagnostic::ChestViewTransition gChestView,gLecternView;
+diagnostic::ChestViewTransition gChestView,gLecternView,gCookingView;
+diagnostic::FocusHook gChestApproachHook;
+diagnostic::VirtualHook gChestCameraHook;
 diagnostic::NativeTrackedBow gTrackedBow;
 diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gParticleWorldHook,gSignpostFocusHook;
 diagnostic::FocusHook gFocusNameSizeHook;
@@ -172,8 +174,9 @@ diagnostic::visual::FlameTailTargets gFlameTargets;
 uint64_t gFlameProcessSkipped=0,gFlameDrawSkipped=0;
 diagnostic::KnockoutCamera gKnockoutCamera;diagnostic::ActivityCameraGate gActivityCameraGate;
 diagnostic::CameraReturnTransition gCameraReturn;
+bool FreeInteractionCamera(eCEntity* player);
 bool CameraThirdPersonActivity(eCEntity* player){
-    bool immediate=false,requested=diagnostic::NativeActivity(player,&immediate);
+    bool immediate=false,requested=diagnostic::NativeActivity(player,&immediate)&&!FreeInteractionCamera(player);
     bool activity=gActivityCameraGate.Step(reinterpret_cast<uintptr_t>(player),requested,GetTickCount64(),immediate);
     return diagnostic::NativeKnockoutThirdPerson(player,gKnockoutCamera)||activity||gFinisher.Busy(player);
 }
@@ -381,7 +384,7 @@ struct StereoState
     float nativePosition[3]{},nativeRotation[3]{};
     float heightOffsetUnits=0;
     bool firstPerson=false;uintptr_t player=0;float playerPosition[3]{};diagnostic::CameraHeightAnchor heightAnchor;
-    bool dialog=false,chest=false,lectern=false;uintptr_t dialogPlayer=0;
+    bool dialog=false,chest=false,lectern=false,cooking=false;uintptr_t dialogPlayer=0;
     diagnostic::NativeCameraStabilizer cameraStabilizer;
     bool basePrepared=false,holdPlayerHeading=false,playerHeadingValid=false;
     diagnostic::Rotation3 frameBaseRotation,lastPlayerRotation;
@@ -1714,7 +1717,7 @@ void StopStereo()
     gCombatMovementRecovery.Reset();
     RestoreCurrentBodyFacing();gHeadBodyHeading.Reset();
     gKnockoutCamera.Reset();gActivityCameraGate.Reset();gCameraReturn.Reset();
-    gChestVisual.Reset();gChestView.Reset();gLecternView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=gStereo.lectern=false;gStereo.dialogPlayer=0;
+    gChestVisual.Reset();gChestView.Reset();gLecternView.Reset();gCookingView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=gStereo.lectern=gStereo.cooking=false;gStereo.dialogPlayer=0;
     RestoreCurrentHeroVoice();
     gFlameTargets.Reset();gTorchParticles.Reset();gParticleWorld.End();
     ReleaseNativeSneak();
@@ -1862,7 +1865,7 @@ bool CollectPlayerRenderAlpha(eCEntity* entity,diagnostic::RenderAlphaSnapshot& 
     return true;
 }
 void BeginPlayerRenderAlpha(diagnostic::RenderAlphaSnapshot& snapshot){
-    if(gStereo.chest&&!gChestVisual.Ready()){
+    if((gStereo.chest||gStereo.cooking)&&!gChestVisual.Ready()){
         auto* player=gCSession::GetInstance().GetPlayer();
         if(CollectPlayerRenderAlpha(player,snapshot))snapshot.Hide();else snapshot.count=0;
         return;
@@ -1953,7 +1956,7 @@ void StereoCameraBase(CameraSnapshot const& saved,diagnostic::Rotation3& native,
 {
     if(gStereo.rendering&&gStereo.basePrepared){native=gStereo.frameBaseRotation;memcpy(basePosition,gStereo.frameBasePosition,sizeof(basePosition));return;}
     memcpy(basePosition,saved.position,sizeof(basePosition));native=diagnostic::NativeCameraRotation(saved.rotation);
-    if((gStereo.dialog||gStereo.chest||gStereo.lectern)&&gDialogCamera.ApplyPlayer(gStereo.dialogPlayer,gStereo.playerPosition,native,basePosition))return;
+    if((gStereo.dialog||gStereo.chest||gStereo.lectern||gStereo.cooking)&&gDialogCamera.ApplyPlayer(gStereo.dialogPlayer,gStereo.playerPosition,native,basePosition))return;
     if(!gStereo.firstPerson){ApplyThirdPersonOrbit(native,basePosition);return;}
     if(gStereo.firstPerson){
         if(gVrSettings.stableHorizon){
@@ -1986,7 +1989,7 @@ float DialogCameraClearance(float const (&pivot)[3],float const (&eye)[3],eCEnti
     return result;
 }
 void ApplyThirdPersonOrbit(diagnostic::Rotation3& rotation,float (&position)[3]){
-    if(gStereo.dialog||gStereo.chest||gStereo.lectern||!gVrSettings.thirdPersonOrbit||!gApplication||!gApplication->IsGameRunning())return;
+    if(gStereo.dialog||gStereo.chest||gStereo.lectern||gStereo.cooking||!gVrSettings.thirdPersonOrbit||!gApplication||!gApplication->IsGameRunning())return;
     auto* player=gCSession::GetInstance().GetPlayer();if(!diagnostic::Readable(player,sizeof(eCDynamicEntity))||!gThirdPersonOrbit.Requested(reinterpret_cast<uintptr_t>(player)))return;
     // Free third-person locomotion must retain the native camera/heading link.
     // Only stationary activities and recovery own a render-only orbit.
@@ -2002,7 +2005,7 @@ void ApplyThirdPersonOrbit(diagnostic::Rotation3& rotation,float (&position)[3])
 void PrepareComfortCameraBase(CameraSnapshot const& saved,diagnostic::HeadPose const&)
 {
     bool wasDialogLocked=gDialogCamera.Active();
-    if((gStereo.dialog||gStereo.chest||gStereo.lectern)&&gStereo.dialogPlayer){
+    if((gStereo.dialog||gStereo.chest||gStereo.lectern||gStereo.cooking)&&gStereo.dialogPlayer){
         auto* player=reinterpret_cast<eCDynamicEntity*>(gStereo.dialogPlayer);
         diagnostic::Rotation3 facing=gStereo.lastPlayerRotation;
         if(!gStereo.playerHeadingValid){auto const& world=player->GetWorldMatrix();
@@ -2012,7 +2015,7 @@ void PrepareComfortCameraBase(CameraSnapshot const& saved,diagnostic::HeadPose c
         gDialogCamera.CapturePlayer(gStereo.dialogPlayer,gStereo.playerPosition,facing,height,
             float(gVrSettings.numbers[6])*.01f*gConfig.unitsPerMeter,gConfig.unitsPerMeter);
     }else gDialogCamera.Release();
-    if(!wasDialogLocked&&gDialogCamera.Active())Message(gStereo.lectern?"vr_lectern_camera_player_view; live_head_tracking; reading_logic_native":gStereo.chest?"vr_chest_camera_player_view; live_head_tracking; chest_logic_native":"vr_dialog_camera_player_view; native_shots_ignored; live_head_tracking; dialogue_logic_native",0,true);
+    if(!wasDialogLocked&&gDialogCamera.Active())Message(gStereo.cooking?"vr_cooking_camera_player_view; recipes_and_inventory_native":gStereo.lectern?"vr_lectern_camera_player_view; live_head_tracking; reading_logic_native":gStereo.chest?"vr_chest_camera_player_view; live_head_tracking; chest_logic_native":"vr_dialog_camera_player_view; native_shots_ignored; live_head_tracking; dialogue_logic_native",0,true);
     bool stabilized=gStereo.firstPerson&&gStereo.player&&gVrSettings.stableHorizon;
     if(stabilized&&gVrSettings.smoothCamera){
         LARGE_INTEGER now;QueryPerformanceCounter(&now);
@@ -2020,7 +2023,7 @@ void PrepareComfortCameraBase(CameraSnapshot const& saved,diagnostic::HeadPose c
         gStereo.cameraStabilizer.Update(gStereo.player,gStereo.playerPosition,seconds,gConfig.unitsPerMeter,gVrSettings.cameraSmoothingMs,gVrSettings.cameraVerticalSmoothingMs);
     }else gStereo.cameraStabilizer.Reset();
     gStereo.basePrepared=false;StereoCameraBase(saved,gStereo.frameBaseRotation,gStereo.frameBasePosition);gStereo.basePrepared=true;
-    if(!gStereo.dialog&&!gStereo.chest&&!gStereo.lectern){
+    if(!gStereo.dialog&&!gStereo.chest&&!gStereo.lectern&&!gStereo.cooking){
         if(gStereo.firstPerson&&gStereo.player)gDialogCamera.RememberPlayer(gStereo.player,gStereo.frameBaseRotation,gStereo.frameBasePosition,gStereo.playerPosition,gConfig.unitsPerMeter);
         else gDialogCamera.Reset();
     }
@@ -2343,6 +2346,11 @@ bool InstallFirstPersonLock()
         !gCameraPermissionHook.Prepare(table,slot,reinterpret_cast<void*>(&CameraPermissionCallScript))||!gCameraPermissionHook.Install())return false;
     Message("first_person_camera_permission_hook_installed; player_only; VR_only; native_script_chained",0,true);return true;
 }
+bool FreeInteractionCamera(eCEntity* player){
+    return gChestApproachHook.original&&gChestCameraHook.installed&&
+        ((gVrSettings.firstPersonChest&&diagnostic::NativeChestInteraction(player,gStereo.chest))||
+         (gVrSettings.firstPersonCooking&&diagnostic::NativeCookingInteraction(player,gStereo.cooking)));
+}
 bool ReturnFirstPersonFacing(gCCameraAI_PS* camera,eCEntity* player)
 {
     if(!gCameraPermissionHook.installed||!diagnostic::Readable(camera,sizeof(*camera))||camera->IsDialogCameraActive()||
@@ -2359,6 +2367,10 @@ bool ReturnFirstPersonFacing(gCCameraAI_PS* camera,eCEntity* player)
     RestoreCurrentBodyFacing();
     auto const& actor=player->GetWorldMatrix();diagnostic::Rotation3 facing;
     if(!diagnostic::NativeCameraReturn::Facing(actor(2,0),actor(2,2),facing))return false;
+    if((gStereo.chest&&gVrSettings.firstPersonChest)||gStereo.cooking){
+        float root[3]{actor(3,0),actor(3,1),actor(3,2)},base[3]{};
+        gDialogCamera.ApplyPlayer(reinterpret_cast<uintptr_t>(player),root,facing,base);
+    }
     if(!diagnostic::AnimalCamera::Release(camera,sizeof(*camera)))return false;
     camera->SetMode(static_cast<gECameraMode>(0),GETrue,GEFalse);
     camera->SetTarget(player);
@@ -2572,11 +2584,14 @@ bool PrepareStereoFrame(eCCameraBase* camera,diagnostic::StereoFrame& frame)
     bool chestCameraReady=cameraState.modeAvailable&&(cameraState.firstPerson||cameraState.tempFirstPerson)&&!cameraState.activity&&!cameraState.dialog&&
         gAutoFirstPersonProcess!=gProcess.load(std::memory_order_relaxed)&&GetTickCount64()>=gHumanHeightRestoreUntil;
     gStereo.chest=gChestView.Step(reinterpret_cast<uintptr_t>(chestPlayer),chestAllowed,chestRequested,chestCameraReady,GetTickCount64());
-    bool lecternAllowed=interactionViewAllowed&&gVrSettings.firstPersonLectern&&!gStereo.chest;
+    bool cookingAllowed=interactionViewAllowed&&gVrSettings.firstPersonCooking&&!gStereo.chest;
+    bool cookingRequested=cookingAllowed&&diagnostic::NativeCookingInteraction(chestPlayer,gStereo.cooking);
+    gStereo.cooking=gCookingView.Step(reinterpret_cast<uintptr_t>(chestPlayer),cookingAllowed,cookingRequested,chestCameraReady,GetTickCount64());
+    bool lecternAllowed=interactionViewAllowed&&gVrSettings.firstPersonLectern&&!gStereo.chest&&!gStereo.cooking;
     bool lecternRequested=lecternAllowed&&diagnostic::NativeLecternInteraction(chestPlayer,gStereo.lectern);
     gStereo.lectern=gLecternView.Step(reinterpret_cast<uintptr_t>(chestPlayer),lecternAllowed,lecternRequested,chestCameraReady,GetTickCount64());
     gStereo.dialogPlayer=0;
-    if(gStereo.dialog||gStereo.chest||gStereo.lectern){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity)))gStereo.dialogPlayer=reinterpret_cast<uintptr_t>(player);}
+    if(gStereo.dialog||gStereo.chest||gStereo.lectern||gStereo.cooking){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity)))gStereo.dialogPlayer=reinterpret_cast<uintptr_t>(player);}
     else if(gDialogCamera.Active()){gDialogCamera.Release();Message("vr_dialog_camera_released; normal_camera_policy_resumed",0,true);}
     if(!diagnostic::StereoCameraAllowed(cameraState,gStereoRuntime.Connected())&&!gVrSettings.autoStart)return false;
     if(cameraState.gameRunning&&gConfig.keepFirstPerson&&!gFirstPersonLockAttempted)
@@ -2591,14 +2606,14 @@ bool PrepareStereoFrame(eCCameraBase* camera,diagnostic::StereoFrame& frame)
     // position during that transition frame.
     if(!cameraState.gameRunning){gHumanHeightSaved=false;gAnimalCameraActive=gActivityCameraActive=false;gHumanHeightRestoreUntil=0;}
     gStereo.heightAnchor.Context(cameraState.gameRunning,gVrSettings.stableHorizon);
-    gStereo.player=0;if(cameraState.gameRunning&&(gVrSettings.stableHorizon||gStereo.dialog||gStereo.chest||gStereo.lectern)){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity))){gStereo.player=reinterpret_cast<uintptr_t>(player);auto root=player->GetWorldPosition();gStereo.playerPosition[0]=root.m_fX;gStereo.playerPosition[1]=root.m_fY;gStereo.playerPosition[2]=root.m_fZ;}}
+    gStereo.player=0;if(cameraState.gameRunning&&(gVrSettings.stableHorizon||gStereo.dialog||gStereo.chest||gStereo.lectern||gStereo.cooking)){auto* player=gCSession::GetInstance().GetPlayer();if(diagnostic::Readable(player,sizeof(eCDynamicEntity))){gStereo.player=reinterpret_cast<uintptr_t>(player);auto root=player->GetWorldPosition();gStereo.playerPosition[0]=root.m_fX;gStereo.playerPosition[1]=root.m_fY;gStereo.playerPosition[2]=root.m_fZ;}}
     bool switching=gAutoFirstPersonProcess==gProcess.load(std::memory_order_relaxed)||GetTickCount64()<gHumanHeightRestoreUntil;
     gStereo.firstPerson=diagnostic::ComfortFirstPerson(cameraState,gConfig.keepFirstPerson,gStereo.heightAnchor.Calibrated(gStereo.player),switching);
     gStereo.holdPlayerHeading=gStereo.firstPerson&&(!(cameraState.firstPerson||cameraState.tempFirstPerson)||switching||gFinisher.Busy(reinterpret_cast<eCEntity*>(gStereo.player)));
-    gStereo.heightOffsetUnits=(gStereo.firstPerson||gStereo.dialog||gStereo.chest||gStereo.lectern)?gConfig.firstPersonHeightOffsetCm*.01f*gConfig.unitsPerMeter:0.f;
+    gStereo.heightOffsetUnits=(gStereo.firstPerson||gStereo.dialog||gStereo.chest||gStereo.lectern||gStereo.cooking)?gConfig.firstPersonHeightOffsetCm*.01f*gConfig.unitsPerMeter:0.f;
     if(!gStereo.firstPerson||!gVrSettings.stableHorizon||!gVrSettings.smoothCamera)gStereo.cameraStabilizer.Reset();
     if(!cameraState.gameRunning||!gVrSettings.stableHorizon)gStereo.playerHeadingValid=false;
-    gStereo.hidePlayerHead=gConfig.hideFirstPersonHead&&(gStereo.firstPerson||gStereo.dialog||gStereo.chest||gStereo.lectern);
+    gStereo.hidePlayerHead=gConfig.hideFirstPersonHead&&(gStereo.firstPerson||gStereo.dialog||gStereo.chest||gStereo.lectern||gStereo.cooking);
     auto currentMode=diagnostic::CameraMode(cameraState);
     if(gStereo.cameraMode!=int(currentMode))
     {
@@ -2711,11 +2726,13 @@ void BeginMenuStaffVisibility(diagnostic::visual::MenuWeaponScope& scope){
     __try{
         if(!diagnostic::visual::CaptureMenuStaff(gCSession::GetInstance().GetPlayer(),gStereo.firstPerson,MenuPanelActive(),gRadialOpen,scope)){
             scope.Abandon();Message("vr_menu_staff_collection_refused; native_visibility_preserved",0,true);return;}
+        if(gStereo.cooking&&!diagnostic::visual::CaptureCookingProps(gCSession::GetInstance().GetPlayer(),scope)){
+            scope.Abandon();Message("vr_cooking_prop_capture_refused",0,true);return;}
         if(scope.Count())scope.Hide();
     }__except(EXCEPTION_EXECUTE_HANDLER){scope.Restore();Message("vr_menu_staff_visibility_refused; native_visibility_preserved",GetExceptionCode(),true);}
 }
 void BeginStowedWeaponVisibility(diagnostic::visual::MenuWeaponScope& scope){
-    if(!(gStereo.firstPerson||gStereo.chest)||gWorldLifecycle.Blocked())return;
+    if(!(gStereo.firstPerson||gStereo.chest||gStereo.cooking)||gWorldLifecycle.Blocked())return;
     __try{
         if(!diagnostic::visual::CapturePlayerStowedWeapons(gCSession::GetInstance().GetPlayer(),true,scope)){
             scope.Abandon();Message("vr_stowed_weapon_collection_refused; native_visibility_preserved",0,true);}
@@ -2724,14 +2741,15 @@ void BeginStowedWeaponVisibility(diagnostic::visual::MenuWeaponScope& scope){
 void __cdecl TrackedArmsRecord(char const* text){Message(text,0,true);}
 void RestoreTrackedArms(bool end=false)
 {
-    __try {if(end)gChestVisual.End();else gChestVisual.Restore();}
-    __except(EXCEPTION_EXECUTE_HANDLER){gChestVisual.Abandon();Message("vr_chest_visual_restore_refused",GetExceptionCode(),true);}
     __try {if(end)gMagicHandEffects.Reset();else gMagicHandEffects.Restore();}
     __except(EXCEPTION_EXECUTE_HANDLER){gMagicHandLayoutReady=false;Message("vr_magic_hand_effect_restore_refused",GetExceptionCode(),true);}
     __try {if(end)gTrackedArms.End();else gTrackedArms.RestoreEye();}
     __except(EXCEPTION_EXECUTE_HANDLER){gTrackedArms.fault=true;Message("vr_arms_restore_fault; tracked_arms_disabled",GetExceptionCode(),true);}
     __try {if(end)gTrackedBow.End();else gTrackedBow.RestoreEye();}
     __except(EXCEPTION_EXECUTE_HANDLER){gTrackedBow.Abandon();gTrackedBow.Fail("restore");Message("vr_bow_palette_restore_fault; ranged_binding_retry_scheduled",GetExceptionCode(),true);}
+    // Arm poses are layered over the frozen chest body. Unwind them first.
+    __try {if(end)gChestVisual.End();else gChestVisual.Restore();}
+    __except(EXCEPTION_EXECUTE_HANDLER){gChestVisual.Abandon();Message("vr_chest_visual_restore_refused",GetExceptionCode(),true);}
 }
 void ReleaseWorldBindings(bool restoreAmmo)
 {
@@ -2742,7 +2760,7 @@ void ReleaseWorldBindings(bool restoreAmmo)
     gTrackedArms.ResetBodyPosture();
     RestoreCurrentBodyFacing();gHeadBodyHeading.Reset();
     gKnockoutCamera.Reset();gActivityCameraGate.Reset();gCameraReturn.Reset();
-    gChestVisual.Reset();gChestView.Reset();gLecternView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=gStereo.lectern=false;gStereo.dialogPlayer=0;
+    gChestVisual.Reset();gChestView.Reset();gLecternView.Reset();gCookingView.Reset();gDialogCamera.Reset();gStereo.dialog=gStereo.chest=gStereo.lectern=gStereo.cooking=false;gStereo.dialogPlayer=0;
     RestoreCurrentHeroVoice();
     gFlameTargets.Reset();
     // Invoked before native Stop clears the player and destroys the old world.
@@ -2768,6 +2786,10 @@ void __fastcall StereoDestroyWorkspace(eCApplication* self,void*)
     ReleaseWorldBindings(true);gHeadControl.enabled=false;gHeadControl.centered=false;StopStereo();
     reinterpret_cast<void(__thiscall*)(eCApplication*)>(gDestroyWorkspaceHook.original)(self);
 }
+void PrepareChestSkinPose(eCVisualAnimationFactory* self,bCMatrix const& worldMatrix){
+    __try {gChestVisual.Updated(self,worldMatrix);}
+    __except(EXCEPTION_EXECUTE_HANDLER){gChestVisual.Abandon();Message("vr_chest_pose_freeze_refused",GetExceptionCode(),true);}
+}
 GEBool __fastcall UpdateTrackedArmPalette(eCVisualAnimationFactory* self,void*,GEU32 frame,bCMatrix const& worldMatrix)
 {
     using Update=GEBool(__thiscall*)(eCVisualAnimationFactory*,GEU32,bCMatrix const&);
@@ -2778,10 +2800,10 @@ GEBool __fastcall UpdateTrackedArmPalette(eCVisualAnimationFactory* self,void*,G
     __try {if(gChestVisual.Matches(self))gChestVisual.Restore();}
     __except(EXCEPTION_EXECUTE_HANDLER){gChestVisual.Abandon();}
     GEBool result=reinterpret_cast<Update>(gArmPaletteHook.original)(self,frame,worldMatrix);
+    // Freeze the animated body first, then solve the tracked arms over it.
+    if(gTrackedRenderThread)PrepareChestSkinPose(self,worldMatrix);
     if(diagnostic::ranged::ApplyTrackedFrame(ours,result,gTrackedArms.CrossbowFrame()||gTrackedArms.FrozenFrame())){__try {gTrackedArms.Apply(self,worldMatrix);}__except(EXCEPTION_EXECUTE_HANDLER){gTrackedArms.fault=true;RestoreTrackedArms();Message("vr_arms_pose_fault; native_arms_restored",GetExceptionCode(),true);}}
     if(diagnostic::ranged::ApplyTrackedFrame(bow,result,gTrackedBow.CrossbowFrame())){__try {gTrackedBow.Apply(self,frame,gArmPaletteHook.original);}__except(EXCEPTION_EXECUTE_HANDLER){RestoreTrackedArms();gTrackedBow.Fail("pose");Message("vr_bow_palette_pose_fault; ranged_binding_retry_scheduled",GetExceptionCode(),true);}}
-    if(gTrackedRenderThread){__try {gChestVisual.Updated(self,worldMatrix);}
-        __except(EXCEPTION_EXECUTE_HANDLER){gChestVisual.Abandon();Message("vr_chest_pose_freeze_refused",GetExceptionCode(),true);}}
     return result;
 }
 void BeginTrackedArms(CameraSnapshot const& saved,diagnostic::HeadPose const& head)
@@ -2793,7 +2815,7 @@ void BeginTrackedArms(CameraSnapshot const& saved,diagnostic::HeadPose const& he
     __try {
         DWORD foreground=0;GetWindowThreadProcessId(GetForegroundWindow(),&foreground);
         if(gFinisher.Busy(reinterpret_cast<eCEntity*>(gStereo.player))){RestoreTrackedArms(true);return;}
-        if(!gArmPaletteHook.original||!gVrSettings.controllers||!gVrSettings.trackedArms||!gStereo.firstPerson||!gHeadControl.centered||foreground!=GetCurrentProcessId())return;
+        if(!gArmPaletteHook.original||!gVrSettings.controllers||!gVrSettings.trackedArms||!(gStereo.firstPerson||gStereo.chest||gStereo.cooking)||!gHeadControl.centered||foreground!=GetCurrentProcessId())return;
         float base[3];diagnostic::Rotation3 native;StereoCameraBase(saved,native,base);
         float stable[3]{},correction[3]{};
         if(gVrSettings.stableHorizon&&gVrSettings.smoothCamera&&gStereo.cameraStabilizer.Apply(gStereo.player,gStereo.playerPosition,stable))
@@ -3453,15 +3475,16 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
     uint64_t armsStarted=diagnostic::probes::Now();
     __try
     {
-        gChestVisual.Begin(reinterpret_cast<eCEntity*>(gStereo.player),gStereo.chest,gStereo.firstPerson&&!gStereo.dialog);
-        gTrackedArms.SetBodyVisibility(gStereo.firstPerson,gVrSettings.handsOnly);
+        gChestVisual.Begin(reinterpret_cast<eCEntity*>(gStereo.player),gStereo.chest||gStereo.cooking,gStereo.firstPerson&&!gStereo.dialog);
+        gTrackedArms.SetBodyVisibility(gStereo.firstPerson||gStereo.chest||gStereo.cooking,gVrSettings.handsOnly);
+        gTrackedArms.usePalettePose=gStereo.chest||gStereo.cooking;
         BeginPlayerRenderAlpha(playerAlpha);
         BeginPlayerHeadVisibility(headVisibility);
         gTrackedArms.PrepareBodyPosture(reinterpret_cast<eCEntity*>(gStereo.player),
-            gArmPaletteHook.original&&gVrSettings.controllers&&gVrSettings.trackedArms&&gVrSettings.stableBody&&gVrSettings.stableHorizon&&gStereo.firstPerson,
+            gArmPaletteHook.original&&gVrSettings.controllers&&gVrSettings.trackedArms&&gVrSettings.stableBody&&gVrSettings.stableHorizon&&gStereo.firstPerson&&!gStereo.chest&&!gStereo.cooking,
             GetTickCount64(),gConfig.unitsPerMeter,TrackedArmsRecord);
         gTrackedArms.PreparePhysicalCrouch(reinterpret_cast<eCEntity*>(gStereo.player),
-            gVrSettings.physicalCrouching&&gVrSettings.controllers&&gVrSettings.trackedArms&&gVrSettings.stableBody&&gVrSettings.stableHorizon&&gStereo.firstPerson&&gHeadControl.centered&&!gHeadControl.recenterPending,
+            gVrSettings.physicalCrouching&&gVrSettings.controllers&&gVrSettings.trackedArms&&gVrSettings.stableBody&&gVrSettings.stableHorizon&&gStereo.firstPerson&&!gStereo.chest&&!gStereo.cooking&&gHeadControl.centered&&!gHeadControl.recenterPending,
             frame.head,gStereo.centerPosition[1],GetTickCount64());
         if(gTrackedArms.PhysicalHandsOnly()&&!gStereo.hidePlayerHead){gStereo.hidePlayerHead=true;BeginPlayerHeadVisibility(headVisibility);gStereo.hidePlayerHead=false;}
         PrepareComfortCameraBase(saved,frame.head);
@@ -3476,7 +3499,11 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
             diagnostic::arms::Mat mesh;diagnostic::arms::Vec contact;if(gTrackedBow.SupportGeometry(mesh,contact))gTrackedArms.SetCrossbowGeometry(mesh,contact);
         }}
         __except(EXCEPTION_EXECUTE_HANDLER){RestoreTrackedArms();gTrackedBow.Fail("begin");Message("vr_bow_palette_prepare_fault; ranged_binding_retry_scheduled",GetExceptionCode(),true);}
-        __try{gTrackedArms.PrepareFrozenFrame(gArmPaletteHook.original,eCApplication::GetInstance().GetMasterFrameCounter());}
+        __try{
+            gTrackedArms.PrepareFrozenFrame(gArmPaletteHook.original,eCApplication::GetInstance().GetMasterFrameCounter(),
+                (gStereo.chest||gStereo.cooking)?&PrepareChestSkinPose:nullptr);
+            gChestVisual.Restore();
+        }
         __except(EXCEPTION_EXECUTE_HANDLER){RestoreTrackedArms(true);Message("vr_2h_frozen_frame_refused; native_pose_preserved",GetExceptionCode(),true);}
         __try {if(gMagicHandLayoutReady&&!gRadialOpen&&!MenuPanelActive()&&gStereo.firstPerson&&!gTrackedArms.fault){
             if(!diagnostic::visual::CaptureMagicHands(gCSession::GetInstance().GetPlayer(),MappedControllers(),GetTickCount64(),gMagicHandEffects,gTorchParticles)){
@@ -3509,7 +3536,7 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
             gStereo.eyeActive=true;
             if(!SetStereoEye(*camera,saved,frame.eyes[eye],eye)){complete=false;break;}
             if(gLocatorNativeInput.projectionHook.installed)for(unsigned r=0;r<4;++r)for(unsigned c=0;c<4;++c)gLocatorEyeView[eye][r*4+c]=camera->GetViewMatrix()(r,c);
-            if(playerAlpha.active){if(gStereo.chest)playerAlpha.Hide();else playerAlpha.Opaque();}
+            if(playerAlpha.active){if((gStereo.chest||gStereo.cooking)&&!gChestVisual.Ready())playerAlpha.Hide();else playerAlpha.Opaque();}
             gTrackedArms.PrepareEye();
             __try {diagnostic::arms::Mat handDelta[2];bool handReady[2]{};gTrackedArms.RenderHandDeltas(handDelta,handReady);gMagicHandEffects.Apply(handDelta,handReady);}
             __except(EXCEPTION_EXECUTE_HANDLER){gMagicHandEffects.Restore();gMagicHandLayoutReady=false;Message("vr_magic_hand_effect_pose_refused; native_effects_preserved",GetExceptionCode(),true);}
@@ -3518,6 +3545,7 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
             // Apply after palette/attachment preparation, for both eyes. Native
             // running/sheathing can push back equipment through the VR camera.
             // Leave drawn weapons and all third-person states visible.
+            if(menuStaff.Count())menuStaff.Hide();
             if(stowedWeapons.Count())stowedWeapons.Hide();
             // Rebuild the frustum for each eye, including when native temporal
             // culling would otherwise reuse the preceding eye's render list.
@@ -3810,7 +3838,7 @@ void UpdateQuestControllers()
     // unequipped interaction, ranged weapons and the radial keep their bindings.
     auto* combatPlayer=gApplication&&gApplication->IsGameRunning()?gCSession::GetInstance().GetPlayer():nullptr;
     bool activity=diagnostic::NativeActivity(combatPlayer);
-    bool orbitContext=allowed&&gVrSettings.thirdPersonOrbit&&!gStereo.dialog&&!gStereo.chest&&!gStereo.lectern&&!gStereo.firstPerson&&!animal&&gApplication&&gApplication->IsGameRunning()&&diagnostic::Readable(combatPlayer,sizeof(eCDynamicEntity))&&
+    bool orbitContext=allowed&&gVrSettings.thirdPersonOrbit&&!gStereo.dialog&&!gStereo.chest&&!gStereo.lectern&&!gStereo.cooking&&!gStereo.firstPerson&&!animal&&gApplication&&gApplication->IsGameRunning()&&diagnostic::Readable(combatPlayer,sizeof(eCDynamicEntity))&&
         (CameraThirdPersonActivity(combatPlayer)||diagnostic::NativeRecovery(combatPlayer));
     unsigned orbitMode=orbitContext?(diagnostic::NativeRecovery(combatPlayer)?2:3):0;
     static unsigned lastOrbitMode=0;if(orbitMode!=lastOrbitMode){lastOrbitMode=orbitMode;Event event=Record(Kind::Message);sprintf_s(event.text,"vr_third_person_orbit_context mode=%u; render_only; native_actor_facing_preserved",orbitMode);Push(event,true);}
@@ -4597,13 +4625,111 @@ bool SkipNativePickupPause(uintptr_t caller,diagnostic::PickupPause kind,void* a
         Message("vr_pickup_pause_skipped; native_inventory_transfer_preserved",kind==diagnostic::PickupPause::Wait?0:1,true);return true;
     }__except(EXCEPTION_EXECUTE_HANDLER){Message("vr_pickup_pause_guard_fault; native_pickup_preserved",GetExceptionCode(),true);return false;}
 }
+void AccelerateCookingTransition(void* args,gCScriptProcessingUnit* spu,GEBool fullStop,bool animation){
+    if(fullStop||!gVrSettings.firstPersonCooking||!gChestApproachHook.original)return;
+    __try {
+        if(GetCurrentThreadId()!=gApplicationThread.load()||!gHeadControl.enabled||!gConfig.stereoEnabled||
+           gStereo.shuttingDown||gStereo.fault||gWorldLifecycle.Blocked()||MenuPanelActive()||
+           !gApplication||!gApplication->IsGameRunning()||
+           !diagnostic::Readable(spu,sizeof(*spu))||
+           !diagnostic::Readable(args,animation?sizeof(gCScriptProcessingUnit::sAIPlayAniInstr_Args):sizeof(gCScriptProcessingUnit::sAIWaitInstr_Args)))return;
+        auto* player=gCSession::GetInstance().GetPlayer();
+        eCEntity* actor=nullptr;memcpy(&actor,args,sizeof(actor));
+        if(!player||actor!=player||spu->GetSelfEntity()!=player||diagnostic::NativeRecovery(player)||
+           !diagnostic::NativeCookingInteraction(player,gStereo.cooking))return;
+        // The native instruction must run to completion. Adjust its owned
+        // arguments once, without compounding speed on subsequent updates.
+        if(animation){
+            auto* instruction=static_cast<gCScriptProcessingUnit::sAIPlayAniInstr_Args*>(args);
+            if(std::isfinite(instruction->AniSpeedScale)&&instruction->AniSpeedScale>0&&instruction->AniSpeedScale<8.f){
+                instruction->AniSpeedScale=8.f;
+                Message("vr_cooking_transition_accelerated; animation_speed=8; native_completion",0,true);
+            }
+        }else{
+            auto* instruction=static_cast<gCScriptProcessingUnit::sAIWaitInstr_Args*>(args);
+            if(instruction->Duration>25){
+                instruction->Duration=25;
+                Message("vr_cooking_transition_accelerated; wait_ms=25; native_completion",0,true);
+            }
+        }
+    }__except(EXCEPTION_EXECUTE_HANDLER){Message("vr_cooking_transition_speed_refused",GetExceptionCode(),true);}
+}
 GEBool __stdcall FastPickupWait(void* args,gCScriptProcessingUnit* spu,GEBool fullStop){
+    AccelerateCookingTransition(args,spu,fullStop,false);
     if(SkipNativePickupPause(reinterpret_cast<uintptr_t>(_ReturnAddress()),diagnostic::PickupPause::Wait,args,spu,fullStop))return GETrue;
     return gPickup.Dispatch(diagnostic::PickupPause::Wait,args,spu,fullStop);
 }
 GEBool __stdcall FastPickupAnimation(void* args,gCScriptProcessingUnit* spu,GEBool fullStop){
+    AccelerateCookingTransition(args,spu,fullStop,true);
     if(SkipNativePickupPause(reinterpret_cast<uintptr_t>(_ReturnAddress()),diagnostic::PickupPause::Animation,args,spu,fullStop))return GETrue;
     return gPickup.Dispatch(diagnostic::PickupPause::Animation,args,spu,fullStop);
+}
+GEBool __stdcall ChestApproach(bTObjStack<gScriptRunTimeSingleState>& stack,gCScriptProcessingUnit* spu){
+    using Call=GEBool(__stdcall*)(bTObjStack<gScriptRunTimeSingleState>&,gCScriptProcessingUnit*);
+    bool skip=false;
+    __try {
+        if(GetCurrentThreadId()==gApplicationThread.load()&&
+           gHeadControl.enabled&&gConfig.stereoEnabled&&!gStereo.shuttingDown&&!gStereo.fault&&
+           !gWorldLifecycle.Blocked()&&gApplication&&gApplication->IsGameRunning()&&
+           diagnostic::Readable(spu,sizeof(*spu))&&stack.GetCount()>=2&&stack.GetCount()<64){
+            auto* args=static_cast<gSArgsFor__AI_Goto_Ext*>(stack.Peek().m_pArguments);
+            auto* player=gCSession::GetInstance().GetPlayer();
+            if(diagnostic::Readable(args,sizeof(*args))&&diagnostic::Readable(player,sizeof(eCDynamicEntity))){
+                auto* actor=static_cast<eCEntity*>(args->m_Entity);
+                auto* target=static_cast<eCEntity*>(args->m_Destination);
+                bool chest=false,cooking=false;
+                if(diagnostic::Readable(target,sizeof(eCDynamicEntity))){
+                    const int type=int(gCEntity::GetUseType(target));
+                    chest=gVrSettings.firstPersonChest&&type==gEUseType_Chest;
+                    cooking=gVrSettings.firstPersonCooking&&diagnostic::CookingTarget(type);
+                }
+                skip=diagnostic::SkipChestApproach(true,actor==player&&spu->GetSelfEntity()==player,chest||cooking,
+                    stack.GetAt(stack.GetCount()-2).m_strScriptName.GetText());
+                if(skip&&diagnostic::NativeRecovery(player))skip=false;
+                if(skip){
+                    Entity hero(player);
+                    // Action animations use this destination to find the chest.
+                    // Supply the native context without starting navigation.
+                    skip=hero.Navigation.SetCurrentDestinationPoint(args->m_Destination)!=GEFalse;
+                    if(skip)hero.Navigation.IsOnDestination=GETrue;
+                }
+            }
+        }
+    }__except(EXCEPTION_EXECUTE_HANDLER){skip=false;}
+    if(skip){
+        // RunScriptFunction removes the completed child frame and its arguments.
+        // The parent then continues with its native permission/loot state.
+        Message("vr_interaction_approach_skipped; chest_or_cooking; native_callbacks_preserved",0,true);
+        return GETrue;
+    }
+    return reinterpret_cast<Call>(gChestApproachHook.original)(stack,spu);
+}
+void __fastcall ChestScriptCameraMode(PSCamera* camera,void*,gECameraMode mode,GEBool first,GEBool second){
+    bool skip=false;
+    __try {
+        auto script=reinterpret_cast<uintptr_t>(GetModuleHandleW(L"Script_Game.dll"));
+        if(reinterpret_cast<uintptr_t>(_ReturnAddress())==script+0x6f2b2&&
+           GetCurrentThreadId()==gApplicationThread.load()&&gHeadControl.enabled&&gConfig.stereoEnabled&&
+           !gStereo.shuttingDown&&!gStereo.fault&&!gWorldLifecycle.Blocked()&&gApplication&&gApplication->IsGameRunning())
+            skip=FreeInteractionCamera(gCSession::GetInstance().GetPlayer());
+    }__except(EXCEPTION_EXECUTE_HANDLER){skip=false;}
+    if(skip){Message("vr_interaction_native_camera_switch_skipped; chest_or_cooking; state_preserved",0,true);return;}
+    using Call=void(__thiscall*)(PSCamera*,gECameraMode,GEBool,GEBool);
+    reinterpret_cast<Call>(gChestCameraHook.original)(camera,mode,first,second);
+}
+bool InstallChestApproach(){
+    auto game=GetModuleHandleW(L"Game.dll"),script=GetModuleHandleW(L"Script_Game.dll");
+    wchar_t path[MAX_PATH];unsigned char digest[32]{};
+    constexpr unsigned char gameHash[]={0x47,0x28,0xa4,0x7b,0x24,0x4a,0xdc,0xb0,0xea,0x2e,0xc3,0x50,0x1d,0xb0,0x49,0x94,0x90,0x9d,0xcf,0xcf,0xf3,0x38,0xc7,0xb8,0x07,0x5f,0x2b,0x68,0xdd,0x8d,0x6e,0x00};
+    constexpr unsigned char scriptHash[]={0x4d,0x29,0x18,0x92,0x81,0xec,0x26,0xea,0xc7,0xc7,0x04,0xfa,0x67,0xed,0x32,0x3d,0xf5,0xc0,0x90,0xd5,0x0b,0x06,0x86,0x26,0xcf,0x60,0x0a,0xec,0xf4,0x26,0x2a,0x24};
+    if(!game||!script||!GetModuleFileNameW(game,path,MAX_PATH)||!diagnostic::FileSha256(path,digest)||memcmp(digest,gameHash,32)||
+       !GetModuleFileNameW(script,path,MAX_PATH)||!diagnostic::FileSha256(path,digest)||memcmp(digest,scriptHash,32))return false;
+    auto* slot=reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(script)+0xe49d4);
+    auto expected=GetProcAddress(GetModuleHandleW(L"Script.dll"),"?SetMode@PSCamera@@QAEXW4gECameraMode@@_N1@Z");
+    if(!expected||!diagnostic::Readable(slot,sizeof(void*))||*slot!=expected||
+       !gChestCameraHook.Prepare(slot,0,reinterpret_cast<void*>(&ChestScriptCameraMode))||!gChestCameraHook.Install())return false;
+    return gChestApproachHook.Install(reinterpret_cast<unsigned char*>(script)+0x42220,reinterpret_cast<void*>(&ChestApproach),
+        diagnostic::FocusHook::FindPrefix,sizeof(diagnostic::FocusHook::FindPrefix));
 }
 void Initialize()
 {
@@ -4658,6 +4784,7 @@ void Initialize()
         if(gPickup.Install(reinterpret_cast<void*>(&FastPickupWait),reinterpret_cast<void*>(&FastPickupAnimation)))
             Message("vr_fast_pickup_installed; hero_only; skip_take_wait_and_animation; native_inventory_and_rules",0,true);
         else Message("vr_fast_pickup_profile_refused; native_pickup_preserved",0,true);
+        Message(InstallChestApproach()?"vr_interaction_free_hands_ready; player_chest_and_cooking":"vr_interaction_free_hands_unavailable",0,true);
         if(!InstallMovieHook())Message("vr_movie_PlayVideo_profile_refused; native_movies_preserved",0,true);
         if(InstallStereoHook()&&gConfig.stereoEnabled&&gConfig.headControlAllowed&&gConfig.trackingEnabled&&gVrSettings.autoStart){
             gHeadControl.enabled=true;gHeadControl.recenterPending=true;

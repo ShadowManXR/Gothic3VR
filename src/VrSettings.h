@@ -126,7 +126,7 @@ struct VrSettings {
     bool autoStart=true, hideHead=true, keepFirstPerson=true, controllers=true, stableHorizon=true, smoothCamera=true, trackedArms=true, stableBody=true, roomScaleWalking=true;
     bool bowReticle=false,magicReticle=true,instantControllerTurn=true;
     bool handHudEnabled=true;
-    bool fastPickup=true,firstPersonDialogue=true,firstPersonChest=true,firstPersonLectern=true;
+    bool fastPickup=true,firstPersonDialogue=true,firstPersonChest=true,firstPersonLectern=true,firstPersonCooking=true;
     bool hideCompass=true,showSlotBar=false,showVitalsPanel=false,showTargetHealthBar=true;
     bool thirdPersonOrbit=true,physicalCrouching=true;
     bool handsOnly=false;
@@ -188,6 +188,7 @@ inline VrSettings LoadVrSettings(wchar_t const* path) {
     s.firstPersonDialogue=GetPrivateProfileIntW(L"Stereo",L"FirstPersonDialogue",1,path)!=0;
     s.firstPersonChest=GetPrivateProfileIntW(L"Stereo",L"FirstPersonChest",1,path)!=0;
     s.firstPersonLectern=GetPrivateProfileIntW(L"Stereo",L"FirstPersonLectern",1,path)!=0;
+    s.firstPersonCooking=GetPrivateProfileIntW(L"Stereo",L"FirstPersonCooking",1,path)!=0;
     s.showVitalsPanel=GetPrivateProfileIntW(L"Stereo",L"ShowVitalsPanel",0,path)!=0;
     s.showTargetHealthBar=GetPrivateProfileIntW(L"Stereo",L"ShowTargetHealthBar",1,path)!=0;
     s.twoHandedMelee=GetPrivateProfileIntW(L"Stereo",L"TwoHandedMelee",1,path)!=0;
@@ -251,7 +252,7 @@ inline bool SaveVrSettings(wchar_t const* path,VrSettings const& s) {
         write(L"MagicReticle",s.magicReticle);
         write(L"HideCompass",s.hideCompass);write(L"ShowSlotBar",s.showSlotBar);write(L"ShowVitalsPanel",s.showVitalsPanel);
         write(L"ShowTargetHealthBar",s.showTargetHealthBar);write(L"HandHudEnabled",s.handHudEnabled);
-        write(L"FastPickup",s.fastPickup);write(L"FirstPersonDialogue",s.firstPersonDialogue);write(L"FirstPersonChest",s.firstPersonChest);write(L"FirstPersonLectern",s.firstPersonLectern);
+        write(L"FastPickup",s.fastPickup);write(L"FirstPersonDialogue",s.firstPersonDialogue);write(L"FirstPersonChest",s.firstPersonChest);write(L"FirstPersonLectern",s.firstPersonLectern);write(L"FirstPersonCooking",s.firstPersonCooking);
         write(L"TwoHandedMelee",s.twoHandedMelee);write(L"HeavyTwoHand",s.heavyTwoHand);
         write(L"SmoothCamera",s.smoothCamera);
         write(L"CameraSmoothingMs",std::clamp(s.cameraSmoothingMs,0,250));

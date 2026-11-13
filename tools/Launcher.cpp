@@ -37,7 +37,7 @@ HWND aaLabel,aaCombo;
 HWND effectsLabel,effectsCombo;
 HWND runtimeLabel,runtimeCombo;
 HWND handsOnlyCheck,toggleSupportCheck,compassCheck,slotBarCheck,vitalsPanelCheck,targetHealthBarCheck,handHudCheck;
-HWND fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck,thirdPersonHint;
+HWND fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,cookingViewCheck,thirdPersonOrbitCheck,thirdPersonHint;
 HWND unionLabel,unionPath,unionBrowse,unionOpen,unionCheck,unionHint,unionNotes;
 HWND unionShortcut;
 HWND iniLabels[diagnostic::ini_tweaks::Count]{},iniTracks[diagnostic::ini_tweaks::Count]{},iniValues[diagnostic::ini_tweaks::Count]{},iniUnits[diagnostic::ini_tweaks::Count]{};
@@ -61,7 +61,7 @@ constexpr int UnionNotes=48;
 constexpr int EffectsQuality=49;
 constexpr int FfrTransitionTrack=55,FfrTransitionEdit=56;
 constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61,HandHud=62,ShowTargetHealthBar=63;
-constexpr int FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68,MagicReticle=69;
+constexpr int FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68,MagicReticle=69,CookingView=70;
 int Scale(int n){return MulDiv(n,int(dpi),96);}
 int NumberPage(unsigned i){
     if(i==diagnostic::FirstPersonNearClipIndex)return CameraPage;
@@ -139,6 +139,7 @@ void Fill() {
     SendMessageW(dialogueViewCheck,BM_SETCHECK,settings.firstPersonDialogue?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(chestViewCheck,BM_SETCHECK,settings.firstPersonChest?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(lecternViewCheck,BM_SETCHECK,settings.firstPersonLectern?BST_CHECKED:BST_UNCHECKED,0);
+    SendMessageW(cookingViewCheck,BM_SETCHECK,settings.firstPersonCooking?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(thirdPersonOrbitCheck,BM_SETCHECK,settings.thirdPersonOrbit?BST_CHECKED:BST_UNCHECKED,0);
     SendMessageW(compassCheck,BM_SETCHECK,settings.hideCompass?BST_UNCHECKED:BST_CHECKED,0);
     SendMessageW(slotBarCheck,BM_SETCHECK,settings.showSlotBar?BST_CHECKED:BST_UNCHECKED,0);
@@ -190,6 +191,7 @@ bool Collect() {
     settings.firstPersonDialogue=SendMessageW(dialogueViewCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.firstPersonChest=SendMessageW(chestViewCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.firstPersonLectern=SendMessageW(lecternViewCheck,BM_GETCHECK,0,0)==BST_CHECKED;
+    settings.firstPersonCooking=SendMessageW(cookingViewCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.thirdPersonOrbit=SendMessageW(thirdPersonOrbitCheck,BM_GETCHECK,0,0)==BST_CHECKED;
     settings.hideCompass=SendMessageW(compassCheck,BM_GETCHECK,0,0)!=BST_CHECKED;
     settings.showSlotBar=SendMessageW(slotBarCheck,BM_GETCHECK,0,0)==BST_CHECKED;
@@ -310,6 +312,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         dialogueViewCheck=Control(L"BUTTON",L"Keep first-person view during dialogue",WS_TABSTOP|BS_AUTOCHECKBOX,DialogueView);
         chestViewCheck=Control(L"BUTTON",L"Keep first-person view and suppress chest animation",WS_TABSTOP|BS_AUTOCHECKBOX,ChestView);
         lecternViewCheck=Control(L"BUTTON",L"Keep first-person view when reading at lecterns",WS_TABSTOP|BS_AUTOCHECKBOX,LecternView);
+        cookingViewCheck=Control(L"BUTTON",L"First-person cooking",WS_TABSTOP|BS_AUTOCHECKBOX,CookingView);
         thirdPersonOrbitCheck=Control(L"BUTTON",L"Allow camera orbit in third-person view",WS_TABSTOP|BS_AUTOCHECKBOX,ThirdPersonOrbit);
         thirdPersonHint=Control(L"STATIC",L"Enabled view options retain the VR viewpoint. Turn one off to restore the native interaction camera.\nThe chest option also suppresses the displayed hero animation and back-mounted weapons. Turn it off to restore both.\nCamera orbit applies to native third-person activities.\nSave settings applies these choices live.",0);
         compassCheck=Control(L"BUTTON",L"Show compass",WS_TABSTOP|BS_AUTOCHECKBOX,ShowCompass);
@@ -381,7 +384,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         case AntiAliasing:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Anti-aliasing applies after restarting the game. HUD and menus remain unfiltered.");}break;
         case EffectsQuality:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Fire & magic effect quality applies live with Save settings. Original restores native visuals.");}break;
         case RuntimeChoice:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){dirty=true;Message(L"Runtime changes apply after restarting the game. The Windows default runtime is unchanged.");}break;
-        case FastPickup:case DialogueView:case ChestView:case LecternView:case ThirdPersonOrbit:case HandHud:case ShowCompass:case ShowSlotBar:case ShowVitalsPanel:case ShowTargetHealthBar:case BowReticle:case MagicReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
+        case FastPickup:case DialogueView:case ChestView:case LecternView:case CookingView:case ThirdPersonOrbit:case HandHud:case ShowCompass:case ShowSlotBar:case ShowVitalsPanel:case ShowTargetHealthBar:case BowReticle:case MagicReticle:case TwoHand:case Heavy:case HandsOnly:case ToggleSupport:dirty=true;break;}return 0;
     case WM_CTLCOLOREDIT:case WM_CTLCOLORLISTBOX:SetBkColor(HDC(w),Field);SetTextColor(HDC(w),Ink);return reinterpret_cast<LRESULT>(editBrush);
     case WM_CTLCOLORSTATIC:case WM_CTLCOLORBTN:{
         wchar_t cls[64];GetClassNameW(HWND(l),cls,64);bool edit=!wcscmp(cls,L"Edit");SetBkMode(HDC(w),edit?OPAQUE:TRANSPARENT);SetBkColor(HDC(w),edit?Field:Card);SetTextColor(HDC(w),HWND(l)==subtitle||HWND(l)==status||HWND(l)==hint?Muted:Ink);
@@ -452,12 +455,12 @@ bool UiInteractionCheck(wchar_t const* path){
         if(check==toggleSupportCheck){ok=Collect()&&ok;ok=ok&&settings.toggleSupportGrip==(before!=BST_CHECKED);}
         SendMessageW(check,BM_CLICK,0,0);ok=ok&&SendMessageW(check,BM_GETCHECK,0,0)==before;
     }
-    for(auto control:{fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck}){
+    for(auto control:{fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,cookingViewCheck,thirdPersonOrbitCheck}){
         TabCtrl_SetCurSel(settingsTabs,control==fastPickupCheck?InteractionPage:ThirdPersonPage);Layout();
         bool original=SendMessageW(control,BM_GETCHECK,0,0)==BST_CHECKED;
         for(unsigned click=0;click<2;++click){SendMessageW(control,BM_CLICK,0,0);ok=Collect()&&ok;
             bool value=control==fastPickupCheck?settings.fastPickup:control==dialogueViewCheck?settings.firstPersonDialogue:
-                control==chestViewCheck?settings.firstPersonChest:control==lecternViewCheck?settings.firstPersonLectern:settings.thirdPersonOrbit;
+                control==chestViewCheck?settings.firstPersonChest:control==lecternViewCheck?settings.firstPersonLectern:control==cookingViewCheck?settings.firstPersonCooking:settings.thirdPersonOrbit;
             ok=ok&&value==(click?original:!original);
         }
     }
@@ -529,7 +532,7 @@ bool UiInteractionCheck(wchar_t const* path){
         ok=ok&&(IsWindowVisible(fastPickupCheck)!=FALSE)==(page==InteractionPage);
         for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)
             ok=ok&&(IsWindowVisible(iniValues[i])!=FALSE)==(page==(diagnostic::ini_tweaks::GameIniField(i)?GameIniPage:IniTweaksPage));
-        for(auto control:{dialogueViewCheck,chestViewCheck,lecternViewCheck,thirdPersonOrbitCheck})
+        for(auto control:{dialogueViewCheck,chestViewCheck,lecternViewCheck,cookingViewCheck,thirdPersonOrbitCheck})
             ok=ok&&(IsWindowVisible(control)!=FALSE)==(page==ThirdPersonPage);
         ok=ok&&PageNames[page]&&*PageNames[page]&&PageDescriptions[page]&&*PageDescriptions[page];
         ok=ok&&(IsWindowVisible(handsOnlyCheck)!=FALSE)==(page==CameraPage);
