@@ -6,6 +6,7 @@
 #include "TrackedPalette.h"
 #include "RangedRenderRecovery.h"
 #include "NativeRangedVisual.h"
+#include "NativeAttachedParticles.h"
 namespace diagnostic {
 // Animated bows cache a world-space skinning palette by frame ID. Moving the
 // entity after that cache was populated never moves the rendered bow. Supply
@@ -116,7 +117,9 @@ public:
                 items[i].desired=model.valid?bow::AnchoredMesh(sample.leftAim,model.grip,sample.crossbow):bow::MeshPose(sample.leftAim,sample.crossbow);
                 if(model.valid){motionTime=model.TimeForDraw(sample.crossbow?model.maximumDraw:bow::VisibleDraw(chargeFraction,model.maximumDraw));arms::Vec local,shaftDirection;if(model.ArrowAt(motionTime,local,shaftDirection)){
                     auto offset=model.nock-model.grip;nockLocal=sample.crossbow?arms::Vector(bow::MeshPose(arms::Mat{},true),offset):arms::Vec{offset.y,offset.z,offset.x};auto nock=arms::Point(items[i].desired,local);nockWorld=nock;
-                    float tail=Readable(arrow,sizeof(eCEntity))?arrow->GetLocalNodeBoundary().m_Min.m_fZ:0;
+                    float tail=0;
+                    if(Readable(arrow,sizeof(eCEntity))&&gCEntity::GetUseType(arrow)==(sample.crossbow?gEUseType_Bolt:gEUseType_Arrow))
+                        tail=ranged::AmmoTail(arrow,sample.crossbow?0.f:bow::DefaultArrowTail);
                     shaftDirection=arms::Vector(items[i].desired,shaftDirection);
                     arrowPose=bow::NockedArrow(nock,shaftDirection,arms::Vector(sample.leftAim,{0,1,0}),tail);geometry=arms::Affine(arrowPose);
                 }}
@@ -127,6 +130,11 @@ public:
         if(probes::Enabled&&GetTickCount64()>=nextLog)nextLog=GetTickCount64()+1000;
     }
     bool Geometry(arms::Vec& rest,arms::Mat& arrow,arms::Vec& drawn)const{if(!geometry)return false;rest=nockLocal;arrow=arrowPose;drawn=nockWorld;return true;}
+    bool CaptureAmmoParticles(visual::ParticleAttachmentFrame& frame)const{
+        auto const& ammo=items[1];
+        if(!active||fault||!Valid(ammo)||!arms::Affine(ammo.desired))return true;
+        return visual::CollectHeldParticles(visual::AttachedParticleAccess{},ammo.entity,frame,true);
+    }
     bool SupportGeometry(arms::Mat& mesh,arms::Vec& contact)const{if(!model.valid||!modelCrossbow||!items[0].factory)return false;mesh=items[0].desired;contact=model.foregrip;return true;}
     bool CrossbowFrame()const{return active&&modelCrossbow;}
     bool Matches(eCVisualAnimationFactory const* factory)const{return active&&!fault&&((items[0].factory&&items[0].factory==factory)||(items[1].factory&&items[1].factory==factory));}

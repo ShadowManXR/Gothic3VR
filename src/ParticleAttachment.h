@@ -38,12 +38,14 @@ public:
 };
 // Only actual equipped item trees qualify. Never search the hero, ROI or world.
 inline bool HeldParticleRoot(int type,bool flameSword){return type==24||type==15||type==12||type==51||(type==2&&flameSword);}
-template<class Access> bool CollectHeldParticles(Access const& access,typename Access::Entity* root,ParticleAttachmentFrame& frame){
+template<class Access> bool CollectHeldParticles(Access const& access,typename Access::Entity* root,ParticleAttachmentFrame& frame,bool nockedAmmo=false){
     if(!access.Valid(root))return false;
     auto native=access.World(root);if(!arms::Affine(native))return false;
     typename Access::Entity* nodes[64]{root};unsigned count=1;
     for(unsigned i=0;i<count;++i){auto* node=nodes[i];if(!access.Valid(node))return false;
-        if(access.Projectile(node))continue; // Detached/flying spell and ammunition retain native world space.
+        // The ranged renderer may supply the verified, non-flying ammo in
+        // the player's hand. Never descend into another projectile.
+        if(access.Projectile(node)&&!(i==0&&nockedAmmo))continue;
         auto particle=access.PrivateParticle(node);
         if(particle&&!frame.Add(particle,native,reinterpret_cast<uintptr_t>(root)))return false;
         int n=access.Children(node);if(n<0||n>64)return false;

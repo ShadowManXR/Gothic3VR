@@ -84,6 +84,16 @@ inline Vec GripContactOffset(int const* offsets,float units,unsigned hand=0){
 inline Mat ResolvedBowGrip(Mat const& pose,Mat const& calibration,Vec wrist,Vec palmLocal,int const* offsets,float units,unsigned hand=0){
     Mat out=ResolvedPalm(pose,calibration,wrist,palmLocal);arms::Position(out,arms::Position(out)+arms::Vector(pose,GripContactOffset(offsets,units,hand)));return out;
 }
+// Standard and elemental arrow meshes share this nock position.
+inline constexpr float DefaultArrowTail=-94.02172f;
+inline float AmmoTail(float meshMinZ,float meshMaxZ,float entityMinZ,float entityMaxZ,float fallback){
+    if(std::isfinite(meshMinZ)&&std::isfinite(meshMaxZ)&&meshMinZ<meshMaxZ)return meshMinZ;
+    // Combined bounds can include a light or an effect. Use them only
+    // when they fit within a plausible ammo model (game units are centimeters).
+    if(entityMinZ>=-200.f&&entityMinZ<entityMaxZ&&entityMaxZ<=200.f&&entityMaxZ-entityMinZ<=200.f)
+        return entityMinZ;
+    return fallback;
+}
 inline Mat NockedArrow(Vec nock,Vec direction,Vec up,float tail){Mat pose=ArrowPose(nock,direction,up);arms::Position(pose,nock-arms::Vector(pose,{0,0,tail}));return pose;}
 // Terminal finger bones mark the last knuckle. Continue its native bind axis
 // through the distal phalanx, then let the current finger rotation pose it.

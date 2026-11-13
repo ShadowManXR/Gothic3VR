@@ -17,6 +17,7 @@ class NativeBow {
     void (__cdecl* logger)(char const*)=nullptr;
     using ShootScript=GEInt(GE_STDCALL*)(gCScriptProcessingUnit*,GELPVoid,GELPVoid,GEInt);
     ShootScript shoot=nullptr;DWORD pendingThread=0;eCEntity* pendingPlayer=nullptr;bow::Shot pending;gEUseType pendingAmmo=gEUseType_Arrow;
+    float pendingTail=0;
     ranged::NockLease nock;gEUseType ammoType=gEUseType_Arrow;
     char const* operation="idle";
     void (__cdecl* timing)(performance::NativePhase,uint64_t)=nullptr;
@@ -60,6 +61,9 @@ class NativeBow {
             [&](uintptr_t item){return Ammo(reinterpret_cast<eCEntity*>(item),ammoType);}))return false;
         Entity hero(player),other;int index=inventory->FindStackIndex(gESlot_RightHand),before=hero.Inventory.GetItemAmount(ammoType);
         if(index<0||hero.Inventory.GetAmount(index)<=0)return false;
+        // The new projectile can be created before its visual resource is ready.
+        // Copy the tail offset from the held item before Shoot consumes it.
+        pendingTail=ranged::AmmoTail(reinterpret_cast<eCEntity*>(nock.item),ammoType==gEUseType_Arrow?bow::DefaultArrowTail:0.f);
         pendingPlayer=player;pendingThread=GetCurrentThreadId();pending=shot;pendingAmmo=ammoType;launched=0;
         // Verified native Shoot spawns the actual right-held ammo template,
         // assigns owner and weapon/ammo damage, consumes one and restores ammo.
@@ -181,7 +185,8 @@ public:
         auto* interaction=static_cast<gCInteraction_PS*>(arrow->GetPropertySet(eEPropertySetType_Interaction));
         if(!Readable(interaction,sizeof(*interaction))||interaction->GetOwner().GetEntity()!=pendingPlayer)return false;
         if(launched)return false;auto up=arms::Vec{0,1,0};if(std::fabs(arms::Dot(pending.direction,up))>.98f)up={1,0,0};
-        auto pose=bow::NockedArrow(pending.origin,pending.direction,up,arrow->GetLocalNodeBoundary().m_Min.m_fZ);bCMatrix native;memcpy(&native,&pose,sizeof(native));arrow->SetToWorldMatrix(native);
+        auto pose=bow::NockedArrow(pending.origin,pending.direction,up,pendingTail);
+        bCMatrix native;memcpy(&native,&pose,sizeof(native));arrow->SetToWorldMatrix(native);
         projectile->AccessTargetEntity().SetEntity(static_cast<eCEntity const*>(nullptr));projectile->SetTargetDirection(bCVector(pending.direction.x,pending.direction.y,pending.direction.z));
         projectile->SetPathStyle(bTPropertyContainer<gEProjectilePath>(gEProjectilePath_Physics));
         // A zero/stale native bow charge is precisely the first-shot bug. Only

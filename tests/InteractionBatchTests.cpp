@@ -88,6 +88,12 @@ int main(){
     CHECK(arms::Length(arms::Point(delta,arms::Point(held.world,{2,3,4}))-arms::Point(desired,{2,3,4}))<.001f);
     // Both eyes use the same captured native root; no accumulating displacement.
     for(unsigned eye=0;eye<2;++eye){CHECK(draw.Begin(delta)&&draw.Rewrite(identity,out));CHECK(!draw.Rewrite(identity,out));draw.End();}
+    particles.Reset();
+    CHECK(visual::CollectHeldParticles(ParticleTree{},&projectile,particles,true));
+    CHECK(particles.Contains(202)&&particles.Contains(203)&&!particles.Contains(201));
+    CHECK(particles.Anchor(203)==reinterpret_cast<uintptr_t>(&projectile));
+    CHECK(particles.Delta(203,desired,delta));
+    CHECK(arms::Length(arms::Point(delta,arms::Position(projectile.world))-arms::Position(desired))<.001f);
     particles.Reset();attached.children={&held};CHECK(!visual::CollectHeldParticles(ParticleTree{},&held,particles));attached.children.clear();
     particles.Reset();attached.parent=&unrelated;CHECK(!visual::CollectHeldParticles(ParticleTree{},&held,particles));attached.parent=&held;
     for(int type:{12,15,24,51})CHECK(visual::HeldParticleRoot(type,false));

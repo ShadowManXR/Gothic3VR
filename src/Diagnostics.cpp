@@ -3484,6 +3484,9 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
             }
         }}__except(EXCEPTION_EXECUTE_HANDLER){gMagicHandEffects.Reset();gTorchParticles.Reset();gMagicHandLayoutReady=false;Message("vr_magic_hand_effect_capture_fault; native_effects_preserved",GetExceptionCode(),true);}
         __try {
+            if(gTorchHooksReady&&!gTrackedBow.CaptureAmmoParticles(gTorchParticles))gTorchParticles.Reset();
+        }__except(EXCEPTION_EXECUTE_HANDLER){gTorchParticles.Reset();Message("vr_ammo_particle_capture_fault",GetExceptionCode(),true);}
+        __try {
             const bool aimingMagic=gMagic.aim.sample.valid;
             const bool showReticle=aimingMagic?gVrSettings.magicReticle:gVrSettings.bowReticle;
             gBowReticle.Prepare(aimingMagic?gMagic.aim.sample:gTrackedArms.BowSample(),showReticle&&gBow.ready&&!gBow.fault&&!gRadialOpen&&!MenuPanelActive());

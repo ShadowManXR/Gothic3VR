@@ -17,6 +17,18 @@ bow::Shot Pull(bow::Draw& draw,uint64_t& time,float total){
 }
 int main(){
     {
+        // The fire arrow's point light expands the entity bounds to ±500 cm.
+        // Its actual shaft spans about 94 cm and must start at the string.
+        const float tail=-94.02172f;
+        CHECK(bow::AmmoTail(tail,-.518f,-500.f,500.f,0.f)==tail);
+        CHECK(bow::AmmoTail(0.f,0.f,-500.f,500.f,bow::DefaultArrowTail)==tail);
+        CHECK(bow::AmmoTail(0.f,0.f,-42.f,1.f,0.f)==-42.f);
+        const arms::Vec nock{40,160,70},direction{1,0,0};
+        const auto pose=bow::NockedArrow(nock,direction,{0,1,0},
+            bow::AmmoTail(tail,-.518f,-500.f,500.f,0.f));
+        CHECK(arms::Length(arms::Point(pose,{0,0,tail})-nock)<.001f);
+    }
+    {
         auto sample=Pose(1000,.7f,true);sample.nativeNock=true;
         arms::Vec contact,thumbEnd,indexEnd;float angles[3]{.2f,-.3f,.4f};auto calibration=arms::Rotation(NativeCameraRotation(angles));
         arms::Mat middle,tip;arms::Position(middle,{0,-2,0});arms::Position(tip,{0,-4,0});

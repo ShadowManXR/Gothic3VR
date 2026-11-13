@@ -1,7 +1,17 @@
 #pragma once
 #include <g3sdk/Script.h>
+#include "PhysicalBow.h"
 #include "RangedVisualScope.h"
 namespace diagnostic { namespace ranged {
+inline float AmmoTail(eCEntity* item,float fallback){
+    bCBox meshBounds;
+    meshBounds.Invalidate();
+    auto* mesh=item->GetPropertySet(eEPropertySetType_MeshVisual);
+    if(Readable(mesh,sizeof(*mesh)))mesh->GetBoundary(meshBounds,GEFalse);
+    auto const& entityBounds=item->GetLocalNodeBoundary();
+    return bow::AmmoTail(meshBounds.m_Min.m_fZ,meshBounds.m_Max.m_fZ,
+        entityBounds.m_Min.m_fZ,entityBounds.m_Max.m_fZ,fallback);
+}
 struct EntityVisualAccess {
     using Entity=eCEntity;
     bool Valid(Entity* item)const{return Readable(item,sizeof(Entity));}
