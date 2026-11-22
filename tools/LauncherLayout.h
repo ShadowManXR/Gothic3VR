@@ -30,6 +30,7 @@ void Layout(){
  for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)for(HWND control:{iniLabels[i],iniTracks[i],iniValues[i],iniUnits[i]})if(control)ShowWindow(control,SW_HIDE);
  for(HWND control:{gameIniHint,iniHint,iniHintRight,iniReload,iniBackups})if(control)ShowWindow(control,SW_HIDE);
  for(int i=0;i<2;++i)for(HWND control:{graphicsLabels[i],graphicsTracks[i],graphicsEdits[i],graphicsUnits[i]})ShowWindow(control,SW_HIDE);
+ for(HWND control:{mirrorLabel,mirrorWidthEdit,mirrorHeightEdit,mirrorSeparator,mirrorHint})ShowWindow(control,SW_HIDE);
  for(HWND control:{mappingLeftHanded,mappingJump,mappingLive,mappingActionLabel,mappingAction,mappingModeLabel,mappingMode,mappingButtonLabel,mappingButton,mappingModifierLabel,mappingModifier,mappingListen,mappingClear,mappingDefaults,mappingStatus,mappingHint})if(control)ShowWindow(control,SW_HIDE);
  auto show=[](HWND control,int a,int b,int c,int d){Position(control,a,b,c,d);ShowWindow(control,SW_SHOW);};
  auto field=[&](unsigned i,int fx,int fy,int width){
@@ -105,7 +106,11 @@ void Layout(){
   int aaY=fy+(compact?213:258),effectsY=fy+(compact?258:311);
   show(graphicsPreview,fx,fy+(compact?173:210),fw,28);show(aaLabel,fx,aaY,180,24);show(aaCombo,fx+185,aaY-4,fw-185,180);
   show(effectsLabel,fx,effectsY,180,24);show(effectsCombo,fx+185,effectsY-4,fw-185,180);
-  show(graphicsHint,fx,fy+(compact?302:357),fw,40);
+  int mirrorY=fy+(compact?300:355);
+  show(mirrorLabel,fx,mirrorY,180,24);show(mirrorWidthEdit,fx+185,mirrorY-2,64,27);
+  show(mirrorSeparator,fx+251,mirrorY,22,24);show(mirrorHeightEdit,fx+275,mirrorY-2,64,27);
+  show(mirrorHint,fx,mirrorY+28,fw,24);
+  if(mirrorY+96<=bottom)show(graphicsHint,fx,mirrorY+54,fw,42);
  }else if(page==FoveatedPage){
   show(ffrLabel,fx,fy,180,24);show(ffrCombo,fx+185,fy-4,fw-185,180);show(ffrCenterLabel,fx,fy+72,fw-110,24);show(ffrTrack,fx,fy+99,fw,25);show(ffrEdit,fx+fw-99,fy+70,58,27);show(ffrUnit,fx+fw-35,fy+72,40,24);show(ffrTransitionLabel,fx,fy+148,fw-110,24);show(ffrTransitionTrack,fx,fy+175,fw-110,25);show(ffrTransitionEdit,fx+fw-99,fy+146,58,27);show(ffrTransitionUnit,fx+fw-35,fy+148,40,24);show(ffrHint,fx,fy+220,fw,compact?151:190);
  }else if(page==IniTweaksPage){

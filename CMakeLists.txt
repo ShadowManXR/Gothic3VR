@@ -346,7 +346,7 @@ foreach(optional_target IN ITEMS Gothic3VRNativeMotion Gothic3VRNativeSky)
   endif()
 endforeach()
 target_include_directories(Script_Gothic3VRDiagnostics PRIVATE third_party/openxr/include)
-target_link_libraries(Script_Gothic3VRDiagnostics PRIVATE g3sdk::SDK version bcrypt advapi32 shell32)
+target_link_libraries(Script_Gothic3VRDiagnostics PRIVATE g3sdk::SDK version bcrypt advapi32 shell32 comctl32)
 target_gothic_script_options(Script_Gothic3VRDiagnostics)
 target_compile_definitions(Script_Gothic3VRDiagnostics PRIVATE WIN32_LEAN_AND_MEAN
   G3DIAG_VERSION="${PROJECT_VERSION}")

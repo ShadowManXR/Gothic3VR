@@ -35,6 +35,7 @@ HWND ffrTransitionLabel,ffrTransitionTrack,ffrTransitionEdit,ffrTransitionUnit;
 HWND graphicsLabel,graphicsCombo,graphicsPreview,graphicsHint,graphicsLabels[2],graphicsTracks[2],graphicsEdits[2],graphicsUnits[2];
 HWND aaLabel,aaCombo;
 HWND effectsLabel,effectsCombo;
+HWND mirrorLabel,mirrorWidthEdit,mirrorHeightEdit,mirrorSeparator,mirrorHint;
 HWND runtimeLabel,runtimeCombo;
 HWND handsOnlyCheck,toggleSupportCheck,compassCheck,slotBarCheck,vitalsPanelCheck,targetHealthBarCheck,handHudCheck;
 HWND fastPickupCheck,dialogueViewCheck,chestViewCheck,lecternViewCheck,cookingViewCheck,thirdPersonOrbitCheck,thirdPersonHint;
@@ -59,6 +60,7 @@ constexpr int AntiAliasing=46;
 constexpr int RuntimeChoice=47;
 constexpr int UnionNotes=48;
 constexpr int EffectsQuality=49;
+constexpr int MirrorWidthEdit=50,MirrorHeightEdit=51;
 constexpr int FfrTransitionTrack=55,FfrTransitionEdit=56;
 constexpr int HandsOnly=57,ToggleSupport=58,ShowCompass=59,ShowSlotBar=60,ShowVitalsPanel=61,HandHud=62,ShowTargetHealthBar=63;
 constexpr int FastPickup=64,DialogueView=65,ChestView=66,LecternView=67,ThirdPersonOrbit=68,MagicReticle=69,CookingView=70;
@@ -126,6 +128,8 @@ void Fill() {
     settings.dlaaExperimental=false; // Retired experiment: never re-enable from an old configuration.
     SendMessageW(aaCombo,CB_SETCURSEL,settings.smaaEnabled?2+diagnostic::ValidSmaaQuality(settings.smaaQuality):settings.fxaaEnabled?1:0,0);
     SendMessageW(effectsCombo,CB_SETCURSEL,diagnostic::particles::Quality(settings.particleQuality),0);
+    SetDlgItemInt(window,MirrorWidthEdit,settings.mirrorWidth,FALSE);
+    SetDlgItemInt(window,MirrorHeightEdit,settings.mirrorHeight,FALSE);
     SendMessageW(runtimeCombo,CB_SETCURSEL,int(settings.openXrRuntime),0);
     for(int i=0;i<2;++i){SendMessageW(graphicsTracks[i],TBM_SETRANGE,FALSE,MAKELPARAM(i?0:50,100));SendMessageW(graphicsTracks[i],TBM_SETPAGESIZE,0,5);SendMessageW(graphicsTracks[i],TBM_SETLINESIZE,0,5);
         int value=i?settings.upscaleSharpness:settings.upscaleScalePercent;SendMessageW(graphicsTracks[i],TBM_SETPOS,TRUE,value);SetDlgItemInt(window,GraphicsEdit+i,value,FALSE);}
@@ -163,6 +167,14 @@ void Fill() {
     SendMessageW(resolutionCombo,CB_SETCURSEL,diagnostic::ResolutionIndex(settings.renderWidth,settings.renderHeight),0);GraphicsPreview();
 }
 bool Collect() {
+    BOOL widthValid=FALSE,heightValid=FALSE;
+    const auto mirrorWidth=GetDlgItemInt(window,MirrorWidthEdit,&widthValid,FALSE);
+    const auto mirrorHeight=GetDlgItemInt(window,MirrorHeightEdit,&heightValid,FALSE);
+    if(!widthValid||!heightValid||!diagnostic::ValidMirrorSize(int(mirrorWidth),int(mirrorHeight))){
+        Message(L"Mirror window resolution: enter 0 in both fields for Auto, or 320 to 8192 pixels in each field.",true);
+        TabCtrl_SetCurSel(settingsTabs,GraphicsPage);Layout();SetFocus(widthValid&&!heightValid?mirrorHeightEdit:mirrorWidthEdit);return false;
+    }
+    settings.mirrorWidth=int(mirrorWidth);settings.mirrorHeight=int(mirrorHeight);
     diagnostic::ApplyLauncherFixedFeatures(settings);
     wchar_t ffrText[64];GetWindowTextW(ffrEdit,ffrText,64);wchar_t* ffrEnd=nullptr;long ffrValue=wcstol(ffrText,&ffrEnd,10);
     if(ffrEnd==ffrText||*ffrEnd||ffrValue<40||ffrValue>95){Message(L"Full-detail diameter: enter 40 to 95 %.",true);TabCtrl_SetCurSel(settingsTabs,FoveatedPage);Layout();SetFocus(ffrEdit);return false;}
@@ -293,6 +305,12 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         aaLabel=Control(L"STATIC",L"Anti-aliasing",0);aaCombo=Control(L"COMBOBOX",L"",WS_TABSTOP|CBS_DROPDOWNLIST,AntiAliasing);
         for(auto text:{L"Off",L"FXAA - Low cost",L"SMAA 1x - Medium",L"SMAA 1x - High",L"SMAA 1x - Ultra"})SendMessageW(aaCombo,CB_ADDSTRING,0,reinterpret_cast<LPARAM>(text));
         effectsLabel=Control(L"STATIC",L"Fire & magic effects",0);effectsCombo=Control(L"COMBOBOX",L"",WS_TABSTOP|CBS_DROPDOWNLIST,EffectsQuality);
+        mirrorLabel=Control(L"STATIC",L"Mirror window resolution",0);
+        mirrorWidthEdit=Control(L"EDIT",L"",WS_TABSTOP|ES_NUMBER|ES_AUTOHSCROLL,MirrorWidthEdit);
+        mirrorHeightEdit=Control(L"EDIT",L"",WS_TABSTOP|ES_NUMBER|ES_AUTOHSCROLL,MirrorHeightEdit);
+        for(HWND edit:{mirrorWidthEdit,mirrorHeightEdit})SendMessageW(edit,EM_SETLIMITTEXT,4,0);
+        mirrorSeparator=Control(L"STATIC",L"×",SS_CENTER);
+        mirrorHint=Control(L"STATIC",L"Width × height in pixels. 0 × 0 = Auto. Applies on next launch in windowed mode.",0);
         for(auto text:{L"Original — all native particles",L"Balanced VR — 65% particles, no heat haze",L"Performance VR — 40% particles, no heat haze"})SendMessageW(effectsCombo,CB_ADDSTRING,0,reinterpret_cast<LPARAM>(text));
         for(auto text:{L"Off — native resolution",L"NVIDIA Image Scaling (NIS)",L"AMD Contrast Adaptive Sharpening (CAS)"})SendMessageW(graphicsCombo,CB_ADDSTRING,0,reinterpret_cast<LPARAM>(text));
         for(int i=0;i<2;++i){graphicsLabels[i]=Control(L"STATIC",i?L"Sharpness":L"Internal render scale",0);graphicsTracks[i]=Control(TRACKBAR_CLASSW,L"",WS_TABSTOP|TBS_HORZ|TBS_NOTICKS,GraphicsTrack+i);graphicsEdits[i]=Control(L"EDIT",L"",WS_TABSTOP|ES_AUTOHSCROLL,GraphicsEdit+i);graphicsUnits[i]=Control(L"STATIC",L"%",0);SendMessageW(graphicsEdits[i],EM_SETLIMITTEXT,3,0);}
@@ -370,6 +388,7 @@ LRESULT CALLBACK Procedure(HWND h,UINT msg,WPARAM w,LPARAM l) {
         case UnionPage:TabCtrl_SetCurSel(settingsTabs,ModsPage);Layout();SetFocus(unionOpen);break;
         case FfrMethod:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){int mode=int(SendMessageW(ffrCombo,CB_GETCURSEL,0,0));if(mode>0){syncing=true;int value=mode==1?75:mode==2?60:45;SendMessageW(ffrTrack,TBM_SETPOS,TRUE,value);SetDlgItemInt(h,FfrEdit,value,FALSE);SendMessageW(graphicsCombo,CB_SETCURSEL,0,0);syncing=false;GraphicsPreview();}dirty=true;Message(L"FFR preset selected. Adjust diameter as needed, then Save settings to apply live (backend required).");}break;
         case GraphicsMethod:case Resolution:if(HIWORD(w)==CBN_SELCHANGE&&!syncing){GraphicsPreview();dirty=true;Message(L"Resolution will apply at the next game launch.");}break;
+        case MirrorWidthEdit:case MirrorHeightEdit:if(HIWORD(w)==EN_CHANGE&&!syncing){dirty=true;Message(L"Save the mirror resolution for the next game launch.");}break;
         case IniReload:LoadNativeIni();Message(L"Native INIs reloaded. Unsaved INI edits were discarded; VR calibration is unchanged.");break;
         case IniBackups:OpenIniBackups();break;
         case Reset:if(TabCtrl_GetCurSel(settingsTabs)==GameIniPage){
@@ -440,6 +459,12 @@ bool UiCheck(wchar_t const* path) {
 bool UiInteractionCheck(wchar_t const* path){
     std::wstring report;
     auto original=settings;bool ok=artwork&&gdiplusToken;
+    SendMessageW(navigation[GraphicsPage],BM_CLICK,0,0);
+    SetDlgItemInt(window,MirrorWidthEdit,1280,FALSE);SetDlgItemInt(window,MirrorHeightEdit,720,FALSE);
+    ok=Collect()&&ok;
+    ok=ok&&settings.mirrorWidth==1280&&settings.mirrorHeight==720&&
+        settings.renderWidth==original.renderWidth&&settings.renderHeight==original.renderHeight;
+    settings=original;Fill();
     TabCtrl_SetCurSel(settingsTabs,FoveatedPage);Layout();
     for(int width:{0,15,30}){SendMessageW(ffrTransitionTrack,TBM_SETPOS,TRUE,width);SendMessageW(window,WM_HSCROLL,TB_THUMBPOSITION,LPARAM(ffrTransitionTrack));ok=Collect()&&ok;ok=ok&&settings.ffrTransitionPercent==width;}
     settings=original;Fill();
@@ -530,6 +555,8 @@ bool UiInteractionCheck(wchar_t const* path){
     ok=ok&&PageCount==21&&TabCtrl_GetItemCount(settingsTabs)==PageCount;
     for(int page=0;page<PageCount;++page){SendMessageW(navigation[page],BM_CLICK,0,0);ok=ok&&TabCtrl_GetCurSel(settingsTabs)==page;
         ok=ok&&(IsWindowVisible(fastPickupCheck)!=FALSE)==(page==InteractionPage);
+        for(auto control:{mirrorLabel,mirrorWidthEdit,mirrorHeightEdit,mirrorHint})
+            ok=ok&&(IsWindowVisible(control)!=FALSE)==(page==GraphicsPage);
         for(unsigned i=0;i<diagnostic::ini_tweaks::Count;++i)
             ok=ok&&(IsWindowVisible(iniValues[i])!=FALSE)==(page==(diagnostic::ini_tweaks::GameIniField(i)?GameIniPage:IniTweaksPage));
         for(auto control:{dialogueViewCheck,chestViewCheck,lecternViewCheck,cookingViewCheck,thirdPersonOrbitCheck})

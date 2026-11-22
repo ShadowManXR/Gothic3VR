@@ -176,6 +176,8 @@ int wmain(int argc, wchar_t** argv) {
     s.numbers[58]=25;s.numbers[61]=3;s.numbers[62]=-2;s.numbers[63]=1;
     check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).numbers[58]==25&&diagnostic::LoadVrSettings(path).numbers[61]==3,"shield settings round-trip independently of hand and bow calibration");
     check(!s.bowReticle&&s.magicReticle,"missing reticle settings hide the bow crosshair and retain the magic reticle");
+    check(s.mirrorWidth==0&&s.mirrorHeight==0,"existing settings keep automatic desktop mirror sizing");
+    check(!diagnostic::ValidMirrorSize(1280,0)&&!diagnostic::ValidMirrorSize(1280,8193),"reject partial and out-of-range mirror sizes");
     check(s.numbers[0]==-25&&s.numbers[1]==-150&&s.numbers[4]==100&&!s.autoStart,"preserve existing height, clamp bounds, reject malformed value, honor autostart off");
     check(s.instantControllerTurn,"instant turn remains independent of native locomotion");
     check(s.numbers[51]==65,"radial defaults smaller independently of HUD and menu scale");
@@ -183,11 +185,13 @@ int wmain(int argc, wchar_t** argv) {
     s.numbers[51]=999;check(diagnostic::SaveVrSettings(path,s)&&diagnostic::LoadVrSettings(path).numbers[51]==120,"radial upper scale is bounded");s.numbers[51]=55;
     s.instantControllerTurn=false;
     s.numbers[0]=-32;s.numbers[1]=-45;s.numbers[2]=85;s.numbers[3]=12;s.numbers[4]=130;s.numbers[5]=250;s.autoStart=true;s.hideHead=false;s.renderWidth=3840;s.renderHeight=2160;
+    s.mirrorWidth=1280;s.mirrorHeight=720;
     check(diagnostic::SaveVrSettings(path,s),"atomic save succeeds");
     auto saved=diagnostic::LoadVrSettings(path);bool equal=saved.autoStart&&saved.hideHead==false;for(unsigned i=0;i<diagnostic::VrNumberCount;++i)equal&=saved.numbers[i]==s.numbers[i];
     check(!saved.instantControllerTurn,"native locomotion preserves the independent turn preference");
     check(equal,"signed camera and both panel layouts round-trip through real Windows INI APIs");
     check(saved.renderWidth==3840&&saved.renderHeight==2160,"requested native per-eye render resolution survives launcher restart");
+    check(saved.mirrorWidth==1280&&saved.mirrorHeight==720,"desktop mirror resolution round-trips independently of eye resolution");
     wchar_t unknown[64];GetPrivateProfileStringW(L"CustomMod",L"UnknownSetting",L"",unknown,64,path);
     check(!wcscmp(unknown,L"keep-me")&&GetPrivateProfileIntW(L"Stereo",L"UnitsPerMeter",0,path)==125&&GetPrivateProfileIntW(L"Diagnostics",L"MaxLogMiB",0,path)==8,"preserve unrelated sections, world scale and diagnostic settings");
     std::wstring backup=std::wstring(path)+L".bak";auto old=diagnostic::LoadVrSettings(backup.c_str());check(old.numbers[0]==-25&&!old.autoStart,"backup contains the complete previous configuration");

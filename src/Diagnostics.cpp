@@ -22,6 +22,7 @@
 #include "TemporalRenderPhase.h"
 #include "VirtualHook.h"
 #include "NativeApplication.h"
+#include "MirrorWindow.h"
 #include "LocatorNativeInput.h"
 #include "LocatorProjection.h"
 #include "OpenXrClient.h"
@@ -4255,6 +4256,47 @@ bool Tracing()
 }
 
 using OriginalCallback = void(__thiscall*)(eCApplication*);
+void ApplyDesktopMirrorSize(uint64_t now)
+{
+    // Read the saved size once on the application thread, after settings load.
+    static const int width=gVrSettings.mirrorWidth,height=gVrSettings.mirrorHeight;
+    if(!width||!height)return;
+    static HWND resizedWindow=nullptr;
+    if(resizedWindow&&IsWindow(resizedWindow))return;
+    static uint64_t nextAttempt=0;
+    if(now<nextAttempt)return;
+    nextAttempt=now+1000;
+
+    auto* wrapper=DeviceAccess::sGetAPIDevice();
+    if(!diagnostic::Readable(wrapper,sizeof(eCDX9Device)))return;
+    auto* device=reinterpret_cast<eCDX9Device*>(wrapper)->m_pDevice;
+    if(!device)return;
+    IDirect3DSwapChain9* chain=nullptr;
+    if(FAILED(device->GetSwapChain(0,&chain))||!chain)return;
+    D3DPRESENT_PARAMETERS present{};
+    const HRESULT result=chain->GetPresentParameters(&present);
+    chain->Release();
+    if(FAILED(result)||!present.Windowed)return;
+
+    HWND window=present.hDeviceWindow;
+    if(!window){
+        D3DDEVICE_CREATION_PARAMETERS creation{};
+        if(FAILED(device->GetCreationParameters(&creation)))return;
+        window=creation.hFocusWindow;
+    }
+    if(!window||GetWindowThreadProcessId(window,nullptr)!=GetCurrentThreadId()||
+       !IsWindowVisible(window)||IsIconic(window)||IsZoomed(window)||(GetWindowLongPtrW(window,GWL_STYLE)&WS_CHILD))return;
+    if(diagnostic::ResizeMirrorWindow(window,width,height)){
+        resizedWindow=window;
+        RECT client{};
+        if(GetClientRect(window,&client)){
+            Event event=Record(Kind::Message);
+            sprintf_s(event.text,"vr_mirror_window requested=%dx%d client=%ldx%ld backbuffer=%ux%u",
+                width,height,client.right,client.bottom,present.BackBufferWidth,present.BackBufferHeight);
+            Push(event,true);
+        }
+    }
+}
 void RestoreNativeBowCrosshair(gCFocus_PS* focus,bool visible)
 {
     if(!focus)return;
@@ -4288,6 +4330,10 @@ void Observe(eCApplication* app, int hook)
                 PollKeys();
                 static uint64_t nextSettingsRead=0;
                 if(now>=nextSettingsRead){ReloadFirstPersonHeight(false);nextSettingsRead=now+1000;}
+                if(gConfig.stereoEnabled&&!gStereo.shuttingDown){
+                    __try {ApplyDesktopMirrorSize(now);}
+                    __except(EXCEPTION_EXECUTE_HANDLER){Message("vr_mirror_window_resize_fault",GetExceptionCode(),true);}
+                }
             }
         }
         else if (hook == 1) gRender.fetch_add(1, std::memory_order_relaxed);

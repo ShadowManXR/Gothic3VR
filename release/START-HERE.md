@@ -51,6 +51,8 @@ New installations use the creator's settings frozen on 1 November 2026 for versi
 
 The preset includes 2560 × 2560 square output per eye with landscape menus, FXAA, Performance VR effects, and FFR mode 2 with a 60% full-detail diameter and 3% transition width. It is a personal reference preset, not an automatic recommendation for every PC. Reduce output resolution first if GPU time is too high. FFR has an oval full-detail region and adjustable Transition width. SMAA Medium / High / Ultra is available instead of FXAA; DLAA and DLSS are not supplied as working release features.
 
+Under **Graphics → Mirror window resolution**, enter the desktop window width and height in pixels, for example 1280 × 720. Save and restart the game in windowed mode. Use 0 × 0 for automatic sizing. Sizes larger than the monitor's work area are scaled to fit. The per-eye output and internal render scale are configured separately.
+
 Installation leaves native distance, ROI, vegetation, language and control settings intact. It only reconciles `[Game] QuickLoot`: native Quick Loot is enabled unless the separate Script_QuickLoot.dll provider is installed. A separately installed EDD distance profile can still be imported by the launcher; EDD and its assets are not bundled.
 
 ### Startup logos

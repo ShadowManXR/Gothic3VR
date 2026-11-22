@@ -119,6 +119,11 @@ inline constexpr VrSetting VrNumbers[] = {
 inline constexpr unsigned FirstPersonNearClipIndex = 101;
 inline constexpr unsigned VrNumberCount = sizeof(VrNumbers)/sizeof(VrNumbers[0]);
 inline constexpr int InteractionAimMinimum=-200,InteractionAimMaximum=200;
+inline constexpr int MirrorSizeMinimum=320,MirrorSizeMaximum=8192;
+inline bool ValidMirrorSize(int width,int height){
+    return (width==0&&height==0)||(width>=MirrorSizeMinimum&&width<=MirrorSizeMaximum&&
+        height>=MirrorSizeMinimum&&height<=MirrorSizeMaximum);
+}
 struct VrSettings {
     mapping::Config controllerBindings;
     int numbers[VrNumberCount]{};
@@ -134,6 +139,7 @@ struct VrSettings {
     bool twoHandedMelee=true,heavyTwoHand=true;
     int cameraSmoothingMs=40, cameraVerticalSmoothingMs=100; // Native translation only; XR poses stay immediate.
     int renderWidth=2560,renderHeight=2560; // Desired XR output; 0/0 uses native video settings.
+    int mirrorWidth=0,mirrorHeight=0; // Desktop client area; 0/0 uses native window sizing.
     int ffrMode=2,ffrDiameterPercent=60,ffrTransitionPercent=3;
     bool dlaaExperimental=false;
     bool fxaaEnabled=true,smaaEnabled=false;
@@ -208,6 +214,8 @@ inline VrSettings LoadVrSettings(wchar_t const* path) {
     s.interactionAimUpPercent=std::clamp(int(GetPrivateProfileIntW(L"Controllers",L"InteractionAimUpPercent",-25,path)),InteractionAimMinimum,InteractionAimMaximum);
     int width=GetPrivateProfileIntW(L"Stereo",L"RenderWidth",2560,path),height=GetPrivateProfileIntW(L"Stereo",L"RenderHeight",2560,path);
     auto const& resolution=VrResolutions[ResolutionIndex(width,height)];s.renderWidth=resolution.width;s.renderHeight=resolution.height;
+    int mirrorWidth=GetPrivateProfileIntW(L"Stereo",L"MirrorWidth",0,path),mirrorHeight=GetPrivateProfileIntW(L"Stereo",L"MirrorHeight",0,path);
+    if(ValidMirrorSize(mirrorWidth,mirrorHeight)){s.mirrorWidth=mirrorWidth;s.mirrorHeight=mirrorHeight;}
     s.ffrMode=FfrMode(int(GetPrivateProfileIntW(L"Stereo",L"FfrMode",2,path)));
     s.ffrDiameterPercent=std::clamp(int(GetPrivateProfileIntW(L"Stereo",L"FfrDiameterPercent",60,path)),40,95);
     s.ffrTransitionPercent=FfrTransition(int(GetPrivateProfileIntW(L"Stereo",L"FfrTransitionPercent",3,path)));
@@ -259,6 +267,8 @@ inline bool SaveVrSettings(wchar_t const* path,VrSettings const& s) {
         write(L"CameraVerticalSmoothingMs",std::clamp(s.cameraVerticalSmoothingMs,0,250));
         auto const& resolution=VrResolutions[ResolutionIndex(s.renderWidth,s.renderHeight)];
         write(L"RenderWidth",resolution.width);write(L"RenderHeight",resolution.height);
+        bool validMirror=ValidMirrorSize(s.mirrorWidth,s.mirrorHeight);
+        write(L"MirrorWidth",validMirror?s.mirrorWidth:0);write(L"MirrorHeight",validMirror?s.mirrorHeight:0);
         write(L"FfrMode",FfrMode(s.ffrMode));write(L"FfrDiameterPercent",std::clamp(s.ffrDiameterPercent,40,95));
         write(L"FfrTransitionPercent",FfrTransition(s.ffrTransitionPercent));
         write(L"UpscaleMethod",int(ValidUpscaleMethod(int(s.upscaleMethod))));
