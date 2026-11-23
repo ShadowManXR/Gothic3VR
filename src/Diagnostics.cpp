@@ -23,6 +23,7 @@
 #include "VirtualHook.h"
 #include "NativeApplication.h"
 #include "MirrorWindow.h"
+#include "StereoShadowView.h"
 #include "LocatorNativeInput.h"
 #include "LocatorProjection.h"
 #include "OpenXrClient.h"
@@ -153,6 +154,10 @@ diagnostic::ChestViewTransition gChestView,gLecternView,gCookingView;
 diagnostic::FocusHook gChestApproachHook;
 diagnostic::VirtualHook gChestCameraHook;
 diagnostic::NativeTrackedBow gTrackedBow;
+diagnostic::FocusHook gShadowUpdateHook;
+eCIlluminationAdmin* gPendingShadowUpdate=nullptr;
+thread_local bool gShadowPreRender=false;
+void FlushPendingShadows();
 diagnostic::FocusHook gFlameProcessHook,gFlameAlphaHook,gParticleVerticesHook,gParticleWorldHook,gSignpostFocusHook;
 diagnostic::FocusHook gFocusNameSizeHook;
 diagnostic::RangedFocusLabel gRangedFocusLabel;
@@ -1709,6 +1714,7 @@ void BeginInstantControllerTurn(){
 }
 void StopStereo()
 {
+    gPendingShadowUpdate=nullptr;
     gThirdPersonOrbit.Reset();
     gLocatorProjection.Reset();
     gTrackedArms.ResetBodyPosture();
@@ -1798,6 +1804,73 @@ void RestoreStereoCamera(eCCameraBase& camera,CameraSnapshot const& saved)
     for(int row=0;row<4;++row)for(int col=0;col<4;++col){view(row,col)=saved.view[row*4+col];projection(row,col)=saved.projection[row*4+col];}
     camera.SetViewMatrix(view);camera.UpdateViewport(GEFalse);camera.SetProjectionMatrix(projection);
     using Update=void(__thiscall*)(eCCameraBase*,bool);reinterpret_cast<Update>(gProjectionHook.original)(&camera,false);camera.ExecuteGfxCamera();++gStereo.restores;
+}
+void StereoCameraBase(CameraSnapshot const& saved,diagnostic::Rotation3& native,float (&basePosition)[3]);
+void FlushPendingShadows(){
+    auto* admin=gPendingShadowUpdate;
+    gPendingShadowUpdate=nullptr;
+    if(admin&&gShadowUpdateHook.original){
+        using Update=void(__thiscall*)(eCIlluminationAdmin*);
+        reinterpret_cast<Update>(gShadowUpdateHook.original)(admin);
+    }
+}
+void __fastcall UpdateNativeShadows(eCIlluminationAdmin* admin,void*){
+    // Only defer the application's normal pre-render update. Other native
+    // callers and auxiliary renders keep their original order.
+    if(gShadowPreRender&&GetCurrentThreadId()==gApplicationThread.load()&&!gPendingShadowUpdate){
+        gPendingShadowUpdate=admin;
+        return;
+    }
+    using Update=void(__thiscall*)(eCIlluminationAdmin*);
+    reinterpret_cast<Update>(gShadowUpdateHook.original)(admin);
+}
+bool PrepareShadowCamera(eCCameraBase& camera,CameraSnapshot const& saved,diagnostic::StereoFrame const& frame){
+    diagnostic::Rotation3 native;
+    float base[3]{};
+    StereoCameraBase(saved,native,base);
+    diagnostic::StereoEyePose head;
+    memcpy(head.position,frame.head.position,sizeof(head.position));
+    head.quaternion[0]=frame.head.quaternion[1];head.quaternion[1]=frame.head.quaternion[2];
+    head.quaternion[2]=frame.head.quaternion[3];head.quaternion[3]=frame.head.quaternion[0];
+    float centerPosition[3]{},centerRotation[3]{};
+    if(!diagnostic::GameEyeTransform(native,base,gHeadControl.center,gStereo.centerPosition,head,
+        gConfig.unitsPerMeter,centerPosition,centerRotation))return false;
+    centerPosition[1]+=gStereo.heightOffsetUnits;
+    auto center=diagnostic::arms::Rotation(diagnostic::NativeCameraRotation(centerRotation));
+    diagnostic::arms::Position(center,{centerPosition[0],centerPosition[1],centerPosition[2]});
+    diagnostic::arms::Mat eyes[2];
+    float fovs[2][4]{};
+    for(unsigned i=0;i<2;++i){
+        float position[3]{},rotation[3]{};
+        if(!diagnostic::GameEyeTransform(native,base,gHeadControl.center,gStereo.centerPosition,frame.eyes[i],
+            gConfig.unitsPerMeter,position,rotation))return false;
+        eyes[i]=diagnostic::arms::Rotation(diagnostic::NativeCameraRotation(rotation));
+        diagnostic::arms::Position(eyes[i],{position[0],position[1]+gStereo.heightOffsetUnits,position[2]});
+        memcpy(fovs[i],frame.eyes[i].fov,sizeof(fovs[i]));
+    }
+    float nearZ=saved.clipDepth[0],farZ=saved.clipDepth[1],projection[16]{};
+    if(gStereo.firstPerson)nearZ=std::min(nearZ,gConfig.unitsPerMeter*.01f*gVrSettings.numbers[diagnostic::FirstPersonNearClipIndex]);
+    if(!diagnostic::StereoShadowProjection(center,eyes,fovs,nearZ,farZ,projection))return false;
+    camera.SetPosition(bCVector(centerPosition[0],centerPosition[1],centerPosition[2]));
+    camera.SetRotation(bCVector(centerRotation[0],centerRotation[1],centerRotation[2]));
+    camera.SetClipDepth(bCVector2(nearZ,farZ));
+    camera.UpdateViewport(GETrue);
+    bCMatrix matrix;memcpy(&matrix,projection,sizeof(matrix));camera.SetProjectionMatrix(matrix);
+    using Update=void(__thiscall*)(eCCameraBase*,bool);
+    reinterpret_cast<Update>(gProjectionHook.original)(&camera,false);
+    camera.ExecuteGfxCamera();
+    return true;
+}
+void UpdateStereoShadows(eCCameraBase& camera,CameraSnapshot const& saved,diagnostic::StereoFrame const& frame){
+    if(!gPendingShadowUpdate)return;
+    bool prepared=false;
+    __try{
+        prepared=PrepareShadowCamera(camera,saved,frame);
+        if(!prepared)RestoreStereoCamera(camera,saved);
+        FlushPendingShadows();
+        static bool reported=false;
+        if(prepared&&!reported){reported=true;Message("vr_shadow_camera_ready; current_head_pose; both_eye_frusta; one_native_update",0,true);}
+    }__finally{RestoreStereoCamera(camera,saved);}
 }
 void ReloadFirstPersonHeight(bool report)
 {
@@ -2754,6 +2827,7 @@ void RestoreTrackedArms(bool end=false)
 }
 void ReleaseWorldBindings(bool restoreAmmo)
 {
+    gPendingShadowUpdate=nullptr;
     gHandHud.Reset();
     gThirdPersonOrbit.Reset();
     gLocatorNativeInput.pulse.Cancel();
@@ -3476,6 +3550,8 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
     uint64_t armsStarted=diagnostic::probes::Now();
     __try
     {
+        PrepareComfortCameraBase(saved,frame.head);
+        UpdateStereoShadows(*camera,saved,frame);
         gChestVisual.Begin(reinterpret_cast<eCEntity*>(gStereo.player),gStereo.chest||gStereo.cooking,gStereo.firstPerson&&!gStereo.dialog);
         gTrackedArms.SetBodyVisibility(gStereo.firstPerson||gStereo.chest||gStereo.cooking,gVrSettings.handsOnly);
         gTrackedArms.usePalettePose=gStereo.chest||gStereo.cooking;
@@ -3488,7 +3564,6 @@ void __fastcall StereoCameraRender(eCCameraBase* camera,void*,bool allowThreadin
             gVrSettings.physicalCrouching&&gVrSettings.controllers&&gVrSettings.trackedArms&&gVrSettings.stableBody&&gVrSettings.stableHorizon&&gStereo.firstPerson&&!gStereo.chest&&!gStereo.cooking&&gHeadControl.centered&&!gHeadControl.recenterPending,
             frame.head,gStereo.centerPosition[1],GetTickCount64());
         if(gTrackedArms.PhysicalHandsOnly()&&!gStereo.hidePlayerHead){gStereo.hidePlayerHead=true;BeginPlayerHeadVisibility(headVisibility);gStereo.hidePlayerHead=false;}
-        PrepareComfortCameraBase(saved,frame.head);
         BeginTrackedArms(saved,frame.head);
         BeginMenuStaffVisibility(menuStaff);
         // Ranged mesh/support geometry must exist before freezing the hero's
@@ -4160,6 +4235,11 @@ bool InstallStereoHook()
     {gDestroyEngineHook.Restore();Message("stereo_projection_hook_refused",0,true);gStereo.fault=true;return false;}
     if(!gCameraRenderHook.Install(render,reinterpret_cast<void*>(&StereoCameraRender)))
     {gProjectionHook.Restore();gDestroyEngineHook.Restore();Message("stereo_render_hook_failed",0,true);gStereo.fault=true;return false;}
+    auto* shadowUpdate=GetProcAddress(engine,"?UpdateShadowMaps@eCIlluminationAdmin@@QAEXXZ");
+    constexpr unsigned char shadowPrefix[]{0x53,0x55,0x56,0x8b,0xf1};
+    const bool shadowReady=shadowUpdate==reinterpret_cast<FARPROC>(reinterpret_cast<unsigned char*>(engine)+0xe61b0)&&
+        gShadowUpdateHook.Install(reinterpret_cast<void*>(shadowUpdate),reinterpret_cast<void*>(&UpdateNativeShadows),shadowPrefix,sizeof(shadowPrefix));
+    Message(shadowReady?"vr_shadow_camera_hook_ready; native_update_deferred_until_XR_pose":"vr_shadow_camera_hook_unavailable",0,true);
     InstallNativeRenderProfiler(engine);
 #ifdef G3VR_SCENE_COST_TRIAL
     InstallSceneCost(engine);
@@ -4308,6 +4388,7 @@ void Observe(eCApplication* app, int hook)
     bool ours = app == gApplication;
     if(ours&&gWorldLifecycle.Blocked()){reinterpret_cast<OriginalCallback>(gHooks[hook].original)(app);return;}
     bool applicationThread=ours && GetCurrentThreadId()==gApplicationThread.load();
+    if(applicationThread&&(hook==0||hook==1||hook==3))FlushPendingShadows();
     if(applicationThread && hook==1 && gStereo.framePending)
     {gStereoRuntime.Cancel();gStereo.framePending=false;gStereo.uiRendering=false;}
     // Also restore on the next update/pre-render if a previous frame skipped PostRender.
@@ -4366,8 +4447,12 @@ void Observe(eCApplication* app, int hook)
         }__except(EXCEPTION_EXECUTE_HANDLER){bowFocus=nullptr;Message("vr_bow_native_crosshair_hide_fault",GetExceptionCode(),true);}
     }
     uint64_t nativeStarted=applicationThread&&hook==0?diagnostic::probes::Now():0;
+    const bool previousShadowPreRender=gShadowPreRender;
+    gShadowPreRender=applicationThread&&hook==1&&gShadowUpdateHook.original&&gHeadControl.enabled&&
+        gConfig.stereoEnabled&&gStereoRuntime.Connected()&&!gStereo.fault&&!gStereo.shuttingDown&&
+        gApplication->IsGameRunning()&&!gCinemaScope.Active(GetCurrentThreadId());
     __try {reinterpret_cast<OriginalCallback>(gHooks[hook].original)(app);}
-    __finally {if(applicationThread&&hook==0){gStereoRuntime.NoteCpuUpdate(diagnostic::performance::UpdateStage::Native,nativeStarted);}RestoreNativeBowCrosshair(bowFocus,nativeCrosshair);if(captureUi&&uiEpoch==gMovieEpoch)FinishStereoUi(AbnormalTermination()!=FALSE);if(applicationThread&&hook==3)RestoreNativeMenuViewport();}
+    __finally {gShadowPreRender=previousShadowPreRender;if(applicationThread&&hook==0){gStereoRuntime.NoteCpuUpdate(diagnostic::performance::UpdateStage::Native,nativeStarted);}RestoreNativeBowCrosshair(bowFocus,nativeCrosshair);if(captureUi&&uiEpoch==gMovieEpoch)FinishStereoUi(AbnormalTermination()!=FALSE);if(applicationThread&&hook==3)RestoreNativeMenuViewport();}
     if (!ours) return;
     if(gWorldLifecycle.Blocked())return;
     applicationThread=GetCurrentThreadId()==gApplicationThread.load();

@@ -1,4 +1,9 @@
-# Gothic 3 VR 1.2.0-beta
+# Gothic 3 VR 0.2.1-beta
+
+- Update shadow maps using the current headset pose and a view covering both eyes, addressing shadows disappearing during head rotation.
+- Added independent desktop mirror window resolution under Graphics.
+
+## Previous release: 1.2.0-beta
 
 - Added **First-person cooking** under **Third-person view** in the launcher. It defaults to on, keeps hands tracked, and caps cooking transition waits at 25 ms.
 - Improved first-person chest looting by keeping the camera and hand tracking active during the native interaction.
